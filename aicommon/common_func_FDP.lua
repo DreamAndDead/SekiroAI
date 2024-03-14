@@ -1,4 +1,4 @@
-function Approach_Act_Flex(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+function Approach_Act_Flex(arg0, arg1, arg2, close_range, far_range, odd, arg6, arg7, arg8, arg9)
     if arg7 == nil then
         arg7 = 3
     end
@@ -8,28 +8,33 @@ function Approach_Act_Flex(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8,
     if arg9 == nil then
         arg9 = 0
     end
-    local f1_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f1_local1 = arg0:GetRandam_Int(1, 100)
+
+    local dist_to_player = arg0:GetDist(TARGET_ENE_0)
     local f1_local2 = true
-    if arg4 <= f1_local0 then
+
+    if far_range <= dist_to_player then
         f1_local2 = false
-    elseif arg3 <= f1_local0 and f1_local1 <= arg5 then
+    elseif close_range <= dist_to_player and arg0:GetRandam_Int(1, 100) <= odd then
         f1_local2 = false
     end
-    if not not arg0:IsInsideTargetRegion(TARGET_SELF, COMMON_REGION_FORCE_WALK_M11_0) or arg0:IsInsideTargetRegion(TARGET_SELF, COMMON_REGION_FORCE_WALK_M11_1) then
+
+    if arg0:IsInsideTargetRegion(TARGET_SELF, COMMON_REGION_FORCE_WALK_M11_0) or arg0:IsInsideTargetRegion(TARGET_SELF, COMMON_REGION_FORCE_WALK_M11_1) then
         f1_local2 = true
     end
+
     local f1_local3 = -1
-    local f1_local4 = arg0:GetRandam_Int(1, 100)
-    if f1_local4 <= arg6 then
+    if arg0:GetRandam_Int(1, 100) <= arg6 then
         f1_local3 = 9910
     end
+
+    local life = 0
     if f1_local2 == true then
         life = arg7
     else
         life = arg8
     end
-    if arg2 <= f1_local0 or arg9 > 0 then
+
+    if arg2 <= dist_to_player or arg9 > 0 then
         if f1_local2 == true then
             arg2 = arg2 + arg0:GetStringIndexedNumber("AddDistWalk")
         else
@@ -37,28 +42,29 @@ function Approach_Act_Flex(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8,
         end
         arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, life, TARGET_ENE_0, arg2, TARGET_SELF, f1_local2, f1_local3)
     end
-    
 end
 
-function SpaceCheck(arg0, arg1, arg2, arg3)
-    local f2_local0 = arg0:GetMapHitRadius(TARGET_SELF)
-    local f2_local1 = arg0:GetExistMeshOnLineDistSpecifyAngleEx(TARGET_SELF, arg2, arg3 + f2_local0, AI_SPA_DIR_TYPE_TargetF, f2_local0, 0)
-    if arg3 * 0.95 <= f2_local1 then
+--[[
+    return true if no collision exist
+]]
+function SpaceCheck(arg0, arg1, angle, radius)
+    local capsule_radius = arg0:GetMapHitRadius(TARGET_SELF)
+    local f2_local1 = arg0:GetExistMeshOnLineDistSpecifyAngleEx(TARGET_SELF, angle, radius + capsule_radius,
+        AI_SPA_DIR_TYPE_TargetF, capsule_radius, 0)
+
+    if radius * 0.95 <= f2_local1 then
         return true
     else
         return false
     end
-    
 end
 
 function InsideRange(arg0, arg1, arg2, arg3, arg4, arg5)
     return YSD_InsideRangeEx(arg0, arg1, arg2, arg3, arg4, arg5)
-    
 end
 
 function InsideDir(arg0, arg1, arg2, arg3)
     return YSD_InsideRangeEx(arg0, arg1, arg2, arg3, -999, 999)
-    
 end
 
 function YSD_InsideRangeEx(arg0, arg1, arg2, arg3, arg4, arg5)
@@ -79,17 +85,15 @@ function YSD_InsideRangeEx(arg0, arg1, arg2, arg3, arg4, arg5)
     else
         return false
     end
-    
 end
 
-function SetCoolTime(arg0, arg1, arg2, arg3, arg4, arg5)
-    if arg4 <= 0 then
+function SetCoolTime(arg0, arg1, act_id, cooldown_time, normal_weight, cooldown_weight)
+    if normal_weight <= 0 then
         return 0
-    elseif arg0:GetAttackPassedTime(arg2) <= arg3 then
-        return arg5
+    elseif arg0:GetAttackPassedTime(act_id) <= cooldown_time then
+        return cooldown_weight
     end
-    return arg4
-    
+    return normal_weight
 end
 
 function SpaceCheckBeforeAct(arg0, arg1, arg2, arg3, arg4)
@@ -100,7 +104,6 @@ function SpaceCheckBeforeAct(arg0, arg1, arg2, arg3, arg4)
     else
         return 0
     end
-    
 end
 
 function Counter_Act(arg0, arg1, arg2, arg3)
@@ -128,7 +131,6 @@ function Counter_Act(arg0, arg1, arg2, arg3)
         return true
     end
     return false
-    
 end
 
 function ReactBackstab_Act(arg0, arg1, arg2, arg3, arg4)
@@ -167,7 +169,6 @@ function ReactBackstab_Act(arg0, arg1, arg2, arg3, arg4)
         end
         return false
     end
-    
 end
 
 function Init_Pseudo_Global(arg0, arg1)
@@ -176,7 +177,6 @@ function Init_Pseudo_Global(arg0, arg1)
     arg0:SetStringIndexedNumber("AddDistWalk", 0)
     arg0:SetStringIndexedNumber("AddDistRun", 0)
     Init_AfterAttackAct(arg0, arg1)
-    
 end
 
 function Init_AfterAttackAct(arg0, arg1)
@@ -205,7 +205,6 @@ function Init_AfterAttackAct(arg0, arg1)
     arg0:SetStringIndexedNumber("BackDist_AAA", arg0:GetRandam_Float(2.5, 3.5))
     arg0:SetStringIndexedNumber("BackAndSide_SideDir_AAA", arg0:GetRandam_Int(45, 60))
     arg0:SetStringIndexedNumber("BsAndSide_SideDir_AAA", arg0:GetRandam_Int(45, 60))
-    
 end
 
 function Update_Default_NoSubGoal(arg0, arg1, arg2)
@@ -213,14 +212,12 @@ function Update_Default_NoSubGoal(arg0, arg1, arg2)
         return GOAL_RESULT_Success
     end
     return GOAL_RESULT_Continue
-    
 end
 
 function GuardGoalSubFunc_Activate(arg0, arg1, arg2)
     if 0 < arg2 then
         arg0:DoEzAction(arg1, arg2)
     end
-    
 end
 
 function GuardGoalSubFunc_Update(arg0, arg1, arg2, arg3, arg4)
@@ -239,7 +236,6 @@ function GuardGoalSubFunc_Update(arg0, arg1, arg2, arg3, arg4)
         end
     end
     return GOAL_RESULT_Continue
-    
 end
 
 function GuardGoalSubFunc_Interrupt(arg0, arg1, arg2, arg3)
@@ -251,7 +247,4 @@ function GuardGoalSubFunc_Interrupt(arg0, arg1, arg2, arg3)
         end
     end
     return false
-    
 end
-
-

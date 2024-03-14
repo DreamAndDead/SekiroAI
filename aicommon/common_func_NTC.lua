@@ -3,7 +3,6 @@ function GetKengekiSpecialEffect(arg0, arg1, arg2)
         return true
     end
     return false
-    
 end
 
 function ReturnKengekiSpecialEffect(arg0)
@@ -51,7 +50,6 @@ function ReturnKengekiSpecialEffect(arg0)
         return 200406
     end
     return 0
-    
 end
 
 function Check_KugutsuActState(arg0)
@@ -60,7 +58,6 @@ function Check_KugutsuActState(arg0)
         f3_local0 = true
     end
     return f3_local0
-    
 end
 
 function YousumiAct_TopGoal(arg0, arg1, arg2, arg3, arg4)
@@ -136,13 +133,11 @@ function YousumiAct_TopGoal(arg0, arg1, arg2, arg3, arg4)
         end
     end
     return f4_local7
-    
 end
 
 function YousumiAct_SubGoal(arg0, arg1, arg2, arg3, arg4, arg5)
     arg1:AddSubGoal(GOAL_COMMON_YousumiAct, 10, arg2, arg3, arg4, arg5)
     return true
-    
 end
 
 function TorimakiAct(arg0, arg1, arg2, arg3, arg4)
@@ -182,7 +177,6 @@ function TorimakiAct(arg0, arg1, arg2, arg3, arg4)
         arg1:AddSubGoal(GOAL_COMMON_Wait, 0.5, TARGET_SELF, 0, 0, 0)
     end
     return false
-    
 end
 
 function KankyakuAct(arg0, arg1, arg2, arg3, arg4)
@@ -193,7 +187,6 @@ function KankyakuAct(arg0, arg1, arg2, arg3, arg4)
         arg3 = 0
     end
     return TorimakiAct(arg0, arg1, arg2, arg3, arg4)
-    
 end
 
 function Common_ActivateAct(arg0, arg1, arg2, arg3)
@@ -241,7 +234,6 @@ function Common_ActivateAct(arg0, arg1, arg2, arg3)
         return false
     end
     return true
-    
 end
 
 function GetDirection_Sideway(arg0)
@@ -260,18 +252,16 @@ function GetDirection_Sideway(arg0)
     else
         return 0
     end
-    
 end
 
 function Get_ConsecutiveGuardCount(arg0)
-    local f10_local0 = 0
+    local count = 0
     if arg0:IsFinishTimer(13) then
-        f10_local0 = 0
+        count = 0
     else
-        f10_local0 = arg0:GetStringIndexedNumber("ConsecutiveGuardCount")
+        count = arg0:GetStringIndexedNumber("ConsecutiveGuardCount")
     end
-    return f10_local0
-    
+    return count
 end
 
 function Set_ConsecutiveGuardCount(arg0, arg1)
@@ -286,14 +276,12 @@ function Set_ConsecutiveGuardCount(arg0, arg1)
         arg0:SetStringIndexedNumber("ConsecutiveGuardCount", 0)
         arg0:SetTimer(13, 0)
     end
-    
 end
 
 function Set_ConsecutiveGuardCount_Interrupt(arg0)
     arg0:AddObserveSpecialEffectAttribute(TARGET_SELF, 200250)
     arg0:AddObserveSpecialEffectAttribute(TARGET_SELF, 200210)
     arg0:AddObserveSpecialEffectAttribute(TARGET_SELF, 200211)
-    
 end
 
 function JuzuReaction(arg0, arg1, arg2, arg3, arg4)
@@ -312,7 +300,6 @@ function JuzuReaction(arg0, arg1, arg2, arg3, arg4)
         f13_local4:TimingSetTimer(AI_TIMER_TEKIMAWASHI_REACTION, 0, AI_TIMING_SET__ACTIVATE)
     end
     return true
-    
 end
 
 function SpaceCheck_SidewayMove(arg0, arg1, arg2)
@@ -329,76 +316,91 @@ function SpaceCheck_SidewayMove(arg0, arg1, arg2)
         f14_local0 = 3
     end
     return f14_local0
-    
 end
 
-function Common_Parry(arg0, arg1, arg2, arg3, arg4, arg5)
-    local f15_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f15_local1 = GetDist_Parry(arg0)
-    local f15_local2 = arg0:GetRandam_Int(1, 100)
-    local f15_local3 = arg0:GetRandam_Int(1, 100)
-    local f15_local4 = arg0:GetRandam_Int(1, 100)
+--[[
+spin_step_type
+- -1 no spin step
+- 0 large step
+- 1 small step
+]]
+function Common_Parry(arg0, arg1, endure_percent_per_guard, spin_step_odd, spin_step_type, parry_act_id)
+    local parry_dist = GetDist_Parry(arg0)
+    local rand_int_1 = arg0:GetRandam_Int(1, 100)
+    local rand_int_2 = arg0:GetRandam_Int(1, 100)
+
     local f15_local5 = arg0:HasSpecialEffectId(TARGET_ENE_0, 109970)
-    local f15_local6 = arg0:HasSpecialEffectId(TARGET_ENE_0, COMMON_SP_EFFECT_PC_ATTACK_RUSH)
-    local f15_local7 = -1
+    local is_pc_continuous_attack = arg0:HasSpecialEffectId(TARGET_ENE_0, COMMON_SP_EFFECT_PC_ATTACK_RUSH)
+    local parry_int_level = -1
+
     if arg0:HasSpecialEffectId(TARGET_SELF, 221000) then
-        f15_local7 = 0
+        parry_int_level = 0
     elseif arg0:HasSpecialEffectId(TARGET_SELF, 221001) then
-        f15_local7 = 1
+        parry_int_level = 1
     elseif arg0:HasSpecialEffectId(TARGET_SELF, 221002) then
-        f15_local7 = 2
+        parry_int_level = 2
     end
+
     if arg0:IsFinishTimer(AI_TIMER_PARRY_INTERVAL) == false then
         return false
     end
-    if f15_local7 == -1 then
+
+    if parry_int_level == -1 then
         return false
     end
+
+    -- super armor 霸体？
     if arg0:HasSpecialEffectId(TARGET_SELF, 220062) then
         return false
     end
-    if not not arg0:HasSpecialEffectId(TARGET_ENE_0, 110450) or not not arg0:HasSpecialEffectId(TARGET_ENE_0, 110501) or arg0:HasSpecialEffectId(TARGET_ENE_0, 110500) then
+
+    if arg0:HasSpecialEffectId(TARGET_ENE_0, 110450) or arg0:HasSpecialEffectId(TARGET_ENE_0, 110501) or arg0:HasSpecialEffectId(TARGET_ENE_0, 110500) then
         return false
     end
+
     arg0:SetTimer(AI_TIMER_PARRY_INTERVAL, 0.1)
-    if arg2 == nil then
-        arg2 = 50
+
+    if endure_percent_per_guard == nil then
+        endure_percent_per_guard = 50
     end
-    if arg3 == nil then
-        arg3 = 0
+    if spin_step_odd == nil then
+        spin_step_odd = 0
     end
-    if arg4 == nil then
-        arg4 = 0
+    if spin_step_type == nil then
+        spin_step_type = 0
     end
-    if arg5 == nil then
-        arg5 = 3100
+    if parry_act_id == nil then
+        parry_act_id = 3100
     end
-    if arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) and arg0:IsInsideTargetEx(TARGET_ENE_0, TARGET_SELF, AI_DIR_TYPE_F, 90, f15_local1) then
-        if f15_local6 then
+
+    if arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) and arg0:IsInsideTargetEx(TARGET_ENE_0, TARGET_SELF, AI_DIR_TYPE_F, 90, parry_dist) then
+        if is_pc_continuous_attack then
             arg1:ClearSubGoal()
-            arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, arg5, TARGET_ENE_0, 9999, 0)
+            arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, parry_act_id, TARGET_ENE_0, 9999, 0)
             return true
         elseif f15_local5 then
             if arg0:IsTargetGuard(TARGET_SELF) and ReturnKengekiSpecialEffect(arg0) == false then
                 return false
             else
-                if f15_local7 == 2 then
+                if parry_int_level == 2 then
                     return false
-                elseif f15_local7 == 1 then
-                    if f15_local2 <= 50 then
+                elseif parry_int_level == 1 then
+                    if arg0:GetRandam_Int(1, 100) <= 50 then
                         arg1:ClearSubGoal()
                         arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, 3101, TARGET_ENE_0, 9999, 0)
                         return true
                     end
-                elseif f15_local7 == 0 and f15_local2 <= 100 then
+                elseif parry_int_level == 0 then
                     arg1:ClearSubGoal()
                     arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, 3101, TARGET_ENE_0, 9999, 0)
                     return true
                 end
+                -- parry_int_level == -1
                 return false
             end
-        elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 109980) and arg4 ~= -1 and f15_local7 == 0 then
-            if arg4 == 1 then
+        -- 109980 pc在施放鞭炮
+        elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 109980) and spin_step_type ~= -1 and parry_int_level == 0 then
+            if spin_step_type == 1 then
                 arg1:ClearSubGoal()
                 arg1:AddSubGoal(GOAL_COMMON_SpinStep, 1, 5201, TARGET_ENE_0, 0, AI_DIR_TYPE_B, 0)
                 return true
@@ -407,7 +409,7 @@ function Common_Parry(arg0, arg1, arg2, arg3, arg4, arg5)
                 arg1:AddSubGoal(GOAL_COMMON_SpinStep, 1, 5211, TARGET_ENE_0, 0, AI_DIR_TYPE_B, 0)
                 return true
             end
-        elseif f15_local3 <= Get_ConsecutiveGuardCount(arg0) * arg2 then
+        elseif rand_int_1 <= Get_ConsecutiveGuardCount(arg0) * endure_percent_per_guard then
             arg1:ClearSubGoal()
             arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, 3101, TARGET_ENE_0, 9999, 0)
             return true
@@ -416,9 +418,9 @@ function Common_Parry(arg0, arg1, arg2, arg3, arg4, arg5)
             arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, 3100, TARGET_ENE_0, 9999, 0)
             return true
         end
-    elseif arg0:IsInsideTargetEx(TARGET_ENE_0, TARGET_SELF, AI_DIR_TYPE_F, 90, f15_local1 + 1) then
-        if arg4 ~= -1 and f15_local4 <= arg3 then
-            if arg4 == 1 then
+    elseif arg0:IsInsideTargetEx(TARGET_ENE_0, TARGET_SELF, AI_DIR_TYPE_F, 90, parry_dist + 1) then
+        if spin_step_type ~= -1 and rand_int_2 <= spin_step_odd then
+            if spin_step_type == 1 then
                 arg1:ClearSubGoal()
                 arg1:AddSubGoal(GOAL_COMMON_SpinStep, 1, 5201, TARGET_ENE_0, 0, AI_DIR_TYPE_B, 0)
                 return true
@@ -433,69 +435,64 @@ function Common_Parry(arg0, arg1, arg2, arg3, arg4, arg5)
     else
         return false
     end
-    
 end
 
 function GetDist_Parry(arg0)
-    local f16_local0 = PC_ATTACK_DIST_STAND
+    local dist = PC_ATTACK_DIST_STAND
     if arg0:HasSpecialEffectId(TARGET_ENE_0, 110271) then
-        f16_local0 = PC_ATTACK_DIST_TESSEN
+        dist = PC_ATTACK_DIST_TESSEN
     elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110231) then
-        f16_local0 = PC_ATTACK_DIST_AXE
+        dist = PC_ATTACK_DIST_AXE
     elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110250) then
-        f16_local0 = PC_ATTACK_DIST_KODACHI
+        dist = PC_ATTACK_DIST_KODACHI
     elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110291) then
-        f16_local0 = PC_ATTACK_DIST_LANCE_1
+        dist = PC_ATTACK_DIST_LANCE_1
     elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110292) then
-        f16_local0 = PC_ATTACK_DIST_LANCE_2
+        dist = PC_ATTACK_DIST_LANCE_2
     elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110290) then
-        f16_local0 = PC_ATTACK_DIST_LANCE_TYPE1_CHARGE
+        dist = PC_ATTACK_DIST_LANCE_TYPE1_CHARGE
     elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110293) then
-        f16_local0 = PC_ATTACK_DIST_LANCE_TYPE2_CHARGE
+        dist = PC_ATTACK_DIST_LANCE_TYPE2_CHARGE
     elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110400) then
-        f16_local0 = PC_ATTACK_DIST_SPIN
+        dist = PC_ATTACK_DIST_SPIN
     elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110410) then
-        f16_local0 = PC_ATTACK_DIST_JUMP_FRONT
+        dist = PC_ATTACK_DIST_JUMP_FRONT
     elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110411) then
-        f16_local0 = PC_ATTACK_DIST_JUMP_BACK
+        dist = PC_ATTACK_DIST_JUMP_BACK
     elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110420) then
-        f16_local0 = PC_ATTACK_DIST_MEN_1
+        dist = PC_ATTACK_DIST_MEN_1
     elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110421) then
-        f16_local0 = PC_ATTACK_DIST_MEN_2
+        dist = PC_ATTACK_DIST_MEN_2
     elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110430) then
-        f16_local0 = PC_ATTACK_DIST_KENSEI_IAI
+        dist = PC_ATTACK_DIST_KENSEI_IAI
     elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110440) then
-        f16_local0 = PC_ATTACK_DIST_IAI
+        dist = PC_ATTACK_DIST_IAI
     elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110450) then
-        f16_local0 = PC_ATTACK_DIST_INVISIBLE_IAI_1
+        dist = PC_ATTACK_DIST_INVISIBLE_IAI_1
     elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110451) then
-        f16_local0 = PC_ATTACK_DIST_INVISIBLE_IAI_2
+        dist = PC_ATTACK_DIST_INVISIBLE_IAI_2
     elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110460) then
-        f16_local0 = PC_ATTACK_DIST_HASSOU
+        dist = PC_ATTACK_DIST_HASSOU
     elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110470) then
-        f16_local0 = PC_ATTACK_DIST_HUSHIGIRI_LV1
+        dist = PC_ATTACK_DIST_HUSHIGIRI_LV1
     elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110480) then
-        f16_local0 = PC_ATTACK_DIST_KICK_RUSH
+        dist = PC_ATTACK_DIST_KICK_RUSH
     elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110490) then
-        f16_local0 = PC_ATTACK_DIST_PUNCHI
+        dist = PC_ATTACK_DIST_PUNCHI
     elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110501) then
-        f16_local0 = PC_ATTACK_DIST_GATOTSU
+        dist = PC_ATTACK_DIST_GATOTSU
     elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 109970) then
-        f16_local0 = PC_ATTACK_DIST_THRUST
+        dist = PC_ATTACK_DIST_THRUST
     end
-    return f16_local0
-    
+    return dist
 end
 
 function RankCheck_Parry(arg0, arg1, arg2)
-    local f17_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f17_local1 = PC_ATTACK_DIST_STAND
     if arg2 == 0 and arg0:HasSpecialEffectId(TARGET_ENE_0, 109970) then
         return false
     else
         return true
     end
-    
 end
 
 function Interupt_Use_Item(arg0, arg1, arg2)
@@ -511,7 +508,6 @@ function Interupt_Use_Item(arg0, arg1, arg2)
         end
     end
     return f18_local0
-    
 end
 
 function Interupt_PC_Break(arg0, arg1, arg2)
@@ -527,7 +523,6 @@ function Interupt_PC_Break(arg0, arg1, arg2)
         end
     end
     return f19_local0
-    
 end
 
 function Check_ReachAttack(arg0, arg1)
@@ -552,7 +547,4 @@ function Check_ReachAttack(arg0, arg1)
         end
     end
     return f20_local0
-    
 end
-
-

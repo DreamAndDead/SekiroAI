@@ -16,4 +16,14 @@
 | m20_00_00_00 | senpou temple       | 金刚山 仙峰寺            |
 | m25_00_00_00 | fountainhead palace | 源之宫                   |
 
+## 人物命名
+
+| id    | en                               | zh                 |
+| ----- | -------------------------------- | ------------------ |
+| c0000 | Sekiro                           | 狼                 |
+| c1010 | Ashina Soldier; Ochimusha katate | 苇名小兵；坠落武士 |
+| c5060 | Owl                              | 义父枭             |
+| c5070 | An Actual Owl                    |                    |
+| c5400 | Sword Saint Isshin               | 剑圣               |
+| c7400 | Emma                             | 永真               |
 

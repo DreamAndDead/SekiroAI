@@ -1,415 +1,422 @@
-local f0_local0 = 50
-function Common_Clear_Param(arg0, arg1, arg2)
-    for f1_local1 = 1, f0_local0, 1 do
-        arg0[f1_local1] = 0
-        arg1[f1_local1] = nil
-        arg2[f1_local1] = {}
+local act_list_max_size = 50
+
+function Common_Clear_Param(weight_list, func_list, default_param_list)
+    for i = 1, act_list_max_size, 1 do
+        weight_list[i] = 0
+        func_list[i] = nil
+        default_param_list[i] = {}
     end
 end
 
-function Common_Battle_Activate(arg0, arg1, arg2, arg3, arg4, arg5)
-    local f2_local0 = {}
-    local f2_local1 = {}
-    local f2_local2 = 0
-    local f2_local3 = { function()
-        return defAct01(arg0, arg1, arg5[1])
+function Common_Battle_Activate(arg0, arg1, act_weight_list, act_list, act_after_adjust_space, default_act_param_list)
+    local merged_act_list = {}
+    local merged_act_weight = {}
+    local total_weight = 0
+    local default_act_list = { function()
+        return defAct01(arg0, arg1, default_act_param_list[1])
     end
     , function()
-        return defAct02(arg0, arg1, arg5[2])
+        return defAct02(arg0, arg1, default_act_param_list[2])
     end
     , function()
-        return defAct03(arg0, arg1, arg5[3])
+        return defAct03(arg0, arg1, default_act_param_list[3])
     end
     , function()
-        return defAct04(arg0, arg1, arg5[4])
+        return defAct04(arg0, arg1, default_act_param_list[4])
     end
     , function()
-        return defAct05(arg0, arg1, arg5[5])
+        return defAct05(arg0, arg1, default_act_param_list[5])
     end
     , function()
-        return defAct06(arg0, arg1, arg5[6])
+        return defAct06(arg0, arg1, default_act_param_list[6])
     end
     , function()
-        return defAct07(arg0, arg1, arg5[7])
+        return defAct07(arg0, arg1, default_act_param_list[7])
     end
     , function()
-        return defAct08(arg0, arg1, arg5[8])
+        return defAct08(arg0, arg1, default_act_param_list[8])
     end
     , function()
-        return defAct09(arg0, arg1, arg5[9])
+        return defAct09(arg0, arg1, default_act_param_list[9])
     end
     , function()
-        return defAct10(arg0, arg1, arg5[10])
+        return defAct10(arg0, arg1, default_act_param_list[10])
     end
     , function()
-        return defAct11(arg0, arg1, arg5[11])
+        return defAct11(arg0, arg1, default_act_param_list[11])
     end
     , function()
-        return defAct12(arg0, arg1, arg5[12])
+        return defAct12(arg0, arg1, default_act_param_list[12])
     end
     , function()
-        return defAct13(arg0, arg1, arg5[13])
+        return defAct13(arg0, arg1, default_act_param_list[13])
     end
     , function()
-        return defAct14(arg0, arg1, arg5[14])
+        return defAct14(arg0, arg1, default_act_param_list[14])
     end
     , function()
-        return defAct15(arg0, arg1, arg5[15])
+        return defAct15(arg0, arg1, default_act_param_list[15])
     end
     , function()
-        return defAct16(arg0, arg1, arg5[16])
+        return defAct16(arg0, arg1, default_act_param_list[16])
     end
     , function()
-        return defAct17(arg0, arg1, arg5[17])
+        return defAct17(arg0, arg1, default_act_param_list[17])
     end
     , function()
-        return defAct18(arg0, arg1, arg5[18])
+        return defAct18(arg0, arg1, default_act_param_list[18])
     end
     , function()
-        return defAct19(arg0, arg1, arg5[19])
+        return defAct19(arg0, arg1, default_act_param_list[19])
     end
     , function()
-        return defAct20(arg0, arg1, arg5[20])
+        return defAct20(arg0, arg1, default_act_param_list[20])
     end
     , function()
-        return defAct21(arg0, arg1, arg5[21])
+        return defAct21(arg0, arg1, default_act_param_list[21])
     end
     , function()
-        return defAct22(arg0, arg1, arg5[22])
+        return defAct22(arg0, arg1, default_act_param_list[22])
     end
     , function()
-        return defAct23(arg0, arg1, arg5[23])
+        return defAct23(arg0, arg1, default_act_param_list[23])
     end
     , function()
-        return defAct24(arg0, arg1, arg5[24])
+        return defAct24(arg0, arg1, default_act_param_list[24])
     end
     , function()
-        return defAct25(arg0, arg1, arg5[25])
+        return defAct25(arg0, arg1, default_act_param_list[25])
     end
     , function()
-        return defAct26(arg0, arg1, arg5[26])
+        return defAct26(arg0, arg1, default_act_param_list[26])
     end
     , function()
-        return defAct27(arg0, arg1, arg5[27])
+        return defAct27(arg0, arg1, default_act_param_list[27])
     end
     , function()
-        return defAct28(arg0, arg1, arg5[28])
+        return defAct28(arg0, arg1, default_act_param_list[28])
     end
     , function()
-        return defAct29(arg0, arg1, arg5[29])
+        return defAct29(arg0, arg1, default_act_param_list[29])
     end
     , function()
-        return defAct30(arg0, arg1, arg5[30])
+        return defAct30(arg0, arg1, default_act_param_list[30])
     end
     , function()
-        return defAct31(arg0, arg1, arg5[31])
+        return defAct31(arg0, arg1, default_act_param_list[31])
     end
     , function()
-        return defAct32(arg0, arg1, arg5[32])
+        return defAct32(arg0, arg1, default_act_param_list[32])
     end
     , function()
-        return defAct33(arg0, arg1, arg5[33])
+        return defAct33(arg0, arg1, default_act_param_list[33])
     end
     , function()
-        return defAct34(arg0, arg1, arg5[34])
+        return defAct34(arg0, arg1, default_act_param_list[34])
     end
     , function()
-        return defAct35(arg0, arg1, arg5[35])
+        return defAct35(arg0, arg1, default_act_param_list[35])
     end
     , function()
-        return defAct36(arg0, arg1, arg5[36])
+        return defAct36(arg0, arg1, default_act_param_list[36])
     end
     , function()
-        return defAct37(arg0, arg1, arg5[37])
+        return defAct37(arg0, arg1, default_act_param_list[37])
     end
     , function()
-        return defAct38(arg0, arg1, arg5[38])
+        return defAct38(arg0, arg1, default_act_param_list[38])
     end
     , function()
-        return defAct39(arg0, arg1, arg5[39])
+        return defAct39(arg0, arg1, default_act_param_list[39])
     end
     , function()
-        return defAct40(arg0, arg1, arg5[40])
+        return defAct40(arg0, arg1, default_act_param_list[40])
     end
     , function()
-        return defAct41(arg0, arg1, arg5[41])
+        return defAct41(arg0, arg1, default_act_param_list[41])
     end
     , function()
-        return defAct42(arg0, arg1, arg5[42])
+        return defAct42(arg0, arg1, default_act_param_list[42])
     end
     , function()
-        return defAct43(arg0, arg1, arg5[43])
+        return defAct43(arg0, arg1, default_act_param_list[43])
     end
     , function()
-        return defAct44(arg0, arg1, arg5[44])
+        return defAct44(arg0, arg1, default_act_param_list[44])
     end
     , function()
-        return defAct45(arg0, arg1, arg5[45])
+        return defAct45(arg0, arg1, default_act_param_list[45])
     end
     , function()
-        return defAct46(arg0, arg1, arg5[46])
+        return defAct46(arg0, arg1, default_act_param_list[46])
     end
     , function()
-        return defAct47(arg0, arg1, arg5[47])
+        return defAct47(arg0, arg1, default_act_param_list[47])
     end
     , function()
-        return defAct48(arg0, arg1, arg5[48])
+        return defAct48(arg0, arg1, default_act_param_list[48])
     end
     , function()
-        return defAct49(arg0, arg1, arg5[49])
+        return defAct49(arg0, arg1, default_act_param_list[49])
     end
     , function()
-        return defAct50(arg0, arg1, arg5[50])
+        return defAct50(arg0, arg1, default_act_param_list[50])
     end
     }
-    local f2_local4 = 1
-    for f2_local5 = 1, f0_local0, 1 do
-        if arg3[f2_local5] ~= nil then
-            f2_local0[f2_local5] = arg3[f2_local5]
+
+    for i = 1, act_list_max_size, 1 do
+        if act_list[i] ~= nil then
+            merged_act_list[i] = act_list[i]
         else
-            f2_local0[f2_local5] = f2_local3[f2_local5]
+            merged_act_list[i] = default_act_list[i]
         end
-        f2_local1[f2_local5] = arg2[f2_local5]
-        f2_local2 = f2_local2 + f2_local1[f2_local5]
+        merged_act_weight[i] = act_weight_list[i]
+        total_weight = total_weight + merged_act_weight[i]
     end
+
     local f2_local5 = nil
-    if arg4 ~= nil then
-        f2_local5 = arg4
+    if act_after_adjust_space ~= nil then
+        f2_local5 = act_after_adjust_space
     else
         f2_local5 = function()
             HumanCommon_ActAfter_AdjustSpace(arg0, arg1, atkAfterOddsTbl)
         end
     end
+
     local f2_local6 = 0
     if nil == kengekiId then
         kengekiId = 0
     end
+
     local f2_local7 = 0
     f2_local7 = arg0:DbgGetForceActIdx()
-    if 0 < f2_local7 and f2_local7 <= f0_local0 then
-        f2_local6 = f2_local0[f2_local7]()
+    if 0 < f2_local7 and f2_local7 <= act_list_max_size then
+        f2_local6 = merged_act_list[f2_local7]()
         arg0:DbgSetLastActIdx(f2_local7)
     else
-        local f2_local8 = arg0:GetRandam_Int(1, f2_local2)
+        local f2_local8 = arg0:GetRandam_Int(1, total_weight)
         local f2_local9 = 0
         local f2_local10 = 1
-        for f2_local11 = 1, f0_local0, 1 do
-            f2_local9 = f2_local9 + f2_local1[f2_local11]
+        for f2_local11 = 1, act_list_max_size, 1 do
+            f2_local9 = f2_local9 + merged_act_weight[f2_local11]
             if f2_local8 <= f2_local9 then
-                f2_local6 = f2_local0[f2_local11]()
+                f2_local6 = merged_act_list[f2_local11]()
                 arg0:DbgSetLastActIdx(f2_local11)
-                local f2_local11 = f0_local0
+                local f2_local11 = act_list_max_size
             end
         end
     end
+
     local f2_local8 = arg0:GetRandam_Int(1, 100)
     if f2_local6 == nil then
         f2_local6 = 0
     end
+
     if f2_local8 <= f2_local6 then
         f2_local5()
     end
 end
 
-function Common_Kengeki_Activate(arg0, arg1, arg2, arg3, arg4, arg5)
-    local f3_local0 = {}
-    local f3_local1 = {}
-    local f3_local2 = 0
-    local f3_local3 = { function()
-        return defAct01(arg0, arg1, arg5[1])
+function Common_Kengeki_Activate(arg0, arg1, act_weights, act_funcs, arg4, act_default_params)
+    local merged_act_funcs = {}
+    local merged_act_weights = {}
+    local total_weight = 0
+    local default_act_funcs = { function()
+        return defAct01(arg0, arg1, act_default_params[1])
     end
     , function()
-        return defAct02(arg0, arg1, arg5[2])
+        return defAct02(arg0, arg1, act_default_params[2])
     end
     , function()
-        return defAct03(arg0, arg1, arg5[3])
+        return defAct03(arg0, arg1, act_default_params[3])
     end
     , function()
-        return defAct04(arg0, arg1, arg5[4])
+        return defAct04(arg0, arg1, act_default_params[4])
     end
     , function()
-        return defAct05(arg0, arg1, arg5[5])
+        return defAct05(arg0, arg1, act_default_params[5])
     end
     , function()
-        return defAct06(arg0, arg1, arg5[6])
+        return defAct06(arg0, arg1, act_default_params[6])
     end
     , function()
-        return defAct07(arg0, arg1, arg5[7])
+        return defAct07(arg0, arg1, act_default_params[7])
     end
     , function()
-        return defAct08(arg0, arg1, arg5[8])
+        return defAct08(arg0, arg1, act_default_params[8])
     end
     , function()
-        return defAct09(arg0, arg1, arg5[9])
+        return defAct09(arg0, arg1, act_default_params[9])
     end
     , function()
-        return defAct10(arg0, arg1, arg5[10])
+        return defAct10(arg0, arg1, act_default_params[10])
     end
     , function()
-        return defAct11(arg0, arg1, arg5[11])
+        return defAct11(arg0, arg1, act_default_params[11])
     end
     , function()
-        return defAct12(arg0, arg1, arg5[12])
+        return defAct12(arg0, arg1, act_default_params[12])
     end
     , function()
-        return defAct13(arg0, arg1, arg5[13])
+        return defAct13(arg0, arg1, act_default_params[13])
     end
     , function()
-        return defAct14(arg0, arg1, arg5[14])
+        return defAct14(arg0, arg1, act_default_params[14])
     end
     , function()
-        return defAct15(arg0, arg1, arg5[15])
+        return defAct15(arg0, arg1, act_default_params[15])
     end
     , function()
-        return defAct16(arg0, arg1, arg5[16])
+        return defAct16(arg0, arg1, act_default_params[16])
     end
     , function()
-        return defAct17(arg0, arg1, arg5[17])
+        return defAct17(arg0, arg1, act_default_params[17])
     end
     , function()
-        return defAct18(arg0, arg1, arg5[18])
+        return defAct18(arg0, arg1, act_default_params[18])
     end
     , function()
-        return defAct19(arg0, arg1, arg5[19])
+        return defAct19(arg0, arg1, act_default_params[19])
     end
     , function()
-        return defAct20(arg0, arg1, arg5[20])
+        return defAct20(arg0, arg1, act_default_params[20])
     end
     , function()
-        return defAct21(arg0, arg1, arg5[21])
+        return defAct21(arg0, arg1, act_default_params[21])
     end
     , function()
-        return defAct22(arg0, arg1, arg5[22])
+        return defAct22(arg0, arg1, act_default_params[22])
     end
     , function()
-        return defAct23(arg0, arg1, arg5[23])
+        return defAct23(arg0, arg1, act_default_params[23])
     end
     , function()
-        return defAct24(arg0, arg1, arg5[24])
+        return defAct24(arg0, arg1, act_default_params[24])
     end
     , function()
-        return defAct25(arg0, arg1, arg5[25])
+        return defAct25(arg0, arg1, act_default_params[25])
     end
     , function()
-        return defAct26(arg0, arg1, arg5[26])
+        return defAct26(arg0, arg1, act_default_params[26])
     end
     , function()
-        return defAct27(arg0, arg1, arg5[27])
+        return defAct27(arg0, arg1, act_default_params[27])
     end
     , function()
-        return defAct28(arg0, arg1, arg5[28])
+        return defAct28(arg0, arg1, act_default_params[28])
     end
     , function()
-        return defAct29(arg0, arg1, arg5[29])
+        return defAct29(arg0, arg1, act_default_params[29])
     end
     , function()
-        return defAct30(arg0, arg1, arg5[30])
+        return defAct30(arg0, arg1, act_default_params[30])
     end
     , function()
-        return defAct31(arg0, arg1, arg5[31])
+        return defAct31(arg0, arg1, act_default_params[31])
     end
     , function()
-        return defAct32(arg0, arg1, arg5[32])
+        return defAct32(arg0, arg1, act_default_params[32])
     end
     , function()
-        return defAct33(arg0, arg1, arg5[33])
+        return defAct33(arg0, arg1, act_default_params[33])
     end
     , function()
-        return defAct34(arg0, arg1, arg5[34])
+        return defAct34(arg0, arg1, act_default_params[34])
     end
     , function()
-        return defAct35(arg0, arg1, arg5[35])
+        return defAct35(arg0, arg1, act_default_params[35])
     end
     , function()
-        return defAct36(arg0, arg1, arg5[36])
+        return defAct36(arg0, arg1, act_default_params[36])
     end
     , function()
-        return defAct37(arg0, arg1, arg5[37])
+        return defAct37(arg0, arg1, act_default_params[37])
     end
     , function()
-        return defAct38(arg0, arg1, arg5[38])
+        return defAct38(arg0, arg1, act_default_params[38])
     end
     , function()
-        return defAct39(arg0, arg1, arg5[39])
+        return defAct39(arg0, arg1, act_default_params[39])
     end
     , function()
-        return defAct40(arg0, arg1, arg5[40])
+        return defAct40(arg0, arg1, act_default_params[40])
     end
     , function()
-        return defAct41(arg0, arg1, arg5[41])
+        return defAct41(arg0, arg1, act_default_params[41])
     end
     , function()
-        return defAct42(arg0, arg1, arg5[42])
+        return defAct42(arg0, arg1, act_default_params[42])
     end
     , function()
-        return defAct43(arg0, arg1, arg5[43])
+        return defAct43(arg0, arg1, act_default_params[43])
     end
     , function()
-        return defAct44(arg0, arg1, arg5[44])
+        return defAct44(arg0, arg1, act_default_params[44])
     end
     , function()
-        return defAct45(arg0, arg1, arg5[45])
+        return defAct45(arg0, arg1, act_default_params[45])
     end
     , function()
-        return defAct46(arg0, arg1, arg5[46])
+        return defAct46(arg0, arg1, act_default_params[46])
     end
     , function()
-        return defAct47(arg0, arg1, arg5[47])
+        return defAct47(arg0, arg1, act_default_params[47])
     end
     , function()
-        return defAct48(arg0, arg1, arg5[48])
+        return defAct48(arg0, arg1, act_default_params[48])
     end
     , function()
-        return defAct49(arg0, arg1, arg5[49])
+        return defAct49(arg0, arg1, act_default_params[49])
     end
     , function()
-        return defAct50(arg0, arg1, arg5[50])
+        return defAct50(arg0, arg1, act_default_params[50])
     end
     }
-    local f3_local4 = 1
-    for f3_local5 = 1, f0_local0, 1 do
-        if arg3[f3_local5] ~= nil then
-            f3_local0[f3_local5] = arg3[f3_local5]
+    for i = 1, act_list_max_size, 1 do
+        if act_funcs[i] ~= nil then
+            merged_act_funcs[i] = act_funcs[i]
         else
-            f3_local0[f3_local5] = f3_local3[f3_local5]
+            merged_act_funcs[i] = default_act_funcs[i]
         end
-        f3_local1[f3_local5] = arg2[f3_local5]
-        f3_local2 = f3_local2 + f3_local1[f3_local5]
+        merged_act_weights[i] = act_weights[i]
+        total_weight = total_weight + merged_act_weights[i]
     end
-    local f3_local5 = nil
+
+    local act_after_adjust_space = nil
     if arg4 ~= nil then
-        f3_local5 = arg4
+        act_after_adjust_space = arg4
     else
-        f3_local5 = function()
+        act_after_adjust_space = function()
             HumanCommon_ActAfter_AdjustSpace(arg0, arg1, atkAfterOddsTbl)
         end
     end
+
     local f3_local6 = 0
     local f3_local7 = arg0:DbgGetForceKengekiActIdx()
-    if 0 < f3_local7 and f3_local7 <= f0_local0 then
-        f3_local6 = f3_local0[f3_local7]()
+    if 0 < f3_local7 and f3_local7 <= act_list_max_size then
+        f3_local6 = merged_act_funcs[f3_local7]()
         arg0:DbgSetLastKengekiActIdx(f3_local7)
     else
-        local f3_local8 = arg0:GetRandam_Int(1, f3_local2)
+        local rand_int = arg0:GetRandam_Int(1, total_weight)
         local f3_local9 = 0
-        local f3_local10 = 1
-        for f3_local11 = 1, f0_local0, 1 do
-            f3_local9 = f3_local9 + f3_local1[f3_local11]
-            if f3_local8 <= f3_local9 then
-                f3_local6 = f3_local0[f3_local11]()
+        for f3_local11 = 1, act_list_max_size, 1 do
+            f3_local9 = f3_local9 + merged_act_weights[f3_local11]
+            if rand_int <= f3_local9 then
+                f3_local6 = merged_act_funcs[f3_local11]()
                 arg0:DbgSetLastKengekiActIdx(f3_local11)
-                local f3_local11 = f0_local0
             end
         end
     end
+
     local f3_local8 = arg0:GetRandam_Int(1, 100)
     if f3_local6 == nil then
         f3_local6 = 0
     end
     if f3_local8 <= f3_local6 then
-        f3_local5()
+        act_after_adjust_space()
     end
-    if (f3_local2 == 0 or f3_local6 == -1) and f3_local7 == 0 then
+    
+    if (total_weight == 0 or f3_local6 == -1) and f3_local7 == 0 then
         return false
     else
         return true
@@ -417,17 +424,22 @@ function Common_Kengeki_Activate(arg0, arg1, arg2, arg3, arg4, arg5)
 end
 
 function defAct01(arg0, arg1, arg2)
-    local f4_local0 = { 1.5, 0, 3000, DIST_Middle, nil }
+    local param = { 1.5, 0, 3000, DIST_Middle, nil }
+
     if arg2[1] ~= nil then
-        f4_local0 = arg2
+        param = arg2
     end
-    local f4_local1 = f4_local0[1]
-    local f4_local2 = f4_local0[1] + 2
-    local f4_local3 = f4_local0[2]
-    local f4_local4 = f4_local0[3]
-    local f4_local5 = f4_local0[4]
-    local f4_local6 = GET_PARAM_IF_NIL_DEF(f4_local0[5], 100)
+
+    local f4_local1 = param[1]
+    local f4_local2 = param[1] + 2
+    local f4_local3 = param[2]
+    local f4_local4 = param[3]
+    local f4_local5 = param[4]
+
+    local f4_local6 = GET_PARAM_IF_NIL_DEF(param[5], 100)
+
     Approach_and_Attack_Act(arg0, arg1, f4_local1, f4_local2, f4_local3, f4_local4, f4_local5)
+
     return f4_local6
 end
 
@@ -1219,15 +1231,15 @@ function HumanCommon_Shooting_Act(arg0, arg1, arg2)
     return 0
 end
 
-function GET_PARAM_IF_NIL_DEF(arg0, arg1)
-    if arg0 ~= nil then
-        return arg0
+function GET_PARAM_IF_NIL_DEF(not_nil_param, nil_param)
+    if not_nil_param ~= nil then
+        return not_nil_param
     end
-    return arg1
+    return nil_param
 end
 
-function REGIST_FUNC(arg0, arg1, arg2, arg3)
+function REGIST_FUNC(p1, p2, func, p3)
     return function()
-        return arg2(arg0, arg1, arg3)
+        return func(p1, p2, p3)
     end
 end

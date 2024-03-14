@@ -3,7 +3,6 @@ function CommonNPC_ChangeWepL1(arg0, arg1)
     if f1_local0 ~= WEP_Primary then
         arg1:AddSubGoal(GOAL_COMMON_Attack, 10, NPC_ATK_ChangeWep_L1, TARGET_NONE, DIST_None)
     end
-    
 end
 
 function CommonNPC_ChangeWepR1(arg0, arg1)
@@ -11,7 +10,6 @@ function CommonNPC_ChangeWepR1(arg0, arg1)
     if f2_local0 ~= WEP_Primary then
         arg1:AddSubGoal(GOAL_COMMON_Attack, 10, NPC_ATK_ChangeWep_R1, TARGET_NONE, DIST_None)
     end
-    
 end
 
 function CommonNPC_ChangeWepL2(arg0, arg1)
@@ -19,7 +17,6 @@ function CommonNPC_ChangeWepL2(arg0, arg1)
     if f3_local0 ~= WEP_Secondary then
         arg1:AddSubGoal(GOAL_COMMON_Attack, 10, NPC_ATK_ChangeWep_L2, TARGET_NONE, DIST_None)
     end
-    
 end
 
 function CommonNPC_ChangeWepR2(arg0, arg1)
@@ -27,21 +24,18 @@ function CommonNPC_ChangeWepR2(arg0, arg1)
     if f4_local0 ~= WEP_Secondary then
         arg1:AddSubGoal(GOAL_COMMON_Attack, 10, NPC_ATK_ChangeWep_R2, TARGET_NONE, DIST_None)
     end
-    
 end
 
 function CommonNPC_SwitchBothHandMode(arg0, arg1)
     if not arg0:IsBothHandMode(TARGET_SELF) then
         arg1:AddSubGoal(GOAL_COMMON_Attack, 10, NPC_ATK_SwitchWep, TARGET_NONE, DIST_None)
     end
-    
 end
 
 function CommonNPC_SwitchOneHandMode(arg0, arg1)
     if arg0:IsBothHandMode(TARGET_SELF) then
         arg1:AddSubGoal(GOAL_COMMON_Attack, 10, NPC_ATK_SwitchWep, TARGET_NONE, DIST_None)
     end
-    
 end
 
 function NPC_Approach_Act(arg0, arg1, arg2, arg3, arg4)
@@ -58,21 +52,18 @@ function NPC_Approach_Act(arg0, arg1, arg2, arg3, arg4)
     else
         arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, 5, TARGET_ENE_0, arg2, TARGET_SELF, false, f7_local0)
     end
-    
 end
 
 function NPC_KATATE_Switch(arg0, arg1)
     if arg0:IsBothHandMode(TARGET_SELF) then
         arg1:AddSubGoal(GOAL_COMMON_NonspinningComboAttack, 10, NPC_ATK_SwitchWep, TARGET_ENE_0, DIST_None, 0)
     end
-    
 end
 
 function NPC_RYOUTE_Switch(arg0, arg1)
     if not arg0:IsBothHandMode(TARGET_SELF) then
         arg1:AddSubGoal(GOAL_COMMON_NonspinningComboAttack, 10, NPC_ATK_SwitchWep, TARGET_ENE_0, DIST_None, 0)
     end
-    
 end
 
 function Damaged_StepCount_NPCPlayer(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
@@ -94,7 +85,6 @@ function Damaged_StepCount_NPCPlayer(arg0, arg1, arg2, arg3, arg4, arg5, arg6, a
         end
         return true
     end
-    
 end
 
 function FindAttack_Step_NPCPlayer(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
@@ -112,7 +102,6 @@ function FindAttack_Step_NPCPlayer(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
         end
         return true
     end
-    
 end
 
 function FindAttack_Act(arg0, arg1, arg2, arg3)
@@ -123,7 +112,6 @@ function FindAttack_Act(arg0, arg1, arg2, arg3)
         return true
     end
     return false
-    
 end
 
 function FindAttack_Step(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
@@ -145,7 +133,6 @@ function FindAttack_Step(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
         end
         return true
     end
-    
 end
 
 function FindAttack_Guard(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
@@ -161,11 +148,11 @@ function FindAttack_Guard(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
             arg1:AddSubGoal(GOAL_COMMON_LeaveTarget, 4, TARGET_ENE_0, f14_local5, TARGET_ENE_0, true, 9910)
         else
             arg1:AddSubGoal(GOAL_COMMON_LeaveTarget, 4, TARGET_ENE_0, f14_local5, TARGET_ENE_0, true, 9910)
-            arg1:AddSubGoal(GOAL_COMMON_SidewayMove, f14_local4, TARGET_ENE_0, arg0:GetRandam_Int(0, 1), arg0:GetRandam_Int(30, 45), true, true, 9910)
+            arg1:AddSubGoal(GOAL_COMMON_SidewayMove, f14_local4, TARGET_ENE_0, arg0:GetRandam_Int(0, 1),
+                arg0:GetRandam_Int(30, 45), true, true, 9910)
         end
         return true
     end
-    
 end
 
 function FindAttack_Step_or_Guard(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
@@ -197,12 +184,12 @@ function FindAttack_Step_or_Guard(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7
                 arg1:AddSubGoal(GOAL_COMMON_LeaveTarget, 4, TARGET_ENE_0, f15_local10, TARGET_ENE_0, true, 9910)
             else
                 arg1:AddSubGoal(GOAL_COMMON_LeaveTarget, 4, TARGET_ENE_0, f15_local10, TARGET_ENE_0, true, 9910)
-                arg1:AddSubGoal(GOAL_COMMON_SidewayMove, f15_local9, TARGET_ENE_0, arg0:GetRandam_Int(0, 1), arg0:GetRandam_Int(30, 45), true, true, 9910)
+                arg1:AddSubGoal(GOAL_COMMON_SidewayMove, f15_local9, TARGET_ENE_0, arg0:GetRandam_Int(0, 1),
+                    arg0:GetRandam_Int(30, 45), true, true, 9910)
             end
             return true
         end
     end
-    
 end
 
 function Damaged_Act(arg0, arg1, arg2, arg3)
@@ -213,7 +200,6 @@ function Damaged_Act(arg0, arg1, arg2, arg3)
         return true
     end
     return false
-    
 end
 
 function Damaged_Guard(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
@@ -229,11 +215,11 @@ function Damaged_Guard(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
             arg1:AddSubGoal(GOAL_COMMON_LeaveTarget, 4, TARGET_ENE_0, f17_local5, TARGET_ENE_0, true, 9910)
         else
             arg1:AddSubGoal(GOAL_COMMON_LeaveTarget, 4, TARGET_ENE_0, f17_local5, TARGET_ENE_0, true, 9910)
-            arg1:AddSubGoal(GOAL_COMMON_SidewayMove, f17_local4, TARGET_ENE_0, arg0:GetRandam_Int(0, 1), arg0:GetRandam_Int(30, 45), true, true, 9910)
+            arg1:AddSubGoal(GOAL_COMMON_SidewayMove, f17_local4, TARGET_ENE_0, arg0:GetRandam_Int(0, 1),
+                arg0:GetRandam_Int(30, 45), true, true, 9910)
         end
         return true
     end
-    
 end
 
 function Damaged_Step(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
@@ -255,7 +241,6 @@ function Damaged_Step(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
         end
         return true
     end
-    
 end
 
 function Damaged_Step_or_Guard(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
@@ -287,12 +272,12 @@ function Damaged_Step_or_Guard(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, a
                 arg1:AddSubGoal(GOAL_COMMON_LeaveTarget, 4, TARGET_ENE_0, f19_local10, TARGET_ENE_0, true, 9910)
             else
                 arg1:AddSubGoal(GOAL_COMMON_LeaveTarget, 4, TARGET_ENE_0, f19_local10, TARGET_ENE_0, true, 9910)
-                arg1:AddSubGoal(GOAL_COMMON_SidewayMove, f19_local9, TARGET_ENE_0, arg0:GetRandam_Int(0, 1), arg0:GetRandam_Int(30, 45), true, true, 9910)
+                arg1:AddSubGoal(GOAL_COMMON_SidewayMove, f19_local9, TARGET_ENE_0, arg0:GetRandam_Int(0, 1),
+                    arg0:GetRandam_Int(30, 45), true, true, 9910)
             end
             return true
         end
     end
-    
 end
 
 function GuardBreak_Act(arg0, arg1, arg2, arg3)
@@ -303,7 +288,6 @@ function GuardBreak_Act(arg0, arg1, arg2, arg3)
         return true
     end
     return false
-    
 end
 
 function GuardBreak_Attack(arg0, arg1, arg2, arg3, arg4)
@@ -315,7 +299,6 @@ function GuardBreak_Attack(arg0, arg1, arg2, arg3, arg4)
         return true
     end
     return false
-    
 end
 
 function MissSwing_Int(arg0, arg1, arg2, arg3)
@@ -326,7 +309,6 @@ function MissSwing_Int(arg0, arg1, arg2, arg3)
         return true
     end
     return false
-    
 end
 
 function MissSwing_Attack(arg0, arg1, arg2, arg3, arg4)
@@ -338,7 +320,6 @@ function MissSwing_Attack(arg0, arg1, arg2, arg3, arg4)
         return true
     end
     return false
-    
 end
 
 function UseItem_Act(arg0, arg1, arg2, arg3)
@@ -349,7 +330,6 @@ function UseItem_Act(arg0, arg1, arg2, arg3)
         return true
     end
     return false
-    
 end
 
 function Shoot_1kind(arg0, arg1, arg2, arg3)
@@ -364,7 +344,6 @@ function Shoot_1kind(arg0, arg1, arg2, arg3)
         return true
     end
     return false
-    
 end
 
 function Shoot_2dist(arg0, arg1, arg2, arg3, arg4, arg5)
@@ -387,7 +366,6 @@ function Shoot_2dist(arg0, arg1, arg2, arg3, arg4, arg5)
         end
     end
     return 0
-    
 end
 
 function MissSwingSelf_Step(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
@@ -409,7 +387,6 @@ function MissSwingSelf_Step(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
         end
         return true
     end
-    
 end
 
 function RebByOpGuard_Step(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
@@ -431,7 +408,6 @@ function RebByOpGuard_Step(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
         end
         return true
     end
-    
 end
 
 function SuccessGuard_Act(arg0, arg1, arg2, arg3)
@@ -443,7 +419,6 @@ function SuccessGuard_Act(arg0, arg1, arg2, arg3)
         return true
     end
     return false
-    
 end
 
 function SuccessGuard_Attack(arg0, arg1, arg2, arg3, arg4)
@@ -455,7 +430,6 @@ function SuccessGuard_Attack(arg0, arg1, arg2, arg3, arg4)
         return true
     end
     return false
-    
 end
 
 function FarDamaged_Act(arg0, arg1, arg2, arg3)
@@ -466,7 +440,6 @@ function FarDamaged_Act(arg0, arg1, arg2, arg3)
         return true
     end
     return false
-    
 end
 
 function MissSwing_Act(arg0, arg1, arg2, arg3)
@@ -477,7 +450,6 @@ function MissSwing_Act(arg0, arg1, arg2, arg3)
         return true
     end
     return false
-    
 end
 
 function FindGuardBreak_Act(arg0, arg1, arg2, arg3)
@@ -488,7 +460,6 @@ function FindGuardBreak_Act(arg0, arg1, arg2, arg3)
         return true
     end
     return false
-    
 end
 
 function FindGuardFinish_Act(arg0, arg1, arg2, arg3)
@@ -499,7 +470,6 @@ function FindGuardFinish_Act(arg0, arg1, arg2, arg3)
         return true
     end
     return false
-    
 end
 
 function FindShoot_Act(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
@@ -521,7 +491,6 @@ function FindShoot_Act(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
         end
     end
     return 0
-    
 end
 
 function BusyApproach_Act(arg0, arg1, arg2, arg3, arg4)
@@ -536,7 +505,6 @@ function BusyApproach_Act(arg0, arg1, arg2, arg3, arg4)
     else
         arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, 2, TARGET_ENE_0, arg2, TARGET_SELF, true, f36_local0)
     end
-    
 end
 
 function Approach_and_Attack_Act(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
@@ -552,9 +520,9 @@ function Approach_and_Attack_Act(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7,
     end
     local f37_local4 = GET_PARAM_IF_NIL_DEF(arg7, 1.5)
     local f37_local5 = GET_PARAM_IF_NIL_DEF(arg8, 20)
+    
     arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, 10, TARGET_ENE_0, arg2, TARGET_SELF, f37_local1, f37_local2)
     arg1:AddSubGoal(GOAL_COMMON_AttackTunableSpin, 10, arg5, TARGET_ENE_0, arg6, f37_local4, f37_local5)
-    
 end
 
 function KeepDist_and_Attack_Act(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
@@ -570,7 +538,6 @@ function KeepDist_and_Attack_Act(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
     end
     arg1:AddSubGoal(GOAL_COMMON_KeepDist, 10, TARGET_ENE_0, arg2, arg3, TARGET_ENE_0, f38_local1, f38_local2)
     arg1:AddSubGoal(GOAL_COMMON_Attack, 10, arg6, TARGET_ENE_0, arg7, 0)
-    
 end
 
 function Approach_and_GuardBreak_Act(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
@@ -587,7 +554,6 @@ function Approach_and_GuardBreak_Act(arg0, arg1, arg2, arg3, arg4, arg5, arg6, a
     arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, 10, TARGET_ENE_0, arg2, TARGET_SELF, f39_local1, f39_local2)
     arg1:AddSubGoal(GOAL_COMMON_GuardBreakAttack, 10, arg5, TARGET_ENE_0, arg6, 0)
     arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, arg7, TARGET_ENE_0, arg8, 0)
-    
 end
 
 function GetWellSpace_Act(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
@@ -603,7 +569,8 @@ function GetWellSpace_Act(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
 
     elseif f40_local2 <= arg3 + arg4 and f40_local4 < 2 then
         arg1:AddSubGoal(GOAL_COMMON_LeaveTarget, 2.5, TARGET_ENE_0, 2, TARGET_ENE_0, true, f40_local0)
-        arg1:AddSubGoal(GOAL_COMMON_SidewayMove, 3, TARGET_ENE_0, f40_local3, arg0:GetRandam_Int(30, 45), true, true, f40_local0)
+        arg1:AddSubGoal(GOAL_COMMON_SidewayMove, 3, TARGET_ENE_0, f40_local3, arg0:GetRandam_Int(30, 45), true, true,
+            f40_local0)
     elseif f40_local2 <= arg3 + arg4 + arg5 then
         arg1:AddSubGoal(GOAL_COMMON_LeaveTarget, 2.5, TARGET_ENE_0, 3, TARGET_ENE_0, true, f40_local0)
     elseif f40_local2 <= arg3 + arg4 + arg5 + arg6 then
@@ -611,7 +578,6 @@ function GetWellSpace_Act(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
     else
         arg1:AddSubGoal(GOAL_COMMON_SpinStep, 5, 701, TARGET_ENE_0, 0, AI_DIR_TYPE_B, 4)
     end
-    
 end
 
 function GetWellSpace_Act_IncludeSidestep(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
@@ -627,7 +593,8 @@ function GetWellSpace_Act_IncludeSidestep(arg0, arg1, arg2, arg3, arg4, arg5, ar
 
     elseif f41_local2 <= arg3 + arg4 and f41_local4 < 2 then
         arg1:AddSubGoal(GOAL_COMMON_LeaveTarget, 2.5, TARGET_ENE_0, 2, TARGET_ENE_0, true, f41_local0)
-        arg1:AddSubGoal(GOAL_COMMON_SidewayMove, 3, TARGET_ENE_0, f41_local3, arg0:GetRandam_Int(30, 45), true, true, f41_local0)
+        arg1:AddSubGoal(GOAL_COMMON_SidewayMove, 3, TARGET_ENE_0, f41_local3, arg0:GetRandam_Int(30, 45), true, true,
+            f41_local0)
     elseif f41_local2 <= arg3 + arg4 + arg5 then
         arg1:AddSubGoal(GOAL_COMMON_LeaveTarget, 2.5, TARGET_ENE_0, 3, TARGET_ENE_0, true, f41_local0)
     elseif f41_local2 <= arg3 + arg4 + arg5 + arg6 then
@@ -642,7 +609,6 @@ function GetWellSpace_Act_IncludeSidestep(arg0, arg1, arg2, arg3, arg4, arg5, ar
             arg1:AddSubGoal(GOAL_COMMON_SpinStep, 5, 6003, TARGET_ENE_0, 0, AI_DIR_TYPE_R, 4)
         end
     end
-    
 end
 
 function Shoot_Act(arg0, arg1, arg2, arg3, arg4)
@@ -661,7 +627,6 @@ function Shoot_Act(arg0, arg1, arg2, arg3, arg4)
         end
         arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, arg3, TARGET_ENE_0, DIST_None, 0)
     end
-    
 end
 
 function Approach_Act(arg0, arg1, arg2, arg3, arg4, arg5)
@@ -679,7 +644,6 @@ function Approach_Act(arg0, arg1, arg2, arg3, arg4, arg5)
         f43_local2 = 9910
     end
     arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, arg5, TARGET_ENE_0, arg2, TARGET_SELF, f43_local1, f43_local2)
-    
 end
 
 function Approach_or_Leave_Act(arg0, arg1, arg2, arg3, arg4, arg5)
@@ -697,17 +661,17 @@ function Approach_or_Leave_Act(arg0, arg1, arg2, arg3, arg4, arg5)
     else
         arg1:AddSubGoal(GOAL_COMMON_LeaveTarget, 5, TARGET_ENE_0, arg2, TARGET_ENE_0, true, f44_local2)
     end
-    
 end
 
 function Watching_Parry_Chance_Act(arg0, arg1)
     FirstDist = arg0:GetRandam_Float(2, 4)
     SecondDist = arg0:GetRandam_Float(2, 4)
     arg1:AddSubGoal(GOAL_COMMON_KeepDist, 5, TARGET_ENE_0, FirstDist, FirstDist + 0.5, TARGET_ENE_0, true, 9920)
-    arg1:AddSubGoal(GOAL_COMMON_SidewayMove, arg0:GetRandam_Float(3, 5), TARGET_ENE_0, arg0:GetRandam_Int(0, 1), 180, true, true, 9920)
+    arg1:AddSubGoal(GOAL_COMMON_SidewayMove, arg0:GetRandam_Float(3, 5), TARGET_ENE_0, arg0:GetRandam_Int(0, 1), 180,
+        true, true, 9920)
     arg1:AddSubGoal(GOAL_COMMON_KeepDist, 5, TARGET_ENE_0, SecondDist, SecondDist + 0.5, TARGET_ENE_0, true, 9920)
-    arg1:AddSubGoal(GOAL_COMMON_SidewayMove, arg0:GetRandam_Float(3, 5), TARGET_ENE_0, arg0:GetRandam_Int(0, 1), 180, true, true, 9920)
-    
+    arg1:AddSubGoal(GOAL_COMMON_SidewayMove, arg0:GetRandam_Float(3, 5), TARGET_ENE_0, arg0:GetRandam_Int(0, 1), 180,
+        true, true, 9920)
 end
 
 function Parry_Act(arg0, arg1, arg2, arg3, arg4, arg5)
@@ -726,12 +690,10 @@ function Parry_Act(arg0, arg1, arg2, arg3, arg4, arg5)
         arg1:AddSubGoal(GOAL_COMMON_Attack, 10, 3110, TARGET_ENE_0, 3, 0)
         return true
     end
-    
 end
 
 function ObserveAreaForBackstab(arg0, arg1, arg2, arg3, arg4)
     arg0:AddObserveArea(arg2, TARGET_ENE_0, TARGET_SELF, AI_DIR_TYPE_B, arg4, arg3)
-    
 end
 
 function Backstab_Act(arg0, arg1, arg2, arg3, arg4, arg5)
@@ -742,7 +704,6 @@ function Backstab_Act(arg0, arg1, arg2, arg3, arg4, arg5)
         arg1:AddSubGoal(GOAL_COMMON_Attack, 10, 3110, TARGET_ENE_0, 3, 0)
         return true
     end
-    
 end
 
 function Torimaki_Act(arg0, arg1, arg2)
@@ -757,12 +718,13 @@ function Torimaki_Act(arg0, arg1, arg2)
     elseif f49_local2 >= 6 then
         arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, 5, TARGET_ENE_0, 4.5, TARGET_SELF, true, -1)
     elseif f49_local2 >= 3 then
-        arg1:AddSubGoal(GOAL_COMMON_SidewayMove, 3, TARGET_ENE_0, arg0:GetRandam_Int(0, 1), arg0:GetRandam_Int(30, 45), true, true, f49_local0)
+        arg1:AddSubGoal(GOAL_COMMON_SidewayMove, 3, TARGET_ENE_0, arg0:GetRandam_Int(0, 1), arg0:GetRandam_Int(30, 45),
+            true, true, f49_local0)
     else
         arg1:AddSubGoal(GOAL_COMMON_LeaveTarget, 5, TARGET_ENE_0, 4, TARGET_ENE_0, true, f49_local0)
     end
-    arg1:AddSubGoal(GOAL_COMMON_SidewayMove, 3, TARGET_ENE_0, arg0:GetRandam_Int(0, 1), arg0:GetRandam_Int(30, 45), true, true, f49_local0)
-    
+    arg1:AddSubGoal(GOAL_COMMON_SidewayMove, 3, TARGET_ENE_0, arg0:GetRandam_Int(0, 1), arg0:GetRandam_Int(30, 45), true,
+        true, f49_local0)
 end
 
 function Kankyaku_Act(arg0, arg1, arg2)
@@ -777,12 +739,13 @@ function Kankyaku_Act(arg0, arg1, arg2)
     elseif f50_local2 >= 8 then
         arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, 5, TARGET_ENE_0, 6.5, TARGET_SELF, true, -1)
     elseif f50_local2 >= 4 then
-        arg1:AddSubGoal(GOAL_COMMON_SidewayMove, 3, TARGET_ENE_0, arg0:GetRandam_Int(0, 1), arg0:GetRandam_Int(30, 45), true, true, f50_local0)
+        arg1:AddSubGoal(GOAL_COMMON_SidewayMove, 3, TARGET_ENE_0, arg0:GetRandam_Int(0, 1), arg0:GetRandam_Int(30, 45),
+            true, true, f50_local0)
     else
         arg1:AddSubGoal(GOAL_COMMON_LeaveTarget, 5, TARGET_ENE_0, 6, TARGET_ENE_0, true, f50_local0)
     end
-    arg1:AddSubGoal(GOAL_COMMON_SidewayMove, 3, TARGET_ENE_0, arg0:GetRandam_Int(0, 1), arg0:GetRandam_Int(30, 45), true, true, f50_local0)
-    
+    arg1:AddSubGoal(GOAL_COMMON_SidewayMove, 3, TARGET_ENE_0, arg0:GetRandam_Int(0, 1), arg0:GetRandam_Int(30, 45), true,
+        true, f50_local0)
 end
 
 function ClearTableParam(arg0, arg1)
@@ -792,7 +755,6 @@ function ClearTableParam(arg0, arg1)
         arg0[f51_local2] = 0
         arg1[f51_local2] = {}
     end
-    
 end
 
 function SelectOddsIndex(arg0, arg1)
@@ -811,7 +773,6 @@ function SelectOddsIndex(arg0, arg1)
     end
     local f52_local3 = -1
     return f52_local3
-    
 end
 
 function SelectFunc(arg0, arg1, arg2)
@@ -820,13 +781,11 @@ function SelectFunc(arg0, arg1, arg2)
         return nil
     end
     return arg2[f53_local0]
-    
 end
 
 function SelectGoalFunc(arg0, arg1, arg2)
     local f54_local0 = _GetGoalActFuncTable(arg0)
     return SelectFunc(arg1, arg2, f54_local0)
-    
 end
 
 function CallAttackAndAfterFunc(arg0, arg1, arg2, arg3, arg4, arg5)
@@ -848,13 +807,13 @@ function CallAttackAndAfterFunc(arg0, arg1, arg2, arg3, arg4, arg5)
             HumanCommon_ActAfter_AdjustSpace(arg1, arg2, arg5)
         end
     end
-    
 end
 
 function _GetGoalActFuncTable(arg0)
-    local f56_local0 = {arg0.Act01, arg0.Act02, arg0.Act03, arg0.Act04, arg0.Act05, arg0.Act06, arg0.Act07, arg0.Act08, arg0.Act09, arg0.Act10, arg0.Act11, arg0.Act12, arg0.Act13, arg0.Act14, arg0.Act15, arg0.Act16, arg0.Act17, arg0.Act18, arg0.Act19, arg0.Act20}
+    local f56_local0 = { arg0.Act01, arg0.Act02, arg0.Act03, arg0.Act04, arg0.Act05, arg0.Act06, arg0.Act07, arg0.Act08,
+        arg0.Act09, arg0.Act10, arg0.Act11, arg0.Act12, arg0.Act13, arg0.Act14, arg0.Act15, arg0.Act16, arg0.Act17, arg0
+        .Act18, arg0.Act19, arg0.Act20 }
     return f56_local0
-    
 end
 
 function GetTargetAngle(arg0, arg1)
@@ -874,7 +833,4 @@ function GetTargetAngle(arg0, arg1)
     else
         return TARGET_ANGLE_BACK
     end
-    
 end
-
-
