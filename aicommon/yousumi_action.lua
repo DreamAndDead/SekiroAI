@@ -1,11 +1,16 @@
+--[[
+    wait and see
+]]
 RegisterTableGoal(GOAL_COMMON_YousumiAct, "YousumiAct")
 REGISTER_GOAL_NO_SUB_GOAL(GOAL_COMMON_YousumiAct, true)
+
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_YousumiAct, 0, "??????", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_YousumiAct, 1, "???p?x", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_YousumiAct, 2, "????p?x", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_YousumiAct, 3, "?p???I?t?Z?b?g", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_YousumiAct, 4, "?????S?[???????", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_YousumiAct, 5, "??????S?[???????", 0)
+
 Goal.Activate = function(arg0, arg1, arg2)
     local f1_local0 = arg2:GetParam(0)
     local f1_local1 = arg2:GetParam(1)

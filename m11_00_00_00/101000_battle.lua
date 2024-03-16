@@ -13,6 +13,7 @@ Goal.Activate = function(goal, self, goal_manager)
     self:SetStringIndexedNumber("KengekiID", 0)
     self:SetStringIndexedNumber("KaihukuSp", 30)
 
+    -- 先执行交锋计划
     if goal:Kengeki_Activate(self, goal_manager) then
         return
     end
@@ -32,7 +33,8 @@ Goal.Activate = function(goal, self, goal_manager)
 
     local sp_rate = self:GetSpRate(TARGET_SELF)
     local dist_to_player = self:GetDist(TARGET_ENE_0)
-    local f2_local12 = self:GetExcelParam(AI_EXCEL_THINK_PARAM_TYPE__thinkAttr_doAdmirer)
+    -- NpcThinkParam -> thinkAttrDoAdmirer 属性
+    local think_attr_do_admirer = self:GetExcelParam(AI_EXCEL_THINK_PARAM_TYPE__thinkAttr_doAdmirer)
     
     -- 变招输入的 sp 观察点，会引发变招信号
     self:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 109031)
@@ -59,9 +61,9 @@ Goal.Activate = function(goal, self, goal_manager)
     elseif self:HasSpecialEffectId(TARGET_SELF, 107900) and self:GetNumber(12) == 1 then
         self:SetNumber(12, 0)
         act_weight_list[6] = 100
-    elseif f2_local12 == 1 and self:GetTeamOrder(ORDER_TYPE_Role) == ROLE_TYPE_Kankyaku then
+    elseif think_attr_do_admirer == 1 and self:GetTeamOrder(ORDER_TYPE_Role) == ROLE_TYPE_Kankyaku then
         KankyakuAct(self, goal_manager)
-    elseif f2_local12 == 1 and self:GetTeamOrder(ORDER_TYPE_Role) == ROLE_TYPE_Torimaki then
+    elseif think_attr_do_admirer == 1 and self:GetTeamOrder(ORDER_TYPE_Role) == ROLE_TYPE_Torimaki then
         if TorimakiAct(self, goal_manager) then
             act_weight_list[1] = 50
             act_weight_list[2] = 50

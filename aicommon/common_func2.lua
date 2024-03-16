@@ -54,18 +54,6 @@ function NPC_Approach_Act(arg0, arg1, arg2, arg3, arg4)
     end
 end
 
-function NPC_KATATE_Switch(arg0, arg1)
-    if arg0:IsBothHandMode(TARGET_SELF) then
-        arg1:AddSubGoal(GOAL_COMMON_NonspinningComboAttack, 10, NPC_ATK_SwitchWep, TARGET_ENE_0, DIST_None, 0)
-    end
-end
-
-function NPC_RYOUTE_Switch(arg0, arg1)
-    if not arg0:IsBothHandMode(TARGET_SELF) then
-        arg1:AddSubGoal(GOAL_COMMON_NonspinningComboAttack, 10, NPC_ATK_SwitchWep, TARGET_ENE_0, DIST_None, 0)
-    end
-end
-
 function Damaged_StepCount_NPCPlayer(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
     local f10_local0 = arg0:GetDist(TARGET_ENE_0)
     local f10_local1 = arg0:GetRandam_Int(1, 100)

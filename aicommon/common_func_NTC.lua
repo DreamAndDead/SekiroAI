@@ -140,53 +140,72 @@ function YousumiAct_SubGoal(arg0, arg1, arg2, arg3, arg4, arg5)
     return true
 end
 
-function TorimakiAct(arg0, arg1, arg2, arg3, arg4)
-    local f6_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f6_local1 = arg0:GetRandam_Float(1, 2)
-    local f6_local2 = 1.5
-    local f6_local3 = arg0:GetRandam_Int(30, 45)
+--[[
+    跟随行动
+
+    still_odd 当已经在合适范围内，保持静止的概率
+    - 0 一直在调整站位，即使已经满足跟随距离
+
+    return true 已经调整好位置，在合适距离内
+]]
+function TorimakiAct(self, goal_manager, keep_dist, still_odd, arg4)
+    local dist_to_player = self:GetDist(TARGET_ENE_0)
+    local rand_lifetime = self:GetRandam_Float(1, 2)
+    local lifetime = 1.5
+    local rand_angle = self:GetRandam_Int(30, 45)
     local f6_local4 = -1
-    local f6_local5 = 0
-    local f6_local6 = arg0:GetRandam_Int(1, 100)
+    local left_or_right_dir = 0
+    local f6_local6 = self:GetRandam_Int(1, 100)
     local f6_local7 = true
-    local f6_local8 = arg0:GetRandam_Float(-1, 1)
-    if arg2 == nil or arg2 == -1 then
-        arg2 = 6
+    local f6_local8 = self:GetRandam_Float(-1, 1)
+
+    if keep_dist == nil or keep_dist == -1 then
+        keep_dist = 6
     end
-    if arg3 == nil or arg3 == -1 then
-        arg3 = 10
+    if still_odd == nil or still_odd == -1 then
+        still_odd = 10
     end
     if arg4 == nil then
         arg4 = false
     end
-    if arg2 ~= 0 and f6_local0 <= arg2 - 2 then
-        arg1:AddSubGoal(GOAL_COMMON_LeaveTarget, f6_local2, TARGET_ENE_0, arg2, TARGET_ENE_0, true, f6_local4)
-    elseif arg2 ~= 0 and arg2 + 2 <= f6_local0 then
-        if not arg4 and arg2 + 3 <= f6_local0 then
+
+    -- too close
+    if keep_dist ~= 0 and dist_to_player <= keep_dist - 2 then
+        goal_manager:AddSubGoal(GOAL_COMMON_LeaveTarget, lifetime, TARGET_ENE_0, keep_dist, TARGET_ENE_0, true, f6_local4)
+    -- too far
+    elseif keep_dist ~= 0 and keep_dist + 2 <= dist_to_player then
+        if not arg4 and keep_dist + 3 <= dist_to_player then
             f6_local7 = false
         end
-        arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, f6_local2, TARGET_ENE_0, arg2 + f6_local8, TARGET_SELF, f6_local7, -1)
-    elseif arg3 ~= nil and f6_local6 <= arg3 then
+        goal_manager:AddSubGoal(GOAL_COMMON_ApproachTarget, lifetime, TARGET_ENE_0, keep_dist + f6_local8, TARGET_SELF, f6_local7, -1)
+    elseif still_odd ~= nil and f6_local6 <= still_odd then
         return true
-    elseif SpaceCheck(arg0, arg1, 90, 1) == true or SpaceCheck(arg0, arg1, -90, 1) == true then
-        f6_local5 = GetDirection_Sideway(arg0)
-        arg1:AddSubGoal(GOAL_COMMON_SidewayMove, f6_local1, TARGET_ENE_0, f6_local5, f6_local3, true, true, f6_local4)
-    elseif SpaceCheck(arg0, arg1, 180, 1) == true then
-        arg1:AddSubGoal(GOAL_COMMON_LeaveTarget, f6_local2, TARGET_ENE_0, 999, TARGET_ENE_0, true, f6_local4)
+    elseif SpaceCheck(self, goal_manager, 90, 1) == true or SpaceCheck(self, goal_manager, -90, 1) == true then
+        left_or_right_dir = GetDirection_Sideway(self)
+        goal_manager:AddSubGoal(GOAL_COMMON_SidewayMove, rand_lifetime, TARGET_ENE_0, left_or_right_dir, rand_angle, true, true, f6_local4)
+    elseif SpaceCheck(self, goal_manager, 180, 1) == true then
+        goal_manager:AddSubGoal(GOAL_COMMON_LeaveTarget, lifetime, TARGET_ENE_0, 999, TARGET_ENE_0, true, f6_local4)
     else
-        arg1:AddSubGoal(GOAL_COMMON_Wait, 0.5, TARGET_SELF, 0, 0, 0)
+        goal_manager:AddSubGoal(GOAL_COMMON_Wait, 0.5, TARGET_SELF, 0, 0, 0)
     end
+
     return false
 end
 
-function KankyakuAct(arg0, arg1, arg2, arg3, arg4)
-    if arg2 == nil or arg2 == -1 then
-        arg2 = 10
+--[[
+    观看行动，比如在忍杀时，在一旁当观众
+
+    return true 已经调整好位置
+]]
+function KankyakuAct(self, goal_manager, keep_dist, still_odd, arg4)
+    if keep_dist == nil or keep_dist == -1 then
+        keep_dist = 10
     end
-    if arg3 == nil or arg3 == -1 then
-        arg3 = 0
+    if still_odd == nil or still_odd == -1 then
+        still_odd = 0
     end
-    return TorimakiAct(arg0, arg1, arg2, arg3, arg4)
+
+    return TorimakiAct(self, goal_manager, keep_dist, still_odd, arg4)
 end
 
 --[[
@@ -246,10 +265,16 @@ function Common_ActivateAct(self, goal_manager, arg2, arg3)
     return true
 end
 
-function GetDirection_Sideway(arg0)
-    if SpaceCheck(arg0, goal, -90, 1) == true then
-        if SpaceCheck(arg0, goal, 90, 1) == true then
-            if arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_R, 180) then
+--[[
+    检测两边的障碍物情况，返回一个侧面移动的方向
+    
+    return 0 左边
+    return 1 右边
+]]
+function GetDirection_Sideway(self)
+    if SpaceCheck(self, goal, -90, 1) == true then
+        if SpaceCheck(self, goal, 90, 1) == true then
+            if self:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_R, 180) then
                 return 1
             else
                 return 0
@@ -257,7 +282,7 @@ function GetDirection_Sideway(arg0)
         else
             return 0
         end
-    elseif SpaceCheck(arg0, goal, 90, 1) == true then
+    elseif SpaceCheck(self, goal, 90, 1) == true then
         return 1
     else
         return 0
@@ -292,7 +317,7 @@ function Set_ConsecutiveGuardCount(arg0, arg1)
 end
 
 --[[
-    添加防御 sp 检测，包含弹开与招架
+    添加防御相关的 sp 中断点，包含弹开与招架
 ]]
 function Set_ConsecutiveGuardCount_Interrupt(arg0)
     arg0:AddObserveSpecialEffectAttribute(TARGET_SELF, 200250)

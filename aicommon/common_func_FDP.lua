@@ -1,5 +1,5 @@
 --[[
-    接近玩家，计算距离相关
+    接近玩家，计算距离，添加 approach target subgoal
 ]]
 function Approach_Act_Flex(self, goal_manager, arg2, min_dist, max_dist, odd, arg6, arg7, arg8, arg9)
     if arg7 == nil then
@@ -48,7 +48,9 @@ function Approach_Act_Flex(self, goal_manager, arg2, min_dist, max_dist, odd, ar
 end
 
 --[[
-    return true if no collision exist
+    self中心的扇形区域是否有障碍物
+
+    return true 如果没有障碍物
 ]]
 function SpaceCheck(self, goal_manager, angle, radius)
     local capsule_radius = self:GetMapHitRadius(TARGET_SELF)
@@ -213,37 +215,3 @@ function Update_Default_NoSubGoal(arg0, arg1, arg2)
     return GOAL_RESULT_Continue
 end
 
-function GuardGoalSubFunc_Activate(arg0, arg1, arg2)
-    if 0 < arg2 then
-        arg0:DoEzAction(arg1, arg2)
-    end
-end
-
-function GuardGoalSubFunc_Update(arg0, arg1, arg2, arg3, arg4)
-    if 0 < arg2 then
-        if arg1:GetNumber(0) ~= 0 then
-            return GOAL_RESULT_Failed
-        elseif arg1:GetNumber(1) ~= 0 then
-            return arg3
-        end
-    end
-    if arg1:GetLife() <= 0 then
-        if arg4 then
-            return GOAL_RESULT_Success
-        else
-            return GOAL_RESULT_Failed
-        end
-    end
-    return GOAL_RESULT_Continue
-end
-
-function GuardGoalSubFunc_Interrupt(arg0, arg1, arg2, arg3)
-    if 0 < arg2 then
-        if arg0:IsInterupt(INTERUPT_Damaged) then
-            arg1:SetNumber(0, 1)
-        elseif arg0:IsInterupt(INTERUPT_SuccessGuard) and arg3 ~= GOAL_RESULT_Continue then
-            arg1:SetNumber(1, 1)
-        end
-    end
-    return false
-end

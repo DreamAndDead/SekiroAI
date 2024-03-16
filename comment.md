@@ -2,12 +2,17 @@
 
 30xx xx < 50 主动攻击招式
 
+对应 50 个主动计划？
+
 3100 架刀防御动作
 3101
 3102
 
 
 305x 交锋动作，从左右手弹开的位置开始
+
+对应 50 个交锋动作？
+
 
 5201 小步后撤
 5211 连续多步后撤
@@ -268,6 +273,72 @@ arg1:Replanning()
 
 
 ## subgoal chain
+
+GOAL_COMMON_LeaveTarget
+底层实现的goal
+离开目标一定距离
+
+goal_manager:AddSubGoal(GOAL_COMMON_LeaveTarget, lifetime, TARGET_ENE_0, arg2, TARGET_ENE_0, true, f6_local4)
+
+- lifetime
+- target
+- 目标dist
+- target?
+- ?
+- ?
+
+
+GOAL_COMMON_ApproachTarget
+lua 层面
+底层使用 GOAL_COMMON_MoveToSomewhere
+
+REGISTER_GOAL_UPDATE_TIME(GOAL_COMMON_ApproachTarget, 0, 0)
+
+
+goal_manager:AddSubGoal(GOAL_COMMON_SidewayMove, f6_local1, TARGET_ENE_0, left_or_right_dir, f6_local3, true, true, f6_local4)
+
+底层goal
+左右移动
+
+
+
+arg1:AddSubGoal(GOAL_COMMON_Turn, 2, TARGET_ENE_0, 20, -1, GOAL_RESULT_Success, true)
+
+和 setturnspeed 关联？
+
+
+
+
+GOAL_COMMON_ComboAttackTunableSpin
+
+底层使用 goal_common_commonattack
+
+关联block
+
+SetTurnSpeed 224
+每秒可转向角度设置
+
+InvokeAttackBehavior
+关联相应 atk param
+开启碰撞的时间段
+
+
+arg1:AddSubGoal(GOAL_COMMON_ComboAttackTunableSpin, 10, f6_local8, arg0:GetStringIndexedNumber("targetWhich"),
+        f6_local10, f6_local11, f6_local12, 0, 0)
+
+
+
+
+GOAL_COMMON_ComboFinal
+底层使用 goal_common_commonattack
+
+block
+
+jumptable 23
+end if ai combo attack queued?
+ai 的 combo 命令可输入
+
+
 
 
 
