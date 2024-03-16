@@ -1,7 +1,6 @@
 REGISTER_GOAL_NO_INTERUPT(GOAL_COMMON_LiftOff, true)
 function LiftOff_Activate(arg0, arg1)
     arg1:AddSubGoal(GOAL_COMMON_Attack, 10, 9520, TARGET_NONE, DIST_None)
-    
 end
 
 function LiftOff_Update(arg0, arg1)
@@ -16,16 +15,14 @@ function LiftOff_Update(arg0, arg1)
         return GOAL_RESULT_Success
     end
     return GOAL_RESULT_Continue
-    
 end
 
 function LiftOff_Terminate(arg0, arg1)
-    
+
 end
 
 function LiftOff_Interupt(arg0, arg1)
     return false
-    
 end
 
 REGISTER_GOAL_NO_UPDATE(GOAL_COMMON_Landing, true)
@@ -40,21 +37,18 @@ function Landing_Activate(arg0, arg1)
     else
         arg1:AddSubGoal(GOAL_COMMON_Landing_Landing, 10)
     end
-    
 end
 
 function Landing_Update(arg0, arg1)
     return GOAL_RESULT_Continue
-    
 end
 
 function Landing_Terminate(arg0, arg1)
-    
+
 end
 
 function Landing_Interupt(arg0, arg1)
     return false
-    
 end
 
 REGISTER_GOAL_UPDATE_TIME(GOAL_COMMON_Landing_Move, 0.5, 0.5)
@@ -62,7 +56,6 @@ REGISTER_GOAL_NO_INTERUPT(GOAL_COMMON_Landing_Move, true)
 function Landing_Move_Activate(arg0, arg1)
     local f9_local0 = arg1:GetParam(0)
     arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, 10, POINT_AI_FIXED_POS, f9_local0, TARGET_SELF, false, -1)
-    
 end
 
 function Landing_Move_Update(arg0, arg1)
@@ -74,23 +67,20 @@ function Landing_Move_Update(arg0, arg1)
         return GOAL_RESULT_Failed
     end
     return GOAL_RESULT_Continue
-    
 end
 
 function Landing_Move_Terminate(arg0, arg1)
-    
+
 end
 
 function Landing_Move_Interupt(arg0, arg1)
     return false
-    
 end
 
 REGISTER_GOAL_UPDATE_TIME(GOAL_COMMON_Landing_Landing, 0.5, 0.5)
 REGISTER_GOAL_NO_INTERUPT(GOAL_COMMON_Landing_Landing, true)
 function Landing_Landing_Activate(arg0, arg1)
     arg1:AddSubGoal(GOAL_COMMON_Attack, arg1:GetLife(), 9510, TARGET_NONE, DIST_None)
-    
 end
 
 function Landing_Landing_Update(arg0, arg1)
@@ -112,16 +102,12 @@ function Landing_Landing_Update(arg0, arg1)
         return GOAL_RESULT_Failed
     end
     return GOAL_RESULT_Continue
-    
 end
 
 function Landing_Landing_Terminate(arg0, arg1)
-    
+
 end
 
 function Landing_Landing_Interupt(arg0, arg1)
     return false
-    
 end
-
-

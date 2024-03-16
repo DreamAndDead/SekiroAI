@@ -1,4 +1,4 @@
-REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_NonBattleAct, 0, "?G????????ûÐ???ym?z", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_NonBattleAct, 0, "?G????????ï¿½ï¿½???ym?z", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_NonBattleAct, 1, "?G??????I???H", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_NonBattleAct, 2, "????H", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_NonBattleAct, 3, "????yTYPE?z", 0)
@@ -27,7 +27,9 @@ function NonBattleAct_Activate(arg0, arg1)
             elseif f1_local3 < 1 then
                 arg1:AddSubGoal(GOAL_COMMON_Stay, 0.5, 0, TARGET_TEAM_FORMATION)
             else
-                arg1:AddSubGoal(GOAL_COMMON_MoveToSomewhere, arg1:GetLife(), TARGET_TEAM_FORMATION, AI_DIR_TYPE_CENTER, 0.1, TARGET_SELF, f1_local0, 0, nil, AI_CALC_DIST_TYPE__XYZ, arg1:GetParam(6), GUARD_GOAL_DESIRE_RET_Continue, false)
+                arg1:AddSubGoal(GOAL_COMMON_MoveToSomewhere, arg1:GetLife(), TARGET_TEAM_FORMATION, AI_DIR_TYPE_CENTER,
+                    0.1, TARGET_SELF, f1_local0, 0, nil, AI_CALC_DIST_TYPE__XYZ, arg1:GetParam(6),
+                    GUARD_GOAL_DESIRE_RET_Continue, false)
             end
         else
             NonBattleAct_Common(arg0, arg1)
@@ -37,7 +39,6 @@ function NonBattleAct_Activate(arg0, arg1)
     else
         NonBattleAct_Common(arg0, arg1)
     end
-    
 end
 
 function NonBattleAct_Common(arg0, arg1)
@@ -86,7 +87,9 @@ function NonBattleAct_Common(arg0, arg1)
                 arg0:SetStringIndexedNumber("RouteMoveAction:WaitTime", arg0:GetMovePointWaitTime(f2_local5))
             end
             arg1:AddSubGoal(GOAL_COMMON_Turn, 3, POINT_MOVE_POINT, 30, arg1:GetParam(6), 0, true)
-            arg1:AddSubGoal(GOAL_COMMON_MoveToSomewhere, arg1:GetLife(), POINT_MOVE_POINT, AI_DIR_TYPE_CENTER, 0, TARGET_SELF, f2_local4, 0, 0, AI_CALC_DIST_TYPE__XYZ, arg1:GetParam(6), GUARD_GOAL_DESIRE_RET_Continue, false)
+            arg1:AddSubGoal(GOAL_COMMON_MoveToSomewhere, arg1:GetLife(), POINT_MOVE_POINT, AI_DIR_TYPE_CENTER, 0,
+                TARGET_SELF, f2_local4, 0, 0, AI_CALC_DIST_TYPE__XYZ, arg1:GetParam(6), GUARD_GOAL_DESIRE_RET_Continue,
+                false)
         else
             if arg1:GetLastResult() == GOAL_RESULT_Success then
                 local f2_local5 = arg0:GetPrevMovePointNumber()
@@ -109,9 +112,12 @@ function NonBattleAct_Common(arg0, arg1)
             local f2_local6 = arg0:GetMovePointWaitTime(f2_local5)
             local f2_local7 = arg0:GetMovePointAnimId(f2_local5)
             if f2_local7 > 0 or f2_local6 > 0 then
-                arg1:AddSubGoal(GOAL_COMMON_MoveToSomewhere, arg1:GetLife(), POINT_MOVE_POINT, AI_DIR_TYPE_CENTER, 0, TARGET_SELF, f2_local4, 0, 0, AI_CALC_DIST_TYPE__XYZ, arg1:GetParam(6), GUARD_GOAL_DESIRE_RET_Continue, false)
+                arg1:AddSubGoal(GOAL_COMMON_MoveToSomewhere, arg1:GetLife(), POINT_MOVE_POINT, AI_DIR_TYPE_CENTER, 0,
+                    TARGET_SELF, f2_local4, 0, 0, AI_CALC_DIST_TYPE__XYZ, arg1:GetParam(6),
+                    GUARD_GOAL_DESIRE_RET_Continue, false)
             else
-                arg1:AddSubGoal(GOAL_COMMON_MoveToSomewhereSmooth, arg1:GetLife(), POINT_MOVE_POINT, AI_DIR_TYPE_CENTER, 0, TARGET_SELF, f2_local4, 0, arg1:GetParam(6), GUARD_GOAL_DESIRE_RET_Continue, false)
+                arg1:AddSubGoal(GOAL_COMMON_MoveToSomewhereSmooth, arg1:GetLife(), POINT_MOVE_POINT, AI_DIR_TYPE_CENTER,
+                    0, TARGET_SELF, f2_local4, 0, arg1:GetParam(6), GUARD_GOAL_DESIRE_RET_Continue, false)
             end
         end
     else
@@ -180,16 +186,14 @@ function NonBattleAct_Common(arg0, arg1)
             end
         end
     end
-    
 end
 
 function NonBattleAct_Update(arg0, arg1)
     return GOAL_RESULT_Continue
-    
 end
 
 function NonBattleAct_Terminate(arg0, arg1)
-    
+
 end
 
 function NonBattleAct_Interupt(arg0, arg1)
@@ -215,7 +219,4 @@ function NonBattleAct_Interupt(arg0, arg1)
         return true
     end
     return false
-    
 end
-
-

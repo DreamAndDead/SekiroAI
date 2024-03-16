@@ -5,6 +5,7 @@ REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_StabCounterAttack, 3, "?U???O??????", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_StabCounterAttack, 4, "???????p?x", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_StabCounterAttack, 5, "??U???p?x", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_StabCounterAttack, 6, "???U???p?x", 0)
+
 function StabCounterAttack_Activate(arg0, arg1)
     local f1_local0 = arg1:GetLife()
     local f1_local1 = arg1:GetParam(0)
@@ -26,25 +27,20 @@ function StabCounterAttack_Activate(arg0, arg1)
     local f1_local11 = false
     local f1_local12 = arg1:GetParam(5)
     local f1_local13 = arg1:GetParam(6)
-    arg1:AddSubGoal(GOAL_COMMON_CommonAttack, f1_local0, f1_local1, f1_local2, f1_local3, f1_local4, f1_local5, f1_local6, f1_local8, f1_local9, f1_local10, f1_local11, f1_local12, f1_local13, f1_local7)
+    arg1:AddSubGoal(GOAL_COMMON_CommonAttack, f1_local0, f1_local1, f1_local2, f1_local3, f1_local4, f1_local5, f1_local6,
+        f1_local8, f1_local9, f1_local10, f1_local11, f1_local12, f1_local13, f1_local7)
     arg0:SetEnableStabCounterCancel_forGoal()
-    
 end
 
 function StabCounterAttack_Update(arg0, arg1)
     return GOAL_RESULT_Continue
-    
 end
 
 function StabCounterAttack_Terminate(arg0, arg1)
     arg0:ClearEnableStabCounterCancel_forGoal()
-    
 end
 
 REGISTER_GOAL_NO_INTERUPT(GOAL_COMMON_StabCounterAttack, true)
 function StabCounterAttack_Interupt(arg0, arg1)
     return false
-    
 end
-
-

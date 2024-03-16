@@ -12,7 +12,6 @@ function SpecialTurn_Activate(arg0, arg1)
     else
         arg1:AddSubGoal(GOAL_COMMON_AttackTunableSpin, arg1:GetLife(), f1_local0, f1_local1, DIST_None, 0, -1)
     end
-    
 end
 
 function SpecialTurn_Update(arg0, arg1)
@@ -20,16 +19,12 @@ function SpecialTurn_Update(arg0, arg1)
         return GOAL_RESULT_Success
     end
     return GOAL_RESULT_Continue
-    
 end
 
 function SpecialTurn_Terminate(arg0, arg1)
-    
+
 end
 
 function SpecialTurn_Interupt(arg0, arg1)
     return false
-    
 end
-
-

@@ -520,7 +520,7 @@ function Approach_and_Attack_Act(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7,
     end
     local f37_local4 = GET_PARAM_IF_NIL_DEF(arg7, 1.5)
     local f37_local5 = GET_PARAM_IF_NIL_DEF(arg8, 20)
-    
+
     arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, 10, TARGET_ENE_0, arg2, TARGET_SELF, f37_local1, f37_local2)
     arg1:AddSubGoal(GOAL_COMMON_AttackTunableSpin, 10, arg5, TARGET_ENE_0, arg6, f37_local4, f37_local5)
 end

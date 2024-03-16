@@ -2,18 +2,17 @@ g_LogicTable = {}
 g_GoalTable = {}
 Logic = nil
 Goal = nil
-function RegisterTableLogic(arg0)
-    REGISTER_LOGIC_FUNC(arg0, "TableLogic_" .. arg0, "TableLogic_" .. arg0 .. "_Interrupt")
+
+function RegisterTableLogic(logic_id)
+    REGISTER_LOGIC_FUNC(logic_id, "TableLogic_" .. logic_id, "TableLogic_" .. logic_id .. "_Interrupt")
     Logic = {}
-    g_LogicTable[arg0] = Logic
-    
+    g_LogicTable[logic_id] = Logic
 end
 
-function RegisterTableGoal(arg0, arg1)
-    REGISTER_GOAL(arg0, arg1)
+function RegisterTableGoal(goal_id, goal_name)
+    REGISTER_GOAL(goal_id, goal_name)
     Goal = {}
-    g_GoalTable[arg0] = Goal
-    
+    g_GoalTable[goal_id] = Goal
 end
 
 function SetupScriptLogicInfo(arg0, arg1)
@@ -27,23 +26,21 @@ function SetupScriptLogicInfo(arg0, arg1)
     else
         arg1:SetNormalLogic()
     end
-    
 end
 
-function SetupScriptGoalInfo(arg0, arg1)
-    local f4_local0 = g_GoalTable[arg0]
-    if f4_local0 ~= nil then
-        local f4_local1 = _CreateInterruptTypeInfoTable(f4_local0)
-        local f4_local2 = f4_local0.Update ~= nil
-        local f4_local3 = f4_local0.Terminate ~= nil
-        local f4_local4 = _IsInterruptFuncExist(f4_local1, f4_local0)
-        local f4_local5 = f4_local0.Initialize ~= nil
-        f4_local0.InterruptInfoTable = f4_local1
-        arg1:SetTableGoal(f4_local2, f4_local3, f4_local4, f4_local5)
+function SetupScriptGoalInfo(goal_id, arg1)
+    local goal = g_GoalTable[goal_id]
+    if goal ~= nil then
+        local int_table = _CreateInterruptTypeInfoTable(goal)
+        local can_update = goal.Update ~= nil
+        local can_terminate = goal.Terminate ~= nil
+        local can_interupt = _IsInterruptFuncExist(int_table, goal)
+        local can_init = goal.Initialize ~= nil
+        goal.InterruptInfoTable = int_table
+        arg1:SetTableGoal(can_update, can_terminate, can_interupt, can_init)
     else
         arg1:SetNormalGoal()
     end
-    
 end
 
 function ExecTableLogic(arg0, arg1)
@@ -54,7 +51,6 @@ function ExecTableLogic(arg0, arg1)
             f5_local1(f5_local0, arg0)
         end
     end
-    
 end
 
 function UpdateTableLogic(arg0, arg1)
@@ -65,70 +61,64 @@ function UpdateTableLogic(arg0, arg1)
             f6_local1(f6_local0, arg0)
         end
     end
-    
 end
 
-function InitializeTableGoal(arg0, arg1, arg2)
-    local f7_local0 = false
-    local f7_local1 = g_GoalTable[arg2]
-    if f7_local1 ~= nil then
-        local f7_local2 = f7_local1.Initialize
-        if f7_local2 ~= nil then
-            f7_local2(f7_local1, arg0, arg1, arg0:GetChangeBattleStateCount())
-            f7_local0 = true
+function InitializeTableGoal(arg0, arg1, goal_id)
+    local if_init = false
+    local goal = g_GoalTable[goal_id]
+    if goal ~= nil then
+        local init_func = goal.Initialize
+        if init_func ~= nil then
+            init_func(goal, arg0, arg1, arg0:GetChangeBattleStateCount())
+            if_init = true
         end
     end
-    return f7_local0
-    
+    return if_init
 end
 
-function ActivateTableGoal(arg0, arg1, arg2)
-    local f8_local0 = false
-    local f8_local1 = g_GoalTable[arg2]
-    if f8_local1 ~= nil then
-        local f8_local2 = f8_local1.Activate
-        if f8_local2 ~= nil then
-            f8_local0 = f8_local2(f8_local1, arg0, arg1)
+function ActivateTableGoal(arg0, arg1, goal_id)
+    local activate_res = false
+    local goal = g_GoalTable[goal_id]
+    if goal ~= nil then
+        local activate_func = goal.Activate
+        if activate_func ~= nil then
+            activate_res = activate_func(goal, arg0, arg1)
         end
     end
-    return f8_local0
-    
+    return activate_res
 end
 
-function UpdateTableGoal(arg0, arg1, arg2)
-    local f9_local0 = GOAL_RESULT_Continue
-    local f9_local1 = g_GoalTable[arg2]
-    if f9_local1 ~= nil then
-        local f9_local2 = f9_local1.Update
-        if f9_local2 ~= nil then
-            f9_local0 = f9_local2(f9_local1, arg0, arg1)
+function UpdateTableGoal(arg0, arg1, goal_id)
+    local update_res = GOAL_RESULT_Continue
+    local goal = g_GoalTable[goal_id]
+    if goal ~= nil then
+        local update_func = goal.Update
+        if update_func ~= nil then
+            update_res = update_func(goal, arg0, arg1)
         end
     end
-    return f9_local0
-    
+    return update_res
 end
 
-function TerminateTableGoal(arg0, arg1, arg2)
-    local f10_local0 = false
-    local f10_local1 = g_GoalTable[arg2]
-    if f10_local1 ~= nil then
-        local f10_local2 = f10_local1.Terminate
-        if f10_local2 ~= nil then
-            f10_local0 = f10_local2(f10_local1, arg0, arg1)
+function TerminateTableGoal(arg0, arg1, goal_id)
+    local terminate_res = false
+    local goal = g_GoalTable[goal_id]
+    if goal ~= nil then
+        local terminate_func = goal.Terminate
+        if terminate_func ~= nil then
+            terminate_res = terminate_func(goal, arg0, arg1)
         end
     end
-    return f10_local0
-    
+    return terminate_res
 end
 
-function InterruptTableLogic(arg0, arg1, arg2, arg3)
-    local f11_local0 = false
-    local f11_local1 = g_LogicTable[arg2]
-    if f11_local1 ~= nil then
-        f11_local0 = _InterruptTableGoal_TypeCall(arg0, arg1, f11_local1, arg3)
+function InterruptTableLogic(arg0, arg1, logic_id, int_id)
+    local interrupt_res = false
+    local logic = g_LogicTable[logic_id]
+    if logic ~= nil then
+        interrupt_res = _InterruptTableGoal_TypeCall(arg0, arg1, logic, int_id)
     end
-    return f11_local0
-    
+    return interrupt_res
 end
 
 function InterruptTableLogic_Common(arg0, arg1, arg2)
@@ -226,7 +216,8 @@ function InterruptTableLogic_Common(arg0, arg1, arg2)
             if arg0:IsFinishTimer(13) then
                 arg0:SetStringIndexedNumber("ConsecutiveGuardCount", 1)
             else
-                arg0:SetStringIndexedNumber("ConsecutiveGuardCount", arg0:GetStringIndexedNumber("ConsecutiveGuardCount") + 1)
+                arg0:SetStringIndexedNumber("ConsecutiveGuardCount",
+                    arg0:GetStringIndexedNumber("ConsecutiveGuardCount") + 1)
             end
             arg0:SetTimer(13, 1)
         elseif f12_local2 == 200210 or f12_local2 == 200211 then
@@ -306,7 +297,8 @@ function InterruptTableLogic_Common(arg0, arg1, arg2)
             if f12_local8 == 1000 and f12_local9 == f12_local2 then
                 arg0:RemoveTriggerRegionObserver(1000)
                 arg1:ClearSubGoal()
-                arg0:AddTopGoal(GOAL_COMMON_ConfirmCautionTarget, 30, f12_local4, TARGET_SELF, arg0:GetRandam_Float(3, 4), TARGET_SELF)
+                arg0:AddTopGoal(GOAL_COMMON_ConfirmCautionTarget, 30, f12_local4, TARGET_SELF, arg0:GetRandam_Float(3, 4),
+                    TARGET_SELF)
                 return true
             end
         end
@@ -316,895 +308,1002 @@ function InterruptTableLogic_Common(arg0, arg1, arg2)
         arg1:AddSubGoal(GOAL_COMMON_Wait, 0.1, TARGET_SELF, 0, 0, 0)
     end
     return f12_local0
-    
 end
 
-function InterruptTableGoal(arg0, arg1, arg2, arg3)
-    local f13_local0 = false
-    local f13_local1 = g_GoalTable[arg2]
-    if f13_local1 ~= nil then
-        f13_local0 = _InterruptTableGoal_TypeCall(arg0, arg1, f13_local1, arg3)
+function InterruptTableGoal(arg0, arg1, goal_id, int_id)
+    local interrupt_res = false
+    local goal = g_GoalTable[goal_id]
+    if goal ~= nil then
+        interrupt_res = _InterruptTableGoal_TypeCall(arg0, arg1, goal, int_id)
     end
-    return f13_local0
-    
+    return interrupt_res
 end
 
-function InterruptTableGoal_Common(arg0, arg1, arg2)
-    local f14_local0 = false
-    local f14_local1 = g_GoalTable[arg2]
-    if f14_local1 ~= nil and f14_local1.Interrupt ~= nil then
-        if f14_local1:Interrupt(arg0, arg1) then
-            f14_local0 = true
+function InterruptTableGoal_Common(arg0, arg1, goal_id)
+    local if_interrupt = false
+    local goal = g_GoalTable[goal_id]
+
+    if goal ~= nil and goal.Interrupt ~= nil then
+        if goal:Interrupt(arg0, arg1) then
+            if_interrupt = true
         end
         if arg1:IsInterruptSubGoalChanged() then
-            f14_local0 = true
+            if_interrupt = true
         end
     end
-    return f14_local0
-    
+    return if_interrupt
 end
 
-function _IsInterruptFuncExist(arg0, arg1)
+function _IsInterruptFuncExist(int_table, goal)
     for f15_local0 = INTERUPT_First, INTERUPT_Last, 1 do
-        if not arg0[f15_local0].bEmpty then
+        if not int_table[f15_local0].bEmpty then
             return true
         end
     end
-    local f15_local0 = false
-    return f15_local0
-    
+    return false
 end
 
-function _InterruptTableGoal_TypeCall(arg0, arg1, arg2, arg3)
-    if arg2.InterruptInfoTable[arg3].func(arg0, arg1, arg2) then
+function _InterruptTableGoal_TypeCall(arg0, arg1, goal, int_id)
+    if goal.InterruptInfoTable[int_id].func(arg0, arg1, goal) then
         return true
     end
     return false
-    
 end
 
-function _CreateInterruptTypeInfoTable(arg0)
-    local f17_local0 = {}
-    local f17_local1 = INTERUPT_FindEnemy
-    local f17_local2 = {func = function (arg0, arg1, arg2)
-        local f29_local0 = _GetInterruptFunc(arg2.Interrupt_FindEnemy)
-        if f29_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_FindEnemy == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_FindAttack
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f30_local0 = _GetInterruptFunc(arg2.Interrupt_FindAttack)
-        if f30_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_FindAttack == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_Damaged
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f31_local0 = _GetInterruptFunc(arg2.Interrupt_Damaged)
-        if f31_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_Damaged == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_Damaged_Stranger
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f32_local0 = _GetInterruptFunc(arg2.Interrupt_Damaged_Stranger)
-        if f32_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_Damaged_Stranger == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_FindMissile
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f33_local0 = _GetInterruptFunc(arg2.Interrupt_FindMissile)
-        if f33_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_FindMissile == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_SuccessGuard
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f34_local0 = _GetInterruptFunc(arg2.Interrupt_SuccessGuard)
-        if f34_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_SuccessGuard == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_MissSwing
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f35_local0 = _GetInterruptFunc(arg2.Interrupt_MissSwing)
-        if f35_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_MissSwing == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_GuardBegin
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f36_local0 = _GetInterruptFunc(arg2.Interrupt_GuardBegin)
-        if f36_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_GuardBegin == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_GuardFinish
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f37_local0 = _GetInterruptFunc(arg2.Interrupt_GuardFinish)
-        if f37_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_GuardFinish == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_GuardBreak
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f38_local0 = _GetInterruptFunc(arg2.Interrupt_GuardBreak)
-        if f38_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_GuardBreak == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_Shoot
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f39_local0 = _GetInterruptFunc(arg2.Interrupt_Shoot)
-        if f39_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_Shoot == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_ShootImpact
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f40_local0 = _GetInterruptFunc(arg2.Interrupt_ShootImpact)
-        if f40_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_ShootImpact == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_UseItem
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f41_local0 = _GetInterruptFunc(arg2.Interrupt_UseItem)
-        if f41_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_UseItem == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_EnterBattleArea
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f42_local0 = _GetInterruptFunc(arg2.Interrupt_EnterBattleArea)
-        if f42_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_EnterBattleArea == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_LeaveBattleArea
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f43_local0 = _GetInterruptFunc(arg2.Interrupt_LeaveBattleArea)
-        if f43_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_LeaveBattleArea == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_CANNOT_MOVE
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f44_local0 = _GetInterruptFunc(arg2.Interrupt_CANNOT_MOVE)
-        if f44_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_CANNOT_MOVE == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_Inside_ObserveArea
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        if _InterruptTableGoal_Inside_ObserveArea(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_Inside_ObserveArea == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_ReboundByOpponentGuard
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f46_local0 = _GetInterruptFunc(arg2.Interrupt_ReboundByOpponentGuard)
-        if f46_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_ReboundByOpponentGuard == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_ForgetTarget
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f47_local0 = _GetInterruptFunc(arg2.Interrupt_ForgetTarget)
-        if f47_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_ForgetTarget == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_FriendRequestSupport
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f48_local0 = _GetInterruptFunc(arg2.Interrupt_FriendRequestSupport)
-        if f48_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_FriendRequestSupport == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_TargetIsGuard
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f49_local0 = _GetInterruptFunc(arg2.Interrupt_TargetIsGuard)
-        if f49_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_TargetIsGuard == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_HitEnemyWall
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f50_local0 = _GetInterruptFunc(arg2.Interrupt_HitEnemyWall)
-        if f50_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_HitEnemyWall == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_SuccessParry
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f51_local0 = _GetInterruptFunc(arg2.Interrupt_SuccessParry)
-        if f51_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_SuccessParry == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_CANNOT_MOVE_DisableInterupt
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f52_local0 = _GetInterruptFunc(arg2.Interrupt_CANNOT_MOVE_DisableInterupt)
-        if f52_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_CANNOT_MOVE_DisableInterupt == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_ParryTiming
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f53_local0 = _GetInterruptFunc(arg2.Interrupt_ParryTiming)
-        if f53_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_ParryTiming == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_RideNode_LadderBottom
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f54_local0 = _GetInterruptFunc(arg2.Interrupt_RideNode_LadderBottom)
-        if f54_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_RideNode_LadderBottom == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_FLAG_RideNode_Door
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f55_local0 = _GetInterruptFunc(arg2.Interrupt_FLAG_RideNode_Door)
-        if f55_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_FLAG_RideNode_Door == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_StraightByPath
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f56_local0 = _GetInterruptFunc(arg2.Interrupt_StraightByPath)
-        if f56_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_StraightByPath == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_ChangedAnimIdOffset
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f57_local0 = _GetInterruptFunc(arg2.Interrupt_ChangedAnimIdOffset)
-        if f57_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_ChangedAnimIdOffset == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_SuccessThrow
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f58_local0 = _GetInterruptFunc(arg2.Interrupt_SuccessThrow)
-        if f58_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_SuccessThrow == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_LookedTarget
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f59_local0 = _GetInterruptFunc(arg2.Interrupt_LookedTarget)
-        if f59_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_LookedTarget == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_LoseSightTarget
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f60_local0 = _GetInterruptFunc(arg2.Interrupt_LoseSightTarget)
-        if f60_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_LoseSightTarget == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_RideNode_InsideWall
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f61_local0 = _GetInterruptFunc(arg2.Interrupt_RideNode_InsideWall)
-        if f61_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_RideNode_InsideWall == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_MissSwingSelf
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f62_local0 = _GetInterruptFunc(arg2.Interrupt_MissSwingSelf)
-        if f62_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_MissSwingSelf == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_GuardBreakBlow
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f63_local0 = _GetInterruptFunc(arg2.Interrupt_GuardBreakBlow)
-        if f63_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_GuardBreakBlow == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_TargetOutOfRange
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        if _InterruptTableGoal_TargetOutOfRange(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_TargetOutOfRange == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_UnstableFloor
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f65_local0 = _GetInterruptFunc(arg2.Interrupt_UnstableFloor)
-        if f65_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_UnstableFloor == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_BreakFloor
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f66_local0 = _GetInterruptFunc(arg2.Interrupt_BreakFloor)
-        if f66_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_BreakFloor == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_BreakObserveObj
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f67_local0 = _GetInterruptFunc(arg2.Interrupt_BreakObserveObj)
-        if f67_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_BreakObserveObj == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_EventRequest
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f68_local0 = _GetInterruptFunc(arg2.Interrupt_EventRequest)
-        if f68_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_EventRequest == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_Outside_ObserveArea
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        if _InterruptTableGoal_Outside_ObserveArea(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_Outside_ObserveArea == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_TargetOutOfAngle
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        if _InterruptTableGoal_TargetOutOfAngle(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_TargetOutOfAngle == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_PlatoonAiOrder
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f71_local0 = _GetInterruptFunc(arg2.Interrupt_PlatoonAiOrder)
-        if f71_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_PlatoonAiOrder == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_ActivateSpecialEffect
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        if _InterruptTableGoal_ActivateSpecialEffect(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_ActivateSpecialEffect == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_InactivateSpecialEffect
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        if _InterruptTableGoal_InactivateSpecialEffect(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_InactivateSpecialEffect == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_MovedEnd_OnFailedPath
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f74_local0 = _GetInterruptFunc(arg2.Interrupt_MovedEnd_OnFailedPath)
-        if f74_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_MovedEnd_OnFailedPath == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_ChangeSoundTarget
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f75_local0 = _GetInterruptFunc(arg2.Interrupt_ChangeSoundTarget)
-        if f75_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_ChangeSoundTarget == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_OnCreateDamage
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f76_local0 = _GetInterruptFunc(arg2.Interrupt_OnCreateDamage)
-        if f76_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_OnCreateDamage == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_InvadeTriggerRegion
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        if _InterruptTableGoal_InvadeTriggerRegion(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_InvadeTriggerRegion == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_LeaveTriggerRegion
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        if _InterruptTableGoal_LeaveTriggerRegion(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_LeaveTriggerRegion == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_AIGuardBroken
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f79_local0 = _GetInterruptFunc(arg2.Interrupt_AIGuardBroken)
-        if f79_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_AIGuardBroken == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_AIReboundByOpponentGuard
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f80_local0 = _GetInterruptFunc(arg2.Interrupt_AIReboundByOpponentGuard)
-        if f80_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_AIReboundByOpponentGuard == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_BackstabRisk
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f81_local0 = _GetInterruptFunc(arg2.Interrupt_BackstabRisk)
-        if f81_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_BackstabRisk == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_FindIndicationTarget
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f82_local0 = _GetInterruptFunc(arg2.Interrupt_FindIndicationTarget)
-        if f82_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_FindIndicationTarget == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_FindCorpseTarget
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f83_local0 = _GetInterruptFunc(arg2.Interrupt_FindCorpseTarget)
-        if f83_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_FindCorpseTarget == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_FindFailedPath
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f84_local0 = _GetInterruptFunc(arg2.Interrupt_FindFailedPath)
-        if f84_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_FindFailedPath == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_GuardedMyAttack
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f85_local0 = _GetInterruptFunc(arg2.Interrupt_GuardedMyAttack)
-        if f85_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_GuardedMyAttack == nil}
-    f17_local0[f17_local1] = f17_local2
-    f17_local1 = INTERUPT_WanderedOffPathRepath
-    f17_local2 = {func = function (arg0, arg1, arg2)
-        local f86_local0 = _GetInterruptFunc(arg2.Interrupt_WanderedOffPathRepath)
-        if f86_local0(arg2, arg0, arg1) then
-            return true
-        end
-        if arg1:IsInterruptSubGoalChanged() then
-            return true
-        end
-        return false
-        
-    end
-, bEmpty = arg0.Interrupt_WanderedOffPathRepath == nil}
-    f17_local0[f17_local1] = f17_local2
-    return f17_local0
-    
+function _CreateInterruptTypeInfoTable(goal)
+    local int_info_table = {}
+
+    local int_id = INTERUPT_FindEnemy
+    local int_info = {
+        func = function(arg0, arg1, arg2)
+            local int_func = _GetInterruptFunc(arg2.Interrupt_FindEnemy)
+            if int_func(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_FindEnemy == nil
+    }
+    int_info_table[int_id] = int_info
+
+    int_id = INTERUPT_FindAttack
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f30_local0 = _GetInterruptFunc(arg2.Interrupt_FindAttack)
+            if f30_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_FindAttack == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_Damaged
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f31_local0 = _GetInterruptFunc(arg2.Interrupt_Damaged)
+            if f31_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_Damaged == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_Damaged_Stranger
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f32_local0 = _GetInterruptFunc(arg2.Interrupt_Damaged_Stranger)
+            if f32_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_Damaged_Stranger == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_FindMissile
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f33_local0 = _GetInterruptFunc(arg2.Interrupt_FindMissile)
+            if f33_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_FindMissile == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_SuccessGuard
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f34_local0 = _GetInterruptFunc(arg2.Interrupt_SuccessGuard)
+            if f34_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_SuccessGuard == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_MissSwing
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f35_local0 = _GetInterruptFunc(arg2.Interrupt_MissSwing)
+            if f35_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_MissSwing == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_GuardBegin
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f36_local0 = _GetInterruptFunc(arg2.Interrupt_GuardBegin)
+            if f36_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_GuardBegin == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_GuardFinish
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f37_local0 = _GetInterruptFunc(arg2.Interrupt_GuardFinish)
+            if f37_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_GuardFinish == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_GuardBreak
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f38_local0 = _GetInterruptFunc(arg2.Interrupt_GuardBreak)
+            if f38_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_GuardBreak == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_Shoot
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f39_local0 = _GetInterruptFunc(arg2.Interrupt_Shoot)
+            if f39_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_Shoot == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_ShootImpact
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f40_local0 = _GetInterruptFunc(arg2.Interrupt_ShootImpact)
+            if f40_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_ShootImpact == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_UseItem
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f41_local0 = _GetInterruptFunc(arg2.Interrupt_UseItem)
+            if f41_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_UseItem == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_EnterBattleArea
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f42_local0 = _GetInterruptFunc(arg2.Interrupt_EnterBattleArea)
+            if f42_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_EnterBattleArea == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_LeaveBattleArea
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f43_local0 = _GetInterruptFunc(arg2.Interrupt_LeaveBattleArea)
+            if f43_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_LeaveBattleArea == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_CANNOT_MOVE
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f44_local0 = _GetInterruptFunc(arg2.Interrupt_CANNOT_MOVE)
+            if f44_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_CANNOT_MOVE == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_Inside_ObserveArea
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            if _InterruptTableGoal_Inside_ObserveArea(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_Inside_ObserveArea == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_ReboundByOpponentGuard
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f46_local0 = _GetInterruptFunc(arg2.Interrupt_ReboundByOpponentGuard)
+            if f46_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_ReboundByOpponentGuard == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_ForgetTarget
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f47_local0 = _GetInterruptFunc(arg2.Interrupt_ForgetTarget)
+            if f47_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_ForgetTarget == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_FriendRequestSupport
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f48_local0 = _GetInterruptFunc(arg2.Interrupt_FriendRequestSupport)
+            if f48_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_FriendRequestSupport == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_TargetIsGuard
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f49_local0 = _GetInterruptFunc(arg2.Interrupt_TargetIsGuard)
+            if f49_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_TargetIsGuard == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_HitEnemyWall
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f50_local0 = _GetInterruptFunc(arg2.Interrupt_HitEnemyWall)
+            if f50_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_HitEnemyWall == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_SuccessParry
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f51_local0 = _GetInterruptFunc(arg2.Interrupt_SuccessParry)
+            if f51_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_SuccessParry == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_CANNOT_MOVE_DisableInterupt
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f52_local0 = _GetInterruptFunc(arg2.Interrupt_CANNOT_MOVE_DisableInterupt)
+            if f52_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_CANNOT_MOVE_DisableInterupt == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_ParryTiming
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f53_local0 = _GetInterruptFunc(arg2.Interrupt_ParryTiming)
+            if f53_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_ParryTiming == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_RideNode_LadderBottom
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f54_local0 = _GetInterruptFunc(arg2.Interrupt_RideNode_LadderBottom)
+            if f54_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_RideNode_LadderBottom == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_FLAG_RideNode_Door
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f55_local0 = _GetInterruptFunc(arg2.Interrupt_FLAG_RideNode_Door)
+            if f55_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_FLAG_RideNode_Door == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_StraightByPath
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f56_local0 = _GetInterruptFunc(arg2.Interrupt_StraightByPath)
+            if f56_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_StraightByPath == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_ChangedAnimIdOffset
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f57_local0 = _GetInterruptFunc(arg2.Interrupt_ChangedAnimIdOffset)
+            if f57_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_ChangedAnimIdOffset == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_SuccessThrow
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f58_local0 = _GetInterruptFunc(arg2.Interrupt_SuccessThrow)
+            if f58_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_SuccessThrow == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_LookedTarget
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f59_local0 = _GetInterruptFunc(arg2.Interrupt_LookedTarget)
+            if f59_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_LookedTarget == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_LoseSightTarget
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f60_local0 = _GetInterruptFunc(arg2.Interrupt_LoseSightTarget)
+            if f60_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_LoseSightTarget == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_RideNode_InsideWall
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f61_local0 = _GetInterruptFunc(arg2.Interrupt_RideNode_InsideWall)
+            if f61_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_RideNode_InsideWall == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_MissSwingSelf
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f62_local0 = _GetInterruptFunc(arg2.Interrupt_MissSwingSelf)
+            if f62_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_MissSwingSelf == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_GuardBreakBlow
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f63_local0 = _GetInterruptFunc(arg2.Interrupt_GuardBreakBlow)
+            if f63_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_GuardBreakBlow == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_TargetOutOfRange
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            if _InterruptTableGoal_TargetOutOfRange(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_TargetOutOfRange == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_UnstableFloor
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f65_local0 = _GetInterruptFunc(arg2.Interrupt_UnstableFloor)
+            if f65_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_UnstableFloor == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_BreakFloor
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f66_local0 = _GetInterruptFunc(arg2.Interrupt_BreakFloor)
+            if f66_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_BreakFloor == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_BreakObserveObj
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f67_local0 = _GetInterruptFunc(arg2.Interrupt_BreakObserveObj)
+            if f67_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_BreakObserveObj == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_EventRequest
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f68_local0 = _GetInterruptFunc(arg2.Interrupt_EventRequest)
+            if f68_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_EventRequest == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_Outside_ObserveArea
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            if _InterruptTableGoal_Outside_ObserveArea(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_Outside_ObserveArea == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_TargetOutOfAngle
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            if _InterruptTableGoal_TargetOutOfAngle(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_TargetOutOfAngle == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_PlatoonAiOrder
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f71_local0 = _GetInterruptFunc(arg2.Interrupt_PlatoonAiOrder)
+            if f71_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_PlatoonAiOrder == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_ActivateSpecialEffect
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            if _InterruptTableGoal_ActivateSpecialEffect(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_ActivateSpecialEffect == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_InactivateSpecialEffect
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            if _InterruptTableGoal_InactivateSpecialEffect(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_InactivateSpecialEffect == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_MovedEnd_OnFailedPath
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f74_local0 = _GetInterruptFunc(arg2.Interrupt_MovedEnd_OnFailedPath)
+            if f74_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_MovedEnd_OnFailedPath == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_ChangeSoundTarget
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f75_local0 = _GetInterruptFunc(arg2.Interrupt_ChangeSoundTarget)
+            if f75_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_ChangeSoundTarget == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_OnCreateDamage
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f76_local0 = _GetInterruptFunc(arg2.Interrupt_OnCreateDamage)
+            if f76_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_OnCreateDamage == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_InvadeTriggerRegion
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            if _InterruptTableGoal_InvadeTriggerRegion(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_InvadeTriggerRegion == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_LeaveTriggerRegion
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            if _InterruptTableGoal_LeaveTriggerRegion(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_LeaveTriggerRegion == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_AIGuardBroken
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f79_local0 = _GetInterruptFunc(arg2.Interrupt_AIGuardBroken)
+            if f79_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_AIGuardBroken == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_AIReboundByOpponentGuard
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f80_local0 = _GetInterruptFunc(arg2.Interrupt_AIReboundByOpponentGuard)
+            if f80_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_AIReboundByOpponentGuard == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_BackstabRisk
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f81_local0 = _GetInterruptFunc(arg2.Interrupt_BackstabRisk)
+            if f81_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_BackstabRisk == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_FindIndicationTarget
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f82_local0 = _GetInterruptFunc(arg2.Interrupt_FindIndicationTarget)
+            if f82_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_FindIndicationTarget == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_FindCorpseTarget
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f83_local0 = _GetInterruptFunc(arg2.Interrupt_FindCorpseTarget)
+            if f83_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_FindCorpseTarget == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_FindFailedPath
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f84_local0 = _GetInterruptFunc(arg2.Interrupt_FindFailedPath)
+            if f84_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_FindFailedPath == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_GuardedMyAttack
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f85_local0 = _GetInterruptFunc(arg2.Interrupt_GuardedMyAttack)
+            if f85_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_GuardedMyAttack == nil
+    }
+    int_info_table[int_id] = int_info
+    int_id = INTERUPT_WanderedOffPathRepath
+    int_info = {
+        func = function(arg0, arg1, arg2)
+            local f86_local0 = _GetInterruptFunc(arg2.Interrupt_WanderedOffPathRepath)
+            if f86_local0(arg2, arg0, arg1) then
+                return true
+            end
+            if arg1:IsInterruptSubGoalChanged() then
+                return true
+            end
+            return false
+        end
+        ,
+        bEmpty = goal.Interrupt_WanderedOffPathRepath == nil
+    }
+    int_info_table[int_id] = int_info
+    return int_info_table
 end
 
-function _GetInterruptFunc(arg0)
-    if arg0 ~= nil then
-        return arg0
+function _GetInterruptFunc(func)
+    if func ~= nil then
+        return func
     end
     return _InterruptTableGoal_TypeCall_Dummy
-    
 end
 
 function _InterruptTableGoal_TypeCall_Dummy()
     return false
-    
 end
 
 function _InterruptTableGoal_TargetOutOfRange_Common(arg0, arg1, arg2, arg3, arg4)
-    local f20_local0 = false
-    for f20_local1 = 0, 31, 1 do
-        if arg3(f20_local1) then
-            f20_local0 = true
-            if arg4(arg0, arg1, arg2, f20_local1) then
+    for i = 0, 31, 1 do
+        if arg3(i) then
+            if arg4(arg0, arg1, arg2, i) then
                 return true
             end
         end
     end
+
     local f20_local1 = bSlotEnable
     if f20_local1 then
         f20_local1 = false
         return f20_local1
     end
-    f20_local1 = arg4
-    local f20_local2 = arg0
-    return f20_local1(f20_local2, arg1, arg2, -1)
-    
+
+    return arg4(arg0, arg1, arg2, -1)
 end
 
 function _InterruptTableGoal_TargetOutOfRange(arg0, arg1, arg2)
@@ -1212,15 +1311,13 @@ function _InterruptTableGoal_TargetOutOfRange(arg0, arg1, arg2)
     local f21_local1 = arg0
     local f21_local2 = REG1_0
     local f21_local3 = arg2
-    local f21_local4 = function (arg0)
+    local f21_local4 = function(arg0)
         local f87_local0 = arg1
         return f87_local0:IsTargetOutOfRangeInterruptSlot(arg0)
-        
     end
 
     local f21_local5 = _GetInterruptFunc(arg0.Interrupt_TargetOutOfRange)
-    return f21_local0()
-    
+    return f21_local0(f21_local1, f21_local2, f21_local3, f21_local4, f21_local5)
 end
 
 function _InterruptTableGoal_TargetOutOfAngle(arg0, arg1, arg2)
@@ -1228,81 +1325,71 @@ function _InterruptTableGoal_TargetOutOfAngle(arg0, arg1, arg2)
     local f22_local1 = arg0
     local f22_local2 = REG1_0
     local f22_local3 = arg2
-    local f22_local4 = function (arg0)
+    local f22_local4 = function(arg0)
         local f88_local0 = arg1
         return f88_local0:IsTargetOutOfAngleInterruptSlot(arg0)
-        
     end
 
     local f22_local5 = _GetInterruptFunc(arg0.Interrupt_TargetOutOfAngle)
-    return f22_local0()
-    
+    return f22_local0(f22_local1, f22_local2, f22_local3, f22_local4, f22_local5)
 end
 
 function _InterruptTableGoal_Inside_ObserveArea(arg0, arg1, arg2)
-    local f23_local0 = arg1:GetAreaObserveSlotNum(AI_AREAOBSERVE_INTERRUPT__INSIDE)
-    for f23_local1 = 0, f23_local0 - 1, 1 do
-        local f23_local4 = _GetInterruptFunc(arg0.Interrupt_Inside_ObserveArea)
-        if f23_local4(arg0, arg1, arg2, arg1:GetAreaObserveSlot(AI_AREAOBSERVE_INTERRUPT__INSIDE, f23_local1)) then
+    local observe_slot_num = arg1:GetAreaObserveSlotNum(AI_AREAOBSERVE_INTERRUPT__INSIDE)
+    for i = 0, observe_slot_num - 1, 1 do
+        local func = _GetInterruptFunc(arg0.Interrupt_Inside_ObserveArea)
+        if func(arg0, arg1, arg2, arg1:GetAreaObserveSlot(AI_AREAOBSERVE_INTERRUPT__INSIDE, i)) then
             return true
         end
     end
-    
 end
 
 function _InterruptTableGoal_Outside_ObserveArea(arg0, arg1, arg2)
-    local f24_local0 = arg1:GetAreaObserveSlotNum(AI_AREAOBSERVE_INTERRUPT__OUTSIDE)
-    for f24_local1 = 0, f24_local0 - 1, 1 do
-        local f24_local4 = _GetInterruptFunc(arg0.Interrupt_Outside_ObserveArea)
-        if f24_local4(arg0, arg1, arg2, arg1:GetAreaObserveSlot(AI_AREAOBSERVE_INTERRUPT__OUTSIDE, f24_local1)) then
+    local observe_slot_num = arg1:GetAreaObserveSlotNum(AI_AREAOBSERVE_INTERRUPT__OUTSIDE)
+    for i = 0, observe_slot_num - 1, 1 do
+        local func = _GetInterruptFunc(arg0.Interrupt_Outside_ObserveArea)
+        if func(arg0, arg1, arg2, arg1:GetAreaObserveSlot(AI_AREAOBSERVE_INTERRUPT__OUTSIDE, i)) then
             return true
         end
     end
-    
 end
 
 function _InterruptTableGoal_ActivateSpecialEffect(arg0, arg1, arg2)
-    local f25_local0 = arg1:GetSpecialEffectActivateInterruptNum()
-    for f25_local1 = 0, f25_local0 - 1, 1 do
-        local f25_local4 = _GetInterruptFunc(arg0.Interrupt_ActivateSpecialEffect)
-        if f25_local4(arg0, arg1, arg2, arg1:GetSpecialEffectActivateInterruptType(f25_local1)) then
+    local sp_int_num = arg1:GetSpecialEffectActivateInterruptNum()
+    for i = 0, sp_int_num - 1, 1 do
+        local func = _GetInterruptFunc(arg0.Interrupt_ActivateSpecialEffect)
+        if func(arg0, arg1, arg2, arg1:GetSpecialEffectActivateInterruptType(i)) then
             return true
         end
     end
-    
 end
 
 function _InterruptTableGoal_InactivateSpecialEffect(arg0, arg1, arg2)
-    local f26_local0 = arg1:GetSpecialEffectInactivateInterruptNum()
-    for f26_local1 = 0, f26_local0 - 1, 1 do
-        local f26_local4 = _GetInterruptFunc(arg0.Interrupt_InactivateSpecialEffect)
-        if f26_local4(arg0, arg1, arg2, arg1:GetSpecialEffectInactivateInterruptType(f26_local1)) then
+    local sp_int_num = arg1:GetSpecialEffectInactivateInterruptNum()
+    for i = 0, sp_int_num - 1, 1 do
+        local func = _GetInterruptFunc(arg0.Interrupt_InactivateSpecialEffect)
+        if func(arg0, arg1, arg2, arg1:GetSpecialEffectInactivateInterruptType(i)) then
             return true
         end
     end
-    
 end
 
 function _InterruptTableGoal_InvadeTriggerRegion(arg0, arg1, arg2)
-    local f27_local0 = arg1:GetInvadeTriggerRegionInfoNum()
-    for f27_local1 = 0, f27_local0 - 1, 1 do
-        local f27_local4 = _GetInterruptFunc(arg0.Interrupt_InvadeTriggerRegion)
-        if f27_local4(arg0, arg1, arg2, arg1:GetInvadeTriggerRegionCategory(f27_local1)) then
+    local n = arg1:GetInvadeTriggerRegionInfoNum()
+    for i = 0, n - 1, 1 do
+        local func = _GetInterruptFunc(arg0.Interrupt_InvadeTriggerRegion)
+        if func(arg0, arg1, arg2, arg1:GetInvadeTriggerRegionCategory(i)) then
             return true
         end
     end
-    
 end
 
 function _InterruptTableGoal_LeaveTriggerRegion(arg0, arg1, arg2)
-    local f28_local0 = arg1:GetLeaveTriggerRegionInfoNum()
-    for f28_local1 = 0, f28_local0 - 1, 1 do
-        local f28_local4 = _GetInterruptFunc(arg0.Interrupt_LeaveTriggerRegion)
-        if f28_local4(arg0, arg1, arg2, arg1:GetLeaveTriggerRegionCategory(f28_local1)) then
+    local n = arg1:GetLeaveTriggerRegionInfoNum()
+    for i = 0, n - 1, 1 do
+        local func = _GetInterruptFunc(arg0.Interrupt_LeaveTriggerRegion)
+        if func(arg0, arg1, arg2, arg1:GetLeaveTriggerRegionCategory(i)) then
             return true
         end
     end
-    
 end
-
-

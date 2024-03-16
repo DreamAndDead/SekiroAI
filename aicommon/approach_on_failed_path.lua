@@ -7,7 +7,6 @@ function ApproachOnFailedPath_Activate(arg0, arg1)
     local f1_local4 = arg1:GetParam(4)
     local f1_local5 = arg1:GetParam(5)
     arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, -1, f1_local1, f1_local2, f1_local3, f1_local4, f1_local5)
-    
 end
 
 function ApproachOnFailedPath_Update(arg0, arg1)
@@ -30,11 +29,10 @@ function ApproachOnFailedPath_Update(arg0, arg1)
         arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, -1, f2_local1, f2_local2, f2_local3, f2_local4, f2_local5)
     end
     return f2_local0
-    
 end
 
 function ApproachOnFailedPath_Terminate(arg0, arg1)
-    
+
 end
 
 function ApproachOnFailedPath_Interupt(arg0, arg1)
@@ -42,7 +40,4 @@ function ApproachOnFailedPath_Interupt(arg0, arg1)
         return true
     end
     return false
-    
 end
-
-

@@ -3,7 +3,6 @@ function WalkAroundOnFailedPath_Activate(arg0, arg1)
     arg1:SetTimer(0, f1_local0)
     arg1:AddSubGoal(GOAL_COMMON_Wait, 1, 0, 0, 0, 0)
     arg0:BeginWalkAroundFree()
-    
 end
 
 function WalkAroundOnFailedPath_Update(arg0, arg1)
@@ -21,12 +20,10 @@ function WalkAroundOnFailedPath_Update(arg0, arg1)
         WalkAroundFailedPath_AddInnerGoal(arg0, arg1)
     end
     return f2_local0
-    
 end
 
 function WalkAroundOnFailedPath_Terminate(arg0, arg1)
     arg0:EndWalkAroundFree()
-    
 end
 
 function WalkAroundOnFailedPath_Interupt(arg0, arg1)
@@ -34,7 +31,6 @@ function WalkAroundOnFailedPath_Interupt(arg0, arg1)
         return true
     end
     return false
-    
 end
 
 function WalkAroundFailedPath_AddInnerGoal(arg0, arg1)
@@ -47,7 +43,4 @@ function WalkAroundFailedPath_AddInnerGoal(arg0, arg1)
     else
         arg1:AddSubGoal(GOAL_COMMON_Wait, 0.1, TARGET_ENE_0, 0, 0, 0)
     end
-    
 end
-
-

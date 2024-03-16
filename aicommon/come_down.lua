@@ -1,8 +1,8 @@
 REGISTER_GOAL_UPDATE_TIME(GOAL_COMMON_ComeDown, 0.5, 0.5)
 REGISTER_GOAL_NO_INTERUPT(GOAL_COMMON_ComeDown, true)
+
 function ComeDown_Activate(arg0, arg1)
     arg1:AddSubGoal(GOAL_COMMON_Attack, arg1:GetLife(), 9510, TARGET_NONE, DIST_None)
-    
 end
 
 function ComeDown_Update(arg0, arg1)
@@ -24,16 +24,12 @@ function ComeDown_Update(arg0, arg1)
         return GOAL_RESULT_Success
     end
     return GOAL_RESULT_Continue
-    
 end
 
 function ComeDown_Terminate(arg0, arg1)
-    
+
 end
 
 function ComeDown_Interupt(arg0, arg1)
     return false
-    
 end
-
-

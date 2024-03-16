@@ -3,7 +3,6 @@ function EmagencyEscapeStep(arg0, arg1, arg2)
         arg2:ClearSubGoal()
         arg2:AddSubGoal(GOAL_EnemyStepBLR, 2, 6)
     end
-    
 end
 
 function GuardOnProbability(arg0, arg1, arg2)
@@ -29,11 +28,10 @@ function GuardOnProbability(arg0, arg1, arg2)
         arg2:AddSubGoal(GOAL_COMMON_Guard, 1, 9910, TARGET_ENE_0, true, 1)
     end
     arg1:StartIdTimer(8000)
-    
 end
 
 function Interrupt_FindAttack_Default(arg0, arg1, arg2)
-    
+
 end
 
 function Update_FinishOnNoSubGoal(arg0, arg1, arg2)
@@ -42,7 +40,6 @@ function Update_FinishOnNoSubGoal(arg0, arg1, arg2)
         return GOAL_RESULT_Success
     end
     return GOAL_RESULT_Continue
-    
 end
 
 function Interrupt_FindAttack_Guard(arg0, arg1, arg2)
@@ -58,13 +55,11 @@ function Interrupt_FindAttack_Guard(arg0, arg1, arg2)
         end
         arg1:StartIdTimer(7000)
     end
-    
 end
 
 function Interrupt_GuardBreak_ClearSubGoal(arg0, arg1, arg2)
     arg2:ClearSubGoal()
     arg1:TurnTo(TARGET_SELF)
-    
 end
 
 function GetDefaultParam(arg0, arg1, arg2, arg3, arg4)
@@ -74,7 +69,6 @@ function GetDefaultParam(arg0, arg1, arg2, arg3, arg4)
     else
         return f7_local0
     end
-    
 end
 
 function GetDistPos(arg0, arg1, arg2, arg3)
@@ -87,7 +81,6 @@ function GetDistPos(arg0, arg1, arg2, arg3)
     else
         return 3
     end
-    
 end
 
 function GetAttackRateByDist(arg0, arg1, arg2, arg3, arg4)
@@ -105,7 +98,6 @@ function GetAttackRateByDist(arg0, arg1, arg2, arg3, arg4)
         f9_local0 = 0
     end
     return f9_local0
-    
 end
 
 function GetAttackIdOffset(arg0, arg1, arg2, arg3)
@@ -129,7 +121,6 @@ function GetAttackIdOffset(arg0, arg1, arg2, arg3)
         arg3 = 9999999
     end
     return arg3, f10_local0
-    
 end
 
 function IsValidEnemySelect(arg0, arg1, arg2, arg3, arg4)
@@ -147,7 +138,6 @@ function IsValidEnemySelect(arg0, arg1, arg2, arg3, arg4)
         end
     end
     return false
-    
 end
 
 function SelectDeriveAttack(arg0, arg1, arg2, arg3, arg4, arg5)
@@ -212,15 +202,18 @@ function SelectDeriveAttack(arg0, arg1, arg2, arg3, arg4, arg5)
                                 if f12_local0 <= f12_local8 then
                                     f12_local8 = arg1:IsOptimalAttackRangeH(TARGET_ENE_0, f12_local1)
                                     if f12_local8 then
-                                        f12_local8 = arg1:HasSpecialEffectAttribute(TARGET_ENE_0, SP_EFFECT_TYPE_TARGET_DOWN)
+                                        f12_local8 = arg1:HasSpecialEffectAttribute(TARGET_ENE_0,
+                                            SP_EFFECT_TYPE_TARGET_DOWN)
                                         if f12_local8 then
-                                            f12_local8 = arg1:GetAIAttackParam(arg3, AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_TARGET_DOWN)
+                                            f12_local8 = arg1:GetAIAttackParam(arg3,
+                                                AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_TARGET_DOWN)
                                             if f12_local8 == 1 then
                                                 f12_local3 = f12_local3 + 1
                                                 f12_local2[f12_local3] = f12_local1
                                             else
                                                 f12_local8 = print
-                                                f12_local8("[SELECT DERIVE]" .. "[" .. f12_local1 .. "]?v???C???[?_?E????")
+                                                f12_local8("[SELECT DERIVE]" ..
+                                                "[" .. f12_local1 .. "]?v???C???[?_?E????")
                                             end
                                         end
                                         f12_local3 = f12_local3 + 1
@@ -249,7 +242,8 @@ function SelectDeriveAttack(arg0, arg1, arg2, arg3, arg4, arg5)
                             if f12_local8 then
                                 f12_local8 = arg1:HasSpecialEffectAttribute(TARGET_ENE_0, SP_EFFECT_TYPE_TARGET_DOWN)
                                 if f12_local8 then
-                                    f12_local8 = arg1:GetAIAttackParam(arg3, AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_TARGET_DOWN)
+                                    f12_local8 = arg1:GetAIAttackParam(arg3,
+                                        AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_TARGET_DOWN)
                                     if f12_local8 == 1 then
                                         f12_local3 = f12_local3 + 1
                                         f12_local2[f12_local3] = f12_local1
@@ -296,12 +290,20 @@ function SelectDeriveAttack(arg0, arg1, arg2, arg3, arg4, arg5)
             if f12_local10 <= 0 then
                 f12_local10 = arg1:GetAIAttackParam(f12_local2[f12_local7], AI_ATTACK_PARAM_TYPE__INTERVAL_EXEC) * 2
             end
-            f12_local10 = f12_local10 - arg1:GetAIAttackParam(f12_local2[f12_local7], AI_ATTACK_PARAM_TYPE__INTERVAL_EXEC)
+            f12_local10 = f12_local10 -
+            arg1:GetAIAttackParam(f12_local2[f12_local7], AI_ATTACK_PARAM_TYPE__INTERVAL_EXEC)
             if f12_local10 < 0 then
                 f12_local10 = 1
             end
-            print("[SELECT DERIVE]" .. "[" .. f12_local2[f12_local7] .. "]?@?o?????[" .. f12_local10 .. "]?@?I?????[?g[" .. arg1:GetAIAttackParam(f12_local2[f12_local7], AI_ATTACK_PARAM_TYPE__SELECTION_TENDENCY) .. "]")
-            f12_local4[f12_local7] = f12_local10 * arg1:GetAIAttackParam(f12_local2[f12_local7], AI_ATTACK_PARAM_TYPE__SELECTION_TENDENCY)
+            print("[SELECT DERIVE]" ..
+            "[" ..
+            f12_local2[f12_local7] ..
+            "]?@?o?????[" ..
+            f12_local10 ..
+            "]?@?I?????[?g[" ..
+            arg1:GetAIAttackParam(f12_local2[f12_local7], AI_ATTACK_PARAM_TYPE__SELECTION_TENDENCY) .. "]")
+            f12_local4[f12_local7] = f12_local10 *
+            arg1:GetAIAttackParam(f12_local2[f12_local7], AI_ATTACK_PARAM_TYPE__SELECTION_TENDENCY)
             f12_local5 = f12_local4[f12_local7] + f12_local5
         end
         if f12_local5 > 0 then
@@ -316,19 +318,15 @@ function SelectDeriveAttack(arg0, arg1, arg2, arg3, arg4, arg5)
             end
         else
             return 9999999
-            
         end
     else
         print("[SELECT ENEMY]" .. "<<????>> ???I????[" .. f12_local2[1] .. "]")
         return f12_local2[1]
     end
     return 9999999
-    
 end
 
 RegisterTableGoal(GOAL_EnemyFuncDummy, "GOAL_EnemyFuncDummy")
-Goal.Activate = function (arg0, arg1, arg2)
-    
+Goal.Activate = function(arg0, arg1, arg2)
+
 end
-
-

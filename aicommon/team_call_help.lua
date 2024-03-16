@@ -6,7 +6,6 @@ function TeamCallHelp_Activate(arg0, arg1)
     if arg0:IsLookToTarget() == true then
         arg0:SetAttackRequest(f1_local0)
     end
-    
 end
 
 function TeamCallHelp_Update(arg0, arg1)
@@ -26,18 +25,13 @@ function TeamCallHelp_Update(arg0, arg1)
         arg0:TurnTo(f2_local1)
     end
     return GOAL_RESULT_Continue
-    
 end
 
 function TeamCallHelp_Terminate(arg0, arg1)
     arg0:TeamHelp_Call()
-    
 end
 
 REGISTER_GOAL_NO_INTERUPT(GOAL_COMMON_TeamCallHelp, true)
 function TeamCallHelp_Interupt(arg0, arg1)
     return false
-    
 end
-
-

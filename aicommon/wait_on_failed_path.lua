@@ -1,6 +1,5 @@
 function WaitOnFailedPath_Activate(arg0, arg1)
     arg1:AddSubGoal(GOAL_COMMON_Wait, 1, 0, 0, 0, 0)
-    
 end
 
 function WaitOnFailedPath_Update(arg0, arg1)
@@ -16,11 +15,10 @@ function WaitOnFailedPath_Update(arg0, arg1)
         end
     end
     return f2_local0
-    
 end
 
 function WaitOnFailedPath_Terminate(arg0, arg1)
-    
+
 end
 
 function WaitOnFailedPath_Interupt(arg0, arg1)
@@ -28,7 +26,4 @@ function WaitOnFailedPath_Interupt(arg0, arg1)
         return true
     end
     return true
-    
 end
-
-

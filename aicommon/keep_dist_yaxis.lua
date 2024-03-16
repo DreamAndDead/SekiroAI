@@ -10,7 +10,6 @@ function KeepDistYAxis_Activate(arg0, arg1)
     if f1_local3 <= -f1_local2 and -f1_local2 <= f1_local4 then
         arg1:SetNumber(0, 2)
     end
-    
 end
 
 function KeepDistYAxis_Update(arg0, arg1)
@@ -37,17 +36,13 @@ function KeepDistYAxis_Update(arg0, arg1)
         end
     end
     return GOAL_RESULT_Continue
-    
 end
 
 function KeepDistYAxis_Terminate(arg0, arg1)
-    
+
 end
 
 REGISTER_GOAL_NO_INTERUPT(GOAL_COMMON_KeepDistYAxis, true)
 function KeepDistYAxis_Interupt(arg0, arg1)
     return false
-    
 end
-
-

@@ -3,7 +3,6 @@ function BackToHomeOnFailedPath_Activate(arg0, arg1)
     arg1:SetTimer(0, f1_local0)
     local f1_local1 = arg1:GetParam(1)
     arg1:AddSubGoal(GOAL_COMMON_BackToHome, 100, f1_local1)
-    
 end
 
 function BackToHomeOnFailedPath_Update(arg0, arg1)
@@ -24,11 +23,10 @@ function BackToHomeOnFailedPath_Update(arg0, arg1)
         return GOAL_RESULT_Success
     end
     return f2_local0
-    
 end
 
 function BackToHomeOnFailedPath_Terminate(arg0, arg1)
-    
+
 end
 
 function BackToHomeOnFailedPath_Interupt(arg0, arg1)
@@ -36,7 +34,4 @@ function BackToHomeOnFailedPath_Interupt(arg0, arg1)
         return true
     end
     return false
-    
 end
-
-

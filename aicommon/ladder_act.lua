@@ -25,7 +25,6 @@ function _GetId(arg0, arg1)
         end
     end
     return f1_local1
-    
 end
 
 local f0_local0 = -1
@@ -69,7 +68,6 @@ function LadderAct_Activate(arg0, arg1)
         end
     end
     arg0:OnStartLadderGoal()
-    
 end
 
 function LadderAct_Update(arg0, arg1)
@@ -108,12 +106,10 @@ function LadderAct_Update(arg0, arg1)
     end
     f3_local5 = GOAL_RESULT_Continue
     return f3_local5
-    
 end
 
 function LadderAct_Terminate(arg0, arg1)
     arg0:OnEndLadderGoal()
-    
 end
 
 REGISTER_GOAL_NO_INTERUPT(GOAL_COMMON_LadderAct, true)
@@ -122,7 +118,4 @@ function LadderAct_Interupt(arg0, arg1)
         return false
     end
     return false
-    
 end
-
-

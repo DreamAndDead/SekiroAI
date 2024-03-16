@@ -6,7 +6,7 @@ REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_YousumiAct, 2, "????p?x", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_YousumiAct, 3, "?p???I?t?Z?b?g", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_YousumiAct, 4, "?????S?[???????", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_YousumiAct, 5, "??????S?[???????", 0)
-Goal.Activate = function (arg0, arg1, arg2)
+Goal.Activate = function(arg0, arg1, arg2)
     local f1_local0 = arg2:GetParam(0)
     local f1_local1 = arg2:GetParam(1)
     local f1_local2 = arg2:GetParam(2)
@@ -84,26 +84,21 @@ Goal.Activate = function (arg0, arg1, arg2)
     else
 
     end
-    
 end
 
-Goal.Update = function (arg0, arg1, arg2)
+Goal.Update = function(arg0, arg1, arg2)
     return Update_Default_NoSubGoal(arg0, arg1, arg2)
-    
 end
 
-Goal.Terminate = function (arg0, arg1, arg2)
-    
+Goal.Terminate = function(arg0, arg1, arg2)
+
 end
 
-Goal.Interrupt = function (arg0, arg1, arg2)
+Goal.Interrupt = function(arg0, arg1, arg2)
     if arg1:IsInterupt(INTERUPT_MovedEnd_OnFailedPath) then
         arg2:ClearSubGoal()
         arg2:AddSubGoal(GOAL_COMMON_Wait_On_FailedPath, 0.5, 0.1)
         return true
     end
     return false
-    
 end
-
-

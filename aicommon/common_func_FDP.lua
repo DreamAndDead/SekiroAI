@@ -1,4 +1,7 @@
-function Approach_Act_Flex(arg0, arg1, arg2, close_range, far_range, odd, arg6, arg7, arg8, arg9)
+--[[
+    接近玩家，计算距离相关
+]]
+function Approach_Act_Flex(self, goal_manager, arg2, min_dist, max_dist, odd, arg6, arg7, arg8, arg9)
     if arg7 == nil then
         arg7 = 3
     end
@@ -9,21 +12,21 @@ function Approach_Act_Flex(arg0, arg1, arg2, close_range, far_range, odd, arg6, 
         arg9 = 0
     end
 
-    local dist_to_player = arg0:GetDist(TARGET_ENE_0)
+    local dist_to_player = self:GetDist(TARGET_ENE_0)
     local f1_local2 = true
 
-    if far_range <= dist_to_player then
+    if max_dist <= dist_to_player then
         f1_local2 = false
-    elseif close_range <= dist_to_player and arg0:GetRandam_Int(1, 100) <= odd then
+    elseif min_dist <= dist_to_player and self:GetRandam_Int(1, 100) <= odd then
         f1_local2 = false
     end
 
-    if arg0:IsInsideTargetRegion(TARGET_SELF, COMMON_REGION_FORCE_WALK_M11_0) or arg0:IsInsideTargetRegion(TARGET_SELF, COMMON_REGION_FORCE_WALK_M11_1) then
+    if self:IsInsideTargetRegion(TARGET_SELF, COMMON_REGION_FORCE_WALK_M11_0) or self:IsInsideTargetRegion(TARGET_SELF, COMMON_REGION_FORCE_WALK_M11_1) then
         f1_local2 = true
     end
 
     local f1_local3 = -1
-    if arg0:GetRandam_Int(1, 100) <= arg6 then
+    if self:GetRandam_Int(1, 100) <= arg6 then
         f1_local3 = 9910
     end
 
@@ -36,20 +39,20 @@ function Approach_Act_Flex(arg0, arg1, arg2, close_range, far_range, odd, arg6, 
 
     if arg2 <= dist_to_player or arg9 > 0 then
         if f1_local2 == true then
-            arg2 = arg2 + arg0:GetStringIndexedNumber("AddDistWalk")
+            arg2 = arg2 + self:GetStringIndexedNumber("AddDistWalk")
         else
-            arg2 = arg2 + arg0:GetStringIndexedNumber("AddDistRun")
+            arg2 = arg2 + self:GetStringIndexedNumber("AddDistRun")
         end
-        arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, life, TARGET_ENE_0, arg2, TARGET_SELF, f1_local2, f1_local3)
+        goal_manager:AddSubGoal(GOAL_COMMON_ApproachTarget, life, TARGET_ENE_0, arg2, TARGET_SELF, f1_local2, f1_local3)
     end
 end
 
 --[[
     return true if no collision exist
 ]]
-function SpaceCheck(arg0, arg1, angle, radius)
-    local capsule_radius = arg0:GetMapHitRadius(TARGET_SELF)
-    local f2_local1 = arg0:GetExistMeshOnLineDistSpecifyAngleEx(TARGET_SELF, angle, radius + capsule_radius,
+function SpaceCheck(self, goal_manager, angle, radius)
+    local capsule_radius = self:GetMapHitRadius(TARGET_SELF)
+    local f2_local1 = self:GetExistMeshOnLineDistSpecifyAngleEx(TARGET_SELF, angle, radius + capsule_radius,
         AI_SPA_DIR_TYPE_TargetF, capsule_radius, 0)
 
     if radius * 0.95 <= f2_local1 then
@@ -171,40 +174,36 @@ function ReactBackstab_Act(arg0, arg1, arg2, arg3, arg4)
     end
 end
 
-function Init_Pseudo_Global(arg0, arg1)
-    arg0:SetStringIndexedNumber("Dist_SideStep", 5)
-    arg0:SetStringIndexedNumber("Dist_BackStep", 5)
-    arg0:SetStringIndexedNumber("AddDistWalk", 0)
-    arg0:SetStringIndexedNumber("AddDistRun", 0)
-    Init_AfterAttackAct(arg0, arg1)
-end
-
-function Init_AfterAttackAct(arg0, arg1)
-    arg0:SetStringIndexedNumber("DistMin_AAA", -999)
-    arg0:SetStringIndexedNumber("DistMax_AAA", 999)
-    arg0:SetStringIndexedNumber("BaseDir_AAA", AI_DIR_TYPE_F)
-    arg0:SetStringIndexedNumber("Angle_AAA", 360)
-    arg0:SetStringIndexedNumber("Odds_Guard_AAA", 0)
-    arg0:SetStringIndexedNumber("Odds_NoAct_AAA", 0)
-    arg0:SetStringIndexedNumber("Odds_BackAndSide_AAA", 0)
-    arg0:SetStringIndexedNumber("Odds_Back_AAA", 0)
-    arg0:SetStringIndexedNumber("Odds_Backstep_AAA", 0)
-    arg0:SetStringIndexedNumber("Odds_Sidestep_AAA", 0)
-    arg0:SetStringIndexedNumber("Odds_BitWait_AAA", 0)
-    arg0:SetStringIndexedNumber("Odds_BsAndSide_AAA", 0)
-    arg0:SetStringIndexedNumber("Odds_BsAndSs_AAA", 0)
-    arg0:SetStringIndexedNumber("DistMin_Inter_AAA", -999)
-    arg0:SetStringIndexedNumber("DistMax_Inter_AAA", 999)
-    arg0:SetStringIndexedNumber("BaseAng_Inter_AAA", 0)
-    arg0:SetStringIndexedNumber("Ang_Inter_AAA", 360)
-    arg0:SetStringIndexedNumber("BackAndSide_BackLife_AAA", 2)
-    arg0:SetStringIndexedNumber("BackAndSide_SideLife_AAA", arg0:GetRandam_Float(2.5, 3.5))
-    arg0:SetStringIndexedNumber("BackLife_AAA", arg0:GetRandam_Float(2, 3))
-    arg0:SetStringIndexedNumber("BsAndSide_SideLife_AAA", arg0:GetRandam_Float(2.5, 3.5))
-    arg0:SetStringIndexedNumber("BackAndSide_BackDist_AAA", 1.5)
-    arg0:SetStringIndexedNumber("BackDist_AAA", arg0:GetRandam_Float(2.5, 3.5))
-    arg0:SetStringIndexedNumber("BackAndSide_SideDir_AAA", arg0:GetRandam_Int(45, 60))
-    arg0:SetStringIndexedNumber("BsAndSide_SideDir_AAA", arg0:GetRandam_Int(45, 60))
+function Init_Pseudo_Global(self, arg1)
+    self:SetStringIndexedNumber("Dist_SideStep", 5)
+    self:SetStringIndexedNumber("Dist_BackStep", 5)
+    self:SetStringIndexedNumber("AddDistWalk", 0)
+    self:SetStringIndexedNumber("AddDistRun", 0)
+    self:SetStringIndexedNumber("DistMin_AAA", -999)
+    self:SetStringIndexedNumber("DistMax_AAA", 999)
+    self:SetStringIndexedNumber("BaseDir_AAA", AI_DIR_TYPE_F)
+    self:SetStringIndexedNumber("Angle_AAA", 360)
+    self:SetStringIndexedNumber("Odds_Guard_AAA", 0)
+    self:SetStringIndexedNumber("Odds_NoAct_AAA", 0)
+    self:SetStringIndexedNumber("Odds_BackAndSide_AAA", 0)
+    self:SetStringIndexedNumber("Odds_Back_AAA", 0)
+    self:SetStringIndexedNumber("Odds_Backstep_AAA", 0)
+    self:SetStringIndexedNumber("Odds_Sidestep_AAA", 0)
+    self:SetStringIndexedNumber("Odds_BitWait_AAA", 0)
+    self:SetStringIndexedNumber("Odds_BsAndSide_AAA", 0)
+    self:SetStringIndexedNumber("Odds_BsAndSs_AAA", 0)
+    self:SetStringIndexedNumber("DistMin_Inter_AAA", -999)
+    self:SetStringIndexedNumber("DistMax_Inter_AAA", 999)
+    self:SetStringIndexedNumber("BaseAng_Inter_AAA", 0)
+    self:SetStringIndexedNumber("Ang_Inter_AAA", 360)
+    self:SetStringIndexedNumber("BackAndSide_BackLife_AAA", 2)
+    self:SetStringIndexedNumber("BackAndSide_SideLife_AAA", self:GetRandam_Float(2.5, 3.5))
+    self:SetStringIndexedNumber("BackLife_AAA", self:GetRandam_Float(2, 3))
+    self:SetStringIndexedNumber("BsAndSide_SideLife_AAA", self:GetRandam_Float(2.5, 3.5))
+    self:SetStringIndexedNumber("BackAndSide_BackDist_AAA", 1.5)
+    self:SetStringIndexedNumber("BackDist_AAA", self:GetRandam_Float(2.5, 3.5))
+    self:SetStringIndexedNumber("BackAndSide_SideDir_AAA", self:GetRandam_Int(45, 60))
+    self:SetStringIndexedNumber("BsAndSide_SideDir_AAA", self:GetRandam_Int(45, 60))
 end
 
 function Update_Default_NoSubGoal(arg0, arg1, arg2)

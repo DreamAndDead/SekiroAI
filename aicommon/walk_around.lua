@@ -1,6 +1,6 @@
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_WalkAround, 0, "???????~????a", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_WalkAround, 1, "??????", 0)
-REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_WalkAround, 2, "?G????????ûÐ??", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_WalkAround, 2, "?G????????ï¿½ï¿½??", 0)
 function WalkAround_Activate(arg0, arg1)
     local f1_local0 = arg1:GetParam(0)
     local f1_local1 = arg1:GetParam(1)
@@ -18,12 +18,12 @@ function WalkAround_Activate(arg0, arg1)
     end
     local f1_local6 = arg0:GetDist(f1_local5)
     if f1_local6 >= 2 then
-        arg1:AddSubGoal(GOAL_COMMON_MoveToSomewhere, f1_local4, f1_local5, AI_DIR_TYPE_CENTER, f1_local0, TARGET_SELF, f1_local1)
+        arg1:AddSubGoal(GOAL_COMMON_MoveToSomewhere, f1_local4, f1_local5, AI_DIR_TYPE_CENTER, f1_local0, TARGET_SELF,
+            f1_local1)
         arg1:AddSubGoal(GOAL_COMMON_Wait, arg0:GetRandam_Int(3, 6), TARGET_NONE, 0, 0, 0)
     else
         arg1:AddSubGoal(GOAL_COMMON_Wait, 0.1, TARGET_NONE, 0, 0, 0)
     end
-    
 end
 
 function WalkAround_Update(arg0, arg1)
@@ -32,16 +32,12 @@ function WalkAround_Update(arg0, arg1)
         return GOAL_RESULT_Failed
     end
     return GOAL_RESULT_Continue
-    
 end
 
 function WalkAround_Terminate(arg0, arg1)
-    
+
 end
 
 function WalkAround_Interupt(arg0, arg1)
     return false
-    
 end
-
-

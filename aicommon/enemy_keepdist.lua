@@ -12,9 +12,9 @@ REGISTER_DBG_GOAL_PARAM(GOAL_EnemyKeepDist, 8, "?X?e?b?v???s?m?F??u", 8)
 REGISTER_DBG_GOAL_PARAM(GOAL_EnemyKeepDist, 9, "??}???????", 8)
 REGISTER_DBG_GOAL_PARAM(GOAL_EnemyKeepDist, 10, "??}????m??", 8)
 REGISTER_DBG_GOAL_PARAM(GOAL_EnemyKeepDist, 11, "??}????m?F??u", 8)
-Goal.Activate = function (arg0, arg1, arg2)
+Goal.Activate = function(arg0, arg1, arg2)
     if not arg1:IsAIAttackParam(7006) then
-        return 
+        return
     end
     local f1_local0 = arg2:GetParam(0)
     local f1_local1 = arg2:GetParam(1)
@@ -38,14 +38,15 @@ Goal.Activate = function (arg0, arg1, arg2)
     end
     arg1:StartIdTimerSpecifyTime(GOAL_EnemyKeepDist, arg1:GetRandam_Float(0, 5 / 2))
     if f1_local11 < f1_local9 or f1_local10 < f1_local11 then
-        arg2:AddSubGoal(GOAL_EnemyFlexibleApproach, arg2:GetLife(), f1_local0, f1_local1, (f1_local9 + f1_local10) / 2, (f1_local9 + f1_local10) / 2, f1_local2, f1_local3, f1_local4, GuradRate, f1_local6, f1_local7, f1_local8, 1)
+        arg2:AddSubGoal(GOAL_EnemyFlexibleApproach, arg2:GetLife(), f1_local0, f1_local1, (f1_local9 + f1_local10) / 2,
+            (f1_local9 + f1_local10) / 2, f1_local2, f1_local3, f1_local4, GuradRate, f1_local6, f1_local7, f1_local8, 1)
     end
-    local f1_local12 = arg2:AddSubGoal(GOAL_COMMON_FlexibleSideWayMove, arg2:GetLife(), arg1:GetRandam_Float(1, 100), arg1:GetRandam_Float(1, 100), f1_local1, 3, 90, f1_local5, f1_local9, f1_local10)
+    local f1_local12 = arg2:AddSubGoal(GOAL_COMMON_FlexibleSideWayMove, arg2:GetLife(), arg1:GetRandam_Float(1, 100),
+        arg1:GetRandam_Float(1, 100), f1_local1, 3, 90, f1_local5, f1_local9, f1_local10)
     f1_local12:SetFailedEndOption(AI_GOAL_FAILED_END_OPT__PARENT_NEXT_SUB_GOAL)
-    
 end
 
-Goal.Update = function (arg0, arg1, arg2)
+Goal.Update = function(arg0, arg1, arg2)
     if arg2:GetSubGoalNum() <= 0 then
         return GOAL_RESULT_Success
     end
@@ -78,8 +79,12 @@ Goal.Update = function (arg0, arg1, arg2)
                 arg2:ClearSubGoal()
                 arg1:TurnTo(TRAGET_SELF)
                 arg2:AddSubGoal(GOAL_EnemyStepBLR, arg2:GetLife(), f2_local0, 5)
-                arg2:AddSubGoal(GOAL_EnemyFlexibleApproach, arg2:GetLife(), f2_local0, f2_local1, (f2_local9 + f2_local10) / 2, (f2_local9 + f2_local10) / 2, f2_local2, f2_local3, f2_local4, GuradRate, f2_local6, f2_local7, f2_local8, 1)
-                local f2_local15 = arg2:AddSubGoal(GOAL_COMMON_FlexibleSideWayMove, arg2:GetLife(), arg1:GetRandam_Float(1, 100), arg1:GetRandam_Float(1, 100), TARGET_ENE_0, 3, arg1:GetRandam_Float(30, 70), arg2:GetParam(5), f2_local9, f2_local10)
+                arg2:AddSubGoal(GOAL_EnemyFlexibleApproach, arg2:GetLife(), f2_local0, f2_local1,
+                    (f2_local9 + f2_local10) / 2, (f2_local9 + f2_local10) / 2, f2_local2, f2_local3, f2_local4,
+                    GuradRate, f2_local6, f2_local7, f2_local8, 1)
+                local f2_local15 = arg2:AddSubGoal(GOAL_COMMON_FlexibleSideWayMove, arg2:GetLife(),
+                    arg1:GetRandam_Float(1, 100), arg1:GetRandam_Float(1, 100), TARGET_ENE_0, 3,
+                    arg1:GetRandam_Float(30, 70), arg2:GetParam(5), f2_local9, f2_local10)
                 f2_local15:SetFailedEndOption(AI_GOAL_FAILED_END_OPT__PARENT_NEXT_SUB_GOAL)
                 return GOAL_RESULT_Continue
             end
@@ -88,12 +93,12 @@ Goal.Update = function (arg0, arg1, arg2)
     if not (f2_local14 >= f2_local9 or arg1:HasGoal(GOAL_COMMON_LeaveTarget)) or f2_local10 < f2_local14 and not arg1:HasGoal(GOAL_COMMON_ApproachTarget) then
         arg2:ClearSubGoal()
         arg1:TurnTo(TRAGET_SELF)
-        arg2:AddSubGoal(GOAL_EnemyFlexibleApproach, arg2:GetLife(), f2_local0, f2_local1, (f2_local9 + f2_local10) / 2, (f2_local9 + f2_local10) / 2, f2_local2, f2_local3, f2_local4, GuradRate, f2_local6, f2_local7, f2_local8, 1)
-        local f2_local15 = arg2:AddSubGoal(GOAL_COMMON_FlexibleSideWayMove, arg2:GetLife(), arg1:GetRandam_Float(1, 100), arg1:GetRandam_Float(1, 100), TARGET_ENE_0, 3, arg1:GetRandam_Float(30, 70), arg2:GetParam(5), f2_local9, f2_local10)
+        arg2:AddSubGoal(GOAL_EnemyFlexibleApproach, arg2:GetLife(), f2_local0, f2_local1, (f2_local9 + f2_local10) / 2,
+            (f2_local9 + f2_local10) / 2, f2_local2, f2_local3, f2_local4, GuradRate, f2_local6, f2_local7, f2_local8, 1)
+        local f2_local15 = arg2:AddSubGoal(GOAL_COMMON_FlexibleSideWayMove, arg2:GetLife(), arg1:GetRandam_Float(1, 100),
+            arg1:GetRandam_Float(1, 100), TARGET_ENE_0, 3, arg1:GetRandam_Float(30, 70), arg2:GetParam(5), f2_local9,
+            f2_local10)
         f2_local15:SetFailedEndOption(AI_GOAL_FAILED_END_OPT__PARENT_NEXT_SUB_GOAL)
     end
     return GOAL_RESULT_Continue
-    
 end
-
-

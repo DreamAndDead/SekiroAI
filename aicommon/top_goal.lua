@@ -1,14 +1,13 @@
 function TopGoal_Activate(arg0, arg1)
-    
+
 end
 
 function TopGoal_Update(arg0, arg1)
     return GOAL_RESULT_Continue
-    
 end
 
 function TopGoal_Terminate(arg0, arg1)
-    
+
 end
 
 function TopGoal_Interupt(arg0, arg1)
@@ -59,12 +58,8 @@ function TopGoal_Interupt(arg0, arg1)
         return true
     end
     return false
-    
 end
 
 function TopGoal_Update(arg0, arg1)
     return GOAL_RESULT_Continue
-    
 end
-
-

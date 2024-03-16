@@ -94,4 +94,3 @@ LOGIC_ID_Ninsatsukakunin_NoCaution_981000 = 981000
 LOGIC_ID_Ninsatsukakunin_Ogata_982000 = 982000
 LOGIC_ID_Ninsatsukakunin_Yonsoku_983000 = 983000
 LOGIC_ID_TestZatoichi_985000 = 985000
-

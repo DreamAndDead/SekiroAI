@@ -189,50 +189,60 @@ function KankyakuAct(arg0, arg1, arg2, arg3, arg4)
     return TorimakiAct(arg0, arg1, arg2, arg3, arg4)
 end
 
-function Common_ActivateAct(arg0, arg1, arg2, arg3)
-    local f8_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f8_local1 = arg0:GetRandam_Float(1, 2)
-    local f8_local2 = arg0:GetRandam_Int(30, 45)
+--[[
+    返回 true 如果执行了相应的act，和角色死亡 复活 守尸相关
+]]
+function Common_ActivateAct(self, goal_manager, arg2, arg3)
+    local dist_to_player = self:GetDist(TARGET_ENE_0)
+    local rand_float_1t2 = self:GetRandam_Float(1, 2)
+    local rand_int_30t45 = self:GetRandam_Int(30, 45)
     local f8_local3 = -1
     local f8_local4 = 0
+
     if arg2 == nil then
         arg2 = 0
     end
     if arg3 == nil then
         arg3 = 0
     end
-    if arg0:HasSpecialEffectId(TARGET_ENE_0, 110060) then
-        if arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
-            arg1:AddSubGoal(GOAL_COMMON_Wait, 0.5, TARGET_SELF, 0, 0, 0)
+
+    -- pc 死亡
+    if self:HasSpecialEffectId(TARGET_ENE_0, 110060) then
+        if self:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
+            goal_manager:AddSubGoal(GOAL_COMMON_Wait, 0.5, TARGET_SELF, 0, 0, 0)
         else
-            arg1:AddSubGoal(GOAL_COMMON_Turn, 3, TARGET_ENE_0, 45, -1, GOAL_RESULT_Success, true)
+            goal_manager:AddSubGoal(GOAL_COMMON_Turn, 3, TARGET_ENE_0, 45, -1, GOAL_RESULT_Success, true)
         end
-    elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110015) and arg0:GetStringIndexedNumber("Steped") ~= 1 then
-        if arg2 == 0 and SpaceCheck(arg0, arg1, 180, arg0:GetStringIndexedNumber("Dist_Step_Small")) == true then
-            if (arg3 == 0 or arg3 == 2) and SpaceCheck(arg0, arg1, 180, arg0:GetStringIndexedNumber("Dist_Step_Large")) == true then
-                if not (arg3 ~= 0 or f8_local0 <= 4) or arg3 == 1 then
-                    arg1:AddSubGoal(GOAL_COMMON_SpinStep, 3, 5201, TARGET_ENE_0, 0, AI_DIR_TYPE_B, 0)
+        -- 半血复活
+    elseif self:HasSpecialEffectId(TARGET_ENE_0, 110015) and self:GetStringIndexedNumber("Steped") ~= 1 then
+        if arg2 == 0 and SpaceCheck(self, goal_manager, 180, self:GetStringIndexedNumber("Dist_Step_Small")) == true then
+            if (arg3 == 0 or arg3 == 2) and SpaceCheck(self, goal_manager, 180, self:GetStringIndexedNumber("Dist_Step_Large")) == true then
+                if not (arg3 ~= 0 or dist_to_player <= 4) or arg3 == 1 then
+                    goal_manager:AddSubGoal(GOAL_COMMON_SpinStep, 3, 5201, TARGET_ENE_0, 0, AI_DIR_TYPE_B, 0)
                 else
-                    arg1:AddSubGoal(GOAL_COMMON_SpinStep, 3, 5211, TARGET_ENE_0, 0, AI_DIR_TYPE_B, 0)
+                    goal_manager:AddSubGoal(GOAL_COMMON_SpinStep, 3, 5211, TARGET_ENE_0, 0, AI_DIR_TYPE_B, 0)
                 end
             else
-                arg1:AddSubGoal(GOAL_COMMON_SpinStep, 3, 5201, TARGET_ENE_0, 0, AI_DIR_TYPE_B, 0)
+                goal_manager:AddSubGoal(GOAL_COMMON_SpinStep, 3, 5201, TARGET_ENE_0, 0, AI_DIR_TYPE_B, 0)
             end
-            arg0:SetStringIndexedNumber("Steped", 1)
-        elseif arg2 <= 1 and (SpaceCheck(arg0, arg1, 90, 1) == true or SpaceCheck(arg0, arg1, -90, 1) == true) then
-            f8_local4 = GetDirection_Sideway(arg0)
-            arg1:AddSubGoal(GOAL_COMMON_SidewayMove, f8_local1, TARGET_ENE_0, f8_local4, f8_local2, true, true, f8_local3)
+            self:SetStringIndexedNumber("Steped", 1)
+        elseif arg2 <= 1 and (SpaceCheck(self, goal_manager, 90, 1) == true or SpaceCheck(self, goal_manager, -90, 1) == true) then
+            f8_local4 = GetDirection_Sideway(self)
+            goal_manager:AddSubGoal(GOAL_COMMON_SidewayMove, rand_float_1t2, TARGET_ENE_0, f8_local4, rand_int_30t45,
+                true, true, f8_local3)
         else
-            arg1:AddSubGoal(GOAL_COMMON_Wait, 0.5, TARGET_SELF, 0, 0, 0)
+            goal_manager:AddSubGoal(GOAL_COMMON_Wait, 0.5, TARGET_SELF, 0, 0, 0)
         end
-    elseif arg2 <= 1 and (not not arg0:HasSpecialEffectId(TARGET_ENE_0, COMMON_SP_EFFECT_PC_REVIVAL_AFTER_1) or arg0:HasSpecialEffectId(TARGET_ENE_0, COMMON_SP_EFFECT_PC_REVIVAL_AFTER_2)) then
-        KankyakuAct(arg0, arg1, 0)
-    elseif arg2 <= 1 and arg0:HasSpecialEffectId(TARGET_ENE_0, 110030) then
-        KankyakuAct(arg0, arg1, 0)
+    elseif arg2 <= 1 and (self:HasSpecialEffectId(TARGET_ENE_0, COMMON_SP_EFFECT_PC_REVIVAL_AFTER_1) or self:HasSpecialEffectId(TARGET_ENE_0, COMMON_SP_EFFECT_PC_REVIVAL_AFTER_2)) then
+        KankyakuAct(self, goal_manager, 0)
+        -- 正在忍杀
+    elseif arg2 <= 1 and self:HasSpecialEffectId(TARGET_ENE_0, 110030) then
+        KankyakuAct(self, goal_manager, 0)
     else
-        arg0:SetStringIndexedNumber("Steped", 0)
+        self:SetStringIndexedNumber("Steped", 0)
         return false
     end
+
     return true
 end
 
@@ -254,6 +264,9 @@ function GetDirection_Sideway(arg0)
     end
 end
 
+--[[
+    连续防御的次数
+]]
 function Get_ConsecutiveGuardCount(arg0)
     local count = 0
     if arg0:IsFinishTimer(13) then
@@ -278,6 +291,9 @@ function Set_ConsecutiveGuardCount(arg0, arg1)
     end
 end
 
+--[[
+    添加防御 sp 检测，包含弹开与招架
+]]
 function Set_ConsecutiveGuardCount_Interrupt(arg0)
     arg0:AddObserveSpecialEffectAttribute(TARGET_SELF, 200250)
     arg0:AddObserveSpecialEffectAttribute(TARGET_SELF, 200210)
@@ -319,29 +335,33 @@ function SpaceCheck_SidewayMove(arg0, arg1, arg2)
 end
 
 --[[
+    执行架刀动作，开始防御
+
+return true 如果可执行parry动作
+
 spin_step_type
 - -1 no spin step
 - 0 large step
 - 1 small step
 ]]
-function Common_Parry(arg0, arg1, endure_percent_per_guard, spin_step_odd, spin_step_type, parry_act_id)
-    local parry_dist = GetDist_Parry(arg0)
-    local rand_int_1 = arg0:GetRandam_Int(1, 100)
-    local rand_int_2 = arg0:GetRandam_Int(1, 100)
+function Common_Parry(self, goal_manager, endure_percent_per_guard, spin_step_odd, spin_step_type, parry_act_id)
+    local parry_dist = GetDist_Parry(self)
+    local f15_local5 = self:HasSpecialEffectId(TARGET_ENE_0, 109970)
+    local is_pc_continuous_attack = self:HasSpecialEffectId(TARGET_ENE_0, COMMON_SP_EFFECT_PC_ATTACK_RUSH)
 
-    local f15_local5 = arg0:HasSpecialEffectId(TARGET_ENE_0, 109970)
-    local is_pc_continuous_attack = arg0:HasSpecialEffectId(TARGET_ENE_0, COMMON_SP_EFFECT_PC_ATTACK_RUSH)
+    -- 招架中断等级
+    -- 2 的级别最高
     local parry_int_level = -1
-
-    if arg0:HasSpecialEffectId(TARGET_SELF, 221000) then
+    if self:HasSpecialEffectId(TARGET_SELF, 221000) then
         parry_int_level = 0
-    elseif arg0:HasSpecialEffectId(TARGET_SELF, 221001) then
+    elseif self:HasSpecialEffectId(TARGET_SELF, 221001) then
         parry_int_level = 1
-    elseif arg0:HasSpecialEffectId(TARGET_SELF, 221002) then
+    elseif self:HasSpecialEffectId(TARGET_SELF, 221002) then
         parry_int_level = 2
     end
 
-    if arg0:IsFinishTimer(AI_TIMER_PARRY_INTERVAL) == false then
+    -- ai 用来连续防御的计时器
+    if self:IsFinishTimer(AI_TIMER_PARRY_INTERVAL) == false then
         return false
     end
 
@@ -350,19 +370,20 @@ function Common_Parry(arg0, arg1, endure_percent_per_guard, spin_step_odd, spin_
     end
 
     -- super armor 霸体？
-    if arg0:HasSpecialEffectId(TARGET_SELF, 220062) then
+    if self:HasSpecialEffectId(TARGET_SELF, 220062) then
         return false
     end
 
-    if arg0:HasSpecialEffectId(TARGET_ENE_0, 110450) or arg0:HasSpecialEffectId(TARGET_ENE_0, 110501) or arg0:HasSpecialEffectId(TARGET_ENE_0, 110500) then
+    if self:HasSpecialEffectId(TARGET_ENE_0, 110450) or self:HasSpecialEffectId(TARGET_ENE_0, 110501) or self:HasSpecialEffectId(TARGET_ENE_0, 110500) then
         return false
     end
 
-    arg0:SetTimer(AI_TIMER_PARRY_INTERVAL, 0.1)
+    self:SetTimer(AI_TIMER_PARRY_INTERVAL, 0.1)
 
     if endure_percent_per_guard == nil then
         endure_percent_per_guard = 50
     end
+
     if spin_step_odd == nil then
         spin_step_odd = 0
     end
@@ -373,60 +394,60 @@ function Common_Parry(arg0, arg1, endure_percent_per_guard, spin_step_odd, spin_
         parry_act_id = 3100
     end
 
-    if arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) and arg0:IsInsideTargetEx(TARGET_ENE_0, TARGET_SELF, AI_DIR_TYPE_F, 90, parry_dist) then
+    if self:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) and self:IsInsideTargetEx(TARGET_ENE_0, TARGET_SELF, AI_DIR_TYPE_F, 90, parry_dist) then
         if is_pc_continuous_attack then
-            arg1:ClearSubGoal()
-            arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, parry_act_id, TARGET_ENE_0, 9999, 0)
+            goal_manager:ClearSubGoal()
+            goal_manager:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, parry_act_id, TARGET_ENE_0, 9999, 0)
             return true
         elseif f15_local5 then
-            if arg0:IsTargetGuard(TARGET_SELF) and ReturnKengekiSpecialEffect(arg0) == false then
+            if self:IsTargetGuard(TARGET_SELF) and ReturnKengekiSpecialEffect(self) == false then
                 return false
             else
                 if parry_int_level == 2 then
                     return false
                 elseif parry_int_level == 1 then
-                    if arg0:GetRandam_Int(1, 100) <= 50 then
-                        arg1:ClearSubGoal()
-                        arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, 3101, TARGET_ENE_0, 9999, 0)
+                    if self:GetRandam_Int(1, 100) <= 50 then
+                        goal_manager:ClearSubGoal()
+                        goal_manager:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, 3101, TARGET_ENE_0, 9999, 0)
                         return true
                     end
                 elseif parry_int_level == 0 then
-                    arg1:ClearSubGoal()
-                    arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, 3101, TARGET_ENE_0, 9999, 0)
+                    goal_manager:ClearSubGoal()
+                    goal_manager:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, 3101, TARGET_ENE_0, 9999, 0)
                     return true
                 end
                 -- parry_int_level == -1
                 return false
             end
-        -- 109980 pc在施放鞭炮
-        elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 109980) and spin_step_type ~= -1 and parry_int_level == 0 then
+            -- 109980 pc在施放鞭炮
+        elseif self:HasSpecialEffectId(TARGET_ENE_0, 109980) and spin_step_type ~= -1 and parry_int_level == 0 then
             if spin_step_type == 1 then
-                arg1:ClearSubGoal()
-                arg1:AddSubGoal(GOAL_COMMON_SpinStep, 1, 5201, TARGET_ENE_0, 0, AI_DIR_TYPE_B, 0)
+                goal_manager:ClearSubGoal()
+                goal_manager:AddSubGoal(GOAL_COMMON_SpinStep, 1, 5201, TARGET_ENE_0, 0, AI_DIR_TYPE_B, 0)
                 return true
             else
-                arg1:ClearSubGoal()
-                arg1:AddSubGoal(GOAL_COMMON_SpinStep, 1, 5211, TARGET_ENE_0, 0, AI_DIR_TYPE_B, 0)
+                goal_manager:ClearSubGoal()
+                goal_manager:AddSubGoal(GOAL_COMMON_SpinStep, 1, 5211, TARGET_ENE_0, 0, AI_DIR_TYPE_B, 0)
                 return true
             end
-        elseif rand_int_1 <= Get_ConsecutiveGuardCount(arg0) * endure_percent_per_guard then
-            arg1:ClearSubGoal()
-            arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, 3101, TARGET_ENE_0, 9999, 0)
+        elseif self:GetRandam_Int(1, 100) <= Get_ConsecutiveGuardCount(self) * endure_percent_per_guard then
+            goal_manager:ClearSubGoal()
+            goal_manager:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, 3101, TARGET_ENE_0, 9999, 0)
             return true
         else
-            arg1:ClearSubGoal()
-            arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, 3100, TARGET_ENE_0, 9999, 0)
+            goal_manager:ClearSubGoal()
+            goal_manager:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, 3100, TARGET_ENE_0, 9999, 0)
             return true
         end
-    elseif arg0:IsInsideTargetEx(TARGET_ENE_0, TARGET_SELF, AI_DIR_TYPE_F, 90, parry_dist + 1) then
-        if spin_step_type ~= -1 and rand_int_2 <= spin_step_odd then
+    elseif self:IsInsideTargetEx(TARGET_ENE_0, TARGET_SELF, AI_DIR_TYPE_F, 90, parry_dist + 1) then
+        if spin_step_type ~= -1 and self:GetRandam_Int(1, 100) <= spin_step_odd then
             if spin_step_type == 1 then
-                arg1:ClearSubGoal()
-                arg1:AddSubGoal(GOAL_COMMON_SpinStep, 1, 5201, TARGET_ENE_0, 0, AI_DIR_TYPE_B, 0)
+                goal_manager:ClearSubGoal()
+                goal_manager:AddSubGoal(GOAL_COMMON_SpinStep, 1, 5201, TARGET_ENE_0, 0, AI_DIR_TYPE_B, 0)
                 return true
             else
-                arg1:ClearSubGoal()
-                arg1:AddSubGoal(GOAL_COMMON_SpinStep, 1, 5211, TARGET_ENE_0, 0, AI_DIR_TYPE_B, 0)
+                goal_manager:ClearSubGoal()
+                goal_manager:AddSubGoal(GOAL_COMMON_SpinStep, 1, 5211, TARGET_ENE_0, 0, AI_DIR_TYPE_B, 0)
                 return true
             end
         else
@@ -437,53 +458,58 @@ function Common_Parry(arg0, arg1, endure_percent_per_guard, spin_step_odd, spin_
     end
 end
 
-function GetDist_Parry(arg0)
+--[[
+    pc的攻击招式不同，应对的距离也不同
+]]
+function GetDist_Parry(self)
     local dist = PC_ATTACK_DIST_STAND
-    if arg0:HasSpecialEffectId(TARGET_ENE_0, 110271) then
+
+    if self:HasSpecialEffectId(TARGET_ENE_0, 110271) then
         dist = PC_ATTACK_DIST_TESSEN
-    elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110231) then
+    elseif self:HasSpecialEffectId(TARGET_ENE_0, 110231) then
         dist = PC_ATTACK_DIST_AXE
-    elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110250) then
+    elseif self:HasSpecialEffectId(TARGET_ENE_0, 110250) then
         dist = PC_ATTACK_DIST_KODACHI
-    elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110291) then
+    elseif self:HasSpecialEffectId(TARGET_ENE_0, 110291) then
         dist = PC_ATTACK_DIST_LANCE_1
-    elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110292) then
+    elseif self:HasSpecialEffectId(TARGET_ENE_0, 110292) then
         dist = PC_ATTACK_DIST_LANCE_2
-    elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110290) then
+    elseif self:HasSpecialEffectId(TARGET_ENE_0, 110290) then
         dist = PC_ATTACK_DIST_LANCE_TYPE1_CHARGE
-    elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110293) then
+    elseif self:HasSpecialEffectId(TARGET_ENE_0, 110293) then
         dist = PC_ATTACK_DIST_LANCE_TYPE2_CHARGE
-    elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110400) then
+    elseif self:HasSpecialEffectId(TARGET_ENE_0, 110400) then
         dist = PC_ATTACK_DIST_SPIN
-    elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110410) then
+    elseif self:HasSpecialEffectId(TARGET_ENE_0, 110410) then
         dist = PC_ATTACK_DIST_JUMP_FRONT
-    elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110411) then
+    elseif self:HasSpecialEffectId(TARGET_ENE_0, 110411) then
         dist = PC_ATTACK_DIST_JUMP_BACK
-    elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110420) then
+    elseif self:HasSpecialEffectId(TARGET_ENE_0, 110420) then
         dist = PC_ATTACK_DIST_MEN_1
-    elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110421) then
+    elseif self:HasSpecialEffectId(TARGET_ENE_0, 110421) then
         dist = PC_ATTACK_DIST_MEN_2
-    elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110430) then
+    elseif self:HasSpecialEffectId(TARGET_ENE_0, 110430) then
         dist = PC_ATTACK_DIST_KENSEI_IAI
-    elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110440) then
+    elseif self:HasSpecialEffectId(TARGET_ENE_0, 110440) then
         dist = PC_ATTACK_DIST_IAI
-    elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110450) then
+    elseif self:HasSpecialEffectId(TARGET_ENE_0, 110450) then
         dist = PC_ATTACK_DIST_INVISIBLE_IAI_1
-    elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110451) then
+    elseif self:HasSpecialEffectId(TARGET_ENE_0, 110451) then
         dist = PC_ATTACK_DIST_INVISIBLE_IAI_2
-    elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110460) then
+    elseif self:HasSpecialEffectId(TARGET_ENE_0, 110460) then
         dist = PC_ATTACK_DIST_HASSOU
-    elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110470) then
+    elseif self:HasSpecialEffectId(TARGET_ENE_0, 110470) then
         dist = PC_ATTACK_DIST_HUSHIGIRI_LV1
-    elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110480) then
+    elseif self:HasSpecialEffectId(TARGET_ENE_0, 110480) then
         dist = PC_ATTACK_DIST_KICK_RUSH
-    elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110490) then
+    elseif self:HasSpecialEffectId(TARGET_ENE_0, 110490) then
         dist = PC_ATTACK_DIST_PUNCHI
-    elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 110501) then
+    elseif self:HasSpecialEffectId(TARGET_ENE_0, 110501) then
         dist = PC_ATTACK_DIST_GATOTSU
-    elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 109970) then
+    elseif self:HasSpecialEffectId(TARGET_ENE_0, 109970) then
         dist = PC_ATTACK_DIST_THRUST
     end
+
     return dist
 end
 

@@ -1,5 +1,5 @@
 RegisterTableGoal(GOAL_COMMON_WeaponChange, "WeaponChange")
-Goal.Activate = function (arg0, arg1, arg2)
+Goal.Activate = function(arg0, arg1, arg2)
     local f1_local0 = arg2:GetParam(0)
     local f1_local1 = nil
     if f1_local0 == 0 then
@@ -14,15 +14,11 @@ Goal.Activate = function (arg0, arg1, arg2)
         f1_local1 = 1300
     end
     arg2:AddSubGoal(GOAL_COMMON_NonspinningAttack, arg2:GetLife(), f1_local1, TARGET_ENE_0, DIST_None)
-    
 end
 
-Goal.Update = function (arg0, arg1, arg2)
+Goal.Update = function(arg0, arg1, arg2)
     if arg2:GetSubGoalNum() <= 0 then
         return GOAL_RESULT_Success
     end
     return GOAL_RESULT_Continue
-    
 end
-
-

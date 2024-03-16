@@ -512,4 +512,3 @@ GOAL_COMMON_SetNumberRealtime = 4010
 GOAL_COMMON_ClearTarget = 4020
 GOAL_COMMON_WaitCancelTiming = 5000
 GOAL_COMMON_ConfirmCautionTarget = 5100
-

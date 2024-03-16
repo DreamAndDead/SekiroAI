@@ -11,7 +11,6 @@ function Fall_Activate(arg0, arg1)
     if f1_local2 <= 0 then
         arg0:SetAttackRequest(f1_local1)
     end
-    
 end
 
 function Fall_Update(arg0, arg1)
@@ -25,18 +24,13 @@ function Fall_Update(arg0, arg1)
         arg0:SetAttackRequest(f2_local1)
     end
     return GOAL_RESULT_Continue
-    
 end
 
 function Fall_Terminate(arg0, arg1)
     local f3_local0 = arg1:GetParam(2)
     arg0:SetAttackRequest(f3_local0)
-    
 end
 
 function Fall_Interupt(arg0, arg1)
     return false
-    
 end
-
-

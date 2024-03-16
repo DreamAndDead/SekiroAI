@@ -28,46 +28,51 @@ function Normal_Activate(arg0, arg1)
     if f1_local0 <= f1_local21 then
         if f1_local0 < f1_local3 then
             if f1_local1 <= f1_local12 then
-                arg1:AddSubGoal(GOAL_COMMON_MoveToSomewhere, 5, TARGET_ENE_0, AI_DIR_TYPE_CENTER, f1_local9, TARGET_ENE_0, true)
+                arg1:AddSubGoal(GOAL_COMMON_MoveToSomewhere, 5, TARGET_ENE_0, AI_DIR_TYPE_CENTER, f1_local9, TARGET_ENE_0,
+                    true)
             else
                 arg1:AddSubGoal(GOAL_COMMON_Attack, 10, f1_local6, TARGET_ENE_0, DIST_Near, 0)
                 if f1_local2 <= f1_local18 then
-                    arg1:AddSubGoal(GOAL_COMMON_MoveToSomewhere, 5, TARGET_ENE_0, AI_DIR_TYPE_CENTER, f1_local15, TARGET_ENE_0, true)
+                    arg1:AddSubGoal(GOAL_COMMON_MoveToSomewhere, 5, TARGET_ENE_0, AI_DIR_TYPE_CENTER, f1_local15,
+                        TARGET_ENE_0, true)
                 end
             end
         elseif f1_local0 < f1_local4 then
             if f1_local1 <= f1_local13 then
-                arg1:AddSubGoal(GOAL_COMMON_MoveToSomewhere, 5, TARGET_ENE_0, AI_DIR_TYPE_CENTER, f1_local10, TARGET_ENE_0, true)
+                arg1:AddSubGoal(GOAL_COMMON_MoveToSomewhere, 5, TARGET_ENE_0, AI_DIR_TYPE_CENTER, f1_local10,
+                    TARGET_ENE_0, true)
             else
                 arg1:AddSubGoal(GOAL_COMMON_Attack, 10, f1_local7, TARGET_ENE_0, DIST_Near, 0)
                 if f1_local2 <= f1_local19 then
-                    arg1:AddSubGoal(GOAL_COMMON_MoveToSomewhere, 5, TARGET_ENE_0, AI_DIR_TYPE_CENTER, f1_local16, TARGET_ENE_0, true)
+                    arg1:AddSubGoal(GOAL_COMMON_MoveToSomewhere, 5, TARGET_ENE_0, AI_DIR_TYPE_CENTER, f1_local16,
+                        TARGET_ENE_0, true)
                 end
             end
         elseif f1_local1 <= f1_local14 then
-            arg1:AddSubGoal(GOAL_COMMON_MoveToSomewhere, 5, TARGET_ENE_0, AI_DIR_TYPE_CENTER, f1_local11, TARGET_ENE_0, true)
+            arg1:AddSubGoal(GOAL_COMMON_MoveToSomewhere, 5, TARGET_ENE_0, AI_DIR_TYPE_CENTER, f1_local11, TARGET_ENE_0,
+                true)
         else
             arg1:AddSubGoal(GOAL_COMMON_Attack, 10, f1_local8, TARGET_ENE_0, DIST_Near, 0)
             if f1_local2 <= f1_local20 then
-                arg1:AddSubGoal(GOAL_COMMON_MoveToSomewhere, 5, TARGET_ENE_0, AI_DIR_TYPE_CENTER, f1_local17, TARGET_ENE_0, true)
+                arg1:AddSubGoal(GOAL_COMMON_MoveToSomewhere, 5, TARGET_ENE_0, AI_DIR_TYPE_CENTER, f1_local17,
+                    TARGET_ENE_0, true)
             end
         end
     elseif f1_local0 <= f1_local23 then
         arg1:AddSubGoal(GOAL_COMMON_MoveToSomewhere, 10, TARGET_ENE_0, AI_DIR_TYPE_CENTER, f1_local25, TARGET_ENE_0, true)
     else
-        arg1:AddSubGoal(GOAL_COMMON_MoveToSomewhere, 10, TARGET_ENE_0, AI_DIR_TYPE_CENTER, f1_local24, TARGET_ENE_0, false)
+        arg1:AddSubGoal(GOAL_COMMON_MoveToSomewhere, 10, TARGET_ENE_0, AI_DIR_TYPE_CENTER, f1_local24, TARGET_ENE_0,
+            false)
         arg1:AddSubGoal(GOAL_COMMON_MoveToSomewhere, 10, TARGET_ENE_0, AI_DIR_TYPE_CENTER, f1_local25, TARGET_ENE_0, true)
     end
-    
 end
 
 function Normal_Update(arg0, arg1)
     return GOAL_RESULT_Continue
-    
 end
 
 function Normal_Terminate(arg0, arg1)
-    
+
 end
 
 function Normal_Interupt(arg0, arg1)
@@ -107,7 +112,4 @@ function Normal_Interupt(arg0, arg1)
         return true
     end
     return false
-    
 end
-
-

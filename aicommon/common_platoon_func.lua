@@ -44,7 +44,4 @@ function Platoon_Common_Act(arg0)
             end
         end
     end
-    
 end
-
-

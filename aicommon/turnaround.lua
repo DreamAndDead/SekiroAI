@@ -22,7 +22,6 @@ function TurnAround_Activate(arg0, arg1)
     elseif f1_local4 == AI_DIR_TYPE_R then
         arg1:AddGoalScopedTeamRecord(COORDINATE_TYPE_SideWalk_R, f1_local0, 0)
     end
-    
 end
 
 function TurnAround_Update(arg0, arg1, arg2)
@@ -40,17 +39,13 @@ function TurnAround_Update(arg0, arg1, arg2)
         return GOAL_RESULT_Success
     end
     return GOAL_RESULT_Continue
-    
 end
 
 function TurnAround_Terminate(arg0, arg1)
-    
+
 end
 
 REGISTER_GOAL_NO_INTERUPT(GOAL_COMMON_TurnAround, true)
 function TurnAround_Interupt(arg0, arg1)
     return false
-    
 end
-
-

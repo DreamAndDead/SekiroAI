@@ -6,6 +6,7 @@ REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_Attack3, 4, "???????p?x?y?x?z", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_Attack3, 5, "?K???????????H", 0)
 REGISTER_GOAL_UPDATE_TIME(GOAL_COMMON_Attack3, 0, 0)
 REGISTER_GOAL_NO_INTERUPT(GOAL_COMMON_Attack3, true)
+
 function Attack3_Activate(arg0, arg1)
     local f1_local0 = arg1:GetParam(0)
     local f1_local1 = arg1:GetParam(1)
@@ -24,7 +25,6 @@ function Attack3_Activate(arg0, arg1)
         arg0:SetAttackRequest(f1_local0)
     end
     arg1:AddGoalScopedTeamRecord(COORDINATE_TYPE_Attack, f1_local1, 0)
-    
 end
 
 function Attack3_Update(arg0, arg1)
@@ -57,16 +57,12 @@ function Attack3_Update(arg0, arg1)
     end
     arg0:TurnTo(f2_local1)
     return GOAL_RESULT_Continue
-    
 end
 
 function Attack3_Terminate(arg0, arg1)
-    
+
 end
 
 function Attack3_Interupt(arg0, arg1)
     return false
-    
 end
-
-

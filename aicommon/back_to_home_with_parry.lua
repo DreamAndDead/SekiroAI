@@ -1,24 +1,23 @@
 RegisterTableGoal(GOAL_COMMON_BackToHome_With_Parry, "BackToHomeWithParry")
 REGISTER_GOAL_NO_SUB_GOAL(GOAL_COMMON_BackToHome_With_Parry, true)
-Goal.Initialize = function (arg0, arg1, arg2)
-    
+
+Goal.Initialize = function(arg0, arg1, arg2)
+
 end
 
-Goal.Activate = function (arg0, arg1, arg2)
+Goal.Activate = function(arg0, arg1, arg2)
     arg2:AddSubGoal(GOAL_COMMON_BackToHome, arg2:GetLife(), 0, false, 0, 0, TARGET_ENE_0)
-    
 end
 
-Goal.Update = function (arg0, arg1, arg2)
+Goal.Update = function(arg0, arg1, arg2)
     return Update_Default_NoSubGoal(arg0, arg1, arg2)
-    
 end
 
-Goal.Terminate = function (arg0, arg1, arg2)
-    
+Goal.Terminate = function(arg0, arg1, arg2)
+
 end
 
-Goal.Interrupt = function (arg0, arg1, arg2)
+Goal.Interrupt = function(arg0, arg1, arg2)
     if arg1:IsInterupt(INTERUPT_ParryTiming) then
         return Common_Parry(arg1, arg2, 0, 0)
     end
@@ -40,7 +39,4 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         end
     end
     return false
-    
 end
-
-

@@ -8,7 +8,6 @@ function CallTeam_Activate(arg0, arg1)
     if arg0:IsLookToTarget() == true then
         arg0:SetAttackRequest(f1_local0)
     end
-    
 end
 
 function CallTeam_Update(arg0, arg1)
@@ -28,7 +27,6 @@ function CallTeam_Update(arg0, arg1)
         arg0:TurnTo(f2_local1)
     end
     return GOAL_RESULT_Continue
-    
 end
 
 function CallTeam_Terminate(arg0, arg1)
@@ -39,7 +37,6 @@ function CallTeam_Terminate(arg0, arg1)
     else
         arg0:SetNumber(2, 1)
     end
-    
 end
 
 function CallTeam_Interupt(arg0, arg1)
@@ -49,7 +46,4 @@ function CallTeam_Interupt(arg0, arg1)
         return true
     end
     return false
-    
 end
-
-

@@ -1,70 +1,81 @@
 RegisterTableGoal(GOAL_Ochimusha_katate_101000_Battle, "Ochimusha_katate_101000_Battle")
 REGISTER_GOAL_NO_SUB_GOAL(GOAL_Ochimusha_katate_101000_Battle, true)
+
 Goal.Initialize = function(arg0, arg1, arg2, arg3)
 
 end
 
-Goal.Activate = function(goal, arg1, arg2)
-    Init_Pseudo_Global(arg1, arg2)
-    arg1:SetStringIndexedNumber("Dist_Step_Small", 2)
-    arg1:SetStringIndexedNumber("Dist_Step_Large", 4)
-    arg1:SetStringIndexedNumber("KengekiID", 0)
-    arg1:SetStringIndexedNumber("KaihukuSp", 30)
-    if goal:Kengeki_Activate(arg1, arg2) then
+Goal.Activate = function(goal, self, goal_manager)
+    Init_Pseudo_Global(self, goal_manager)
+
+    self:SetStringIndexedNumber("Dist_Step_Small", 2)
+    self:SetStringIndexedNumber("Dist_Step_Large", 4)
+    self:SetStringIndexedNumber("KengekiID", 0)
+    self:SetStringIndexedNumber("KaihukuSp", 30)
+
+    if goal:Kengeki_Activate(self, goal_manager) then
         return
     end
-    arg1:SetStringIndexedNumber("targetWhich", TARGET_ENE_0)
-    if not not arg1:IsInsideTargetEx(TARGET_ENE_0, TARGET_SELF, AI_DIR_TYPE_F, 120, 9999) or arg1:HasSpecialEffectId(TARGET_SELF, 220020) then
-        arg1:SetStringIndexedNumber("karaburiDist", 0)
+
+    self:SetStringIndexedNumber("targetWhich", TARGET_ENE_0)
+    -- 和傀儡忍杀有关？
+    if self:IsInsideTargetEx(TARGET_ENE_0, TARGET_SELF, AI_DIR_TYPE_F, 120, 9999) or self:HasSpecialEffectId(TARGET_SELF, 220020) then
+        self:SetStringIndexedNumber("karaburiDist", 0)
     else
-        arg1:SetStringIndexedNumber("karaburiDist", 2)
+        self:SetStringIndexedNumber("karaburiDist", 2)
     end
 
     local act_weight_list = {}
     local act_func_list = {}
     local default_act_param_list = {}
-    
     Common_Clear_Param(act_weight_list, act_func_list, default_act_param_list)
 
-    local f2_local9 = arg1:GetSpRate(TARGET_SELF)
-    local f2_local10 = arg1:GetDist(TARGET_ENE_0)
-    local f2_local12 = arg1:GetExcelParam(AI_EXCEL_THINK_PARAM_TYPE__thinkAttr_doAdmirer)
+    local sp_rate = self:GetSpRate(TARGET_SELF)
+    local dist_to_player = self:GetDist(TARGET_ENE_0)
+    local f2_local12 = self:GetExcelParam(AI_EXCEL_THINK_PARAM_TYPE__thinkAttr_doAdmirer)
     
-    -- 变招输入的观察点，会引发变招 int
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 109031)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 107900)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 109220)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 109221)
+    -- 变招输入的 sp 观察点，会引发变招信号
+    self:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 109031)
+    self:AddObserveSpecialEffectAttribute(TARGET_SELF, 107900)
+    self:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 109220)
+    self:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 109221)
 
-    Set_ConsecutiveGuardCount_Interrupt(arg1)
+    Set_ConsecutiveGuardCount_Interrupt(self)
 
-    if arg1:HasSpecialEffectId(TARGET_ENE_0, 3170200) then
+    -- 和火炎攻击相关
+    if self:HasSpecialEffectId(TARGET_ENE_0, 3170200) then
         act_weight_list[25] = 1000
         act_weight_list[1] = 1
-    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 3101540) then
+    -- 铃婆npc相关
+    elseif self:HasSpecialEffectId(TARGET_ENE_0, 3101540) then
         act_weight_list[27] = 100
-    elseif Common_ActivateAct(arg1, arg2) then
+    elseif Common_ActivateAct(self, goal_manager) then
 
-    elseif arg1:CheckDoesExistPath(TARGET_ENE_0, AI_DIR_TYPE_F, 0, 0) == false or not not arg1:HasSpecialEffectId(TARGET_ENE_0, 109220) or arg1:HasSpecialEffectId(TARGET_ENE_0, 109221) then
+    -- 悬挂隐蔽？
+    elseif self:CheckDoesExistPath(TARGET_ENE_0, AI_DIR_TYPE_F, 0, 0) == false or self:HasSpecialEffectId(TARGET_ENE_0, 109220) or self:HasSpecialEffectId(TARGET_ENE_0, 109221) then
         act_weight_list[7] = 100
         act_weight_list[27] = 100
-    elseif arg1:HasSpecialEffectId(TARGET_SELF, 107900) and arg1:GetNumber(12) == 1 then
-        arg1:SetNumber(12, 0)
+    -- 指笛相关？
+    elseif self:HasSpecialEffectId(TARGET_SELF, 107900) and self:GetNumber(12) == 1 then
+        self:SetNumber(12, 0)
         act_weight_list[6] = 100
-    elseif f2_local12 == 1 and arg1:GetTeamOrder(ORDER_TYPE_Role) == ROLE_TYPE_Kankyaku then
-        KankyakuAct(arg1, arg2)
-    elseif f2_local12 == 1 and arg1:GetTeamOrder(ORDER_TYPE_Role) == ROLE_TYPE_Torimaki then
-        if TorimakiAct(arg1, arg2) then
+    elseif f2_local12 == 1 and self:GetTeamOrder(ORDER_TYPE_Role) == ROLE_TYPE_Kankyaku then
+        KankyakuAct(self, goal_manager)
+    elseif f2_local12 == 1 and self:GetTeamOrder(ORDER_TYPE_Role) == ROLE_TYPE_Torimaki then
+        if TorimakiAct(self, goal_manager) then
             act_weight_list[1] = 50
             act_weight_list[2] = 50
             act_weight_list[7] = 100
         end
-    elseif arg1:HasSpecialEffectId(TARGET_SELF, 310000) then
+    -- 横移
+    elseif self:HasSpecialEffectId(TARGET_SELF, 310000) then
         act_weight_list[23] = 100
-    elseif arg1:HasSpecialEffectId(TARGET_SELF, 310001) then
+    -- 攻击并横移
+    elseif self:HasSpecialEffectId(TARGET_SELF, 310001) then
         act_weight_list[1] = 10
-    elseif arg1:HasSpecialEffectId(TARGET_SELF, 310020) then
-        if f2_local9 < 0.4 then
+    -- 回避
+    elseif self:HasSpecialEffectId(TARGET_SELF, 310020) then
+        if sp_rate < 0.4 then
             act_weight_list[12] = 100
             act_weight_list[1] = 1
             act_weight_list[3] = 1
@@ -74,22 +85,24 @@ Goal.Activate = function(goal, arg1, arg2)
             act_weight_list[3] = 10
             act_weight_list[11] = 10
         end
-    elseif arg1:HasSpecialEffectId(TARGET_SELF, 310060) then
+    -- 崩躯干
+    elseif self:HasSpecialEffectId(TARGET_SELF, 310060) then
         act_weight_list[1] = 10
         act_weight_list[14] = 10
         act_weight_list[15] = 10
         act_weight_list[23] = 10
-    elseif arg1:HasSpecialEffectId(TARGET_SELF, 310090) then
+    -- ？
+    elseif self:HasSpecialEffectId(TARGET_SELF, 310090) then
         act_weight_list[1] = 10
         act_weight_list[3] = 10
         act_weight_list[11] = 10
-    elseif f2_local10 >= 7 then
-        if not (not arg1:HasSpecialEffectId(TARGET_SELF, 200050) or arg1:GetNumber(5) ~= 0) or arg1:HasSpecialEffectId(TARGET_ENE_0, 100002) then
+    elseif dist_to_player >= 7 then
+        if not (not self:HasSpecialEffectId(TARGET_SELF, 200050) or self:GetNumber(5) ~= 0) or self:HasSpecialEffectId(TARGET_ENE_0, 100002) then
             act_weight_list[8] = 100
             act_weight_list[9] = 100
-        elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 109031) then
+        elseif self:HasSpecialEffectId(TARGET_ENE_0, 109031) then
             act_weight_list[23] = 100
-        elseif arg1:IsTargetGuard(TARGET_ENE_0) then
+        elseif self:IsTargetGuard(TARGET_ENE_0) then
             act_weight_list[1] = 0
             act_weight_list[2] = 0
             act_weight_list[3] = 100
@@ -108,10 +121,10 @@ Goal.Activate = function(goal, arg1, arg2)
             act_weight_list[7] = 0
             act_weight_list[11] = 0
         end
-    elseif f2_local10 >= 5 then
-        if arg1:HasSpecialEffectId(TARGET_ENE_0, 109031) then
+    elseif dist_to_player >= 5 then
+        if self:HasSpecialEffectId(TARGET_ENE_0, 109031) then
             act_weight_list[23] = 100
-        elseif arg1:IsTargetGuard(TARGET_ENE_0) then
+        elseif self:IsTargetGuard(TARGET_ENE_0) then
             act_weight_list[1] = 0
             act_weight_list[2] = 200
             act_weight_list[3] = 100
@@ -130,11 +143,11 @@ Goal.Activate = function(goal, arg1, arg2)
             act_weight_list[7] = 0
             act_weight_list[11] = 100
         end
-    elseif f2_local10 >= 3 then
-        if arg1:HasSpecialEffectId(TARGET_ENE_0, 109031) then
+    elseif dist_to_player >= 3 then
+        if self:HasSpecialEffectId(TARGET_ENE_0, 109031) then
             act_weight_list[24] = 100
             act_weight_list[25] = 100
-        elseif arg1:IsTargetGuard(TARGET_ENE_0) then
+        elseif self:IsTargetGuard(TARGET_ENE_0) then
             act_weight_list[1] = 100
             act_weight_list[2] = 0
             act_weight_list[3] = 0
@@ -153,11 +166,11 @@ Goal.Activate = function(goal, arg1, arg2)
             act_weight_list[7] = 0
             act_weight_list[11] = 100
         end
-    elseif f2_local10 >= 1 then
-        if arg1:HasSpecialEffectId(TARGET_ENE_0, 109031) then
+    elseif dist_to_player >= 1 then
+        if self:HasSpecialEffectId(TARGET_ENE_0, 109031) then
             act_weight_list[24] = 100
             act_weight_list[25] = 100
-        elseif arg1:IsTargetGuard(TARGET_ENE_0) then
+        elseif self:IsTargetGuard(TARGET_ENE_0) then
             act_weight_list[1] = 100
             act_weight_list[2] = 0
             act_weight_list[3] = 0
@@ -178,10 +191,10 @@ Goal.Activate = function(goal, arg1, arg2)
             act_weight_list[11] = 200
             act_weight_list[24] = 0
         end
-    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 109031) then
+    elseif self:HasSpecialEffectId(TARGET_ENE_0, 109031) then
         act_weight_list[24] = 100
         act_weight_list[25] = 100
-    elseif arg1:IsTargetGuard(TARGET_ENE_0) then
+    elseif self:IsTargetGuard(TARGET_ENE_0) then
         act_weight_list[1] = 100
         act_weight_list[2] = 0
         act_weight_list[3] = 0
@@ -202,64 +215,67 @@ Goal.Activate = function(goal, arg1, arg2)
         act_weight_list[11] = 200
         act_weight_list[24] = 50
     end
-    if arg1:IsFinishTimer(0) == false then
+
+    if self:IsFinishTimer(0) == false then
         act_weight_list[12] = 0
     end
-    if SpaceCheck(arg1, arg2, 45, arg1:GetStringIndexedNumber("Dist_Step_Small")) == false and SpaceCheck(arg1, arg2, -45, arg1:GetStringIndexedNumber("Dist_Step_Small")) == false then
+
+    -- 四周如果有障碍，取消相应方向的移动
+    if SpaceCheck(self, goal_manager, 45, self:GetStringIndexedNumber("Dist_Step_Small")) == false and SpaceCheck(self, goal_manager, -45, self:GetStringIndexedNumber("Dist_Step_Small")) == false then
         act_weight_list[22] = 0
     end
-    if SpaceCheck(arg1, arg2, 90, 1) == false and SpaceCheck(arg1, arg2, -90, 1) == false then
+    if SpaceCheck(self, goal_manager, 90, 1) == false and SpaceCheck(self, goal_manager, -90, 1) == false then
         act_weight_list[23] = 0
     end
-    if SpaceCheck(arg1, arg2, 180, arg1:GetStringIndexedNumber("Dist_Step_Small")) == false then
+    if SpaceCheck(self, goal_manager, 180, self:GetStringIndexedNumber("Dist_Step_Small")) == false then
         act_weight_list[24] = 0
     end
-    if SpaceCheck(arg1, arg2, 180, 1) == false then
+    if SpaceCheck(self, goal_manager, 180, 1) == false then
         act_weight_list[25] = 0
     end
 
-    act_weight_list[1] = SetCoolTime(arg1, arg2, 3000, 5, act_weight_list[1], 1)
-    act_weight_list[2] = SetCoolTime(arg1, arg2, 3002, 5, act_weight_list[2], 1)
-    act_weight_list[3] = SetCoolTime(arg1, arg2, 3003, 5, act_weight_list[3], 1)
-    act_weight_list[4] = SetCoolTime(arg1, arg2, 3004, 10, act_weight_list[4], 1)
-    act_weight_list[5] = SetCoolTime(arg1, arg2, 3005, 10, act_weight_list[5], 1)
-    act_weight_list[6] = SetCoolTime(arg1, arg2, 3008, 10, act_weight_list[6], 1)
-    act_weight_list[7] = SetCoolTime(arg1, arg2, 3009, 5, act_weight_list[7], 1)
-    act_weight_list[8] = SetCoolTime(arg1, arg2, 3010, 15, act_weight_list[8], 1)
-    act_weight_list[9] = SetCoolTime(arg1, arg2, 3011, 15, act_weight_list[9], 1)
-    act_weight_list[11] = SetCoolTime(arg1, arg2, 3012, 5, act_weight_list[11], 1)
-    act_weight_list[14] = SetCoolTime(arg1, arg2, 3014, 5, act_weight_list[14], 1)
-    act_weight_list[15] = SetCoolTime(arg1, arg2, 3015, 5, act_weight_list[15], 1)
-    act_weight_list[24] = SetCoolTime(arg1, arg2, 5211, 5, act_weight_list[24], 1)
+    act_weight_list[1] = SetCoolTime(self, goal_manager, 3000, 5, act_weight_list[1], 1)
+    act_weight_list[2] = SetCoolTime(self, goal_manager, 3002, 5, act_weight_list[2], 1)
+    act_weight_list[3] = SetCoolTime(self, goal_manager, 3003, 5, act_weight_list[3], 1)
+    act_weight_list[4] = SetCoolTime(self, goal_manager, 3004, 10, act_weight_list[4], 1)
+    act_weight_list[5] = SetCoolTime(self, goal_manager, 3005, 10, act_weight_list[5], 1)
+    act_weight_list[6] = SetCoolTime(self, goal_manager, 3008, 10, act_weight_list[6], 1)
+    act_weight_list[7] = SetCoolTime(self, goal_manager, 3009, 5, act_weight_list[7], 1)
+    act_weight_list[8] = SetCoolTime(self, goal_manager, 3010, 15, act_weight_list[8], 1)
+    act_weight_list[9] = SetCoolTime(self, goal_manager, 3011, 15, act_weight_list[9], 1)
+    act_weight_list[11] = SetCoolTime(self, goal_manager, 3012, 5, act_weight_list[11], 1)
+    act_weight_list[14] = SetCoolTime(self, goal_manager, 3014, 5, act_weight_list[14], 1)
+    act_weight_list[15] = SetCoolTime(self, goal_manager, 3015, 5, act_weight_list[15], 1)
+    act_weight_list[24] = SetCoolTime(self, goal_manager, 5211, 5, act_weight_list[24], 1)
 
-    act_func_list[1] = REGIST_FUNC(arg1, arg2, goal.Act01)
-    act_func_list[2] = REGIST_FUNC(arg1, arg2, goal.Act02)
-    act_func_list[3] = REGIST_FUNC(arg1, arg2, goal.Act03)
-    act_func_list[4] = REGIST_FUNC(arg1, arg2, goal.Act04)
-    act_func_list[5] = REGIST_FUNC(arg1, arg2, goal.Act05)
-    act_func_list[6] = REGIST_FUNC(arg1, arg2, goal.Act06)
-    act_func_list[7] = REGIST_FUNC(arg1, arg2, goal.Act07)
-    act_func_list[8] = REGIST_FUNC(arg1, arg2, goal.Act08)
-    act_func_list[9] = REGIST_FUNC(arg1, arg2, goal.Act09)
-    act_func_list[10] = REGIST_FUNC(arg1, arg2, goal.Act10)
-    act_func_list[11] = REGIST_FUNC(arg1, arg2, goal.Act11)
-    act_func_list[12] = REGIST_FUNC(arg1, arg2, goal.Act12)
-    act_func_list[13] = REGIST_FUNC(arg1, arg2, goal.Act13)
-    act_func_list[14] = REGIST_FUNC(arg1, arg2, goal.Act14)
-    act_func_list[15] = REGIST_FUNC(arg1, arg2, goal.Act15)
-    act_func_list[21] = REGIST_FUNC(arg1, arg2, goal.Act21)
-    act_func_list[22] = REGIST_FUNC(arg1, arg2, goal.Act22)
-    act_func_list[23] = REGIST_FUNC(arg1, arg2, goal.Act23)
-    act_func_list[24] = REGIST_FUNC(arg1, arg2, goal.Act24)
-    act_func_list[25] = REGIST_FUNC(arg1, arg2, goal.Act25)
-    act_func_list[26] = REGIST_FUNC(arg1, arg2, goal.Act26)
-    act_func_list[27] = REGIST_FUNC(arg1, arg2, goal.Act27)
-    act_func_list[28] = REGIST_FUNC(arg1, arg2, goal.Act28)
-    act_func_list[41] = REGIST_FUNC(arg1, arg2, goal.Act41)
+    act_func_list[1] = REGIST_FUNC(self, goal_manager, goal.Act01)
+    act_func_list[2] = REGIST_FUNC(self, goal_manager, goal.Act02)
+    act_func_list[3] = REGIST_FUNC(self, goal_manager, goal.Act03)
+    act_func_list[4] = REGIST_FUNC(self, goal_manager, goal.Act04)
+    act_func_list[5] = REGIST_FUNC(self, goal_manager, goal.Act05)
+    act_func_list[6] = REGIST_FUNC(self, goal_manager, goal.Act06)
+    act_func_list[7] = REGIST_FUNC(self, goal_manager, goal.Act07)
+    act_func_list[8] = REGIST_FUNC(self, goal_manager, goal.Act08)
+    act_func_list[9] = REGIST_FUNC(self, goal_manager, goal.Act09)
+    act_func_list[10] = REGIST_FUNC(self, goal_manager, goal.Act10)
+    act_func_list[11] = REGIST_FUNC(self, goal_manager, goal.Act11)
+    act_func_list[12] = REGIST_FUNC(self, goal_manager, goal.Act12)
+    act_func_list[13] = REGIST_FUNC(self, goal_manager, goal.Act13)
+    act_func_list[14] = REGIST_FUNC(self, goal_manager, goal.Act14)
+    act_func_list[15] = REGIST_FUNC(self, goal_manager, goal.Act15)
+    act_func_list[21] = REGIST_FUNC(self, goal_manager, goal.Act21)
+    act_func_list[22] = REGIST_FUNC(self, goal_manager, goal.Act22)
+    act_func_list[23] = REGIST_FUNC(self, goal_manager, goal.Act23)
+    act_func_list[24] = REGIST_FUNC(self, goal_manager, goal.Act24)
+    act_func_list[25] = REGIST_FUNC(self, goal_manager, goal.Act25)
+    act_func_list[26] = REGIST_FUNC(self, goal_manager, goal.Act26)
+    act_func_list[27] = REGIST_FUNC(self, goal_manager, goal.Act27)
+    act_func_list[28] = REGIST_FUNC(self, goal_manager, goal.Act28)
+    act_func_list[41] = REGIST_FUNC(self, goal_manager, goal.Act41)
 
-    local act_after_adjust_space = REGIST_FUNC(arg1, arg2, goal.ActAfter_AdjustSpace)
+    local act_after_adjust_space = REGIST_FUNC(self, goal_manager, goal.ActAfter_AdjustSpace)
 
-    Common_Battle_Activate(arg1, arg2, act_weight_list, act_func_list, act_after_adjust_space, default_act_param_list)
+    Common_Battle_Activate(self, goal_manager, act_weight_list, act_func_list, act_after_adjust_space, default_act_param_list)
 end
 
 Goal.Act01 = function(arg0, arg1, arg2)
@@ -710,9 +726,6 @@ Goal.Act24 = function(arg0, arg1, arg2)
 end
 
 Goal.Act25 = function(arg0, arg1, arg2)
-    local f23_local0 = arg0:GetSp(TARGET_SELF)
-    local f23_local1 = 0
-    local f23_local2 = arg0:GetRandam_Int(1, 100)
     local f23_local3 = -1
     local f23_local4 = arg0:GetRandam_Float(3, 5)
     local f23_local5 = 5
@@ -726,6 +739,7 @@ Goal.Act25 = function(arg0, arg1, arg2)
     else
         arg1:AddSubGoal(GOAL_COMMON_Wait, 5, TARGET_SELF, 0, 0, 0)
     end
+
     GetWellSpace_Odds = 0
     return GetWellSpace_Odds
 end
@@ -797,63 +811,69 @@ Goal.Act28 = function(arg0, arg1, arg2)
     return GetWellSpace_Odds
 end
 
-Goal.Interrupt = function(goal, arg1, arg2)
-    local interupt_sp = arg1:GetSpecialEffectActivateInterruptType(0)
-    if arg1:IsLadderAct(TARGET_SELF) then
+Goal.Interrupt = function(goal, self, goal_manager)
+    local interupt_sp = self:GetSpecialEffectActivateInterruptType(0)
+
+    if self:IsLadderAct(TARGET_SELF) then
         return false
     end
 
-    if not arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    -- 非战斗状态
+    if not self:HasSpecialEffectId(TARGET_SELF, 200004) then
         return false
     end
 
     if interupt_sp == 109031 then
-        arg1:Replanning()
+        self:Replanning()
         return true
     end
 
-    if arg1:IsInterupt(INTERUPT_ActivateSpecialEffect) then
+    if self:IsInterupt(INTERUPT_ActivateSpecialEffect) then
         if interupt_sp == 107900 then
-            arg1:SetNumber(12, 1)
-            arg2:ClearSubGoal()
-            arg1:Replanning()
+            self:SetNumber(12, 1)
+            goal_manager:ClearSubGoal()
+            self:Replanning()
             return true
         elseif interupt_sp == 109220 or interupt_sp == 109221 then
-            arg1:Replanning()
+            self:Replanning()
             return true
         end
     end
 
-    if arg1:IsInterupt(INTERUPT_ParryTiming) and not arg1:HasSpecialEffectId(TARGET_ENE_0, 3502520) then
-        return Common_Parry(arg1, arg2, 50, 25, 0, 3102)
+    if self:IsInterupt(INTERUPT_ParryTiming) and not self:HasSpecialEffectId(TARGET_ENE_0, 3502520) then
+        return Common_Parry(self, goal_manager, 50, 25, 0, 3102)
     end
 
-    if arg1:IsInterupt(INTERUPT_LoseSightTarget) and arg1:IsActiveGoal(GOAL_COMMON_SidewayMove) then
-        if arg1:GetNumber(10) == 0 then
-            arg2:ClearSubGoal()
-            arg2:AddSubGoal(GOAL_COMMON_SidewayMove, 1, TARGET_ENE_0, 1, arg1:GetRandam_Int(30, 45), true, true, -1)
-        elseif arg1:GetNumber(10) == 1 then
-            arg2:ClearSubGoal()
-            arg2:AddSubGoal(GOAL_COMMON_SidewayMove, 1, TARGET_ENE_0, 0, arg1:GetRandam_Int(30, 45), true, true, -1)
+    if self:IsInterupt(INTERUPT_LoseSightTarget) and self:IsActiveGoal(GOAL_COMMON_SidewayMove) then
+        if self:GetNumber(10) == 0 then
+            goal_manager:ClearSubGoal()
+            goal_manager:AddSubGoal(GOAL_COMMON_SidewayMove, 1, TARGET_ENE_0, 1, self:GetRandam_Int(30, 45), true, true, -1)
+        elseif self:GetNumber(10) == 1 then
+            goal_manager:ClearSubGoal()
+            goal_manager:AddSubGoal(GOAL_COMMON_SidewayMove, 1, TARGET_ENE_0, 0, self:GetRandam_Int(30, 45), true, true, -1)
         end
         return true
     end
 
-    if arg1:IsInterupt(INTERUPT_ShootImpact) and goal.ShootReaction(arg1, arg2) then
+    if self:IsInterupt(INTERUPT_ShootImpact) and goal.ShootReaction(self, goal_manager) then
         return true
     end
 
     return false
 end
 
-Goal.ShootReaction = function(arg0, arg1)
-    arg1:ClearSubGoal()
-    arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, 3100, TARGET_ENE_0, 9999, 0)
+Goal.ShootReaction = function(self, goal_manager)
+    goal_manager:ClearSubGoal()
+    goal_manager:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, 3100, TARGET_ENE_0, 9999, 0)
     return true
 end
 
-Goal.Kengeki_Activate = function(goal, arg1, arg2)
-    local kengeki_sp = ReturnKengekiSpecialEffect(arg1)
+--[[
+    return true if activate any kengeki act
+]]
+Goal.Kengeki_Activate = function(goal, self, goal_manager)
+    local kengeki_sp = ReturnKengekiSpecialEffect(self)
+
     if kengeki_sp == 0 then
         return false
     end
@@ -863,13 +883,13 @@ Goal.Kengeki_Activate = function(goal, arg1, arg2)
     local act_default_param_list = {}
     Common_Clear_Param(act_weight_list, act_func_list, act_default_param_list)
 
-    local dist_to_player = arg1:GetDist(TARGET_ENE_0)
+    local dist_to_player = self:GetDist(TARGET_ENE_0)
 
     if kengeki_sp == 200200 or kengeki_sp == 200205 then
         if dist_to_player >= 2.7 then
 
         -- 0.2 是不是太近了？难道在空中？
-        elseif dist_to_player <= 0.2 and SpaceCheck(arg1, arg2, 180, arg1:GetStringIndexedNumber("Dist_Step_Large")) == true then
+        elseif dist_to_player <= 0.2 and SpaceCheck(self, goal_manager, 180, self:GetStringIndexedNumber("Dist_Step_Large")) == true then
             act_weight_list[30] = 50
             act_weight_list[50] = 50
         else
@@ -880,7 +900,7 @@ Goal.Kengeki_Activate = function(goal, arg1, arg2)
     elseif kengeki_sp == 200201 or kengeki_sp == 200206 then
         if dist_to_player >= 2.7 then
 
-        elseif dist_to_player <= 0.2 and SpaceCheck(arg1, arg2, 180, arg1:GetStringIndexedNumber("Dist_Step_Large")) == true then
+        elseif dist_to_player <= 0.2 and SpaceCheck(self, goal_manager, 180, self:GetStringIndexedNumber("Dist_Step_Large")) == true then
             act_weight_list[30] = 50
             act_weight_list[50] = 50
         else
@@ -893,9 +913,9 @@ Goal.Kengeki_Activate = function(goal, arg1, arg2)
 
         elseif dist_to_player <= 0.2 then
 
-        elseif kengeki_sp == 200210 and arg1:HasSpecialEffectId(TARGET_SELF, 310080) then
+        elseif kengeki_sp == 200210 and self:HasSpecialEffectId(TARGET_SELF, 310080) then
             act_weight_list[3] = 100
-        elseif kengeki_sp == 200215 and arg1:HasSpecialEffectId(TARGET_SELF, 310080) then
+        elseif kengeki_sp == 200215 and self:HasSpecialEffectId(TARGET_SELF, 310080) then
             act_weight_list[4] = 100
             act_weight_list[7] = 100
         else
@@ -907,9 +927,9 @@ Goal.Kengeki_Activate = function(goal, arg1, arg2)
 
         elseif dist_to_player <= 0.2 then
 
-        elseif kengeki_sp == 200211 and arg1:HasSpecialEffectId(TARGET_SELF, 310080) then
+        elseif kengeki_sp == 200211 and self:HasSpecialEffectId(TARGET_SELF, 310080) then
             act_weight_list[3] = 100
-        elseif kengeki_sp == 200216 and arg1:HasSpecialEffectId(TARGET_SELF, 310080) then
+        elseif kengeki_sp == 200216 and self:HasSpecialEffectId(TARGET_SELF, 310080) then
             act_weight_list[4] = 100
             act_weight_list[7] = 100
         else
@@ -918,25 +938,36 @@ Goal.Kengeki_Activate = function(goal, arg1, arg2)
         end
     end
 
-    act_func_list[1] = REGIST_FUNC(arg1, arg2, goal.Kengeki01)
-    act_func_list[2] = REGIST_FUNC(arg1, arg2, goal.Kengeki02)
-    act_func_list[3] = REGIST_FUNC(arg1, arg2, goal.Kengeki03)
-    act_func_list[4] = REGIST_FUNC(arg1, arg2, goal.Kengeki04)
-    act_func_list[5] = REGIST_FUNC(arg1, arg2, goal.Kengeki05)
-    act_func_list[6] = REGIST_FUNC(arg1, arg2, goal.Kengeki06)
-    act_func_list[7] = REGIST_FUNC(arg1, arg2, goal.Kengeki07)
-    act_func_list[8] = REGIST_FUNC(arg1, arg2, goal.Kengeki08)
-    act_func_list[21] = REGIST_FUNC(arg1, arg2, goal.Act21)
-    act_func_list[22] = REGIST_FUNC(arg1, arg2, goal.Act22)
-    act_func_list[23] = REGIST_FUNC(arg1, arg2, goal.Act23)
-    act_func_list[24] = REGIST_FUNC(arg1, arg2, goal.Act24)
-    act_func_list[25] = REGIST_FUNC(arg1, arg2, goal.Act25)
-    act_func_list[30] = REGIST_FUNC(arg1, arg2, goal.Kengeki30)
-    act_func_list[50] = REGIST_FUNC(arg1, arg2, goal.NoAction)
+    -- 横斩 右
+    act_func_list[1] = REGIST_FUNC(self, goal_manager, goal.Kengeki01)
+    -- 纵斩 上
+    act_func_list[2] = REGIST_FUNC(self, goal_manager, goal.Kengeki02)
+    -- 横斩 左
+    act_func_list[3] = REGIST_FUNC(self, goal_manager, goal.Kengeki03)
+    -- 纵斩 上
+    act_func_list[4] = REGIST_FUNC(self, goal_manager, goal.Kengeki04)
+    -- 纵斩 右上
+    act_func_list[5] = REGIST_FUNC(self, goal_manager, goal.Kengeki05)
+    -- 踢击
+    act_func_list[6] = REGIST_FUNC(self, goal_manager, goal.Kengeki06)
+    -- 十字斩
+    act_func_list[7] = REGIST_FUNC(self, goal_manager, goal.Kengeki07)
+    -- 纵斩
+    act_func_list[8] = REGIST_FUNC(self, goal_manager, goal.Kengeki08)
 
-    local f29_local8 = REGIST_FUNC(arg1, arg2, goal.ActAfter_AdjustSpace)
+    act_func_list[21] = REGIST_FUNC(self, goal_manager, goal.Act21)
+    act_func_list[22] = REGIST_FUNC(self, goal_manager, goal.Act22)
+    act_func_list[23] = REGIST_FUNC(self, goal_manager, goal.Act23)
+    act_func_list[24] = REGIST_FUNC(self, goal_manager, goal.Act24)
+    act_func_list[25] = REGIST_FUNC(self, goal_manager, goal.Act25)
+    -- 小步后撤
+    act_func_list[30] = REGIST_FUNC(self, goal_manager, goal.Kengeki30)
+    -- 无行动
+    act_func_list[50] = REGIST_FUNC(self, goal_manager, goal.NoAction)
 
-    return Common_Kengeki_Activate(arg1, arg2, act_weight_list, act_func_list, f29_local8, act_default_param_list)
+    local act_after_adjust_space = REGIST_FUNC(self, goal_manager, goal.ActAfter_AdjustSpace)
+
+    return Common_Kengeki_Activate(self, goal_manager, act_weight_list, act_func_list, act_after_adjust_space, act_default_param_list)
 end
 
 Goal.Kengeki01 = function(arg0, arg1, arg2)

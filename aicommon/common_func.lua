@@ -1,4 +1,5 @@
 REGISTER_GOAL_USE_AVOID_CHR(GOAL_COMMON_SidewayMoveAvoidChr, true)
+
 function _COMMON_GetEzStateAnimId(arg0, arg1)
     ret = {}
     local f1_local0 = 1
@@ -8,7 +9,6 @@ function _COMMON_GetEzStateAnimId(arg0, arg1)
     end
     local f1_local1 = ret
     return f1_local1
-    
 end
 
 function _COMMON_GetMinDist(arg0, arg1)
@@ -20,7 +20,6 @@ function _COMMON_GetMinDist(arg0, arg1)
     end
     local f2_local1 = ret
     return f2_local1
-    
 end
 
 function _COMMON_GetMaxDist(arg0, arg1)
@@ -32,7 +31,6 @@ function _COMMON_GetMaxDist(arg0, arg1)
     end
     local f3_local1 = ret
     return f3_local1
-    
 end
 
 function _COMMON_GetAtkDistType(arg0, arg1)
@@ -55,7 +53,6 @@ function _COMMON_GetAtkDistType(arg0, arg1)
     end
     local f4_local1 = ret
     return f4_local1
-    
 end
 
 function _COMMON_GetOddsParam(arg0, arg1)
@@ -68,7 +65,6 @@ function _COMMON_GetOddsParam(arg0, arg1)
     end
     local f5_local2 = ret
     return f5_local2
-    
 end
 
 function _COMMON_MulOddsXWeight(arg0, arg1)
@@ -95,7 +91,6 @@ function _COMMON_MulOddsXWeight(arg0, arg1)
         end
     end
     return f6_local3
-    
 end
 
 function _COMMON_MulWeightParam(arg0, arg1, arg2)
@@ -111,7 +106,6 @@ function _COMMON_MulWeightParam(arg0, arg1, arg2)
         end
         arg1[f7_local3] = arg1[f7_local3] * arg0:GetOddsParam(f7_local1 + arg2, f7_local3)
     end
-    
 end
 
 function _COMMON_SetEnemyActRate(arg0, arg1, arg2, arg3)
@@ -135,7 +129,6 @@ function _COMMON_SetEnemyActRate(arg0, arg1, arg2, arg3)
     arg1:SetStringIndexedNumber("ActRate18", arg3)
     arg1:SetStringIndexedNumber("ActRate19", arg3)
     arg1:SetStringIndexedNumber("ActRate20", arg3)
-    
 end
 
 function _COMMON_InitEnemyAct(arg0, arg1, arg2)
@@ -151,7 +144,8 @@ function _COMMON_InitEnemyAct(arg0, arg1, arg2)
             if arg1:GetAIAttackParam(f9_local0, AI_ATTACK_PARAM_TYPE__IS_SELECTABLE_ON_BATTLE_START) == 0 then
                 arg1:StartAttackPassedTimer(f9_local0, 0)
             else
-                arg1:StartAttackPassedTimer(f9_local0, arg1:GetAIAttackParam(f9_local0, AI_ATTACK_PARAM_TYPE__INTERVAL_EXEC))
+                arg1:StartAttackPassedTimer(f9_local0,
+                    arg1:GetAIAttackParam(f9_local0, AI_ATTACK_PARAM_TYPE__INTERVAL_EXEC))
             end
         end
     end
@@ -160,11 +154,11 @@ function _COMMON_InitEnemyAct(arg0, arg1, arg2)
             if arg1:GetAIAttackParam(f9_local0, AI_ATTACK_PARAM_TYPE__IS_SELECTABLE_ON_BATTLE_START) == 0 then
                 arg1:StartAttackPassedTimer(f9_local0, 0)
             else
-                arg1:StartAttackPassedTimer(f9_local0, arg1:GetAIAttackParam(f9_local0, AI_ATTACK_PARAM_TYPE__INTERVAL_EXEC))
+                arg1:StartAttackPassedTimer(f9_local0,
+                    arg1:GetAIAttackParam(f9_local0, AI_ATTACK_PARAM_TYPE__INTERVAL_EXEC))
             end
         end
     end
-    
 end
 
 function _COMMON_SelectEnemyAct(arg0, arg1, arg2, arg3, arg4, arg5)
@@ -173,9 +167,28 @@ function _COMMON_SelectEnemyAct(arg0, arg1, arg2, arg3, arg4, arg5)
     local f10_local2 = 0
     local f10_local3 = nil
     local f10_local4 = 0
-    local f10_local5 = {arg0.Act01, arg0.Act02, arg0.Act03, arg0.Act04, arg0.Act05, arg0.Act06, arg0.Act07, arg0.Act08, arg0.Act09, arg0.Act10, arg0.Act11, arg0.Act12, arg0.Act13, arg0.Act14, arg0.Act15, arg0.Act16, arg0.Act17, arg0.Act18, arg0.Act19, arg0.Act20, arg0.Act21, arg0.Act22, arg0.Act23, arg0.Act24, arg0.Act25, arg0.Act26, arg0.Act27, arg0.Act28, arg0.Act29, arg0.Act30}
-    local f10_local6 = {arg1:GetStringIndexedNumber("ActRate01"), arg1:GetStringIndexedNumber("ActRate02"), arg1:GetStringIndexedNumber("ActRate03"), arg1:GetStringIndexedNumber("ActRate04"), arg1:GetStringIndexedNumber("ActRate05"), arg1:GetStringIndexedNumber("ActRate06"), arg1:GetStringIndexedNumber("ActRate07"), arg1:GetStringIndexedNumber("ActRate08"), arg1:GetStringIndexedNumber("ActRate09"), arg1:GetStringIndexedNumber("ActRate10"), arg1:GetStringIndexedNumber("ActRate11"), arg1:GetStringIndexedNumber("ActRate12"), arg1:GetStringIndexedNumber("ActRate13"), arg1:GetStringIndexedNumber("ActRate14"), arg1:GetStringIndexedNumber("ActRate15"), arg1:GetStringIndexedNumber("ActRate16"), arg1:GetStringIndexedNumber("ActRate17"), arg1:GetStringIndexedNumber("ActRate18"), arg1:GetStringIndexedNumber("ActRate19"), arg1:GetStringIndexedNumber("ActRate20"), arg1:GetStringIndexedNumber("ActRate21"), arg1:GetStringIndexedNumber("ActRate22"), arg1:GetStringIndexedNumber("ActRate23"), arg1:GetStringIndexedNumber("ActRate24"), arg1:GetStringIndexedNumber("ActRate25"), arg1:GetStringIndexedNumber("ActRate26"), arg1:GetStringIndexedNumber("ActRate27"), arg1:GetStringIndexedNumber("ActRate28"), arg1:GetStringIndexedNumber("ActRate29"), arg1:GetStringIndexedNumber("ActRate30")}
-    local f10_local7 = {arg0.ActBase01, arg0.ActBase02, arg0.ActBase03, arg0.ActBase04, arg0.ActBase05, arg0.ActBase06, arg0.ActBase07, arg0.ActBase08, arg0.ActBase09, arg0.ActBase10, arg0.ActBase11, arg0.ActBase12, arg0.ActBase13, arg0.ActBase14, arg0.ActBase15, arg0.ActBase16, arg0.ActBase17, arg0.ActBase18, arg0.ActBase19, arg0.ActBase20, arg0.ActBase21, arg0.ActBase22, arg0.ActBase23, arg0.ActBase24, arg0.ActBase25, arg0.ActBase26, arg0.ActBase27, arg0.ActBase28, arg0.ActBase29, arg0.ActBase30}
+    local f10_local5 = { arg0.Act01, arg0.Act02, arg0.Act03, arg0.Act04, arg0.Act05, arg0.Act06, arg0.Act07, arg0.Act08,
+        arg0.Act09, arg0.Act10, arg0.Act11, arg0.Act12, arg0.Act13, arg0.Act14, arg0.Act15, arg0.Act16, arg0.Act17, arg0
+        .Act18, arg0.Act19, arg0.Act20, arg0.Act21, arg0.Act22, arg0.Act23, arg0.Act24, arg0.Act25, arg0.Act26, arg0
+        .Act27, arg0.Act28, arg0.Act29, arg0.Act30 }
+    local f10_local6 = { arg1:GetStringIndexedNumber("ActRate01"), arg1:GetStringIndexedNumber("ActRate02"), arg1
+        :GetStringIndexedNumber("ActRate03"), arg1:GetStringIndexedNumber("ActRate04"), arg1:GetStringIndexedNumber(
+    "ActRate05"), arg1:GetStringIndexedNumber("ActRate06"), arg1:GetStringIndexedNumber("ActRate07"), arg1
+        :GetStringIndexedNumber("ActRate08"), arg1:GetStringIndexedNumber("ActRate09"), arg1:GetStringIndexedNumber(
+    "ActRate10"), arg1:GetStringIndexedNumber("ActRate11"), arg1:GetStringIndexedNumber("ActRate12"), arg1
+        :GetStringIndexedNumber("ActRate13"), arg1:GetStringIndexedNumber("ActRate14"), arg1:GetStringIndexedNumber(
+    "ActRate15"), arg1:GetStringIndexedNumber("ActRate16"), arg1:GetStringIndexedNumber("ActRate17"), arg1
+        :GetStringIndexedNumber("ActRate18"), arg1:GetStringIndexedNumber("ActRate19"), arg1:GetStringIndexedNumber(
+    "ActRate20"), arg1:GetStringIndexedNumber("ActRate21"), arg1:GetStringIndexedNumber("ActRate22"), arg1
+        :GetStringIndexedNumber("ActRate23"), arg1:GetStringIndexedNumber("ActRate24"), arg1:GetStringIndexedNumber(
+    "ActRate25"), arg1:GetStringIndexedNumber("ActRate26"), arg1:GetStringIndexedNumber("ActRate27"), arg1
+        :GetStringIndexedNumber("ActRate28"), arg1:GetStringIndexedNumber("ActRate29"), arg1:GetStringIndexedNumber(
+    "ActRate30") }
+    local f10_local7 = { arg0.ActBase01, arg0.ActBase02, arg0.ActBase03, arg0.ActBase04, arg0.ActBase05, arg0.ActBase06,
+        arg0.ActBase07, arg0.ActBase08, arg0.ActBase09, arg0.ActBase10, arg0.ActBase11, arg0.ActBase12, arg0.ActBase13,
+        arg0.ActBase14, arg0.ActBase15, arg0.ActBase16, arg0.ActBase17, arg0.ActBase18, arg0.ActBase19, arg0.ActBase20,
+        arg0.ActBase21, arg0.ActBase22, arg0.ActBase23, arg0.ActBase24, arg0.ActBase25, arg0.ActBase26, arg0.ActBase27,
+        arg0.ActBase28, arg0.ActBase29, arg0.ActBase30 }
     local f10_local8 = arg3
     if f10_local8 == nil then
         f10_local8 = TARGET_ENE_0
@@ -210,92 +223,174 @@ function _COMMON_SelectEnemyAct(arg0, arg1, arg2, arg3, arg4, arg5)
                             f10_local18 = arg1:GetNumber(60)
                             if f10_local18 == 1 then
                                 f10_local18 = false
-                                f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE)
+                                f10_local19 = arg1:GetAIAttackParam(f10_local3,
+                                    AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE)
                                 if f10_local19 <= f10_local9 then
-                                    f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE)
+                                    f10_local19 = arg1:GetAIAttackParam(f10_local3,
+                                        AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE)
                                     if f10_local9 > f10_local19 then
-                                        f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_OUT_RANGE)
+                                        f10_local19 = arg1:GetAIAttackParam(f10_local3,
+                                            AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_OUT_RANGE)
                                         if f10_local19 == 1 then
-                                            f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_INNER_RANGE)
+                                            f10_local19 = arg1:GetAIAttackParam(f10_local3,
+                                                AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_INNER_RANGE)
                                             if f10_local19 == 1 then
                                                 f10_local18 = true
                                             end
                                         end
-                                        f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE)
+                                        f10_local19 = arg1:GetAIAttackParam(f10_local3,
+                                            AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE)
                                         if f10_local9 < f10_local19 then
-                                            f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_INNER_RANGE)
+                                            f10_local19 = arg1:GetAIAttackParam(f10_local3,
+                                                AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_INNER_RANGE)
                                             if f10_local19 == 1 then
                                                 f10_local18 = true
                                             else
-                                                f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE)
+                                                f10_local19 = arg1:GetAIAttackParam(f10_local3,
+                                                    AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE)
                                                 if f10_local19 < f10_local9 then
-                                                    f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_OUT_RANGE)
+                                                    f10_local19 = arg1:GetAIAttackParam(f10_local3,
+                                                        AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_OUT_RANGE)
                                                     if f10_local19 == 1 then
                                                         f10_local18 = true
                                                     else
                                                         f10_local19 = print
-                                                        f10_local19("[SELECT ENEMY]" .. "?@?@?@???O[" .. f10_local3 .. "]?@?@????F" .. arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE) .. "?@?@???F" .. arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE) .. "?@?@????????F" .. f10_local9)
+                                                        f10_local19("[SELECT ENEMY]" ..
+                                                        "?@?@?@???O[" ..
+                                                        f10_local3 ..
+                                                        "]?@?@????F" ..
+                                                        arg1:GetAIAttackParam(f10_local3,
+                                                            AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE) ..
+                                                        "?@?@???F" ..
+                                                        arg1:GetAIAttackParam(f10_local3,
+                                                            AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE) ..
+                                                        "?@?@????????F" .. f10_local9)
                                                     end
                                                 end
                                                 f10_local19 = print
-                                                f10_local19("[SELECT ENEMY]" .. "?@?@?@???O[" .. f10_local3 .. "]?@?@????F" .. arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE) .. "?@?@???F" .. arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE) .. "?@?@????????F" .. f10_local9)
+                                                f10_local19("[SELECT ENEMY]" ..
+                                                "?@?@?@???O[" ..
+                                                f10_local3 ..
+                                                "]?@?@????F" ..
+                                                arg1:GetAIAttackParam(f10_local3,
+                                                    AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE) ..
+                                                "?@?@???F" ..
+                                                arg1:GetAIAttackParam(f10_local3,
+                                                    AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE) ..
+                                                "?@?@????????F" .. f10_local9)
                                             end
                                         end
-                                        f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE)
+                                        f10_local19 = arg1:GetAIAttackParam(f10_local3,
+                                            AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE)
                                         if f10_local19 < f10_local9 then
-                                            f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_OUT_RANGE)
+                                            f10_local19 = arg1:GetAIAttackParam(f10_local3,
+                                                AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_OUT_RANGE)
                                             if f10_local19 == 1 then
                                                 f10_local18 = true
                                             else
                                                 f10_local19 = print
-                                                f10_local19("[SELECT ENEMY]" .. "?@?@?@???O[" .. f10_local3 .. "]?@?@????F" .. arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE) .. "?@?@???F" .. arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE) .. "?@?@????????F" .. f10_local9)
+                                                f10_local19("[SELECT ENEMY]" ..
+                                                "?@?@?@???O[" ..
+                                                f10_local3 ..
+                                                "]?@?@????F" ..
+                                                arg1:GetAIAttackParam(f10_local3,
+                                                    AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE) ..
+                                                "?@?@???F" ..
+                                                arg1:GetAIAttackParam(f10_local3,
+                                                    AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE) ..
+                                                "?@?@????????F" .. f10_local9)
                                             end
                                         end
                                         f10_local19 = print
-                                        f10_local19("[SELECT ENEMY]" .. "?@?@?@???O[" .. f10_local3 .. "]?@?@????F" .. arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE) .. "?@?@???F" .. arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE) .. "?@?@????????F" .. f10_local9)
+                                        f10_local19("[SELECT ENEMY]" ..
+                                        "?@?@?@???O[" ..
+                                        f10_local3 ..
+                                        "]?@?@????F" ..
+                                        arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE) ..
+                                        "?@?@???F" ..
+                                        arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE) ..
+                                        "?@?@????????F" .. f10_local9)
                                     else
                                         f10_local18 = true
                                     end
                                 else
-                                    f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_OUT_RANGE)
+                                    f10_local19 = arg1:GetAIAttackParam(f10_local3,
+                                        AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_OUT_RANGE)
                                     if f10_local19 == 1 then
-                                        f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_INNER_RANGE)
+                                        f10_local19 = arg1:GetAIAttackParam(f10_local3,
+                                            AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_INNER_RANGE)
                                         if f10_local19 == 1 then
                                             f10_local18 = true
                                         end
                                     end
-                                    f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE)
+                                    f10_local19 = arg1:GetAIAttackParam(f10_local3,
+                                        AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE)
                                     if f10_local9 < f10_local19 then
-                                        f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_INNER_RANGE)
+                                        f10_local19 = arg1:GetAIAttackParam(f10_local3,
+                                            AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_INNER_RANGE)
                                         if f10_local19 == 1 then
                                             f10_local18 = true
                                         else
-                                            f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE)
+                                            f10_local19 = arg1:GetAIAttackParam(f10_local3,
+                                                AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE)
                                             if f10_local19 < f10_local9 then
-                                                f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_OUT_RANGE)
+                                                f10_local19 = arg1:GetAIAttackParam(f10_local3,
+                                                    AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_OUT_RANGE)
                                                 if f10_local19 == 1 then
                                                     f10_local18 = true
                                                 else
                                                     f10_local19 = print
-                                                    f10_local19("[SELECT ENEMY]" .. "?@?@?@???O[" .. f10_local3 .. "]?@?@????F" .. arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE) .. "?@?@???F" .. arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE) .. "?@?@????????F" .. f10_local9)
+                                                    f10_local19("[SELECT ENEMY]" ..
+                                                    "?@?@?@???O[" ..
+                                                    f10_local3 ..
+                                                    "]?@?@????F" ..
+                                                    arg1:GetAIAttackParam(f10_local3,
+                                                        AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE) ..
+                                                    "?@?@???F" ..
+                                                    arg1:GetAIAttackParam(f10_local3,
+                                                        AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE) ..
+                                                    "?@?@????????F" .. f10_local9)
                                                 end
                                             end
                                             f10_local19 = print
-                                            f10_local19("[SELECT ENEMY]" .. "?@?@?@???O[" .. f10_local3 .. "]?@?@????F" .. arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE) .. "?@?@???F" .. arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE) .. "?@?@????????F" .. f10_local9)
+                                            f10_local19("[SELECT ENEMY]" ..
+                                            "?@?@?@???O[" ..
+                                            f10_local3 ..
+                                            "]?@?@????F" ..
+                                            arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE) ..
+                                            "?@?@???F" ..
+                                            arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE) ..
+                                            "?@?@????????F" .. f10_local9)
                                         end
                                     end
-                                    f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE)
+                                    f10_local19 = arg1:GetAIAttackParam(f10_local3,
+                                        AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE)
                                     if f10_local19 < f10_local9 then
-                                        f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_OUT_RANGE)
+                                        f10_local19 = arg1:GetAIAttackParam(f10_local3,
+                                            AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_OUT_RANGE)
                                         if f10_local19 == 1 then
                                             f10_local18 = true
                                         else
                                             f10_local19 = print
-                                            f10_local19("[SELECT ENEMY]" .. "?@?@?@???O[" .. f10_local3 .. "]?@?@????F" .. arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE) .. "?@?@???F" .. arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE) .. "?@?@????????F" .. f10_local9)
+                                            f10_local19("[SELECT ENEMY]" ..
+                                            "?@?@?@???O[" ..
+                                            f10_local3 ..
+                                            "]?@?@????F" ..
+                                            arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE) ..
+                                            "?@?@???F" ..
+                                            arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE) ..
+                                            "?@?@????????F" .. f10_local9)
                                         end
                                     end
                                     f10_local19 = print
-                                    f10_local19("[SELECT ENEMY]" .. "?@?@?@???O[" .. f10_local3 .. "]?@?@????F" .. arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE) .. "?@?@???F" .. arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE) .. "?@?@????????F" .. f10_local9)
+                                    f10_local19("[SELECT ENEMY]" ..
+                                    "?@?@?@???O[" ..
+                                    f10_local3 ..
+                                    "]?@?@????F" ..
+                                    arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE) ..
+                                    "?@?@???F" ..
+                                    arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE) ..
+                                    "?@?@????????F" .. f10_local9)
                                 end
                                 if f10_local18 then
                                     f10_local19 = f10_local6[f10_local15]
@@ -305,15 +400,18 @@ function _COMMON_SelectEnemyAct(arg0, arg1, arg2, arg3, arg4, arg5)
                                         if f10_local19 > 0 then
                                             f10_local19 = arg1:IsOptimalAttackRangeH(TARGET_ENE_0, f10_local3)
                                             if f10_local19 then
-                                                f10_local19 = arg1:HasSpecialEffectAttribute(TARGET_ENE_0, SP_EFFECT_TYPE_TARGET_DOWN)
+                                                f10_local19 = arg1:HasSpecialEffectAttribute(TARGET_ENE_0,
+                                                    SP_EFFECT_TYPE_TARGET_DOWN)
                                                 if f10_local19 then
-                                                    f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_TARGET_DOWN)
+                                                    f10_local19 = arg1:GetAIAttackParam(f10_local3,
+                                                        AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_TARGET_DOWN)
                                                     if f10_local19 == 1 then
                                                         f10_local2 = f10_local2 + 1
                                                         f10_local1[f10_local2] = f10_local15
                                                     else
                                                         f10_local19 = print
-                                                        f10_local19("[SELECT ENEMY]" .. "?@?@?@?v???C???[?_?E?????U???s??[" .. f10_local3 .. "]")
+                                                        f10_local19("[SELECT ENEMY]" ..
+                                                        "?@?@?@?v???C???[?_?E?????U???s??[" .. f10_local3 .. "]")
                                                     end
                                                 end
                                                 f10_local2 = f10_local2 + 1
@@ -343,88 +441,160 @@ function _COMMON_SelectEnemyAct(arg0, arg1, arg2, arg3, arg4, arg5)
                         if f10_local19 <= f10_local9 then
                             f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE)
                             if f10_local9 > f10_local19 then
-                                f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_OUT_RANGE)
+                                f10_local19 = arg1:GetAIAttackParam(f10_local3,
+                                    AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_OUT_RANGE)
                                 if f10_local19 == 1 then
-                                    f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_INNER_RANGE)
+                                    f10_local19 = arg1:GetAIAttackParam(f10_local3,
+                                        AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_INNER_RANGE)
                                     if f10_local19 == 1 then
                                         f10_local18 = true
                                     end
                                 end
-                                f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE)
+                                f10_local19 = arg1:GetAIAttackParam(f10_local3,
+                                    AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE)
                                 if f10_local9 < f10_local19 then
-                                    f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_INNER_RANGE)
+                                    f10_local19 = arg1:GetAIAttackParam(f10_local3,
+                                        AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_INNER_RANGE)
                                     if f10_local19 == 1 then
                                         f10_local18 = true
                                     else
-                                        f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE)
+                                        f10_local19 = arg1:GetAIAttackParam(f10_local3,
+                                            AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE)
                                         if f10_local19 < f10_local9 then
-                                            f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_OUT_RANGE)
+                                            f10_local19 = arg1:GetAIAttackParam(f10_local3,
+                                                AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_OUT_RANGE)
                                             if f10_local19 == 1 then
                                                 f10_local18 = true
                                             else
                                                 f10_local19 = print
-                                                f10_local19("[SELECT ENEMY]" .. "?@?@?@???O[" .. f10_local3 .. "]?@?@????F" .. arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE) .. "?@?@???F" .. arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE) .. "?@?@????????F" .. f10_local9)
+                                                f10_local19("[SELECT ENEMY]" ..
+                                                "?@?@?@???O[" ..
+                                                f10_local3 ..
+                                                "]?@?@????F" ..
+                                                arg1:GetAIAttackParam(f10_local3,
+                                                    AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE) ..
+                                                "?@?@???F" ..
+                                                arg1:GetAIAttackParam(f10_local3,
+                                                    AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE) ..
+                                                "?@?@????????F" .. f10_local9)
                                             end
                                         end
                                         f10_local19 = print
-                                        f10_local19("[SELECT ENEMY]" .. "?@?@?@???O[" .. f10_local3 .. "]?@?@????F" .. arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE) .. "?@?@???F" .. arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE) .. "?@?@????????F" .. f10_local9)
+                                        f10_local19("[SELECT ENEMY]" ..
+                                        "?@?@?@???O[" ..
+                                        f10_local3 ..
+                                        "]?@?@????F" ..
+                                        arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE) ..
+                                        "?@?@???F" ..
+                                        arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE) ..
+                                        "?@?@????????F" .. f10_local9)
                                     end
                                 end
-                                f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE)
+                                f10_local19 = arg1:GetAIAttackParam(f10_local3,
+                                    AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE)
                                 if f10_local19 < f10_local9 then
-                                    f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_OUT_RANGE)
+                                    f10_local19 = arg1:GetAIAttackParam(f10_local3,
+                                        AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_OUT_RANGE)
                                     if f10_local19 == 1 then
                                         f10_local18 = true
                                     else
                                         f10_local19 = print
-                                        f10_local19("[SELECT ENEMY]" .. "?@?@?@???O[" .. f10_local3 .. "]?@?@????F" .. arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE) .. "?@?@???F" .. arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE) .. "?@?@????????F" .. f10_local9)
+                                        f10_local19("[SELECT ENEMY]" ..
+                                        "?@?@?@???O[" ..
+                                        f10_local3 ..
+                                        "]?@?@????F" ..
+                                        arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE) ..
+                                        "?@?@???F" ..
+                                        arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE) ..
+                                        "?@?@????????F" .. f10_local9)
                                     end
                                 end
                                 f10_local19 = print
-                                f10_local19("[SELECT ENEMY]" .. "?@?@?@???O[" .. f10_local3 .. "]?@?@????F" .. arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE) .. "?@?@???F" .. arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE) .. "?@?@????????F" .. f10_local9)
+                                f10_local19("[SELECT ENEMY]" ..
+                                "?@?@?@???O[" ..
+                                f10_local3 ..
+                                "]?@?@????F" ..
+                                arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE) ..
+                                "?@?@???F" ..
+                                arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE) ..
+                                "?@?@????????F" .. f10_local9)
                             else
                                 f10_local18 = true
                             end
                         else
-                            f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_OUT_RANGE)
+                            f10_local19 = arg1:GetAIAttackParam(f10_local3,
+                                AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_OUT_RANGE)
                             if f10_local19 == 1 then
-                                f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_INNER_RANGE)
+                                f10_local19 = arg1:GetAIAttackParam(f10_local3,
+                                    AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_INNER_RANGE)
                                 if f10_local19 == 1 then
                                     f10_local18 = true
                                 end
                             end
                             f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE)
                             if f10_local9 < f10_local19 then
-                                f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_INNER_RANGE)
+                                f10_local19 = arg1:GetAIAttackParam(f10_local3,
+                                    AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_INNER_RANGE)
                                 if f10_local19 == 1 then
                                     f10_local18 = true
                                 else
-                                    f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE)
+                                    f10_local19 = arg1:GetAIAttackParam(f10_local3,
+                                        AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE)
                                     if f10_local19 < f10_local9 then
-                                        f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_OUT_RANGE)
+                                        f10_local19 = arg1:GetAIAttackParam(f10_local3,
+                                            AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_OUT_RANGE)
                                         if f10_local19 == 1 then
                                             f10_local18 = true
                                         else
                                             f10_local19 = print
-                                            f10_local19("[SELECT ENEMY]" .. "?@?@?@???O[" .. f10_local3 .. "]?@?@????F" .. arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE) .. "?@?@???F" .. arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE) .. "?@?@????????F" .. f10_local9)
+                                            f10_local19("[SELECT ENEMY]" ..
+                                            "?@?@?@???O[" ..
+                                            f10_local3 ..
+                                            "]?@?@????F" ..
+                                            arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE) ..
+                                            "?@?@???F" ..
+                                            arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE) ..
+                                            "?@?@????????F" .. f10_local9)
                                         end
                                     end
                                     f10_local19 = print
-                                    f10_local19("[SELECT ENEMY]" .. "?@?@?@???O[" .. f10_local3 .. "]?@?@????F" .. arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE) .. "?@?@???F" .. arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE) .. "?@?@????????F" .. f10_local9)
+                                    f10_local19("[SELECT ENEMY]" ..
+                                    "?@?@?@???O[" ..
+                                    f10_local3 ..
+                                    "]?@?@????F" ..
+                                    arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE) ..
+                                    "?@?@???F" ..
+                                    arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE) ..
+                                    "?@?@????????F" .. f10_local9)
                                 end
                             end
                             f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE)
                             if f10_local19 < f10_local9 then
-                                f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_OUT_RANGE)
+                                f10_local19 = arg1:GetAIAttackParam(f10_local3,
+                                    AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_OUT_RANGE)
                                 if f10_local19 == 1 then
                                     f10_local18 = true
                                 else
                                     f10_local19 = print
-                                    f10_local19("[SELECT ENEMY]" .. "?@?@?@???O[" .. f10_local3 .. "]?@?@????F" .. arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE) .. "?@?@???F" .. arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE) .. "?@?@????????F" .. f10_local9)
+                                    f10_local19("[SELECT ENEMY]" ..
+                                    "?@?@?@???O[" ..
+                                    f10_local3 ..
+                                    "]?@?@????F" ..
+                                    arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE) ..
+                                    "?@?@???F" ..
+                                    arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE) ..
+                                    "?@?@????????F" .. f10_local9)
                                 end
                             end
                             f10_local19 = print
-                            f10_local19("[SELECT ENEMY]" .. "?@?@?@???O[" .. f10_local3 .. "]?@?@????F" .. arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE) .. "?@?@???F" .. arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE) .. "?@?@????????F" .. f10_local9)
+                            f10_local19("[SELECT ENEMY]" ..
+                            "?@?@?@???O[" ..
+                            f10_local3 ..
+                            "]?@?@????F" ..
+                            arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MIN_OPTIMAL_DISTANCE) ..
+                            "?@?@???F" ..
+                            arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__MAX_OPTIMAL_DISTANCE) ..
+                            "?@?@????????F" .. f10_local9)
                         end
                         if f10_local18 then
                             f10_local19 = f10_local6[f10_local15]
@@ -434,15 +604,18 @@ function _COMMON_SelectEnemyAct(arg0, arg1, arg2, arg3, arg4, arg5)
                                 if f10_local19 > 0 then
                                     f10_local19 = arg1:IsOptimalAttackRangeH(TARGET_ENE_0, f10_local3)
                                     if f10_local19 then
-                                        f10_local19 = arg1:HasSpecialEffectAttribute(TARGET_ENE_0, SP_EFFECT_TYPE_TARGET_DOWN)
+                                        f10_local19 = arg1:HasSpecialEffectAttribute(TARGET_ENE_0,
+                                            SP_EFFECT_TYPE_TARGET_DOWN)
                                         if f10_local19 then
-                                            f10_local19 = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_TARGET_DOWN)
+                                            f10_local19 = arg1:GetAIAttackParam(f10_local3,
+                                                AI_ATTACK_PARAM_TYPE__DOES_SELECT_ON_TARGET_DOWN)
                                             if f10_local19 == 1 then
                                                 f10_local2 = f10_local2 + 1
                                                 f10_local1[f10_local2] = f10_local15
                                             else
                                                 f10_local19 = print
-                                                f10_local19("[SELECT ENEMY]" .. "?@?@?@?v???C???[?_?E?????U???s??[" .. f10_local3 .. "]")
+                                                f10_local19("[SELECT ENEMY]" ..
+                                                "?@?@?@?v???C???[?_?E?????U???s??[" .. f10_local3 .. "]")
                                             end
                                         end
                                         f10_local2 = f10_local2 + 1
@@ -493,8 +666,23 @@ function _COMMON_SelectEnemyAct(arg0, arg1, arg2, arg3, arg4, arg5)
             if f10_local20 <= 0 then
                 arg1:StartIdTimer(f10_local1[f10_local15] + 10000000)
             end
-            f10_local12[f10_local15] = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__SELECTION_TENDENCY) * f10_local18 * GetAttackRateByDist(arg0, arg1, arg2, f10_local3, f10_local11)
-            print("[SELECT ENEMY]" .. "?@?@?@?@?@?@?@?@?@?@?@?I?????U??[" .. f10_local3 .. "][" .. f10_local1[f10_local15] .. "]?@?U?????[?g[" .. f10_local12[f10_local15] .. "]    ACT???[?g[" .. f10_local20 .. "]?@?o?????[" .. f10_local19 .. "]?@?X?N???v?g???[?g[" .. f10_local18 .. "]?@?v?l???[?g?F" .. GetAttackRateByDist(arg0, arg1, arg2, f10_local3, f10_local11) .. "?@???????[?g?F" .. f10_local14)
+            f10_local12[f10_local15] = arg1:GetAIAttackParam(f10_local3, AI_ATTACK_PARAM_TYPE__SELECTION_TENDENCY) *
+            f10_local18 * GetAttackRateByDist(arg0, arg1, arg2, f10_local3, f10_local11)
+            print("[SELECT ENEMY]" ..
+            "?@?@?@?@?@?@?@?@?@?@?@?I?????U??[" ..
+            f10_local3 ..
+            "][" ..
+            f10_local1[f10_local15] ..
+            "]?@?U?????[?g[" ..
+            f10_local12[f10_local15] ..
+            "]    ACT???[?g[" ..
+            f10_local20 ..
+            "]?@?o?????[" ..
+            f10_local19 ..
+            "]?@?X?N???v?g???[?g[" ..
+            f10_local18 ..
+            "]?@?v?l???[?g?F" ..
+            GetAttackRateByDist(arg0, arg1, arg2, f10_local3, f10_local11) .. "?@???????[?g?F" .. f10_local14)
             f10_local13 = f10_local12[f10_local15] + f10_local13
         end
         if f10_local13 > 0 then
@@ -503,14 +691,14 @@ function _COMMON_SelectEnemyAct(arg0, arg1, arg2, arg3, arg4, arg5)
             for f10_local17 = 1, f10_local2, 1 do
                 f10_local16 = f10_local16 + f10_local12[f10_local17]
                 if f10_local15 <= f10_local16 then
-                    print("[SELECT ENEMY]" .. "<<????>> ???I????[" .. f10_local1[f10_local17] .. "]" .. f10_local7[f10_local1[f10_local17]])
+                    print("[SELECT ENEMY]" ..
+                    "<<????>> ???I????[" .. f10_local1[f10_local17] .. "]" .. f10_local7[f10_local1[f10_local17]])
                     arg1:StartIdTimer(f10_local1[f10_local17] + 10000000)
                     return f10_local5[f10_local1[f10_local17]]
                 end
             end
         else
             return nil
-            
         end
     else
         print("[SELECT ENEMY]" .. "<<????>> ???I????[" .. f10_local1[1] .. "]" .. f10_local7[f10_local1[1]])
@@ -518,7 +706,4 @@ function _COMMON_SelectEnemyAct(arg0, arg1, arg2, arg3, arg4, arg5)
         return f10_local5[f10_local1[1]]
     end
     return nil
-    
 end
-
-

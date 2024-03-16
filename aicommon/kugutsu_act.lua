@@ -2,11 +2,11 @@ RegisterTableGoal(GOAL_KugutsuAct_20000_Battle, "GOAL_KugutsuAct_20000_Battle")
 REGISTER_DBG_GOAL_PARAM(GOAL_KugutsuAct_20000_Battle, 0, "???s??", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_KugutsuAct_20000_Battle, 1, "???s?s??", 0)
 REGISTER_GOAL_NO_UPDATE(GOAL_KugutsuAct_20000_Battle, true)
-Goal.Initialize = function (arg0, arg1, arg2, arg3)
-    
+Goal.Initialize = function(arg0, arg1, arg2, arg3)
+
 end
 
-Goal.Activate = function (arg0, arg1, arg2)
+Goal.Activate = function(arg0, arg1, arg2)
     local f2_local0 = arg2:GetParam(0)
     local f2_local1 = arg2:GetParam(1)
     local f2_local2 = arg1:GetDist(TARGET_LOCALPLAYER)
@@ -54,21 +54,16 @@ Goal.Activate = function (arg0, arg1, arg2)
     else
         arg2:AddSubGoal(GOAL_COMMON_Turn, 1, TARGET_LOCALPLAYER, 0, 0, 0)
     end
-    
 end
 
-Goal.Interrupt = function (arg0, arg1, arg2)
+Goal.Interrupt = function(arg0, arg1, arg2)
     return false
-    
 end
 
-Goal.Update = function (arg0, arg1, arg2)
+Goal.Update = function(arg0, arg1, arg2)
     return Update_Default_NoSubGoal(arg0, arg1, arg2)
-    
 end
 
-Goal.Terminate = function (arg0, arg1, arg2)
-    
+Goal.Terminate = function(arg0, arg1, arg2)
+
 end
-
-
