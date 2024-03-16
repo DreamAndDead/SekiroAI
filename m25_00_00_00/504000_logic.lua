@@ -10,13 +10,10 @@ function Waraningyou_504000_Logic(arg0)
     else
 
     end
-    COMMON_EasySetup3(arg0, COMMON_FLAG_BOSS)
-    
+
+    COMMON_EzSetup(arg0, 0)
 end
 
 function Waraningyou_504000_Interupt(arg0, arg1)
     return false
-    
 end
-
-

@@ -6,6 +6,7 @@ REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_ApproachSettingDirection, 4, "?K?[?hEzState?
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_ApproachSettingDirection, 5, "???????", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_ApproachSettingDirection, 6, "?w???????????", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_ApproachSettingDirection, 7, "?????I?????A?????????????", 0)
+
 REGISTER_GOAL_NO_INTERUPT(GOAL_COMMON_ApproachSettingDirection, true)
 REGISTER_GOAL_NO_SUB_GOAL(GOAL_COMMON_ApproachSettingDirection, true)
 
@@ -18,6 +19,7 @@ function ApproachSettingDirection_Activate(arg0, arg1)
     local f1_local5 = arg1:GetParam(4)
     local f1_local6 = arg1:GetParam(5)
     local f1_local7 = arg1:GetParam(6)
+    
     arg1:AddSubGoal(GOAL_COMMON_MoveToSomewhere, -1, f1_local1, f1_local6, f1_local2, f1_local3, f1_local4, f1_local7, 0,
         false, f1_local5, GOAL_RESULT_Continue, false)
 end

@@ -124,7 +124,9 @@ INTERUPT_TargetOutOfRange = 35
 INTERUPT_UnstableFloor = 36
 INTERUPT_BreakFloor = 37
 INTERUPT_BreakObserveObj = 38
+-- 被事件中断
 INTERUPT_EventRequest = 39
+-- 离开观测区域
 INTERUPT_Outside_ObserveArea = 40
 -- pc 在角度外？？？
 INTERUPT_TargetOutOfAngle = 41

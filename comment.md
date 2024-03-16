@@ -267,6 +267,8 @@ arg1:Replanning()
 
 
 
+## subgoal chain
+
 
 
 
@@ -316,6 +318,31 @@ no action return -1
 每个 subgoal 有不同的类型
 类型的执行条件，和tae event block中的设定相关
 
+
+
+每个goal都注册到统一table中
+
+有5个方法
+- init
+- activate
+- update
+- term
+- int
+
+在每个方法中，可以进行 add sub goal
+add top goal
+
+get top goal
+add sub goal front
+
+
+sub goal 是一个树？
+
+
+
+logic 和 battle 的区别是什么？
+main
+int
 
 
 

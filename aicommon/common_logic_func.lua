@@ -1,77 +1,79 @@
-function COMMON_HiPrioritySetup(arg0, arg1)
-    arg0:AddObserveSpecialEffectAttribute(TARGET_ENE_0, COMMON_SP_EFFECT_PC_DEAD)
-    arg0:AddObserveSpecialEffectAttribute(TARGET_ENE_0, COMMON_SP_EFFECT_PC_RETURN)
-    arg0:AddObserveSpecialEffectAttribute(TARGET_ENE_0, COMMON_SP_EFFECT_PC_NINSATSU)
-    arg0:AddObserveSpecialEffectAttribute(TARGET_ENE_0, COMMON_SP_EFFECT_PC_REVIVAL_AFTER_2)
-    arg0:AddObserveSpecialEffectAttribute(TARGET_ENE_0, COMMON_SP_EFFECT_PC_REVIVAL_AFTER_3)
-    arg0:AddObserveSpecialEffectAttribute(TARGET_ENE_0, COMMON_SP_EFFECT_HIDE_IN_BLOOD)
-    arg0:AddObserveSpecialEffectAttribute(TARGET_ENE_0, COMMON_SP_EFFECT_PC_BREAK)
-    arg0:AddObserveSpecialEffectAttribute(TARGET_SELF, COMMON_SP_EFFECT_ENEMY_TURN)
-    arg0:AddObserveSpecialEffectAttribute(TARGET_SELF, COMMON_SP_EFFECT_QUICK_TURN_TO_PC)
-    arg0:AddObserveSpecialEffectAttribute(TARGET_SELF, COMMON_SP_EFFECT_BLOOD_SMOKE)
-    arg0:AddObserveSpecialEffectAttribute(TARGET_SELF, COMMON_SP_EFFECT_CONFUSE)
-    arg0:AddObserveSpecialEffectAttribute(TARGET_SELF, COMMON_SP_EFFECT_CONFUSE_GHOST)
-    arg0:DeleteObserve(COMMON_OBSERVE_SLOT_BATTLE_STEALTH)
-    local f1_local0 = arg0:GetEventRequest(2)
-    if arg0:HasSpecialEffectId(TARGET_ENE_0, 110010) and not arg0:HasSpecialEffectId(TARGET_SELF, 205090) then
-        if arg0:HasSpecialEffectId(TARGET_SELF, 205091) then
+function COMMON_HiPrioritySetup(self, arg1)
+    self:AddObserveSpecialEffectAttribute(TARGET_ENE_0, COMMON_SP_EFFECT_PC_DEAD)
+    self:AddObserveSpecialEffectAttribute(TARGET_ENE_0, COMMON_SP_EFFECT_PC_RETURN)
+    self:AddObserveSpecialEffectAttribute(TARGET_ENE_0, COMMON_SP_EFFECT_PC_NINSATSU)
+    self:AddObserveSpecialEffectAttribute(TARGET_ENE_0, COMMON_SP_EFFECT_PC_REVIVAL_AFTER_2)
+    self:AddObserveSpecialEffectAttribute(TARGET_ENE_0, COMMON_SP_EFFECT_PC_REVIVAL_AFTER_3)
+    self:AddObserveSpecialEffectAttribute(TARGET_ENE_0, COMMON_SP_EFFECT_HIDE_IN_BLOOD)
+    self:AddObserveSpecialEffectAttribute(TARGET_ENE_0, COMMON_SP_EFFECT_PC_BREAK)
+    self:AddObserveSpecialEffectAttribute(TARGET_SELF, COMMON_SP_EFFECT_ENEMY_TURN)
+    self:AddObserveSpecialEffectAttribute(TARGET_SELF, COMMON_SP_EFFECT_QUICK_TURN_TO_PC)
+    self:AddObserveSpecialEffectAttribute(TARGET_SELF, COMMON_SP_EFFECT_BLOOD_SMOKE)
+    self:AddObserveSpecialEffectAttribute(TARGET_SELF, COMMON_SP_EFFECT_CONFUSE)
+    self:AddObserveSpecialEffectAttribute(TARGET_SELF, COMMON_SP_EFFECT_CONFUSE_GHOST)
+    self:DeleteObserve(COMMON_OBSERVE_SLOT_BATTLE_STEALTH)
+
+    local f1_local0 = self:GetEventRequest(2)
+    if self:HasSpecialEffectId(TARGET_ENE_0, 110010) and not self:HasSpecialEffectId(TARGET_SELF, 205090) then
+        if self:HasSpecialEffectId(TARGET_SELF, 205091) then
 
         else
-            arg0:ClearEnemyTarget()
-            arg0:ClearSoundTarget()
-            arg0:ClearIndicationPosTarget()
-            arg0:ClearLastMemoryTargetPos()
-            arg0:AddTopGoal(GOAL_COMMON_Wait, 0.1, TARGET_SELF, 0, 0, 0)
+            self:ClearEnemyTarget()
+            self:ClearSoundTarget()
+            self:ClearIndicationPosTarget()
+            self:ClearLastMemoryTargetPos()
+            self:AddTopGoal(GOAL_COMMON_Wait, 0.1, TARGET_SELF, 0, 0, 0)
             return true
         end
     end
-    if arg0:HasSpecialEffectId(TARGET_SELF, COMMON_SP_EFFECT_SMOKE_SCREEN) and arg0:HasSpecialEffectId(TARGET_ENE_0, COMMON_SP_EFFECT_HIDE_IN_BUSH) and arg0:IsVisibleCurrTarget() == false then
-        if not not arg0:HasSpecialEffectId(TARGET_SELF, COMMON_SP_EFFECT_ZAKO_REACTION) or arg0:HasSpecialEffectId(TARGET_SELF, COMMON_SP_EFFECT_ZAKO_NOREACTION) then
-            arg0:ClearEnemyTarget()
-            arg0:ClearSoundTarget()
-            arg0:ClearIndicationPosTarget()
-            arg0:AddTopGoal(GOAL_COMMON_Wait, 0.1, TARGET_SELF, 0, 0, 0)
+
+    if self:HasSpecialEffectId(TARGET_SELF, COMMON_SP_EFFECT_SMOKE_SCREEN) and self:HasSpecialEffectId(TARGET_ENE_0, COMMON_SP_EFFECT_HIDE_IN_BUSH) and self:IsVisibleCurrTarget() == false then
+        if self:HasSpecialEffectId(TARGET_SELF, COMMON_SP_EFFECT_ZAKO_REACTION) or self:HasSpecialEffectId(TARGET_SELF, COMMON_SP_EFFECT_ZAKO_NOREACTION) then
+            self:ClearEnemyTarget()
+            self:ClearSoundTarget()
+            self:ClearIndicationPosTarget()
+            self:AddTopGoal(GOAL_COMMON_Wait, 0.1, TARGET_SELF, 0, 0, 0)
             return true
-        elseif not not arg0:HasSpecialEffectId(TARGET_SELF, COMMON_SP_EFFECT_CHUBOSS_REACTION) or arg0:HasSpecialEffectId(TARGET_SELF, COMMON_SP_EFFECT_CHUBOSS_NOREACTION) then
-            if arg0:GetRandam_Int(1, 100) <= 50 then
+        elseif self:HasSpecialEffectId(TARGET_SELF, COMMON_SP_EFFECT_CHUBOSS_REACTION) or self:HasSpecialEffectId(TARGET_SELF, COMMON_SP_EFFECT_CHUBOSS_NOREACTION) then
+            if self:GetRandam_Int(1, 100) <= 50 then
                 pcSearchAnim = 400600
             else
                 pcSearchAnim = 400610
             end
-            arg0:AddTopGoal(GOAL_COMMON_WaitWithAnime, 30, pcSearchAnim, TARGET_SELF)
-            arg0:AddTopGoal(GOAL_COMMON_AttackTunableSpin, 10, 401040, TARGET_ENE_0, 9999, 0, 0, 0, 0)
-            arg0:AddObserveChrDmyArea(COMMON_OBSERVE_SLOT_BATTLE_STEALTH, TARGET_ENE_0, 7, 90, 120, 30, 4)
+            self:AddTopGoal(GOAL_COMMON_WaitWithAnime, 30, pcSearchAnim, TARGET_SELF)
+            self:AddTopGoal(GOAL_COMMON_AttackTunableSpin, 10, 401040, TARGET_ENE_0, 9999, 0, 0, 0, 0)
+            self:AddObserveChrDmyArea(COMMON_OBSERVE_SLOT_BATTLE_STEALTH, TARGET_ENE_0, 7, 90, 120, 30, 4)
             return true
         end
     end
-    if f1_local0 + 10 <= arg0:GetDist(TARGET_ENE_0) and f1_local0 >= 0 and arg0:GetCurrTargetType() ~= AI_TARGET_TYPE__NONE and arg0:GetTopNormalEnemyForgettingTime() >= 5 then
-        arg0:ClearEnemyTarget()
-        arg0:ClearSoundTarget()
-        arg0:ClearIndicationPosTarget()
-        arg0:ClearLastMemoryTargetPos()
-        arg0:AddTopGoal(GOAL_COMMON_Wait, 0.1, TARGET_SELF, 0, 0, 0)
+
+    if f1_local0 + 10 <= self:GetDist(TARGET_ENE_0) and f1_local0 >= 0 and self:GetCurrTargetType() ~= AI_TARGET_TYPE__NONE and self:GetTopNormalEnemyForgettingTime() >= 5 then
+        self:ClearEnemyTarget()
+        self:ClearSoundTarget()
+        self:ClearIndicationPosTarget()
+        self:ClearLastMemoryTargetPos()
+        self:AddTopGoal(GOAL_COMMON_Wait, 0.1, TARGET_SELF, 0, 0, 0)
         return true
     end
-    if not arg0:IsCautionState() then
-        arg0:SetNumber(AI_NUMBER_LATEST_SOUND_ID, 0)
-    end
-    return false
-end
 
-function COMMON_EasySetup3(arg0)
-    local f2_local0 = 0
-    COMMON_EzSetup(arg0, f2_local0)
+    if not self:IsCautionState() then
+        self:SetNumber(AI_NUMBER_LATEST_SOUND_ID, 0)
+    end
+
+    return false
 end
 
 function COMMON_EzSetup(arg0, arg1)
     if not arg0:HasSpecialEffectId(TARGET_SELF, 205050) and not arg0:HasSpecialEffectId(TARGET_SELF, 205051) and _COMMON_AddStateTransitionGoal(arg0, arg1) then
         return true
     end
+
     _COMMON_SetBattleActLogic(arg0, arg1)
+    
     if arg0:IsLadderAct(TARGET_SELF) and not arg0:HasGoal(GOAL_COMMON_LadderAct) then
-        local f3_local0 = arg0:GetTopGoal()
-        if f3_local0 ~= nil then
-            f3_local0:AddSubGoal_Front(GOAL_COMMON_LadderAct, -1, 3000, TARGET_SELF, arg0:GetLadderDirMove(TARGET_SELF))
+        local top_goal = arg0:GetTopGoal()
+        if top_goal ~= nil then
+            top_goal:AddSubGoal_Front(GOAL_COMMON_LadderAct, -1, 3000, TARGET_SELF, arg0:GetLadderDirMove(TARGET_SELF))
         else
             arg0:AddTopGoal(GOAL_COMMON_LadderAct, -1, 3000, TARGET_SELF, arg0:GetLadderDirMove(TARGET_SELF))
         end
