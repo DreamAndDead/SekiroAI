@@ -1,15 +1,17 @@
 --[[
     wait and see
+
+    移动，寻找合适的角度
 ]]
 RegisterTableGoal(GOAL_COMMON_YousumiAct, "YousumiAct")
 REGISTER_GOAL_NO_SUB_GOAL(GOAL_COMMON_YousumiAct, true)
 
-REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_YousumiAct, 0, "??????", 0)
-REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_YousumiAct, 1, "???p?x", 0)
-REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_YousumiAct, 2, "????p?x", 0)
-REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_YousumiAct, 3, "?p???I?t?Z?b?g", 0)
-REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_YousumiAct, 4, "?????S?[???????", 0)
-REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_YousumiAct, 5, "??????S?[???????", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_YousumiAct, 0, "步？", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_YousumiAct, 1, "最大角度", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_YousumiAct, 2, "最小角度", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_YousumiAct, 3, "姿势偏移？", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_YousumiAct, 4, "后移动寿命？", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_YousumiAct, 5, "横移动寿命？", 0)
 
 Goal.Activate = function(arg0, arg1, arg2)
     local f1_local0 = arg2:GetParam(0)
@@ -18,36 +20,26 @@ Goal.Activate = function(arg0, arg1, arg2)
     local f1_local3 = arg2:GetParam(3)
     local f1_local4 = arg2:GetParam(4)
     local f1_local5 = arg2:GetParam(5)
+
     if f1_local4 == 0 then
         f1_local4 = 1
     end
     if f1_local5 == 0 then
         f1_local5 = 2.5
     end
-    local f1_local6 = arg2:GetLife()
+
     local f1_local7 = arg1:GetDist(TARGET_ENE_0)
     local f1_local8 = arg1:GetDistYSigned(TARGET_ENE_0)
-    local f1_local9 = 1
     local f1_local10 = 30
     local f1_local11 = f1_local8 / math.sin(math.rad(f1_local1))
     local f1_local12 = f1_local8 / math.sin(math.rad(f1_local2))
-    local f1_local13 = arg1:GetRandam_Int(0, 1)
-    local f1_local14 = true
     local f1_local15 = 2.5
     local f1_local16 = -1
+
     if f1_local3 == 9910 then
         f1_local16 = 9910
     end
-    local f1_local17 = SpaceCheck_SidewayMove(arg1, arg2, 1)
-    if f1_local17 == 0 then
-        f1_local13 = 0
-    elseif f1_local17 == 1 then
-        f1_local13 = 1
-    elseif f1_local17 == 2 then
 
-    else
-
-    end
     local f1_local18 = TARGET_ENE_0
 
     if arg1:CheckDoesExistPathWithSetPoint(TARGET_ENE_0, AI_DIR_TYPE_F, 0, 0) == false then
@@ -55,7 +47,7 @@ Goal.Activate = function(arg0, arg1, arg2)
         f1_local7 = arg1:GetDist_Point(POINT_UnreachTerminate)
         f1_local15 = 0.5
     end
-    
+
     if arg1:GetStringIndexedNumber("Reach_EndOnFailedPath") == 1 then
         arg1:SetStringIndexedNumber("Reach_EndOnFailedPath", 0)
     elseif f1_local10 <= f1_local7 then
@@ -107,5 +99,6 @@ Goal.Interrupt = function(arg0, arg1, arg2)
         arg2:AddSubGoal(GOAL_COMMON_Wait_On_FailedPath, 0.5, 0.1)
         return true
     end
+    
     return false
 end

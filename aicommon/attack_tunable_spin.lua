@@ -1,10 +1,11 @@
-REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_AttackTunableSpin, 0, "EzStateID", 0)
-REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_AttackTunableSpin, 1, "?U?????", 0)
-REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_AttackTunableSpin, 2, "????????", 0)
-REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_AttackTunableSpin, 3, "?U???O??????", 0)
-REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_AttackTunableSpin, 4, "???????p?x", 0)
-REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_AttackTunableSpin, 5, "??U???p?x", 0)
-REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_AttackTunableSpin, 6, "???U???p?x", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_AttackTunableSpin, 0, "动作id，如果这个动作结束，角色不在这个动作，则此goal结束", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_AttackTunableSpin, 1, "攻击目标", 0)
+-- 未满足距离时，依然继续接近？攻击前旋转时间，回旋余地？
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_AttackTunableSpin, 2, "成功距离，只有在这个距离内才进行攻击？还是和activate条件相关? update？", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_AttackTunableSpin, 3, "攻击前旋转时间", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_AttackTunableSpin, 4, "正面判定角度", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_AttackTunableSpin, 5, "上攻击角度", 0)
+REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_AttackTunableSpin, 6, "下攻击角度", 0)
 
 function AttackTunableSpin_Activate(arg0, arg1)
     local f1_local0 = arg1:GetLife()

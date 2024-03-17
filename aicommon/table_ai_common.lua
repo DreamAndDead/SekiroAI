@@ -280,6 +280,7 @@ function InterruptTableLogic_Common(arg0, arg1, arg2)
         local f12_local2 = arg0:GetLatestSoundTargetInstanceID()
         local f12_local3 = arg0:GetInvadeTriggerRegionInfoNum()
         local f12_local4 = 600
+
         if arg0:HasSpecialEffectId(TARGET_SELF, 200001) then
             if arg0:GetRandam_Int(1, 100) <= 50 then
                 f12_local4 = 610
@@ -291,9 +292,11 @@ function InterruptTableLogic_Common(arg0, arg1, arg2)
                 f12_local4 = 400610
             end
         end
-        for f12_local5 = 0, f12_local3 - 1, 1 do
-            local f12_local8 = arg0:GetInvadeTriggerRegionCategory(f12_local5)
-            local f12_local9 = arg0:GetInvadeTriggerRegionUnitID(f12_local5)
+
+        for i = 0, f12_local3 - 1, 1 do
+            local f12_local8 = arg0:GetInvadeTriggerRegionCategory(i)
+            local f12_local9 = arg0:GetInvadeTriggerRegionUnitID(i)
+            
             if f12_local8 == 1000 and f12_local9 == f12_local2 then
                 arg0:RemoveTriggerRegionObserver(1000)
                 arg1:ClearSubGoal()

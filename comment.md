@@ -324,90 +324,12 @@ every goal has
 - Wait
   - ClearTarget
 - Turn
+- Guard
+- SidewayMove
+- SpinStep
+- KeepDist
+- LeaveTarget
 
-
-
-GOAL_COMMON_LeaveTarget
-底层实现的goal
-离开目标一定距离
-
-goal_manager:AddSubGoal(GOAL_COMMON_LeaveTarget, lifetime, TARGET_ENE_0, arg2, TARGET_ENE_0, true, f6_local4)
-
-- lifetime
-- target
-- 目标dist
-- target?
-- ?
-- ?
-
-
-GOAL_COMMON_ApproachTarget
-lua 层面
-底层使用 GOAL_COMMON_MoveToSomewhere
-
-REGISTER_GOAL_UPDATE_TIME(GOAL_COMMON_ApproachTarget, 0, 0)
-
-
-
-
-arg1:AddSubGoal(GOAL_COMMON_Guard, f23_local4, 9910, TARGET_ENE_0, false, 0)
-
-底层goal
-
-防御状态
-
-
-
-arg1:AddSubGoal(GOAL_COMMON_Wait, 5, TARGET_SELF, 0, 0, 0)
-
-底层goal
-等待一段时间
-没有动作？
-
-
-
-
-
-goal_manager:AddSubGoal(GOAL_COMMON_SidewayMove, f6_local1, TARGET_ENE_0, left_or_right_dir, f6_local3, true, true, f6_local4)
-
-底层goal
-左右横向移动
-
-
-arg1:AddSubGoal(GOAL_COMMON_SpinStep, f20_local0, 5202, TARGET_ENE_0, f20_local1, AI_DIR_TYPE_L, 0)
-
-底层 goal
-围绕目标点的圆周运动
-
-
-
-
-arg1:AddSubGoal(GOAL_COMMON_Turn, 2, TARGET_ENE_0, 20, -1, GOAL_RESULT_Success, true)
-
-和 setturnspeed 关联？
-
-
-
-
-goal_manager:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, 3100, TARGET_ENE_0, 9999, 0)
-
-endure 架出防御动作
-
-底层使用 attack goal
-
-
-
-
-arg1:AddSubGoal(GOAL_COMMON_KeepDist, 10, TARGET_ENE_0, arg2, arg3, TARGET_ENE_0, f38_local1, f38_local2)
-
-底层 goal
-
-
-
-
-GOAL_COMMON_ComboAttackTunableSpin
-
-底层使用 goal_common_commonattack
 
 关联block
 
@@ -418,27 +340,6 @@ InvokeAttackBehavior
 关联相应 atk param
 开启碰撞的时间段
 
-
-arg1:AddSubGoal(GOAL_COMMON_ComboAttackTunableSpin, 10, f6_local8, arg0:GetStringIndexedNumber("targetWhich"),
-        f6_local10, f6_local11, f6_local12, 0, 0)
-
-
-
-
-GOAL_COMMON_ComboFinal
-底层使用 goal_common_commonattack
-
-block
-
-jumptable 23
-end if ai combo attack queued?
-ai 的 combo 命令可输入
-
-
-
-
-当一个 attack goal is cancelled，相应的 goal 结束
-
 attack 属性
 - if combo
   - if combo final
@@ -448,12 +349,49 @@ attack 属性
 
 # ai
 
-Kaihuku 恢复
-karaburi
-Kankyaku 观众
-Torimaki 随行人员
+## 索敌机制
+
+自由状态的敌人，在站立 待机 巡逻
+
+当玩家接近，处于发现状态，头上开始积累警戒值 三角形积累
+
+满了之后，进入黄色警戒状态，开始去警戒到的点 （声音 看到的） 去小心探测是否存在目标  黄色三角形加黄色边框
+
+当发现玩家，进入战斗状态   三角形全红，后消失
+
+
+
+
+
+
 
 ## 机制
+
+goal tree
+
+topgoal，整体运作的 root
+下面的第一级 subgoal，通常是一整套的行动体系
+一般为常驻，lifetime -1
+
+由下面的subgoal组成
+
+每个subgoal 有自己的subgoal，从root topgoal 开始，呈现树形结构
+
+当 add subgoal 时，添加到自己的子节点，并等待执行
+
+每帧循环，只执行一个 subgoal，从 root 到其的path会更新 lifetime
+
+当 update 不返回 continue 时，goal的运行结束，排到下个 goal 执行
+
+当 topgoal update 结束时，会重新开始 activate replan，重新开始进行计划
+
+
+
+
+add top goal, 由 self 调用
+add sub goal，由 topgoal 及 subgoal 调用
+
+
 
 主动计划，是ai执行的入口
 
@@ -489,6 +427,61 @@ no action return -1
 
 每个 subgoal 有不同的类型
 类型的执行条件，和tae event block中的设定相关
+
+
+
+wait cancel timing  subgoal
+在上个 attack 被 parry or guard 中断之后，当前的 subgoal 就中止
+topgoal 决定再次进行 replan，activate 出下个 act
+如果下个 act 不符合当前动画的 event block cancel 条件，就无法 activate，
+此时需要一个 psudo subgoal  wait cancel timing  进行占位，避免 topgoal 因为 update 结束而replan
+上次未添加的act进入一个queue，每个 update 都会检测其条件
+如果成立，则 clearsubgoal，添加当前 act
+
+因为被弹开 招架的动作 行为并不是代码中计划的 goal
+
+
+
+当攻击动画结束后，进入 idle 态
+此时 attack subgoal 也会结束，它一直跟随着当前的动画 id
+不是这个 id 就会退出
+
+然后 topgoal 再进行replan
+
+
+未被忍杀后恢复，开始replan
+
+
+
+如果 findpath 不通，说明距离为无限，无法开启下一个 attack goal，即使是 9999 的 activate
+
+这时使用远程攻击方式，如扔石子
+
+
+
+clear subgoal 会清空所有队列？
+
+
+交锋计划是每帧都在执行的？
+在 queue 中的 act 开始 activate 后开始执行？
+
+
+交锋只有小幅弹开才有可能续招
+被弹太远，无法进行交锋
+
+
+连续添加多个 subgoal 时，只要当前block event 满足就可以添加？
+还是保留在 queue 中未 activate?
+
+后一个 subgoal 总是想尽全力 cancel 前一个正在执行的 subgoal
+
+当前面没有正在执行的 subgoal 而又无法 cancel 时，用 wait cancel time 来替代
+
+
+将距离分为 3 6 9 等
+3m 内为近距离
+中
+远
 
 
 

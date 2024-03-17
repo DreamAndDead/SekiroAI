@@ -389,6 +389,8 @@ function Common_Kengeki_Activate(self, goal_manager, act_weights, act_funcs, act
         end
     end
 
+    -- >= 0 means get well space act odd
+    -- -1 means no action act is selected and run
     local get_well_space_odd = 0
     -- 0 means no debug
     local force_kengeki_index = self:DbgGetForceKengekiActIdx()

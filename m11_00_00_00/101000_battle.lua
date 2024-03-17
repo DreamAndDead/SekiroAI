@@ -282,16 +282,16 @@ end
 
 Goal.Act01 = function(arg0, arg1, arg2)
     local dist_to_player = arg0:GetDist(TARGET_ENE_0)
-    local f3_local1 = 2.5 - arg0:GetMapHitRadius(TARGET_SELF) + arg0:GetStringIndexedNumber("karaburiDist")
-    local f3_local2 = 2.5 - arg0:GetMapHitRadius(TARGET_SELF)
-    local f3_local3 = 2.5 - arg0:GetMapHitRadius(TARGET_SELF) + 2
+    local approach_dist = 2.5 - arg0:GetMapHitRadius(TARGET_SELF) + arg0:GetStringIndexedNumber("karaburiDist")
+    local min_dist = 2.5 - arg0:GetMapHitRadius(TARGET_SELF)
+    local max_dist = 2.5 - arg0:GetMapHitRadius(TARGET_SELF) + 2
     local f3_local4 = 100
     local f3_local5 = 0
     local f3_local6 = 1.5
     local f3_local7 = 3
 
-    if f3_local1 < dist_to_player then
-        Approach_Act_Flex(arg0, arg1, f3_local1, f3_local2, f3_local3, f3_local4, f3_local5, f3_local6, f3_local7)
+    if approach_dist < dist_to_player then
+        Approach_Act_Flex(arg0, arg1, approach_dist, min_dist, max_dist, f3_local4, f3_local5, f3_local6, f3_local7)
     elseif arg0:GetStringIndexedNumber("targetWhich") == TARGET_SELF then
         arg1:AddSubGoal(GOAL_COMMON_Turn, 2, TARGET_ENE_0, 20, -1, GOAL_RESULT_Success, true)
     end
@@ -337,7 +337,7 @@ Goal.Act02 = function(arg0, arg1, arg2)
 end
 
 Goal.Act03 = function(arg0, arg1, arg2)
-    local f5_local0 = arg0:GetDist(TARGET_ENE_0)
+    local dist_to_pc = arg0:GetDist(TARGET_ENE_0)
     local f5_local1 = 7.1 - arg0:GetMapHitRadius(TARGET_SELF) + arg0:GetStringIndexedNumber("karaburiDist")
     local f5_local2 = 7.1 - arg0:GetMapHitRadius(TARGET_SELF) + 0
     local f5_local3 = 7.1 - arg0:GetMapHitRadius(TARGET_SELF) + 2
@@ -346,17 +346,13 @@ Goal.Act03 = function(arg0, arg1, arg2)
     local f5_local6 = 1.5
     local f5_local7 = 3
 
-    if f5_local1 < f5_local0 then
+    if f5_local1 < dist_to_pc then
         Approach_Act_Flex(arg0, arg1, f5_local1, f5_local2, f5_local3, f5_local4, f5_local5, f5_local6, f5_local7)
     elseif arg0:GetStringIndexedNumber("targetWhich") == TARGET_SELF then
         arg1:AddSubGoal(GOAL_COMMON_Turn, 2, TARGET_ENE_0, 20, -1, GOAL_RESULT_Success, true)
     end
 
-    local f5_local8 = 3003
-    local f5_local9 = 0.5
-    local f5_local10 = 90
-    arg1:AddSubGoal(GOAL_COMMON_AttackTunableSpin, 10, f5_local8, arg0:GetStringIndexedNumber("targetWhich"), 9999,
-        f5_local9, f5_local10, 0, 0)
+    arg1:AddSubGoal(GOAL_COMMON_AttackTunableSpin, 10, 3003, arg0:GetStringIndexedNumber("targetWhich"), 9999, 0.5, 90, 0, 0)
 
     GetWellSpace_Odds = 0
     return GetWellSpace_Odds
@@ -405,15 +401,13 @@ Goal.Act05 = function(arg0, arg1, arg2)
         arg1:AddSubGoal(GOAL_COMMON_Turn, 2, TARGET_ENE_0, 20, -1, GOAL_RESULT_Success, true)
     end
 
-    local f7_local8 = 3005
-    local f7_local9 = 3007
     local f7_local10 = 3.4 - arg0:GetMapHitRadius(TARGET_SELF) + 1
     local f7_local11 = 0.5
     local f7_local12 = 90
 
-    arg1:AddSubGoal(GOAL_COMMON_ComboAttackTunableSpin, 10, f7_local8, arg0:GetStringIndexedNumber("targetWhich"),
+    arg1:AddSubGoal(GOAL_COMMON_ComboAttackTunableSpin, 10, 3005, arg0:GetStringIndexedNumber("targetWhich"),
         f7_local10, f7_local11, f7_local12, 0, 0)
-    arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, f7_local9, arg0:GetStringIndexedNumber("targetWhich"), 9999, 0, 0)
+    arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3007, arg0:GetStringIndexedNumber("targetWhich"), 9999, 0, 0)
 end
 
 Goal.Act06 = function(arg0, arg1, arg2)

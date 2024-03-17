@@ -1,50 +1,50 @@
 --[[
     接近玩家，计算距离，添加 approach target subgoal
 ]]
-function Approach_Act_Flex(self, goal_manager, arg2, min_dist, max_dist, odd, arg6, short_life, long_life, arg9)
-    if short_life == nil then
-        short_life = 3
+function Approach_Act_Flex(self, goal_manager, approach_dist, min_dist, max_dist, odd, arg6, walk_lifetime, run_lifetime, force_move)
+    if walk_lifetime == nil then
+        walk_lifetime = 3
     end
-    if long_life == nil then
-        long_life = 8
+    if run_lifetime == nil then
+        run_lifetime = 8
     end
-    if arg9 == nil then
-        arg9 = 0
+    if force_move == nil then
+        force_move = 0
     end
 
     local dist_to_player = self:GetDist(TARGET_ENE_0)
-    local short_or_long = true
+    local walk_or_run = true
 
     if max_dist <= dist_to_player then
-        short_or_long = false
+        walk_or_run = false
     elseif min_dist <= dist_to_player and self:GetRandam_Int(1, 100) <= odd then
-        short_or_long = false
+        walk_or_run = false
     end
 
     if self:IsInsideTargetRegion(TARGET_SELF, COMMON_REGION_FORCE_WALK_M11_0) or self:IsInsideTargetRegion(TARGET_SELF, COMMON_REGION_FORCE_WALK_M11_1) then
-        short_or_long = true
+        walk_or_run = true
     end
 
-    local f1_local3 = -1
+    local state = -1
     if self:GetRandam_Int(1, 100) <= arg6 then
-        f1_local3 = 9910
+        state = 9910
     end
 
     local life = 0
-    if short_or_long == true then
-        life = short_life
+    if walk_or_run == true then
+        life = walk_lifetime
     else
-        life = long_life
+        life = run_lifetime
     end
 
-    if arg2 <= dist_to_player or arg9 > 0 then
-        if short_or_long == true then
-            arg2 = arg2 + self:GetStringIndexedNumber("AddDistWalk")
+    if approach_dist <= dist_to_player or force_move > 0 then
+        if walk_or_run == true then
+            approach_dist = approach_dist + self:GetStringIndexedNumber("AddDistWalk")
         else
-            arg2 = arg2 + self:GetStringIndexedNumber("AddDistRun")
+            approach_dist = approach_dist + self:GetStringIndexedNumber("AddDistRun")
         end
-        goal_manager:AddSubGoal(GOAL_COMMON_ApproachTarget, life, TARGET_ENE_0, arg2, TARGET_SELF, short_or_long,
-            f1_local3)
+
+        goal_manager:AddSubGoal(GOAL_COMMON_ApproachTarget, life, TARGET_ENE_0, approach_dist, TARGET_SELF, walk_or_run, state)
     end
 end
 

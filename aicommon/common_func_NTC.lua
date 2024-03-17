@@ -59,7 +59,11 @@ function get_kengeki_sp(self)
     return 0
 end
 
+--[[
+    wait and see act
 
+    return true always
+]]
 function YousumiAct_SubGoal(arg0, arg1, arg2, arg3, arg4, arg5)
     arg1:AddSubGoal(GOAL_COMMON_YousumiAct, 10, arg2, arg3, arg4, arg5)
     return true

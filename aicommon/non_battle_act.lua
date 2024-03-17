@@ -16,10 +16,12 @@ function NonBattleAct_Activate(arg0, arg1)
     else
         f1_local0 = false
     end
+
     if arg0:IsValidPlatoon() == true and arg0:IsPlatoonLeader() == false and not arg0:HasSpecialEffectId(TARGET_SELF, 5002) then
         local f1_local1 = arg0:GetPlatoonCommand()
         local f1_local2 = f1_local1:GetCommandNo()
         local f1_local3 = arg0:GetDist(TARGET_TEAM_FORMATION)
+
         if f1_local2 == 5 then
             if arg0:IsSearchTarget(TARGET_ENE_0) then
                 local f1_local4 = arg1:GetParam(7)
@@ -44,11 +46,10 @@ end
 
 function NonBattleAct_Common(arg0, arg1)
     local f2_local0 = arg0:GetPrevMovePointNumber()
-    local f2_local1 = arg0:GetMovePointWaitTime(f2_local0)
-    local f2_local2 = arg0:GetMovePointAnimId(f2_local0)
     arg0:SetStringIndexedNumber("RouteMoveAction:prevPoint ", f2_local0)
     arg0:SetStringIndexedNumber("RouteMoveAction:AnimId  ", arg0:GetMovePointAnimId(f2_local0))
     arg0:SetStringIndexedNumber("RouteMoveAction:WaitTime", arg0:GetMovePointWaitTime(f2_local0))
+
     local f2_local3 = arg0:GetMovePointNumber()
     local f2_local4 = arg1:GetParam(2)
     if arg0:HasSpecialEffectId(TARGET_SELF, 5000) then
@@ -58,6 +59,7 @@ function NonBattleAct_Common(arg0, arg1)
     else
         f2_local4 = false
     end
+
     if arg0:GetStringIndexedNumber("NonBattleAct_FailedPathMove") > 0 then
         local f2_local5 = arg0:GetActTypeOnNonBattleFailedPathEnd()
         if f2_local5 == AI_FAILED_PATH_NONBTL_ACT_TYPE__STAY then
@@ -69,24 +71,26 @@ function NonBattleAct_Common(arg0, arg1)
         if not not arg0:HasSpecialEffectId(TARGET_SELF, 205070) or arg0:HasSpecialEffectId(TARGET_SELF, 205071) then
             arg1:AddSubGoal(GOAL_COMMON_Wait, 5, TARGET_SELF, 0, 0, 0)
         elseif arg0:IsSearchTarget(TARGET_ENE_0) then
-            local f2_local5 = arg1:GetParam(7)
-            local f2_local6 = arg1:GetParam(6)
             arg1:AddSubGoal(GOAL_COMMON_BackToHome_With_Parry, arg1:GetLife())
         elseif arg0:HasSpecialEffectId(TARGET_SELF, 5001) then
             if arg1:GetLastResult() == GOAL_RESULT_Success then
                 local f2_local5 = arg0:GetPrevMovePointNumber()
                 local f2_local6 = arg0:GetMovePointWaitTime(f2_local5)
                 local f2_local7 = arg0:GetMovePointAnimId(f2_local5)
+
                 if f2_local7 > 0 then
                     arg1:AddSubGoal(GOAL_COMMON_WaitWithAnime, 20, f2_local7, TARGET_SELF)
                 end
+
                 if f2_local6 > 0 then
                     arg1:AddSubGoal(GOAL_COMMON_Wait, f2_local6)
                 end
+
                 arg0:SetStringIndexedNumber("RouteMoveAction:prevPoint ", f2_local5)
                 arg0:SetStringIndexedNumber("RouteMoveAction:AnimId  ", arg0:GetMovePointAnimId(f2_local5))
                 arg0:SetStringIndexedNumber("RouteMoveAction:WaitTime", arg0:GetMovePointWaitTime(f2_local5))
             end
+            
             arg1:AddSubGoal(GOAL_COMMON_Turn, 3, POINT_MOVE_POINT, 30, arg1:GetParam(6), 0, true)
             arg1:AddSubGoal(GOAL_COMMON_MoveToSomewhere, arg1:GetLife(), POINT_MOVE_POINT, AI_DIR_TYPE_CENTER, 0,
                 TARGET_SELF, f2_local4, 0, 0, AI_CALC_DIST_TYPE__XYZ, arg1:GetParam(6), GUARD_GOAL_DESIRE_RET_Continue,
