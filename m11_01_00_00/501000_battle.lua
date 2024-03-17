@@ -119,20 +119,20 @@ Goal.Activate = function (arg0, arg1, arg2)
     if arg1:IsFinishTimer(2) == false then
         f2_local0[6] = f2_local0[6] * 2
     end
-    f2_local0[2] = SetCoolTime(arg1, arg2, 20011, 30, f2_local0[2], 1)
-    f2_local0[3] = SetCoolTime(arg1, arg2, 20012, 45, f2_local0[3], 1)
-    f2_local0[4] = SetCoolTime(arg1, arg2, 20013, 20, f2_local0[4], 1)
-    f2_local0[5] = SetCoolTime(arg1, arg2, 20014, 10, f2_local0[5], 1)
-    f2_local0[6] = SetCoolTime(arg1, arg2, 20015, 20, f2_local0[6], 1)
-    f2_local0[7] = SetCoolTime(arg1, arg2, 20016, 20, f2_local0[7], 1)
-    f2_local0[12] = SetCoolTime(arg1, arg2, 20021, 10, f2_local0[12], 1)
-    f2_local0[13] = SetCoolTime(arg1, arg2, 20022, 30, f2_local0[13], 1)
-    f2_local0[14] = SetCoolTime(arg1, arg2, 20023, 20, f2_local0[14], 1)
-    f2_local0[15] = SetCoolTime(arg1, arg2, 20024, 20, f2_local0[15], 1)
-    f2_local0[16] = SetCoolTime(arg1, arg2, 20025, 20, f2_local0[16], 1)
-    f2_local0[17] = SetCoolTime(arg1, arg2, 20026, 20, f2_local0[17], 1)
-    f2_local0[18] = SetCoolTime(arg1, arg2, 20027, 30, f2_local0[18], 1)
-    f2_local0[19] = SetCoolTime(arg1, arg2, 20028, 25, f2_local0[19], 1)
+    f2_local0[2] = get_weight_base_on_cooldown(arg1, arg2, 20011, 30, f2_local0[2], 1)
+    f2_local0[3] = get_weight_base_on_cooldown(arg1, arg2, 20012, 45, f2_local0[3], 1)
+    f2_local0[4] = get_weight_base_on_cooldown(arg1, arg2, 20013, 20, f2_local0[4], 1)
+    f2_local0[5] = get_weight_base_on_cooldown(arg1, arg2, 20014, 10, f2_local0[5], 1)
+    f2_local0[6] = get_weight_base_on_cooldown(arg1, arg2, 20015, 20, f2_local0[6], 1)
+    f2_local0[7] = get_weight_base_on_cooldown(arg1, arg2, 20016, 20, f2_local0[7], 1)
+    f2_local0[12] = get_weight_base_on_cooldown(arg1, arg2, 20021, 10, f2_local0[12], 1)
+    f2_local0[13] = get_weight_base_on_cooldown(arg1, arg2, 20022, 30, f2_local0[13], 1)
+    f2_local0[14] = get_weight_base_on_cooldown(arg1, arg2, 20023, 20, f2_local0[14], 1)
+    f2_local0[15] = get_weight_base_on_cooldown(arg1, arg2, 20024, 20, f2_local0[15], 1)
+    f2_local0[16] = get_weight_base_on_cooldown(arg1, arg2, 20025, 20, f2_local0[16], 1)
+    f2_local0[17] = get_weight_base_on_cooldown(arg1, arg2, 20026, 20, f2_local0[17], 1)
+    f2_local0[18] = get_weight_base_on_cooldown(arg1, arg2, 20027, 30, f2_local0[18], 1)
+    f2_local0[19] = get_weight_base_on_cooldown(arg1, arg2, 20028, 25, f2_local0[19], 1)
     f2_local1[1] = REGIST_FUNC(arg1, arg2, arg0.Act01)
     f2_local1[2] = REGIST_FUNC(arg1, arg2, arg0.Act02)
     f2_local1[3] = REGIST_FUNC(arg1, arg2, arg0.Act03)
@@ -396,7 +396,7 @@ Goal.ActAfter_AdjustSpace = function (arg0, arg1, arg2)
 end
 
 Goal.Update = function (arg0, arg1, arg2)
-    return Update_Default_NoSubGoal(arg0, arg1, arg2)
+    return default_update(arg0, arg1, arg2)
     
 end
 

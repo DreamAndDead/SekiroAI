@@ -1,500 +1,3 @@
-function CommonNPC_ChangeWepL1(arg0, arg1)
-    local f1_local0 = arg0:GetEquipWeaponIndex(ARM_L)
-    if f1_local0 ~= WEP_Primary then
-        arg1:AddSubGoal(GOAL_COMMON_Attack, 10, NPC_ATK_ChangeWep_L1, TARGET_NONE, DIST_None)
-    end
-end
-
-function CommonNPC_ChangeWepR1(arg0, arg1)
-    local f2_local0 = arg0:GetEquipWeaponIndex(ARM_R)
-    if f2_local0 ~= WEP_Primary then
-        arg1:AddSubGoal(GOAL_COMMON_Attack, 10, NPC_ATK_ChangeWep_R1, TARGET_NONE, DIST_None)
-    end
-end
-
-function CommonNPC_ChangeWepL2(arg0, arg1)
-    local f3_local0 = arg0:GetEquipWeaponIndex(ARM_L)
-    if f3_local0 ~= WEP_Secondary then
-        arg1:AddSubGoal(GOAL_COMMON_Attack, 10, NPC_ATK_ChangeWep_L2, TARGET_NONE, DIST_None)
-    end
-end
-
-function CommonNPC_ChangeWepR2(arg0, arg1)
-    local f4_local0 = arg0:GetEquipWeaponIndex(ARM_R)
-    if f4_local0 ~= WEP_Secondary then
-        arg1:AddSubGoal(GOAL_COMMON_Attack, 10, NPC_ATK_ChangeWep_R2, TARGET_NONE, DIST_None)
-    end
-end
-
-function CommonNPC_SwitchBothHandMode(arg0, arg1)
-    if not arg0:IsBothHandMode(TARGET_SELF) then
-        arg1:AddSubGoal(GOAL_COMMON_Attack, 10, NPC_ATK_SwitchWep, TARGET_NONE, DIST_None)
-    end
-end
-
-function CommonNPC_SwitchOneHandMode(arg0, arg1)
-    if arg0:IsBothHandMode(TARGET_SELF) then
-        arg1:AddSubGoal(GOAL_COMMON_Attack, 10, NPC_ATK_SwitchWep, TARGET_NONE, DIST_None)
-    end
-end
-
-function NPC_Approach_Act(arg0, arg1, arg2, arg3, arg4)
-    arg0:EndDash()
-    local f7_local0 = -1
-    local f7_local1 = arg0:GetRandam_Int(1, 100)
-    if f7_local1 <= arg4 then
-        f7_local0 = 4
-    end
-    local f7_local2 = arg0:GetDist(TARGET_ENE_0)
-    if arg3 <= f7_local2 then
-        arg0:StartDash()
-        arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, 10, TARGET_ENE_0, arg2, TARGET_SELF, false, f7_local0)
-    else
-        arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, 5, TARGET_ENE_0, arg2, TARGET_SELF, false, f7_local0)
-    end
-end
-
-function Damaged_StepCount_NPCPlayer(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
-    local f10_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f10_local1 = arg0:GetRandam_Int(1, 100)
-    local f10_local2 = arg0:GetRandam_Int(1, 100)
-    local f10_local3 = arg0:GetRandam_Int(1, 100)
-    if arg0:IsInterupt(INTERUPT_Damaged) and f10_local0 < arg2 and f10_local1 <= arg3 then
-        arg1:ClearSubGoal()
-        if f10_local2 <= arg6 then
-            arg1:AddSubGoal(GOAL_COMMON_Attack, 10, NPC_ATK_StepB, TARGET_ENE_0, DIST_None, 0)
-        elseif f10_local2 <= arg6 + arg7 then
-            arg1:AddSubGoal(GOAL_COMMON_Attack, 10, NPC_ATK_StepL, TARGET_ENE_0, DIST_None, 0)
-        else
-            arg1:AddSubGoal(GOAL_COMMON_Attack, 10, NPC_ATK_StepR, TARGET_ENE_0, DIST_None, 0)
-        end
-        if f10_local3 <= arg4 then
-            arg1:AddSubGoal(GOAL_COMMON_ComboAttack, 10, arg5, TARGET_ENE_0, DIST_Middle, 0)
-        end
-        return true
-    end
-end
-
-function FindAttack_Step_NPCPlayer(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
-    local f11_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f11_local1 = arg0:GetRandam_Int(1, 100)
-    local f11_local2 = arg0:GetRandam_Int(1, 100)
-    if arg0:IsInterupt(INTERUPT_FindAttack) and f11_local0 <= arg2 and f11_local1 <= arg3 then
-        arg1:ClearSubGoal()
-        if f11_local2 <= arg4 then
-            arg1:AddSubGoal(GOAL_COMMON_Attack, 10, NPC_ATK_StepB, TARGET_ENE_0, DIST_None, 0)
-        elseif f11_local2 <= arg4 + arg5 then
-            arg1:AddSubGoal(GOAL_COMMON_Attack, 10, NPC_ATK_StepL, TARGET_ENE_0, DIST_None, 0)
-        else
-            arg1:AddSubGoal(GOAL_COMMON_Attack, 10, NPC_ATK_StepR, TARGET_ENE_0, DIST_None, 0)
-        end
-        return true
-    end
-end
-
-function FindAttack_Act(arg0, arg1, arg2, arg3)
-    local f12_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f12_local1 = arg0:GetRandam_Int(1, 100)
-    if arg0:IsInterupt(INTERUPT_FindAttack) and f12_local0 <= arg2 and f12_local1 <= arg3 then
-        arg1:ClearSubGoal()
-        return true
-    end
-    return false
-end
-
-function FindAttack_Step(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
-    local f13_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f13_local1 = arg0:GetRandam_Int(1, 100)
-    local f13_local2 = arg0:GetRandam_Int(1, 100)
-    local f13_local3 = GET_PARAM_IF_NIL_DEF(arg4, 50)
-    local f13_local4 = GET_PARAM_IF_NIL_DEF(arg5, 25)
-    local f13_local5 = GET_PARAM_IF_NIL_DEF(arg6, 25)
-    local f13_local6 = GET_PARAM_IF_NIL_DEF(arg7, 3)
-    if arg0:IsInterupt(INTERUPT_FindAttack) and f13_local0 <= arg2 and f13_local1 <= arg3 then
-        arg1:ClearSubGoal()
-        if f13_local2 <= f13_local3 then
-            arg1:AddSubGoal(GOAL_COMMON_SpinStep, 5, 701, TARGET_ENE_0, 0, AI_DIR_TYPE_B, f13_local6)
-        elseif f13_local2 <= f13_local3 + f13_local4 then
-            arg1:AddSubGoal(GOAL_COMMON_SpinStep, 5, 702, TARGET_ENE_0, 0, AI_DIR_TYPE_L, f13_local6)
-        else
-            arg1:AddSubGoal(GOAL_COMMON_SpinStep, 5, 703, TARGET_ENE_0, 0, AI_DIR_TYPE_R, f13_local6)
-        end
-        return true
-    end
-end
-
-function FindAttack_Guard(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
-    local f14_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f14_local1 = arg0:GetRandam_Int(1, 100)
-    local f14_local2 = arg0:GetRandam_Int(1, 100)
-    local f14_local3 = GET_PARAM_IF_NIL_DEF(arg4, 40)
-    local f14_local4 = GET_PARAM_IF_NIL_DEF(arg5, 4)
-    local f14_local5 = GET_PARAM_IF_NIL_DEF(arg6, 3)
-    if arg0:IsInterupt(INTERUPT_FindAttack) and f14_local0 <= arg2 and f14_local1 <= arg3 then
-        arg1:ClearSubGoal()
-        if f14_local2 <= f14_local3 then
-            arg1:AddSubGoal(GOAL_COMMON_LeaveTarget, 4, TARGET_ENE_0, f14_local5, TARGET_ENE_0, true, 9910)
-        else
-            arg1:AddSubGoal(GOAL_COMMON_LeaveTarget, 4, TARGET_ENE_0, f14_local5, TARGET_ENE_0, true, 9910)
-            arg1:AddSubGoal(GOAL_COMMON_SidewayMove, f14_local4, TARGET_ENE_0, arg0:GetRandam_Int(0, 1),
-                arg0:GetRandam_Int(30, 45), true, true, 9910)
-        end
-        return true
-    end
-end
-
-function FindAttack_Step_or_Guard(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
-    local f15_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f15_local1 = arg0:GetRandam_Int(1, 100)
-    local f15_local2 = arg0:GetRandam_Int(1, 100)
-    local f15_local3 = arg0:GetRandam_Int(1, 100)
-    local f15_local4 = GET_PARAM_IF_NIL_DEF(arg5, 50)
-    local f15_local5 = GET_PARAM_IF_NIL_DEF(arg6, 25)
-    local f15_local6 = GET_PARAM_IF_NIL_DEF(arg7, 25)
-    local f15_local7 = GET_PARAM_IF_NIL_DEF(arg8, 3)
-    local f15_local8 = GET_PARAM_IF_NIL_DEF(arg9, 40)
-    local f15_local9 = GET_PARAM_IF_NIL_DEF(arg10, 4)
-    local f15_local10 = GET_PARAM_IF_NIL_DEF(arg11, 3)
-    if arg0:IsInterupt(INTERUPT_FindAttack) and f15_local0 <= arg2 and f15_local1 <= arg3 then
-        if f15_local2 <= arg4 then
-            arg1:ClearSubGoal()
-            if f15_local3 <= f15_local4 then
-                arg1:AddSubGoal(GOAL_COMMON_SpinStep, 5, 701, TARGET_ENE_0, 0, AI_DIR_TYPE_B, f15_local7)
-            elseif f15_local3 <= f15_local4 + f15_local5 then
-                arg1:AddSubGoal(GOAL_COMMON_SpinStep, 5, 702, TARGET_ENE_0, 0, AI_DIR_TYPE_L, f15_local7)
-            else
-                arg1:AddSubGoal(GOAL_COMMON_SpinStep, 5, 703, TARGET_ENE_0, 0, AI_DIR_TYPE_R, f15_local7)
-            end
-            return true
-        else
-            arg1:ClearSubGoal()
-            if f15_local3 <= f15_local8 then
-                arg1:AddSubGoal(GOAL_COMMON_LeaveTarget, 4, TARGET_ENE_0, f15_local10, TARGET_ENE_0, true, 9910)
-            else
-                arg1:AddSubGoal(GOAL_COMMON_LeaveTarget, 4, TARGET_ENE_0, f15_local10, TARGET_ENE_0, true, 9910)
-                arg1:AddSubGoal(GOAL_COMMON_SidewayMove, f15_local9, TARGET_ENE_0, arg0:GetRandam_Int(0, 1),
-                    arg0:GetRandam_Int(30, 45), true, true, 9910)
-            end
-            return true
-        end
-    end
-end
-
-function Damaged_Act(arg0, arg1, arg2, arg3)
-    local f16_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f16_local1 = arg0:GetRandam_Int(1, 100)
-    if arg0:IsInterupt(INTERUPT_Damaged) and f16_local0 < arg2 and f16_local1 <= arg3 then
-        arg1:ClearSubGoal()
-        return true
-    end
-    return false
-end
-
-function Damaged_Guard(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
-    local f17_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f17_local1 = arg0:GetRandam_Int(1, 100)
-    local f17_local2 = arg0:GetRandam_Int(1, 100)
-    local f17_local3 = GET_PARAM_IF_NIL_DEF(arg4, 40)
-    local f17_local4 = GET_PARAM_IF_NIL_DEF(arg5, 4)
-    local f17_local5 = GET_PARAM_IF_NIL_DEF(arg6, 3)
-    if arg0:IsInterupt(INTERUPT_Damaged) and f17_local0 <= arg2 and f17_local1 <= arg3 then
-        arg1:ClearSubGoal()
-        if f17_local2 <= f17_local3 then
-            arg1:AddSubGoal(GOAL_COMMON_LeaveTarget, 4, TARGET_ENE_0, f17_local5, TARGET_ENE_0, true, 9910)
-        else
-            arg1:AddSubGoal(GOAL_COMMON_LeaveTarget, 4, TARGET_ENE_0, f17_local5, TARGET_ENE_0, true, 9910)
-            arg1:AddSubGoal(GOAL_COMMON_SidewayMove, f17_local4, TARGET_ENE_0, arg0:GetRandam_Int(0, 1),
-                arg0:GetRandam_Int(30, 45), true, true, 9910)
-        end
-        return true
-    end
-end
-
-function Damaged_Step(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
-    local f18_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f18_local1 = arg0:GetRandam_Int(1, 100)
-    local f18_local2 = arg0:GetRandam_Int(1, 100)
-    local f18_local3 = GET_PARAM_IF_NIL_DEF(arg4, 50)
-    local f18_local4 = GET_PARAM_IF_NIL_DEF(arg5, 25)
-    local f18_local5 = GET_PARAM_IF_NIL_DEF(arg6, 25)
-    local f18_local6 = GET_PARAM_IF_NIL_DEF(arg7, 3)
-    if arg0:IsInterupt(INTERUPT_Damaged) and f18_local0 <= arg2 and f18_local1 <= arg3 then
-        arg1:ClearSubGoal()
-        if f18_local2 <= f18_local3 then
-            arg1:AddSubGoal(GOAL_COMMON_SpinStep, 5, 701, TARGET_ENE_0, 0, AI_DIR_TYPE_B, f18_local6)
-        elseif f18_local2 <= f18_local3 + f18_local4 then
-            arg1:AddSubGoal(GOAL_COMMON_SpinStep, 5, 702, TARGET_ENE_0, 0, AI_DIR_TYPE_L, f18_local6)
-        else
-            arg1:AddSubGoal(GOAL_COMMON_SpinStep, 5, 703, TARGET_ENE_0, 0, AI_DIR_TYPE_R, f18_local6)
-        end
-        return true
-    end
-end
-
-function Damaged_Step_or_Guard(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
-    local f19_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f19_local1 = arg0:GetRandam_Int(1, 100)
-    local f19_local2 = arg0:GetRandam_Int(1, 100)
-    local f19_local3 = arg0:GetRandam_Int(1, 100)
-    local f19_local4 = GET_PARAM_IF_NIL_DEF(arg5, 50)
-    local f19_local5 = GET_PARAM_IF_NIL_DEF(arg6, 25)
-    local f19_local6 = GET_PARAM_IF_NIL_DEF(arg7, 25)
-    local f19_local7 = GET_PARAM_IF_NIL_DEF(arg8, 3)
-    local f19_local8 = GET_PARAM_IF_NIL_DEF(arg9, 40)
-    local f19_local9 = GET_PARAM_IF_NIL_DEF(arg10, 4)
-    local f19_local10 = GET_PARAM_IF_NIL_DEF(arg11, 3)
-    if arg0:IsInterupt(INTERUPT_Damaged) and f19_local0 <= arg2 and f19_local1 <= arg3 then
-        if f19_local2 <= arg4 then
-            arg1:ClearSubGoal()
-            if f19_local3 <= f19_local4 then
-                arg1:AddSubGoal(GOAL_COMMON_SpinStep, 5, 701, TARGET_ENE_0, 0, AI_DIR_TYPE_B, f19_local7)
-            elseif f19_local3 <= f19_local4 + f19_local5 then
-                arg1:AddSubGoal(GOAL_COMMON_SpinStep, 5, 702, TARGET_ENE_0, 0, AI_DIR_TYPE_L, f19_local7)
-            else
-                arg1:AddSubGoal(GOAL_COMMON_SpinStep, 5, 703, TARGET_ENE_0, 0, AI_DIR_TYPE_R, f19_local7)
-            end
-            return true
-        else
-            arg1:ClearSubGoal()
-            if f19_local3 <= f19_local8 then
-                arg1:AddSubGoal(GOAL_COMMON_LeaveTarget, 4, TARGET_ENE_0, f19_local10, TARGET_ENE_0, true, 9910)
-            else
-                arg1:AddSubGoal(GOAL_COMMON_LeaveTarget, 4, TARGET_ENE_0, f19_local10, TARGET_ENE_0, true, 9910)
-                arg1:AddSubGoal(GOAL_COMMON_SidewayMove, f19_local9, TARGET_ENE_0, arg0:GetRandam_Int(0, 1),
-                    arg0:GetRandam_Int(30, 45), true, true, 9910)
-            end
-            return true
-        end
-    end
-end
-
-function GuardBreak_Act(arg0, arg1, arg2, arg3)
-    local f20_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f20_local1 = arg0:GetRandam_Int(1, 100)
-    if arg0:IsInterupt(INTERUPT_GuardBreak) and f20_local0 <= arg2 and f20_local1 <= arg3 then
-        arg1:ClearSubGoal()
-        return true
-    end
-    return false
-end
-
-function GuardBreak_Attack(arg0, arg1, arg2, arg3, arg4)
-    local f21_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f21_local1 = arg0:GetRandam_Int(1, 100)
-    if arg0:IsInterupt(INTERUPT_GuardBreak) and f21_local0 <= arg2 and f21_local1 <= arg3 then
-        arg1:ClearSubGoal()
-        arg1:AddSubGoal(GOAL_COMMON_Attack, 10, arg4, TARGET_ENE_0, DIST_Middle, 0)
-        return true
-    end
-    return false
-end
-
-function MissSwing_Int(arg0, arg1, arg2, arg3)
-    local f22_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f22_local1 = arg0:GetRandam_Int(1, 100)
-    if arg0:IsInterupt(INTERUPT_MissSwing) and f22_local0 <= arg2 and f22_local1 <= arg3 then
-        arg1:ClearSubGoal()
-        return true
-    end
-    return false
-end
-
-function MissSwing_Attack(arg0, arg1, arg2, arg3, arg4)
-    local f23_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f23_local1 = arg0:GetRandam_Int(1, 100)
-    if arg0:IsInterupt(INTERUPT_MissSwing) and f23_local0 <= arg2 and f23_local1 <= arg3 then
-        arg1:ClearSubGoal()
-        arg1:AddSubGoal(GOAL_COMMON_Attack, 10, arg4, TARGET_ENE_0, DIST_Middle, 0)
-        return true
-    end
-    return false
-end
-
-function UseItem_Act(arg0, arg1, arg2, arg3)
-    local f24_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f24_local1 = arg0:GetRandam_Int(1, 100)
-    if arg0:IsInterupt(INTERUPT_UseItem) and f24_local0 <= arg2 and f24_local1 <= arg3 then
-        arg1:ClearSubGoal()
-        return true
-    end
-    return false
-end
-
-function Shoot_1kind(arg0, arg1, arg2, arg3)
-    local f25_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f25_local1 = arg0:GetRandam_Int(1, 100)
-    local f25_local2 = GET_PARAM_IF_NIL_DEF(bkStepPer, 50)
-    local f25_local3 = GET_PARAM_IF_NIL_DEF(leftStepPer, 25)
-    local f25_local4 = GET_PARAM_IF_NIL_DEF(rightStepPer, 25)
-    local f25_local5 = GET_PARAM_IF_NIL_DEF(safetyDist, 3)
-    if arg0:IsInterupt(INTERUPT_Shoot) and f25_local0 <= arg2 and f25_local1 <= arg3 then
-        arg1:ClearSubGoal()
-        return true
-    end
-    return false
-end
-
-function Shoot_2dist(arg0, arg1, arg2, arg3, arg4, arg5)
-    local f26_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f26_local1 = arg0:GetRandam_Int(1, 100)
-    local f26_local2 = arg0:GetRandam_Int(1, 100)
-    if arg0:IsInterupt(INTERUPT_Shoot) then
-        if f26_local0 <= arg2 then
-            if f26_local1 <= arg4 then
-                arg1:ClearSubGoal()
-                return 1
-            end
-        elseif f26_local0 <= arg3 then
-            if f26_local1 <= arg5 then
-                arg1:ClearSubGoal()
-                return 2
-            end
-        else
-            return 0
-        end
-    end
-    return 0
-end
-
-function MissSwingSelf_Step(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
-    local f27_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f27_local1 = arg0:GetRandam_Int(1, 100)
-    local f27_local2 = arg0:GetRandam_Int(1, 100)
-    local f27_local3 = GET_PARAM_IF_NIL_DEF(arg3, 50)
-    local f27_local4 = GET_PARAM_IF_NIL_DEF(arg4, 25)
-    local f27_local5 = GET_PARAM_IF_NIL_DEF(arg5, 25)
-    local f27_local6 = GET_PARAM_IF_NIL_DEF(arg6, 3)
-    if arg0:IsInterupt(INTERUPT_MissSwingSelf) and f27_local1 <= arg2 then
-        arg1:ClearSubGoal()
-        if f27_local2 <= f27_local3 then
-            arg1:AddSubGoal(GOAL_COMMON_SpinStep, 5, 701, TARGET_ENE_0, 0, AI_DIR_TYPE_B, f27_local6)
-        elseif f27_local2 <= f27_local3 + f27_local4 then
-            arg1:AddSubGoal(GOAL_COMMON_SpinStep, 5, 702, TARGET_ENE_0, 0, AI_DIR_TYPE_L, f27_local6)
-        else
-            arg1:AddSubGoal(GOAL_COMMON_SpinStep, 5, 703, TARGET_ENE_0, 0, AI_DIR_TYPE_R, f27_local6)
-        end
-        return true
-    end
-end
-
-function RebByOpGuard_Step(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
-    local f28_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f28_local1 = arg0:GetRandam_Int(1, 100)
-    local f28_local2 = arg0:GetRandam_Int(1, 100)
-    local f28_local3 = GET_PARAM_IF_NIL_DEF(arg3, 50)
-    local f28_local4 = GET_PARAM_IF_NIL_DEF(arg4, 25)
-    local f28_local5 = GET_PARAM_IF_NIL_DEF(arg5, 25)
-    local f28_local6 = GET_PARAM_IF_NIL_DEF(arg6, 3)
-    if arg0:IsInterupt(INTERUPT_ReboundByOpponentGuard) and f28_local1 <= arg2 then
-        arg1:ClearSubGoal()
-        if f28_local2 <= f28_local3 then
-            arg1:AddSubGoal(GOAL_COMMON_SpinStep, 5, 701, TARGET_ENE_0, 0, AI_DIR_TYPE_B, f28_local6)
-        elseif f28_local2 <= f28_local3 + f28_local4 then
-            arg1:AddSubGoal(GOAL_COMMON_SpinStep, 5, 702, TARGET_ENE_0, 0, AI_DIR_TYPE_L, f28_local6)
-        else
-            arg1:AddSubGoal(GOAL_COMMON_SpinStep, 5, 703, TARGET_ENE_0, 0, AI_DIR_TYPE_R, f28_local6)
-        end
-        return true
-    end
-end
-
-function SuccessGuard_Act(arg0, arg1, arg2, arg3)
-    local f29_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f29_local1 = arg0:GetRandam_Int(1, 100)
-    local f29_local2 = arg0:GetRandam_Int(1, 100)
-    if arg0:IsInterupt(INTERUPT_SuccessGuard) and f29_local0 <= arg2 and f29_local1 <= arg3 then
-        arg1:ClearSubGoal()
-        return true
-    end
-    return false
-end
-
-function SuccessGuard_Attack(arg0, arg1, arg2, arg3, arg4)
-    local f30_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f30_local1 = arg0:GetRandam_Int(1, 100)
-    if arg0:IsInterupt(INTERUPT_SuccessGuard) and f30_local0 <= arg2 and f30_local1 <= arg3 then
-        arg1:ClearSubGoal()
-        arg1:AddSubGoal(GOAL_COMMON_Attack, 10, arg4, TARGET_ENE_0, DIST_Middle, 0)
-        return true
-    end
-    return false
-end
-
-function FarDamaged_Act(arg0, arg1, arg2, arg3)
-    local f31_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f31_local1 = arg0:GetRandam_Int(1, 100)
-    if arg0:IsInterupt(INTERUPT_Damaged) and arg2 <= f31_local0 and f31_local1 <= arg3 then
-        arg1:ClearSubGoal()
-        return true
-    end
-    return false
-end
-
-function MissSwing_Act(arg0, arg1, arg2, arg3)
-    local f32_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f32_local1 = arg0:GetRandam_Int(1, 100)
-    if arg0:IsInterupt(INTERUPT_MissSwing) and f32_local0 <= arg2 and f32_local1 <= arg3 then
-        arg1:ClearSubGoal()
-        return true
-    end
-    return false
-end
-
-function FindGuardBreak_Act(arg0, arg1, arg2, arg3)
-    local f33_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f33_local1 = arg0:GetRandam_Int(1, 100)
-    if arg0:IsInterupt(INTERUPT_GuardBreak) and f33_local0 <= arg2 and f33_local1 <= arg3 then
-        arg1:ClearSubGoal()
-        return true
-    end
-    return false
-end
-
-function FindGuardFinish_Act(arg0, arg1, arg2, arg3)
-    local f34_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f34_local1 = arg0:GetRandam_Int(1, 100)
-    if arg0:IsInterupt(INTERUPT_GuardFinish) and f34_local0 <= arg2 and f34_local1 <= arg3 then
-        arg1:ClearSubGoal()
-        return true
-    end
-    return false
-end
-
-function FindShoot_Act(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
-    local f35_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f35_local1 = arg0:GetRandam_Int(1, 100)
-    if arg0:IsInterupt(INTERUPT_Shoot) then
-        if f35_local0 <= arg5 and f35_local1 <= arg2 then
-            arg1:ClearSubGoal()
-            return 1
-        elseif f35_local0 <= arg6 and f35_local1 <= arg3 then
-            arg1:ClearSubGoal()
-            return 2
-        elseif f35_local0 <= arg7 and f35_local1 <= arg4 then
-            arg1:ClearSubGoal()
-            return 3
-        else
-            arg1:ClearSubGoal()
-            return 0
-        end
-    end
-    return 0
-end
-
-function BusyApproach_Act(arg0, arg1, arg2, arg3, arg4)
-    local f36_local0 = -1
-    local f36_local1 = arg0:GetRandam_Int(1, 100)
-    if f36_local1 <= arg4 then
-        f36_local0 = 9910
-    end
-    local f36_local2 = arg0:GetDist(TARGET_ENE_0)
-    if arg3 <= f36_local2 then
-        arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, 10, TARGET_ENE_0, arg2, TARGET_SELF, false, f36_local0)
-    else
-        arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, 2, TARGET_ENE_0, arg2, TARGET_SELF, true, f36_local0)
-    end
-end
-
 function Approach_and_Attack_Act(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
     local f37_local0 = arg0:GetDist(TARGET_ENE_0)
     local f37_local1 = true
@@ -506,26 +9,11 @@ function Approach_and_Attack_Act(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7,
     if f37_local3 <= arg4 then
         f37_local2 = 9910
     end
-    local f37_local4 = GET_PARAM_IF_NIL_DEF(arg7, 1.5)
-    local f37_local5 = GET_PARAM_IF_NIL_DEF(arg8, 20)
+    local f37_local4 = get_first_not_nil(arg7, 1.5)
+    local f37_local5 = get_first_not_nil(arg8, 20)
 
     arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, 10, TARGET_ENE_0, arg2, TARGET_SELF, f37_local1, f37_local2)
     arg1:AddSubGoal(GOAL_COMMON_AttackTunableSpin, 10, arg5, TARGET_ENE_0, arg6, f37_local4, f37_local5)
-end
-
-function KeepDist_and_Attack_Act(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
-    local f38_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f38_local1 = true
-    if arg4 <= f38_local0 then
-        f38_local1 = false
-    end
-    local f38_local2 = -1
-    local f38_local3 = arg0:GetRandam_Int(1, 100)
-    if f38_local3 <= arg5 then
-        f38_local2 = 9910
-    end
-    arg1:AddSubGoal(GOAL_COMMON_KeepDist, 10, TARGET_ENE_0, arg2, arg3, TARGET_ENE_0, f38_local1, f38_local2)
-    arg1:AddSubGoal(GOAL_COMMON_Attack, 10, arg6, TARGET_ENE_0, arg7, 0)
 end
 
 function Approach_and_GuardBreak_Act(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
@@ -544,58 +32,31 @@ function Approach_and_GuardBreak_Act(arg0, arg1, arg2, arg3, arg4, arg5, arg6, a
     arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, arg7, TARGET_ENE_0, arg8, 0)
 end
 
-function GetWellSpace_Act(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
+--[[
+    调整站位的 act
+]]
+function GetWellSpace_Act(self, goal_manager, arg2, arg3, arg4, arg5, arg6, arg7)
     local f40_local0 = -1
-    local f40_local1 = arg0:GetRandam_Int(1, 100)
+    local f40_local1 = self:GetRandam_Int(1, 100)
     if f40_local1 <= arg2 then
         f40_local0 = 9910
     end
-    local f40_local2 = arg0:GetRandam_Int(1, 100)
-    local f40_local3 = arg0:GetRandam_Int(0, 1)
-    local f40_local4 = arg0:GetTeamRecordCount(COORDINATE_TYPE_SideWalk_L + f40_local3, TARGET_ENE_0, 2)
+
+    local f40_local2 = self:GetRandam_Int(1, 100)
+    local f40_local3 = self:GetRandam_Int(0, 1)
+    local f40_local4 = self:GetTeamRecordCount(COORDINATE_TYPE_SideWalk_L + f40_local3, TARGET_ENE_0, 2)
     if f40_local2 <= arg3 then
 
     elseif f40_local2 <= arg3 + arg4 and f40_local4 < 2 then
-        arg1:AddSubGoal(GOAL_COMMON_LeaveTarget, 2.5, TARGET_ENE_0, 2, TARGET_ENE_0, true, f40_local0)
-        arg1:AddSubGoal(GOAL_COMMON_SidewayMove, 3, TARGET_ENE_0, f40_local3, arg0:GetRandam_Int(30, 45), true, true,
+        goal_manager:AddSubGoal(GOAL_COMMON_LeaveTarget, 2.5, TARGET_ENE_0, 2, TARGET_ENE_0, true, f40_local0)
+        goal_manager:AddSubGoal(GOAL_COMMON_SidewayMove, 3, TARGET_ENE_0, f40_local3, self:GetRandam_Int(30, 45), true, true,
             f40_local0)
     elseif f40_local2 <= arg3 + arg4 + arg5 then
-        arg1:AddSubGoal(GOAL_COMMON_LeaveTarget, 2.5, TARGET_ENE_0, 3, TARGET_ENE_0, true, f40_local0)
+        goal_manager:AddSubGoal(GOAL_COMMON_LeaveTarget, 2.5, TARGET_ENE_0, 3, TARGET_ENE_0, true, f40_local0)
     elseif f40_local2 <= arg3 + arg4 + arg5 + arg6 then
-        arg1:AddSubGoal(GOAL_COMMON_Wait, arg0:GetRandam_Float(0.5, 1), 0, 0, 0, 0)
+        goal_manager:AddSubGoal(GOAL_COMMON_Wait, self:GetRandam_Float(0.5, 1), 0, 0, 0, 0)
     else
-        arg1:AddSubGoal(GOAL_COMMON_SpinStep, 5, 701, TARGET_ENE_0, 0, AI_DIR_TYPE_B, 4)
-    end
-end
-
-function GetWellSpace_Act_IncludeSidestep(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
-    local f41_local0 = -1
-    local f41_local1 = arg0:GetRandam_Int(1, 100)
-    if f41_local1 <= arg2 then
-        f41_local0 = 9910
-    end
-    local f41_local2 = arg0:GetRandam_Int(1, 100)
-    local f41_local3 = arg0:GetRandam_Int(0, 1)
-    local f41_local4 = arg0:GetTeamRecordCount(COORDINATE_TYPE_SideWalk_L + f41_local3, TARGET_ENE_0, 2)
-    if f41_local2 <= arg3 then
-
-    elseif f41_local2 <= arg3 + arg4 and f41_local4 < 2 then
-        arg1:AddSubGoal(GOAL_COMMON_LeaveTarget, 2.5, TARGET_ENE_0, 2, TARGET_ENE_0, true, f41_local0)
-        arg1:AddSubGoal(GOAL_COMMON_SidewayMove, 3, TARGET_ENE_0, f41_local3, arg0:GetRandam_Int(30, 45), true, true,
-            f41_local0)
-    elseif f41_local2 <= arg3 + arg4 + arg5 then
-        arg1:AddSubGoal(GOAL_COMMON_LeaveTarget, 2.5, TARGET_ENE_0, 3, TARGET_ENE_0, true, f41_local0)
-    elseif f41_local2 <= arg3 + arg4 + arg5 + arg6 then
-        arg1:AddSubGoal(GOAL_COMMON_Wait, arg0:GetRandam_Float(0.5, 1), 0, 0, 0, 0)
-    elseif f41_local2 <= arg3 + arg4 + arg5 + arg6 + arg7 then
-        arg1:AddSubGoal(GOAL_COMMON_SpinStep, 5, 6001, TARGET_ENE_0, 0, AI_DIR_TYPE_B, 4)
-    else
-        local f41_local5 = arg0:GetRandam_Int(1, 100)
-        if f41_local5 <= 50 then
-            arg1:AddSubGoal(GOAL_COMMON_SpinStep, 5, 6002, TARGET_ENE_0, 0, AI_DIR_TYPE_L, 4)
-        else
-            arg1:AddSubGoal(GOAL_COMMON_SpinStep, 5, 6003, TARGET_ENE_0, 0, AI_DIR_TYPE_R, 4)
-        end
+        goal_manager:AddSubGoal(GOAL_COMMON_SpinStep, 5, 701, TARGET_ENE_0, 0, AI_DIR_TYPE_B, 4)
     end
 end
 
@@ -776,8 +237,8 @@ function SelectGoalFunc(arg0, arg1, arg2)
     return SelectFunc(arg1, arg2, f54_local0)
 end
 
-function CallAttackAndAfterFunc(arg0, arg1, arg2, arg3, arg4, arg5)
-    local f55_local0 = SelectOddsIndex(arg1, arg3)
+function CallAttackAndAfterFunc(arg0, self, goal_manager, arg3, arg4, arg5)
+    local f55_local0 = SelectOddsIndex(self, arg3)
     local f55_local1 = 0
     if f55_local0 >= 1 then
         local f55_local2 = _GetGoalActFuncTable(arg0)
@@ -785,14 +246,14 @@ function CallAttackAndAfterFunc(arg0, arg1, arg2, arg3, arg4, arg5)
         if arg4 ~= nil then
             f55_local3 = arg4[f55_local0]
         end
-        f55_local1 = f55_local2[f55_local0](arg0, arg1, arg2, f55_local3)
+        f55_local1 = f55_local2[f55_local0](arg0, self, goal_manager, f55_local3)
     end
-    local f55_local2 = arg1:GetRandam_Int(1, 100)
+    local f55_local2 = self:GetRandam_Int(1, 100)
     if f55_local2 <= f55_local1 then
         if arg0.ActAfter ~= nil then
-            arg0:ActAfter(arg1, arg2, arg5)
+            arg0:ActAfter(self, goal_manager, arg5)
         else
-            HumanCommon_ActAfter_AdjustSpace(arg1, arg2, arg5)
+            HumanCommon_ActAfter_AdjustSpace(self, goal_manager, arg5)
         end
     end
 end

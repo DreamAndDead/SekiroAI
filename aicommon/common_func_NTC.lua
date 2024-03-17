@@ -1,139 +1,64 @@
-function GetKengekiSpecialEffect(arg0, arg1, arg2)
-    if arg2 == 200200 or arg2 == 200201 or arg2 == 200205 or arg2 == 200206 or arg2 == 200210 or arg2 == 200211 or arg2 == 200215 or arg2 == 200216 or arg2 == 200225 or arg2 == 200226 or arg2 == 200227 or arg2 == 200228 or arg2 == 200229 then
+--[[
+    if sp is kengeki sp
+]]
+function is_kengeki_sp(arg0, arg1, sp)
+    if sp == 200200 or sp == 200201 or sp == 200205 or sp == 200206 or sp == 200210 or sp == 200211 or sp == 200215 or sp == 200216 or sp == 200225 or sp == 200226 or sp == 200227 or sp == 200228 or sp == 200229 then
         return true
     end
     return false
 end
 
-function ReturnKengekiSpecialEffect(arg0)
-    if arg0:HasSpecialEffectId(TARGET_SELF, 200200) then
+--[[
+    if self has kengeki sp, return it
+    else return 0
+]]
+function get_kengeki_sp(self)
+    if self:HasSpecialEffectId(TARGET_SELF, 200200) then
         return 200200
-    elseif arg0:HasSpecialEffectId(TARGET_SELF, 200201) then
+    elseif self:HasSpecialEffectId(TARGET_SELF, 200201) then
         return 200201
-    elseif arg0:HasSpecialEffectId(TARGET_SELF, 200205) then
+    elseif self:HasSpecialEffectId(TARGET_SELF, 200205) then
         return 200205
-    elseif arg0:HasSpecialEffectId(TARGET_SELF, 200206) then
+    elseif self:HasSpecialEffectId(TARGET_SELF, 200206) then
         return 200206
-    elseif arg0:HasSpecialEffectId(TARGET_SELF, 200210) then
+    elseif self:HasSpecialEffectId(TARGET_SELF, 200210) then
         return 200210
-    elseif arg0:HasSpecialEffectId(TARGET_SELF, 200211) then
+    elseif self:HasSpecialEffectId(TARGET_SELF, 200211) then
         return 200211
-    elseif arg0:HasSpecialEffectId(TARGET_SELF, 200215) then
+    elseif self:HasSpecialEffectId(TARGET_SELF, 200215) then
         return 200215
-    elseif arg0:HasSpecialEffectId(TARGET_SELF, 200216) then
+    elseif self:HasSpecialEffectId(TARGET_SELF, 200216) then
         return 200216
-    elseif arg0:HasSpecialEffectId(TARGET_SELF, 200225) then
+    elseif self:HasSpecialEffectId(TARGET_SELF, 200225) then
         return 200225
-    elseif arg0:HasSpecialEffectId(TARGET_SELF, 200226) then
+    elseif self:HasSpecialEffectId(TARGET_SELF, 200226) then
         return 200226
-    elseif arg0:HasSpecialEffectId(TARGET_SELF, 200227) then
+    elseif self:HasSpecialEffectId(TARGET_SELF, 200227) then
         return 200227
-    elseif arg0:HasSpecialEffectId(TARGET_SELF, 200228) then
+    elseif self:HasSpecialEffectId(TARGET_SELF, 200228) then
         return 200228
-    elseif arg0:HasSpecialEffectId(TARGET_SELF, 200229) then
+    elseif self:HasSpecialEffectId(TARGET_SELF, 200229) then
         return 200229
-    elseif arg0:HasSpecialEffectId(TARGET_SELF, 200300) then
+    elseif self:HasSpecialEffectId(TARGET_SELF, 200300) then
         return 200300
-    elseif arg0:HasSpecialEffectId(TARGET_SELF, 200301) then
+    elseif self:HasSpecialEffectId(TARGET_SELF, 200301) then
         return 200301
-    elseif arg0:HasSpecialEffectId(TARGET_SELF, 200305) then
+    elseif self:HasSpecialEffectId(TARGET_SELF, 200305) then
         return 200305
-    elseif arg0:HasSpecialEffectId(TARGET_SELF, 200306) then
+    elseif self:HasSpecialEffectId(TARGET_SELF, 200306) then
         return 200306
-    elseif arg0:HasSpecialEffectId(TARGET_SELF, 200400) then
+    elseif self:HasSpecialEffectId(TARGET_SELF, 200400) then
         return 200400
-    elseif arg0:HasSpecialEffectId(TARGET_SELF, 200401) then
+    elseif self:HasSpecialEffectId(TARGET_SELF, 200401) then
         return 200401
-    elseif arg0:HasSpecialEffectId(TARGET_SELF, 200405) then
+    elseif self:HasSpecialEffectId(TARGET_SELF, 200405) then
         return 200405
-    elseif arg0:HasSpecialEffectId(TARGET_SELF, 200406) then
+    elseif self:HasSpecialEffectId(TARGET_SELF, 200406) then
         return 200406
     end
     return 0
 end
 
-function Check_KugutsuActState(arg0)
-    local f3_local0 = false
-    if arg0:HasSpecialEffectId(TARGET_SELF, 220020) and arg0:IsFindState() == false and arg0:IsBattleState() == false then
-        f3_local0 = true
-    end
-    return f3_local0
-end
-
-function YousumiAct_TopGoal(arg0, arg1, arg2, arg3, arg4)
-    local f4_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f4_local1 = arg0:GetDistYSigned(TARGET_ENE_0)
-    local f4_local2 = 1
-    local f4_local3 = 30
-    local f4_local4 = f4_local1 / math.sin(math.rad(arg3))
-    local f4_local5 = f4_local1 / math.sin(math.rad(arg4))
-    local f4_local6 = arg0:GetRandam_Int(0, 1)
-    local f4_local7 = true
-    arg0:SetNumber(10, f4_local6)
-    local f4_local8 = TARGET_ENE_0
-    if arg0:GetCurrTargetType() == AI_TARGET_TYPE__MEMORY_ENEMY then
-        f4_local8 = TARGET_SELF
-    end
-    if arg0:GetStringIndexedNumber("Reach_EndOnFailedPath") == 1 then
-        arg0:SetStringIndexedNumber("Reach_EndOnFailedPath", 0)
-        return true
-    elseif f4_local0 <= f4_local2 then
-        if SpaceCheck(arg0, arg1, 180, 1) == true then
-            arg0:AddTopGoal(GOAL_COMMON_LeaveTarget, 10, TARGET_ENE_0, f4_local2, f4_local8, true, -1)
-            f4_local7 = false
-        end
-    elseif f4_local3 <= f4_local0 then
-        arg0:AddTopGoal(GOAL_COMMON_ApproachTarget, 1.5, TARGET_ENE_0, f4_local3 - 0.5, TARGET_SELF, false, -1)
-        f4_local7 = false
-    elseif f4_local1 > 0 then
-        if f4_local4 <= f4_local2 then
-            f4_local4 = f4_local2
-        end
-        if f4_local3 <= f4_local5 then
-            f4_local5 = f4_local3
-        end
-        if f4_local5 <= f4_local0 then
-            if f4_local0 - f4_local5 >= 5 and arg2 == false then
-                arg0:AddTopGoal(GOAL_COMMON_ApproachTarget, 1.5, TARGET_ENE_0, f4_local5, TARGET_SELF, false, -1)
-                f4_local7 = false
-            else
-                arg0:AddTopGoal(GOAL_COMMON_ApproachTarget, 3, TARGET_ENE_0, f4_local5, TARGET_SELF, true, -1)
-                f4_local7 = false
-            end
-        elseif f4_local0 <= f4_local4 then
-            if arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 180) then
-                if SpaceCheck(arg0, arg1, 180, 0.5) == true then
-                    arg0:AddTopGoal(GOAL_COMMON_LeaveTarget, 10, TARGET_ENE_0, f4_local4, f4_local8, true, -1)
-                    f4_local7 = false
-                end
-            elseif SpaceCheck(arg0, arg1, 0, 0.5) == true then
-                arg0:AddTopGoal(GOAL_COMMON_LeaveTarget, 10, TARGET_ENE_0, f4_local4, f4_local8, true, -1)
-                f4_local7 = false
-            else
-                arg0:AddTopGoal(GOAL_COMMON_Turn, 3, TARGET_ENE_0, 0, 0, 0, 0)
-            end
-        elseif arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_B, 180) then
-            arg0:AddTopGoal(GOAL_COMMON_Turn, 3, TARGET_ENE_0, 0, 0, 0, 0)
-        end
-    else
-        local f4_local9 = TARGET_ENE_0
-        if arg0:CheckDoesExistPathWithSetPoint(TARGET_ENE_0, AI_DIR_TYPE_F, 0, 0) == false then
-            f4_local9 = POINT_UnreachTerminate
-        end
-        if SpaceCheck(arg0, arg1, 0, 4) == true and arg2 == false then
-            arg0:AddTopGoal(GOAL_COMMON_ApproachTarget, 1.5, f4_local9, 0.5, TARGET_SELF, false, -1)
-            f4_local7 = false
-        elseif SpaceCheck(arg0, arg1, 0, 3) == true then
-            arg0:AddTopGoal(GOAL_COMMON_ApproachTarget, 3, f4_local9, 0.5, TARGET_SELF, true, -1)
-            f4_local7 = false
-        elseif SpaceCheck(arg0, arg1, 0, 0.5) == false then
-            arg0:AddTopGoal(GOAL_COMMON_LeaveTarget, 2, f4_local9, 50, f4_local8, true, -1)
-            arg0:AddTopGoal(GOAL_COMMON_Turn, 3, TARGET_ENE_0, 0, 0, 0, 0)
-            f4_local7 = false
-        end
-    end
-    return f4_local7
-end
 
 function YousumiAct_SubGoal(arg0, arg1, arg2, arg3, arg4, arg5)
     arg1:AddSubGoal(GOAL_COMMON_YousumiAct, 10, arg2, arg3, arg4, arg5)
@@ -172,17 +97,19 @@ function TorimakiAct(self, goal_manager, keep_dist, still_odd, arg4)
     -- too close
     if keep_dist ~= 0 and dist_to_player <= keep_dist - 2 then
         goal_manager:AddSubGoal(GOAL_COMMON_LeaveTarget, lifetime, TARGET_ENE_0, keep_dist, TARGET_ENE_0, true, f6_local4)
-    -- too far
+        -- too far
     elseif keep_dist ~= 0 and keep_dist + 2 <= dist_to_player then
         if not arg4 and keep_dist + 3 <= dist_to_player then
             f6_local7 = false
         end
-        goal_manager:AddSubGoal(GOAL_COMMON_ApproachTarget, lifetime, TARGET_ENE_0, keep_dist + f6_local8, TARGET_SELF, f6_local7, -1)
+        goal_manager:AddSubGoal(GOAL_COMMON_ApproachTarget, lifetime, TARGET_ENE_0, keep_dist + f6_local8, TARGET_SELF,
+            f6_local7, -1)
     elseif still_odd ~= nil and f6_local6 <= still_odd then
         return true
     elseif SpaceCheck(self, goal_manager, 90, 1) == true or SpaceCheck(self, goal_manager, -90, 1) == true then
         left_or_right_dir = GetDirection_Sideway(self)
-        goal_manager:AddSubGoal(GOAL_COMMON_SidewayMove, rand_lifetime, TARGET_ENE_0, left_or_right_dir, rand_angle, true, true, f6_local4)
+        goal_manager:AddSubGoal(GOAL_COMMON_SidewayMove, rand_lifetime, TARGET_ENE_0, left_or_right_dir, rand_angle, true,
+            true, f6_local4)
     elseif SpaceCheck(self, goal_manager, 180, 1) == true then
         goal_manager:AddSubGoal(GOAL_COMMON_LeaveTarget, lifetime, TARGET_ENE_0, 999, TARGET_ENE_0, true, f6_local4)
     else
@@ -209,7 +136,9 @@ function KankyakuAct(self, goal_manager, keep_dist, still_odd, arg4)
 end
 
 --[[
-    返回 true 如果执行了相应的act，和角色死亡 复活 守尸相关
+    和角色死亡 复活 守尸相关
+    
+    return true 如果执行了相应的act
 ]]
 function Common_ActivateAct(self, goal_manager, arg2, arg3)
     local dist_to_player = self:GetDist(TARGET_ENE_0)
@@ -267,7 +196,7 @@ end
 
 --[[
     检测两边的障碍物情况，返回一个侧面移动的方向
-    
+
     return 0 左边
     return 1 右边
 ]]
@@ -290,34 +219,40 @@ function GetDirection_Sideway(self)
 end
 
 --[[
-    连续防御的次数
+    获取连续招架的次数
 ]]
-function Get_ConsecutiveGuardCount(arg0)
+function Get_ConsecutiveGuardCount(self)
     local count = 0
-    if arg0:IsFinishTimer(13) then
+    if self:IsFinishTimer(13) then
         count = 0
     else
-        count = arg0:GetStringIndexedNumber("ConsecutiveGuardCount")
+        count = self:GetStringIndexedNumber("ConsecutiveGuardCount")
     end
     return count
 end
 
-function Set_ConsecutiveGuardCount(arg0, arg1)
-    if arg1 == 200215 or arg1 == 200216 then
-        if arg0:IsFinishTimer(13) then
-            arg0:SetStringIndexedNumber("ConsecutiveGuardCount", 1)
+--[[
+    设置连续招架的次数
+
+    在 1s 内连续招架的次数
+    弹开时清零
+]]
+function Set_ConsecutiveGuardCount(self, sp)
+    if sp == 200215 or sp == 200216 then
+        if self:IsFinishTimer(13) then
+            self:SetStringIndexedNumber("ConsecutiveGuardCount", 1)
         else
-            arg0:SetStringIndexedNumber("ConsecutiveGuardCount", arg0:GetStringIndexedNumber("ConsecutiveGuardCount") + 1)
+            self:SetStringIndexedNumber("ConsecutiveGuardCount", self:GetStringIndexedNumber("ConsecutiveGuardCount") + 1)
         end
-        arg0:SetTimer(13, 1)
-    elseif arg1 == 200210 or arg1 == 200211 then
-        arg0:SetStringIndexedNumber("ConsecutiveGuardCount", 0)
-        arg0:SetTimer(13, 0)
+        self:SetTimer(13, 1)
+    elseif sp == 200210 or sp == 200211 then
+        self:SetStringIndexedNumber("ConsecutiveGuardCount", 0)
+        self:SetTimer(13, 0)
     end
 end
 
 --[[
-    添加防御相关的 sp 中断点，包含弹开与招架
+    与连续招架次数相关的 sp 中断点，包含弹开与招架
 ]]
 function Set_ConsecutiveGuardCount_Interrupt(arg0)
     arg0:AddObserveSpecialEffectAttribute(TARGET_SELF, 200250)
@@ -325,11 +260,13 @@ function Set_ConsecutiveGuardCount_Interrupt(arg0)
     arg0:AddObserveSpecialEffectAttribute(TARGET_SELF, 200211)
 end
 
+-- TODO
 function JuzuReaction(arg0, arg1, arg2, arg3, arg4)
     local f13_local0 = arg3
     local f13_local1 = 400600
     local f13_local2 = arg0:GetRandam_Int(1, 100)
     local f13_local3 = arg0:GetRandam_Int(1, 100)
+
     if arg4 ~= nil and f13_local2 <= 50 then
         f13_local0 = arg4
     end
@@ -340,9 +277,13 @@ function JuzuReaction(arg0, arg1, arg2, arg3, arg4)
         local f13_local4 = arg0:AddTopGoal(GOAL_COMMON_AttackTunableSpin, 10, f13_local0, TARGET_NONE, 9999, 0, 0, 0, 0)
         f13_local4:TimingSetTimer(AI_TIMER_TEKIMAWASHI_REACTION, 0, AI_TIMING_SET__ACTIVATE)
     end
+
     return true
 end
 
+--[[
+    get sideway diretion no collision
+]]
 function SpaceCheck_SidewayMove(arg0, arg1, arg2)
     local f14_local0 = nil
     if SpaceCheck(arg0, arg1, -90, arg2) == true then
@@ -362,14 +303,14 @@ end
 --[[
     执行架刀动作，开始防御
 
-return true 如果可执行parry动作
+    return true 如果可执行parry动作
 
-spin_step_type
-- -1 no spin step
+back_step_type
+- -1 no
 - 0 large step
 - 1 small step
 ]]
-function Common_Parry(self, goal_manager, endure_percent_per_guard, spin_step_odd, spin_step_type, parry_act_id)
+function Common_Parry(self, goal_manager, endure_percent_per_guard, back_step_odd, back_step_type, parry_act_id)
     local parry_dist = GetDist_Parry(self)
     local f15_local5 = self:HasSpecialEffectId(TARGET_ENE_0, 109970)
     local is_pc_continuous_attack = self:HasSpecialEffectId(TARGET_ENE_0, COMMON_SP_EFFECT_PC_ATTACK_RUSH)
@@ -409,11 +350,11 @@ function Common_Parry(self, goal_manager, endure_percent_per_guard, spin_step_od
         endure_percent_per_guard = 50
     end
 
-    if spin_step_odd == nil then
-        spin_step_odd = 0
+    if back_step_odd == nil then
+        back_step_odd = 0
     end
-    if spin_step_type == nil then
-        spin_step_type = 0
+    if back_step_type == nil then
+        back_step_type = 0
     end
     if parry_act_id == nil then
         parry_act_id = 3100
@@ -425,7 +366,7 @@ function Common_Parry(self, goal_manager, endure_percent_per_guard, spin_step_od
             goal_manager:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, parry_act_id, TARGET_ENE_0, 9999, 0)
             return true
         elseif f15_local5 then
-            if self:IsTargetGuard(TARGET_SELF) and ReturnKengekiSpecialEffect(self) == false then
+            if self:IsTargetGuard(TARGET_SELF) and get_kengeki_sp(self) == false then
                 return false
             else
                 if parry_int_level == 2 then
@@ -445,8 +386,8 @@ function Common_Parry(self, goal_manager, endure_percent_per_guard, spin_step_od
                 return false
             end
             -- 109980 pc在施放鞭炮
-        elseif self:HasSpecialEffectId(TARGET_ENE_0, 109980) and spin_step_type ~= -1 and parry_int_level == 0 then
-            if spin_step_type == 1 then
+        elseif self:HasSpecialEffectId(TARGET_ENE_0, 109980) and back_step_type ~= -1 and parry_int_level == 0 then
+            if back_step_type == 1 then
                 goal_manager:ClearSubGoal()
                 goal_manager:AddSubGoal(GOAL_COMMON_SpinStep, 1, 5201, TARGET_ENE_0, 0, AI_DIR_TYPE_B, 0)
                 return true
@@ -465,8 +406,8 @@ function Common_Parry(self, goal_manager, endure_percent_per_guard, spin_step_od
             return true
         end
     elseif self:IsInsideTargetEx(TARGET_ENE_0, TARGET_SELF, AI_DIR_TYPE_F, 90, parry_dist + 1) then
-        if spin_step_type ~= -1 and self:GetRandam_Int(1, 100) <= spin_step_odd then
-            if spin_step_type == 1 then
+        if back_step_type ~= -1 and self:GetRandam_Int(1, 100) <= back_step_odd then
+            if back_step_type == 1 then
                 goal_manager:ClearSubGoal()
                 goal_manager:AddSubGoal(GOAL_COMMON_SpinStep, 1, 5201, TARGET_ENE_0, 0, AI_DIR_TYPE_B, 0)
                 return true
@@ -538,14 +479,9 @@ function GetDist_Parry(self)
     return dist
 end
 
-function RankCheck_Parry(arg0, arg1, arg2)
-    if arg2 == 0 and arg0:HasSpecialEffectId(TARGET_ENE_0, 109970) then
-        return false
-    else
-        return true
-    end
-end
-
+--[[
+    是否可对 pc 的药检采取行动
+]]
 function Interupt_Use_Item(arg0, arg1, arg2)
     local f18_local0 = false
     if arg0:IsInterupt(INTERUPT_UseItem) and arg0:IsStartAttack() == false then
@@ -561,6 +497,9 @@ function Interupt_Use_Item(arg0, arg1, arg2)
     return f18_local0
 end
 
+--[[
+    是否对 pc 崩躯干采取行动
+]]
 function Interupt_PC_Break(arg0, arg1, arg2)
     local f19_local0 = false
     if arg0:IsInterupt(INTERUPT_ActivateSpecialEffect) and arg0:GetSpecialEffectActivateInterruptType(0) == COMMON_SP_EFFECT_PC_BREAK and arg0:IsStartAttack() == false then
@@ -576,20 +515,22 @@ function Interupt_PC_Break(arg0, arg1, arg2)
     return f19_local0
 end
 
-function Check_ReachAttack(arg0, arg1)
+-- TODO
+function Check_ReachAttack(self, dist)
     local f20_local0 = POSSIBLE_ATTACK
-    local f20_local1 = arg0:GetDist(TARGET_ENE_0)
-    local f20_local2 = arg0:GetDistYSigned(TARGET_ENE_0)
-    if arg0:CheckDoesExistPathWithSetPoint(TARGET_ENE_0, AI_DIR_TYPE_F, 0, 0) == false then
-        if arg1 < f20_local1 then
+    local f20_local1 = self:GetDist(TARGET_ENE_0)
+    local f20_local2 = self:GetDistYSigned(TARGET_ENE_0)
+
+    if self:CheckDoesExistPathWithSetPoint(TARGET_ENE_0, AI_DIR_TYPE_F, 0, 0) == false then
+        if dist < f20_local1 then
             f20_local0 = UNREACH_ATTACK
         elseif f20_local2 >= 0 then
             f20_local0 = REACH_ATTACK_TARGET_HIGH_POSITION
         else
             f20_local0 = REACH_ATTACK_TARGET_LOW_POSITION
         end
-    elseif not not arg0:HasSpecialEffectId(TARGET_ENE_0, 109220) or arg0:HasSpecialEffectId(TARGET_ENE_0, 109221) then
-        if arg1 < f20_local1 then
+    elseif not not self:HasSpecialEffectId(TARGET_ENE_0, 109220) or self:HasSpecialEffectId(TARGET_ENE_0, 109221) then
+        if dist < f20_local1 then
             f20_local0 = UNREACH_ATTACK
         elseif f20_local2 >= 0 then
             f20_local0 = REACH_ATTACK_TARGET_HIGH_POSITION

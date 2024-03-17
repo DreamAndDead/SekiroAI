@@ -61,9 +61,9 @@ Goal.Activate = function (arg0, arg1, arg2)
     if arg1:HasSpecialEffectId(TARGET_SELF, 5020) then
         f2_local0[6] = 100
     end
-    f2_local0[1] = SetCoolTime(arg1, arg2, 3000, 15, f2_local0[1], 1)
-    f2_local0[3] = SetCoolTime(arg1, arg2, 3004, 15, f2_local0[3], 1)
-    f2_local0[4] = SetCoolTime(arg1, arg2, 3005, 8, f2_local0[4], 1)
+    f2_local0[1] = get_weight_base_on_cooldown(arg1, arg2, 3000, 15, f2_local0[1], 1)
+    f2_local0[3] = get_weight_base_on_cooldown(arg1, arg2, 3004, 15, f2_local0[3], 1)
+    f2_local0[4] = get_weight_base_on_cooldown(arg1, arg2, 3005, 8, f2_local0[4], 1)
     f2_local1[1] = REGIST_FUNC(arg1, arg2, arg0.Act01)
     f2_local1[2] = REGIST_FUNC(arg1, arg2, arg0.Act02)
     f2_local1[3] = REGIST_FUNC(arg1, arg2, arg0.Act03)
@@ -428,7 +428,7 @@ Goal.Damaged = function (arg0, arg1, arg2)
 end
 
 Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
-    local f23_local0 = ReturnKengekiSpecialEffect(arg1)
+    local f23_local0 = get_kengeki_sp(arg1)
     if f23_local0 == 0 then
         return false
     end
@@ -579,7 +579,7 @@ Goal.ActAfter_AdjustSpace = function (arg0, arg1, arg2)
 end
 
 Goal.Update = function (arg0, arg1, arg2)
-    return Update_Default_NoSubGoal(arg0, arg1, arg2)
+    return default_update(arg0, arg1, arg2)
     
 end
 

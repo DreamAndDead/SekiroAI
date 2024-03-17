@@ -49,11 +49,13 @@ Goal.Activate = function(arg0, arg1, arg2)
 
     end
     local f1_local18 = TARGET_ENE_0
+
     if arg1:CheckDoesExistPathWithSetPoint(TARGET_ENE_0, AI_DIR_TYPE_F, 0, 0) == false then
         f1_local18 = POINT_UnreachTerminate
         f1_local7 = arg1:GetDist_Point(POINT_UnreachTerminate)
         f1_local15 = 0.5
     end
+    
     if arg1:GetStringIndexedNumber("Reach_EndOnFailedPath") == 1 then
         arg1:SetStringIndexedNumber("Reach_EndOnFailedPath", 0)
     elseif f1_local10 <= f1_local7 then
@@ -92,7 +94,7 @@ Goal.Activate = function(arg0, arg1, arg2)
 end
 
 Goal.Update = function(arg0, arg1, arg2)
-    return Update_Default_NoSubGoal(arg0, arg1, arg2)
+    return default_update(arg0, arg1, arg2)
 end
 
 Goal.Terminate = function(arg0, arg1, arg2)

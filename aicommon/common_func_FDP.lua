@@ -1,28 +1,28 @@
 --[[
     接近玩家，计算距离，添加 approach target subgoal
 ]]
-function Approach_Act_Flex(self, goal_manager, arg2, min_dist, max_dist, odd, arg6, arg7, arg8, arg9)
-    if arg7 == nil then
-        arg7 = 3
+function Approach_Act_Flex(self, goal_manager, arg2, min_dist, max_dist, odd, arg6, short_life, long_life, arg9)
+    if short_life == nil then
+        short_life = 3
     end
-    if arg8 == nil then
-        arg8 = 8
+    if long_life == nil then
+        long_life = 8
     end
     if arg9 == nil then
         arg9 = 0
     end
 
     local dist_to_player = self:GetDist(TARGET_ENE_0)
-    local f1_local2 = true
+    local short_or_long = true
 
     if max_dist <= dist_to_player then
-        f1_local2 = false
+        short_or_long = false
     elseif min_dist <= dist_to_player and self:GetRandam_Int(1, 100) <= odd then
-        f1_local2 = false
+        short_or_long = false
     end
 
     if self:IsInsideTargetRegion(TARGET_SELF, COMMON_REGION_FORCE_WALK_M11_0) or self:IsInsideTargetRegion(TARGET_SELF, COMMON_REGION_FORCE_WALK_M11_1) then
-        f1_local2 = true
+        short_or_long = true
     end
 
     local f1_local3 = -1
@@ -31,26 +31,32 @@ function Approach_Act_Flex(self, goal_manager, arg2, min_dist, max_dist, odd, ar
     end
 
     local life = 0
-    if f1_local2 == true then
-        life = arg7
+    if short_or_long == true then
+        life = short_life
     else
-        life = arg8
+        life = long_life
     end
 
     if arg2 <= dist_to_player or arg9 > 0 then
-        if f1_local2 == true then
+        if short_or_long == true then
             arg2 = arg2 + self:GetStringIndexedNumber("AddDistWalk")
         else
             arg2 = arg2 + self:GetStringIndexedNumber("AddDistRun")
         end
-        goal_manager:AddSubGoal(GOAL_COMMON_ApproachTarget, life, TARGET_ENE_0, arg2, TARGET_SELF, f1_local2, f1_local3)
+        goal_manager:AddSubGoal(GOAL_COMMON_ApproachTarget, life, TARGET_ENE_0, arg2, TARGET_SELF, short_or_long,
+            f1_local3)
     end
 end
 
 --[[
     self中心的扇形区域是否有障碍物
 
-    return true 如果没有障碍物
+    - 正前方 0 度
+    - 正右方 90 度
+    - 正左方 -90 度
+    - 正后方 180 度
+
+    return true 没有障碍物
 ]]
 function SpaceCheck(self, goal_manager, angle, radius)
     local capsule_radius = self:GetMapHitRadius(TARGET_SELF)
@@ -64,18 +70,11 @@ function SpaceCheck(self, goal_manager, angle, radius)
     end
 end
 
-function InsideRange(arg0, arg1, arg2, arg3, arg4, arg5)
-    return YSD_InsideRangeEx(arg0, arg1, arg2, arg3, arg4, arg5)
-end
+function InsideRange(self, arg1, arg2, arg3, min_dist, max_dist)
+    local f5_local0 = self:GetDist(TARGET_ENE_0)
 
-function InsideDir(arg0, arg1, arg2, arg3)
-    return YSD_InsideRangeEx(arg0, arg1, arg2, arg3, -999, 999)
-end
-
-function YSD_InsideRangeEx(arg0, arg1, arg2, arg3, arg4, arg5)
-    local f5_local0 = arg0:GetDist(TARGET_ENE_0)
-    if arg4 <= f5_local0 and f5_local0 <= arg5 then
-        local f5_local1 = arg0:GetToTargetAngle(TARGET_ENE_0)
+    if min_dist <= f5_local0 and f5_local0 <= max_dist then
+        local f5_local1 = self:GetToTargetAngle(TARGET_ENE_0)
         local f5_local2 = 0
         if arg2 < 0 then
             f5_local2 = -1
@@ -92,88 +91,17 @@ function YSD_InsideRangeEx(arg0, arg1, arg2, arg3, arg4, arg5)
     end
 end
 
-function SetCoolTime(arg0, arg1, act_id, cooldown_time, normal_weight, cooldown_weight)
+--[[
+    if act is cooldown ready, use normal weight
+    else use cooldown weight, usually 1
+]]
+function get_weight_base_on_cooldown(arg0, arg1, act_id, cooldown_time, normal_weight, cooldown_weight)
     if normal_weight <= 0 then
         return 0
     elseif arg0:GetAttackPassedTime(act_id) <= cooldown_time then
         return cooldown_weight
     end
     return normal_weight
-end
-
-function SpaceCheckBeforeAct(arg0, arg1, arg2, arg3, arg4)
-    if arg4 <= 0 then
-        return 0
-    elseif SpaceCheck(arg0, arg1, arg2, arg3) then
-        return arg4
-    else
-        return 0
-    end
-end
-
-function Counter_Act(arg0, arg1, arg2, arg3)
-    local f8_local0 = 0.5
-    if arg2 == nil then
-        arg2 = 4
-    end
-    local f8_local1 = arg0:GetRandam_Int(1, 100)
-    local f8_local2 = arg0:GetNumber(15)
-    if arg0:IsInterupt(INTERUPT_Damaged) then
-        arg0:SetTimer(15, 5)
-        if f8_local2 == 0 then
-            f8_local2 = arg2
-        end
-        arg0:SetNumber(15, f8_local2 * 2)
-    end
-    if f8_local2 >= 100 then
-        arg0:SetNumber(15, 100)
-    end
-    if arg0:IsInterupt(INTERUPT_Damaged) and f8_local1 <= arg0:GetNumber(15) and arg0:GetTimer(14) <= 0 then
-        arg0:SetTimer(14, 3)
-        arg0:SetNumber(15, 0)
-        arg1:ClearSubGoal()
-        arg1:AddSubGoal(GOAL_COMMON_EndureAttack, f8_local0, arg3, TARGET_ENE_0, DIST_None, 0, 180, 0, 0)
-        return true
-    end
-    return false
-end
-
-function ReactBackstab_Act(arg0, arg1, arg2, arg3, arg4)
-    local f9_local0 = arg0:GetRandam_Int(1, 100)
-    local f9_local1 = arg0:GetRandam_Int(1, 100)
-    local f9_local2 = 3
-    local f9_local3 = 6000
-    local f9_local4 = 6002
-    local f9_local5 = 6003
-    if arg3 == nil then
-        arg4 = 0
-    end
-    if arg0:IsInterupt(INTERUPT_BackstabRisk) then
-        if f9_local0 <= arg4 then
-            arg1:ClearSubGoal()
-            arg1:AddSubGoal(GOAL_COMMON_StabCounterAttack, f9_local2, arg3, TARGET_ENE_0, DIST_None, 0, 180, 0, 0)
-        elseif arg2 == 1 then
-            arg1:ClearSubGoal()
-            arg1:AddSubGoal(GOAL_COMMON_SpinStep, f9_local2, f9_local3, TARGET_SELF, 0, AI_DIR_TYPE_F, 0)
-        elseif arg2 == 2 then
-            arg1:ClearSubGoal()
-            if f9_local1 <= 50 then
-                arg1:AddSubGoal(GOAL_COMMON_SpinStep, f9_local2, f9_local4, TARGET_SELF, 0, AI_DIR_TYPE_L, 0)
-            else
-                arg1:AddSubGoal(GOAL_COMMON_SpinStep, f9_local2, f9_local5, TARGET_SELF, 0, AI_DIR_TYPE_R, 0)
-            end
-        elseif arg2 == 3 then
-            arg1:ClearSubGoal()
-            if f9_local1 <= 33 then
-                arg1:AddSubGoal(GOAL_COMMON_SpinStep, f9_local2, f9_local3, TARGET_SELF, 0, AI_DIR_TYPE_F, 0)
-            elseif f9_local1 <= 66 then
-                arg1:AddSubGoal(GOAL_COMMON_SpinStep, f9_local2, f9_local4, TARGET_SELF, 0, AI_DIR_TYPE_L, 0)
-            else
-                arg1:AddSubGoal(GOAL_COMMON_SpinStep, f9_local2, f9_local5, TARGET_SELF, 0, AI_DIR_TYPE_R, 0)
-            end
-        end
-        return false
-    end
 end
 
 function Init_Pseudo_Global(self, arg1)
@@ -208,10 +136,14 @@ function Init_Pseudo_Global(self, arg1)
     self:SetStringIndexedNumber("BsAndSide_SideDir_AAA", self:GetRandam_Int(45, 60))
 end
 
-function Update_Default_NoSubGoal(arg0, arg1, arg2)
+--[[
+    if no sub goal, return success
+    else return continue
+]]
+function default_update(arg0, arg1, arg2)
     if arg2:GetSubGoalNum() <= 0 then
         return GOAL_RESULT_Success
     end
+    
     return GOAL_RESULT_Continue
 end
-

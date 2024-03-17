@@ -324,7 +324,7 @@ function HakaisouPhantom500005_ActAfter_AdjustSpace(arg0, arg1, arg2)
 end
 
 Goal.Update = function (arg0, arg1, arg2)
-    return Update_Default_NoSubGoal(arg0, arg1, arg2)
+    return default_update(arg0, arg1, arg2)
     
 end
 

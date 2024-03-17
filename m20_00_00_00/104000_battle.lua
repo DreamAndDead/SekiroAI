@@ -103,8 +103,8 @@ Goal.Activate = function (arg0, arg1, arg2)
     if arg1:IsFinishTimer(0) == false then
         f2_local0[23] = 0
     end
-    f2_local0[8] = SetCoolTime(arg1, arg2, 3024, 6, f2_local0[8], 1)
-    f2_local0[11] = SetCoolTime(arg1, arg2, 3030, 6, f2_local0[11], 1)
+    f2_local0[8] = get_weight_base_on_cooldown(arg1, arg2, 3024, 6, f2_local0[8], 1)
+    f2_local0[11] = get_weight_base_on_cooldown(arg1, arg2, 3030, 6, f2_local0[11], 1)
     f2_local1[8] = REGIST_FUNC(arg1, arg2, arg0.Act08)
     f2_local1[9] = REGIST_FUNC(arg1, arg2, arg0.Act09)
     f2_local1[10] = REGIST_FUNC(arg1, arg2, arg0.Act10)
@@ -444,7 +444,7 @@ Goal.ShootReaction = function (arg0, arg1)
 end
 
 Goal.Kengeki_Activate = function (arg0, arg1, arg2)
-    local f21_local0 = ReturnKengekiSpecialEffect(arg1)
+    local f21_local0 = get_kengeki_sp(arg1)
     if f21_local0 == 0 then
         return false
     end
@@ -484,7 +484,7 @@ Goal.ActAfter_AdjustSpace = function (arg0, arg1, arg2)
 end
 
 Goal.Update = function (arg0, arg1, arg2)
-    return Update_Default_NoSubGoal(arg0, arg1, arg2)
+    return default_update(arg0, arg1, arg2)
     
 end
 

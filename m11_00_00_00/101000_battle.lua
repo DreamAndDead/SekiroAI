@@ -236,19 +236,19 @@ Goal.Activate = function(goal, self, goal_manager)
         act_weight_list[25] = 0
     end
 
-    act_weight_list[1] = SetCoolTime(self, goal_manager, 3000, 5, act_weight_list[1], 1)
-    act_weight_list[2] = SetCoolTime(self, goal_manager, 3002, 5, act_weight_list[2], 1)
-    act_weight_list[3] = SetCoolTime(self, goal_manager, 3003, 5, act_weight_list[3], 1)
-    act_weight_list[4] = SetCoolTime(self, goal_manager, 3004, 10, act_weight_list[4], 1)
-    act_weight_list[5] = SetCoolTime(self, goal_manager, 3005, 10, act_weight_list[5], 1)
-    act_weight_list[6] = SetCoolTime(self, goal_manager, 3008, 10, act_weight_list[6], 1)
-    act_weight_list[7] = SetCoolTime(self, goal_manager, 3009, 5, act_weight_list[7], 1)
-    act_weight_list[8] = SetCoolTime(self, goal_manager, 3010, 15, act_weight_list[8], 1)
-    act_weight_list[9] = SetCoolTime(self, goal_manager, 3011, 15, act_weight_list[9], 1)
-    act_weight_list[11] = SetCoolTime(self, goal_manager, 3012, 5, act_weight_list[11], 1)
-    act_weight_list[14] = SetCoolTime(self, goal_manager, 3014, 5, act_weight_list[14], 1)
-    act_weight_list[15] = SetCoolTime(self, goal_manager, 3015, 5, act_weight_list[15], 1)
-    act_weight_list[24] = SetCoolTime(self, goal_manager, 5211, 5, act_weight_list[24], 1)
+    act_weight_list[1] = get_weight_base_on_cooldown(self, goal_manager, 3000, 5, act_weight_list[1], 1)
+    act_weight_list[2] = get_weight_base_on_cooldown(self, goal_manager, 3002, 5, act_weight_list[2], 1)
+    act_weight_list[3] = get_weight_base_on_cooldown(self, goal_manager, 3003, 5, act_weight_list[3], 1)
+    act_weight_list[4] = get_weight_base_on_cooldown(self, goal_manager, 3004, 10, act_weight_list[4], 1)
+    act_weight_list[5] = get_weight_base_on_cooldown(self, goal_manager, 3005, 10, act_weight_list[5], 1)
+    act_weight_list[6] = get_weight_base_on_cooldown(self, goal_manager, 3008, 10, act_weight_list[6], 1)
+    act_weight_list[7] = get_weight_base_on_cooldown(self, goal_manager, 3009, 5, act_weight_list[7], 1)
+    act_weight_list[8] = get_weight_base_on_cooldown(self, goal_manager, 3010, 15, act_weight_list[8], 1)
+    act_weight_list[9] = get_weight_base_on_cooldown(self, goal_manager, 3011, 15, act_weight_list[9], 1)
+    act_weight_list[11] = get_weight_base_on_cooldown(self, goal_manager, 3012, 5, act_weight_list[11], 1)
+    act_weight_list[14] = get_weight_base_on_cooldown(self, goal_manager, 3014, 5, act_weight_list[14], 1)
+    act_weight_list[15] = get_weight_base_on_cooldown(self, goal_manager, 3015, 5, act_weight_list[15], 1)
+    act_weight_list[24] = get_weight_base_on_cooldown(self, goal_manager, 5211, 5, act_weight_list[24], 1)
 
     act_func_list[1] = REGIST_FUNC(self, goal_manager, goal.Act01)
     act_func_list[2] = REGIST_FUNC(self, goal_manager, goal.Act02)
@@ -444,8 +444,6 @@ Goal.Act06 = function(arg0, arg1, arg2)
 end
 
 Goal.Act07 = function(arg0, arg1, arg2)
-    local f9_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f9_local1 = 12 - arg0:GetMapHitRadius(TARGET_SELF) + arg0:GetStringIndexedNumber("karaburiDist")
     local f9_local8 = 3009
     local f9_local9 = 0.5
     local f9_local10 = 90
@@ -461,6 +459,7 @@ Goal.Act08 = function(arg0, arg1, arg2)
     arg0:SetNumber(5, 1)
     local f10_local0 = arg0:GetDist(TARGET_ENE_0)
     local f10_local1 = 5 - arg0:GetMapHitRadius(TARGET_SELF)
+
     if arg0:HasSpecialEffectId(TARGET_ENE_0, 109900) then
         f10_local1 = f10_local1 + 4
     end
@@ -542,11 +541,13 @@ Goal.Act11 = function(arg0, arg1, arg2)
     elseif arg0:GetStringIndexedNumber("targetWhich") == TARGET_SELF then
         arg1:AddSubGoal(GOAL_COMMON_Turn, 2, TARGET_ENE_0, 20, -1, GOAL_RESULT_Success, true)
     end
+
     local f13_local8 = 3012
     local f13_local9 = 0.5
     local f13_local10 = 90
     arg1:AddSubGoal(GOAL_COMMON_AttackTunableSpin, 10, f13_local8, arg0:GetStringIndexedNumber("targetWhich"), 9999,
         f13_local9, f13_local10, 0, 0)
+
     GetWellSpace_Odds = 0
     return GetWellSpace_Odds
 end
@@ -563,6 +564,7 @@ Goal.Act12 = function(arg0, arg1, arg2)
     else
         arg1:AddSubGoal(GOAL_COMMON_AttackTunableSpin, 10, 3030, TARGET_SELF, 9999, f14_local1, f14_local2, 0, 0)
     end
+
     arg0:SetTimer(0, 10)
 end
 
@@ -572,6 +574,7 @@ Goal.Act13 = function(arg0, arg1, arg2)
     local f15_local1 = 0.5
     local f15_local2 = 90
     arg1:AddSubGoal(GOAL_COMMON_AttackTunableSpin, 10, f15_local0, TARGET_EVENT, 9999, f15_local1, f15_local2, 0, 0)
+
     GetWellSpace_Odds = 0
     return GetWellSpace_Odds
 end
@@ -585,12 +588,15 @@ Goal.Act14 = function(arg0, arg1, arg2)
     local f16_local5 = 0
     local f16_local6 = 1.5
     local f16_local7 = 3
+
     if f16_local1 < f16_local0 then
         Approach_Act_Flex(arg0, arg1, f16_local1, f16_local2, f16_local3, f16_local4, f16_local5, f16_local6, f16_local7)
     end
+
     local f16_local8 = 3013
     local f16_local9 = 0.5
     local f16_local10 = 90
+
     arg1:AddSubGoal(GOAL_COMMON_AttackTunableSpin, 10, f16_local8, TARGET_ENE_0, 9999, f16_local9, f16_local10, 0, 0)
     GetWellSpace_Odds = 0
     return GetWellSpace_Odds
@@ -638,6 +644,7 @@ Goal.Act41 = function(arg0, arg1, arg2)
     else
 
     end
+
     arg1:AddSubGoal(GOAL_COMMON_SidewayMove, f18_local0, TARGET_ENE_0, f18_local2, f18_local1, true, true, -1)
     return GETWELLSPACE_ODDS
 end
@@ -650,6 +657,7 @@ Goal.Act21 = function(arg0, arg1, arg2)
     else
         arg1:AddSubGoal(GOAL_COMMON_Turn, f19_local0, TARGET_ENE_0, f19_local1, -1, GOAL_RESULT_Success, true)
     end
+
     GetWellSpace_Odds = 0
     return GetWellSpace_Odds
 end
@@ -657,6 +665,7 @@ end
 Goal.Act22 = function(arg0, arg1, arg2)
     local f20_local0 = 3
     local f20_local1 = 0
+
     if SpaceCheck(arg0, arg1, -45, arg0:GetStringIndexedNumber("Dist_Step_Small")) == true then
         if SpaceCheck(arg0, arg1, 45, arg0:GetStringIndexedNumber("Dist_Step_Small")) == true then
             if arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_R, 180) then
@@ -672,6 +681,7 @@ Goal.Act22 = function(arg0, arg1, arg2)
     else
 
     end
+
     GetWellSpace_Odds = 0
     return GetWellSpace_Odds
 end
@@ -685,6 +695,7 @@ Goal.Act23 = function(arg0, arg1, arg2)
     if f21_local1 <= f21_local0 and f21_local2 <= 0 then
         f21_local3 = 9910
     end
+
     if SpaceCheck(arg0, arg1, -90, 1) == true then
         if SpaceCheck(arg0, arg1, 90, 1) == true then
             if arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_R, 180) then
@@ -701,6 +712,7 @@ Goal.Act23 = function(arg0, arg1, arg2)
         GetWellSpace_Odds = 100
         return GetWellSpace_Odds
     end
+
     local f21_local5 = 1.8
     local f21_local6 = arg0:GetRandam_Int(30, 45)
     arg1:AddSubGoal(GOAL_COMMON_SidewayMove, f21_local5, TARGET_ENE_0, f21_local4, f21_local6, true, true, f21_local3)
@@ -712,6 +724,7 @@ Goal.Act24 = function(arg0, arg1, arg2)
     local f22_local0 = arg0:GetDist(TARGET_ENE_0)
     local f22_local1 = 3
     local f22_local2 = 0
+
     if SpaceCheck(arg0, arg1, 180, arg0:GetStringIndexedNumber("Dist_Step_Small")) == true then
         if SpaceCheck(arg0, arg1, 180, arg0:GetStringIndexedNumber("Dist_Step_Large")) == true then
             if f22_local0 > 4 then
@@ -734,6 +747,7 @@ Goal.Act25 = function(arg0, arg1, arg2)
     if arg0:HasSpecialEffectId(TARGET_ENE_0, 3170200) then
         f23_local5 = 999
     end
+
     if SpaceCheck(arg0, arg1, 180, 1) == true then
         arg1:AddSubGoal(GOAL_COMMON_LeaveTarget, f23_local4, TARGET_ENE_0, f23_local5, TARGET_ENE_0, true, f23_local3)
     elseif f23_local3 == 9910 then
@@ -754,10 +768,12 @@ end
 
 Goal.Act27 = function(arg0, arg1, arg2)
     local f25_local0 = arg0:GetRandam_Int(1, 100)
+
     if YousumiAct_SubGoal(arg0, arg1, true, 60, 30) == false then
         GetWellSpace_Odds = 0
         return GetWellSpace_Odds
     end
+
     local f25_local1 = 0
     local f25_local2 = SpaceCheck_SidewayMove(arg0, arg1, 1)
     if f25_local2 == 0 then
@@ -775,8 +791,10 @@ Goal.Act27 = function(arg0, arg1, arg2)
         GetWellSpace_Odds = 0
         return GetWellSpace_Odds
     end
+
     arg0:SetNumber(10, f25_local1)
     arg1:AddSubGoal(GOAL_COMMON_SidewayMove, 3, TARGET_ENE_0, f25_local1, arg0:GetRandam_Int(30, 45), true, true, -1)
+
     return GET_WELL_SPACE_ODDS
 end
 
@@ -786,6 +804,7 @@ Goal.Act28 = function(arg0, arg1, arg2)
     local f26_local2 = arg0:GetRandam_Int(30, 45)
     local f26_local3 = -1
     local f26_local4 = 0
+
     if f26_local0 <= 3 then
         if SpaceCheck(arg0, arg1, -90, 1) == true then
             if SpaceCheck(arg0, arg1, 90, 1) == true then
@@ -803,12 +822,14 @@ Goal.Act28 = function(arg0, arg1, arg2)
             GetWellSpace_Odds = 100
             return GetWellSpace_Odds
         end
+
         arg1:AddSubGoal(GOAL_COMMON_SidewayMove, f26_local1, TARGET_ENE_0, f26_local4, f26_local2, true, true, f26_local3)
     elseif f26_local0 <= 8 then
         Approach_Act_Flex(arg0, arg1, 3, 3, 3, 100, 0, 1.5, 3)
     else
         Approach_Act_Flex(arg0, arg1, 8, 999, 999, 0, 0, 1.5, 3)
     end
+
     GetWellSpace_Odds = 0
     return GetWellSpace_Odds
 end
@@ -874,7 +895,7 @@ end
     return true if activate any kengeki act
 ]]
 Goal.Kengeki_Activate = function(goal, self, goal_manager)
-    local kengeki_sp = ReturnKengekiSpecialEffect(self)
+    local kengeki_sp = get_kengeki_sp(self)
 
     if kengeki_sp == 0 then
         return false
@@ -1028,7 +1049,7 @@ Goal.ActAfter_AdjustSpace = function(arg0, arg1, arg2)
 end
 
 Goal.Update = function(arg0, arg1, arg2)
-    return Update_Default_NoSubGoal(arg0, arg1, arg2)
+    return default_update(arg0, arg1, arg2)
 end
 
 Goal.Terminate = function(arg0, arg1, arg2)

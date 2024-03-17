@@ -188,22 +188,22 @@ Goal.Activate = function (arg0, arg1, arg2)
     if not not arg1:IsInsideTargetRegion(TARGET_SELF, 1112250) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 1112250) then
         f2_local0[4] = 0
     end
-    f2_local0[1] = SetCoolTime(arg1, arg2, 3011, 10, f2_local0[1], 1)
-    f2_local0[2] = SetCoolTime(arg1, arg2, 3015, 4, f2_local0[2], 1)
-    f2_local0[3] = SetCoolTime(arg1, arg2, 3001, 8, f2_local0[3], 1)
-    f2_local0[3] = SetCoolTime(arg1, arg2, 3003, 8, f2_local0[3], 1)
-    f2_local0[4] = SetCoolTime(arg1, arg2, 3005, 8, f2_local0[4], 1)
-    f2_local0[4] = SetCoolTime(arg1, arg2, 3006, 8, f2_local0[4], 1)
-    f2_local0[4] = SetCoolTime(arg1, arg2, 3073, 8, f2_local0[4], 1)
-    f2_local0[5] = SetCoolTime(arg1, arg2, 3009, 8, f2_local0[5], 1)
-    f2_local0[6] = SetCoolTime(arg1, arg2, 3000, 8, f2_local0[6], 1)
-    f2_local0[6] = SetCoolTime(arg1, arg2, 3004, 8, f2_local0[6], 1)
-    f2_local0[7] = SetCoolTime(arg1, arg2, 3002, 4, f2_local0[7], 1)
-    f2_local0[8] = SetCoolTime(arg1, arg2, 3011, 2, f2_local0[8], 1)
-    f2_local0[9] = SetCoolTime(arg1, arg2, 3006, 6, f2_local0[9], 1)
-    f2_local0[10] = SetCoolTime(arg1, arg2, 3040, 20, f2_local0[10], 1)
-    f2_local0[24] = SetCoolTime(arg1, arg2, 5201, 1, f2_local0[24], 1)
-    f2_local0[24] = SetCoolTime(arg1, arg2, 5211, 1, f2_local0[24], 1)
+    f2_local0[1] = get_weight_base_on_cooldown(arg1, arg2, 3011, 10, f2_local0[1], 1)
+    f2_local0[2] = get_weight_base_on_cooldown(arg1, arg2, 3015, 4, f2_local0[2], 1)
+    f2_local0[3] = get_weight_base_on_cooldown(arg1, arg2, 3001, 8, f2_local0[3], 1)
+    f2_local0[3] = get_weight_base_on_cooldown(arg1, arg2, 3003, 8, f2_local0[3], 1)
+    f2_local0[4] = get_weight_base_on_cooldown(arg1, arg2, 3005, 8, f2_local0[4], 1)
+    f2_local0[4] = get_weight_base_on_cooldown(arg1, arg2, 3006, 8, f2_local0[4], 1)
+    f2_local0[4] = get_weight_base_on_cooldown(arg1, arg2, 3073, 8, f2_local0[4], 1)
+    f2_local0[5] = get_weight_base_on_cooldown(arg1, arg2, 3009, 8, f2_local0[5], 1)
+    f2_local0[6] = get_weight_base_on_cooldown(arg1, arg2, 3000, 8, f2_local0[6], 1)
+    f2_local0[6] = get_weight_base_on_cooldown(arg1, arg2, 3004, 8, f2_local0[6], 1)
+    f2_local0[7] = get_weight_base_on_cooldown(arg1, arg2, 3002, 4, f2_local0[7], 1)
+    f2_local0[8] = get_weight_base_on_cooldown(arg1, arg2, 3011, 2, f2_local0[8], 1)
+    f2_local0[9] = get_weight_base_on_cooldown(arg1, arg2, 3006, 6, f2_local0[9], 1)
+    f2_local0[10] = get_weight_base_on_cooldown(arg1, arg2, 3040, 20, f2_local0[10], 1)
+    f2_local0[24] = get_weight_base_on_cooldown(arg1, arg2, 5201, 1, f2_local0[24], 1)
+    f2_local0[24] = get_weight_base_on_cooldown(arg1, arg2, 5211, 1, f2_local0[24], 1)
     f2_local1[1] = REGIST_FUNC(arg1, arg2, arg0.Act01)
     f2_local1[2] = REGIST_FUNC(arg1, arg2, arg0.Act02)
     f2_local1[3] = REGIST_FUNC(arg1, arg2, arg0.Act03)
@@ -744,7 +744,7 @@ Goal.InObserveArea_Action = function (arg0, arg1)
 end
 
 Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
-    local f32_local0 = ReturnKengekiSpecialEffect(arg1)
+    local f32_local0 = get_kengeki_sp(arg1)
     if f32_local0 == 0 then
         return false
     end
@@ -835,7 +835,7 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
         f32_local1[9] = 0
         f32_local1[13] = 0
     end
-    f32_local1[13] = SetCoolTime(arg1, arg2, 3006, 10, f32_local1[13], 1)
+    f32_local1[13] = get_weight_base_on_cooldown(arg1, arg2, 3006, 10, f32_local1[13], 1)
     f32_local2[1] = REGIST_FUNC(arg1, arg2, arg0.Kengeki01)
     f32_local2[2] = REGIST_FUNC(arg1, arg2, arg0.Kengeki02)
     f32_local2[3] = REGIST_FUNC(arg1, arg2, arg0.Kengeki03)
@@ -987,7 +987,7 @@ Goal.ActAfter_AdjustSpace = function (arg0, arg1, arg2)
 end
 
 Goal.Update = function (arg0, arg1, arg2)
-    return Update_Default_NoSubGoal(arg0, arg1, arg2)
+    return default_update(arg0, arg1, arg2)
     
 end
 

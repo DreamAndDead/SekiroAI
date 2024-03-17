@@ -271,9 +271,9 @@ Goal.Activate = function (arg0, arg1, arg2)
         f2_local0[24] = 500
         f2_local0[31] = 100
     end
-    f2_local0[1] = SetCoolTime(arg1, arg2, 3000, 5, f2_local0[1], 1)
-    f2_local0[1] = SetCoolTime(arg1, arg2, 3001, 5, f2_local0[1], 1)
-    f2_local0[3] = SetCoolTime(arg1, arg2, 3020, 5, f2_local0[3], 1)
+    f2_local0[1] = get_weight_base_on_cooldown(arg1, arg2, 3000, 5, f2_local0[1], 1)
+    f2_local0[1] = get_weight_base_on_cooldown(arg1, arg2, 3001, 5, f2_local0[1], 1)
+    f2_local0[3] = get_weight_base_on_cooldown(arg1, arg2, 3020, 5, f2_local0[3], 1)
     if arg1:GetNumber(4) >= 1 then
         f2_local0[1] = f2_local0[1] + arg1:GetNumber(4) * 2
     end
@@ -300,7 +300,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     if SpaceCheck(arg1, arg2, 90, 1) == false and SpaceCheck(arg1, arg2, -90, 1) == false then
         f2_local0[42] = 0
     end
-    f2_local0[5] = SetCoolTime(arg1, arg2, 3020, 6, f2_local0[5], 1)
+    f2_local0[5] = get_weight_base_on_cooldown(arg1, arg2, 3020, 6, f2_local0[5], 1)
     f2_local1[1] = REGIST_FUNC(arg1, arg2, arg0.Act01)
     f2_local1[2] = REGIST_FUNC(arg1, arg2, arg0.Act02)
     f2_local1[3] = REGIST_FUNC(arg1, arg2, arg0.Act03)
@@ -858,7 +858,7 @@ Goal.ActAfter_AdjustSpace = function (arg0, arg1, arg2)
 end
 
 Goal.Update = function (arg0, arg1, arg2)
-    return Update_Default_NoSubGoal(arg0, arg1, arg2)
+    return default_update(arg0, arg1, arg2)
     
 end
 

@@ -20,7 +20,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     else
         f2_local0[26] = 100
     end
-    f2_local0[1] = SetCoolTime(arg1, arg2, 3020, 8, f2_local0[1], 1)
+    f2_local0[1] = get_weight_base_on_cooldown(arg1, arg2, 3020, 8, f2_local0[1], 1)
     f2_local1[1] = REGIST_FUNC(arg1, arg2, arg0.Act01)
     f2_local1[26] = REGIST_FUNC(arg1, arg2, arg0.Act26)
     local f2_local7 = REGIST_FUNC(arg1, arg2, arg0.ActAfter_AdjustSpace)
@@ -67,7 +67,7 @@ Goal.ActAfter_AdjustSpace = function (arg0, arg1, arg2)
 end
 
 Goal.Update = function (arg0, arg1, arg2)
-    return Update_Default_NoSubGoal(arg0, arg1, arg2)
+    return default_update(arg0, arg1, arg2)
     
 end
 

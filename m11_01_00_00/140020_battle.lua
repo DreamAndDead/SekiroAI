@@ -183,9 +183,9 @@ Goal.Activate = function (arg0, arg1, arg2)
         f2_local0[10] = 1
         f2_local0[26] = 1
     end
-    f2_local0[3] = SetCoolTime(arg1, arg2, 3021, 5, f2_local0[3], 1)
-    f2_local0[10] = SetCoolTime(arg1, arg2, 3010, 1, f2_local0[10], 1)
-    f2_local0[19] = SetCoolTime(arg1, arg2, 5200, 1.4, f2_local0[19], 1)
+    f2_local0[3] = get_weight_base_on_cooldown(arg1, arg2, 3021, 5, f2_local0[3], 1)
+    f2_local0[10] = get_weight_base_on_cooldown(arg1, arg2, 3010, 1, f2_local0[10], 1)
+    f2_local0[19] = get_weight_base_on_cooldown(arg1, arg2, 5200, 1.4, f2_local0[19], 1)
     f2_local1[3] = REGIST_FUNC(arg1, arg2, arg0.Act03)
     f2_local1[10] = REGIST_FUNC(arg1, arg2, arg0.Act10)
     f2_local1[14] = REGIST_FUNC(arg1, arg2, arg0.Act14)
@@ -710,7 +710,7 @@ Goal.Parry = function (arg0, arg1, arg2, arg3)
                 arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, 3033, TARGET_ENE_0, 9999, 0)
                 return true
             elseif f18_local5 then
-                if arg0:IsTargetGuard(TARGET_SELF) and ReturnKengekiSpecialEffect(arg0) == false then
+                if arg0:IsTargetGuard(TARGET_SELF) and get_kengeki_sp(arg0) == false then
                     arg1:ClearSubGoal()
                     arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, 3101, TARGET_ENE_0, 9999, 0)
                     return true
@@ -756,7 +756,7 @@ Goal.Parry = function (arg0, arg1, arg2, arg3)
                     arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, 3100, TARGET_ENE_0, 9999, 0)
                     return true
                 elseif f18_local5 then
-                    if arg0:IsTargetGuard(TARGET_SELF) and ReturnKengekiSpecialEffect(arg0) == false then
+                    if arg0:IsTargetGuard(TARGET_SELF) and get_kengeki_sp(arg0) == false then
                         arg1:ClearSubGoal()
                         arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, 5201, TARGET_ENE_0, 9999, 0)
                         arg0:SetNumber(4, 1)
@@ -873,7 +873,7 @@ Goal.ShootReaction = function (arg0, arg1)
 end
 
 Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
-    local f21_local0 = ReturnKengekiSpecialEffect(arg1)
+    local f21_local0 = get_kengeki_sp(arg1)
     if f21_local0 == 0 then
         return false
     end
@@ -1323,7 +1323,7 @@ Goal.ActAfter_AdjustSpace = function (arg0, arg1, arg2)
 end
 
 Goal.Update = function (arg0, arg1, arg2)
-    return Update_Default_NoSubGoal(arg0, arg1, arg2)
+    return default_update(arg0, arg1, arg2)
     
 end
 

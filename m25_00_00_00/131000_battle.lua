@@ -146,26 +146,26 @@ Goal.Activate = function (arg0, arg1, arg2)
     if SpaceCheck(arg1, arg2, 180, 1) == false then
         f2_local0[25] = 0
     end
-    f2_local0[1] = SetCoolTime(arg1, arg2, 3000, 8, f2_local0[1], 1)
-    f2_local0[2] = SetCoolTime(arg1, arg2, 3001, 15, f2_local0[2], 1)
-    f2_local0[3] = SetCoolTime(arg1, arg2, 3002, 30, f2_local0[3], 1)
-    f2_local0[4] = SetCoolTime(arg1, arg2, 3003, 15, f2_local0[4], 1)
-    f2_local0[5] = SetCoolTime(arg1, arg2, 3011, 15, f2_local0[5], 1)
-    f2_local0[6] = SetCoolTime(arg1, arg2, 3002, 15, f2_local0[6], 1)
-    f2_local0[7] = SetCoolTime(arg1, arg2, 3022, 15, f2_local0[7], 1)
-    f2_local0[8] = SetCoolTime(arg1, arg2, 3009, 15, f2_local0[8], 1)
-    f2_local0[10] = SetCoolTime(arg1, arg2, 3009, 15, f2_local0[10], 1)
-    f2_local0[11] = SetCoolTime(arg1, arg2, 3022, 15, f2_local0[11], 1)
-    f2_local0[12] = SetCoolTime(arg1, arg2, 3012, 15, f2_local0[12], 1)
-    f2_local0[13] = SetCoolTime(arg1, arg2, 3000, 15, f2_local0[13], 1)
-    f2_local0[14] = SetCoolTime(arg1, arg2, 3013, 15, f2_local0[14], 1)
-    f2_local0[15] = SetCoolTime(arg1, arg2, 3001, 15, f2_local0[15], 1)
-    f2_local0[16] = SetCoolTime(arg1, arg2, 3015, 15, f2_local0[16], 1)
-    f2_local0[30] = SetCoolTime(arg1, arg2, 3000, 5, f2_local0[30], 20)
-    f2_local0[31] = SetCoolTime(arg1, arg2, 3001, 5, f2_local0[31], 20)
-    f2_local0[32] = SetCoolTime(arg1, arg2, 3002, 5, f2_local0[32], 20)
-    f2_local0[33] = SetCoolTime(arg1, arg2, 3020, 5, f2_local0[33], 1)
-    f2_local0[34] = SetCoolTime(arg1, arg2, 3020, 20, f2_local0[34], 1)
+    f2_local0[1] = get_weight_base_on_cooldown(arg1, arg2, 3000, 8, f2_local0[1], 1)
+    f2_local0[2] = get_weight_base_on_cooldown(arg1, arg2, 3001, 15, f2_local0[2], 1)
+    f2_local0[3] = get_weight_base_on_cooldown(arg1, arg2, 3002, 30, f2_local0[3], 1)
+    f2_local0[4] = get_weight_base_on_cooldown(arg1, arg2, 3003, 15, f2_local0[4], 1)
+    f2_local0[5] = get_weight_base_on_cooldown(arg1, arg2, 3011, 15, f2_local0[5], 1)
+    f2_local0[6] = get_weight_base_on_cooldown(arg1, arg2, 3002, 15, f2_local0[6], 1)
+    f2_local0[7] = get_weight_base_on_cooldown(arg1, arg2, 3022, 15, f2_local0[7], 1)
+    f2_local0[8] = get_weight_base_on_cooldown(arg1, arg2, 3009, 15, f2_local0[8], 1)
+    f2_local0[10] = get_weight_base_on_cooldown(arg1, arg2, 3009, 15, f2_local0[10], 1)
+    f2_local0[11] = get_weight_base_on_cooldown(arg1, arg2, 3022, 15, f2_local0[11], 1)
+    f2_local0[12] = get_weight_base_on_cooldown(arg1, arg2, 3012, 15, f2_local0[12], 1)
+    f2_local0[13] = get_weight_base_on_cooldown(arg1, arg2, 3000, 15, f2_local0[13], 1)
+    f2_local0[14] = get_weight_base_on_cooldown(arg1, arg2, 3013, 15, f2_local0[14], 1)
+    f2_local0[15] = get_weight_base_on_cooldown(arg1, arg2, 3001, 15, f2_local0[15], 1)
+    f2_local0[16] = get_weight_base_on_cooldown(arg1, arg2, 3015, 15, f2_local0[16], 1)
+    f2_local0[30] = get_weight_base_on_cooldown(arg1, arg2, 3000, 5, f2_local0[30], 20)
+    f2_local0[31] = get_weight_base_on_cooldown(arg1, arg2, 3001, 5, f2_local0[31], 20)
+    f2_local0[32] = get_weight_base_on_cooldown(arg1, arg2, 3002, 5, f2_local0[32], 20)
+    f2_local0[33] = get_weight_base_on_cooldown(arg1, arg2, 3020, 5, f2_local0[33], 1)
+    f2_local0[34] = get_weight_base_on_cooldown(arg1, arg2, 3020, 20, f2_local0[34], 1)
     f2_local1[1] = REGIST_FUNC(arg1, arg2, arg0.Act01)
     f2_local1[2] = REGIST_FUNC(arg1, arg2, arg0.Act02)
     f2_local1[3] = REGIST_FUNC(arg1, arg2, arg0.Act03)
@@ -713,7 +713,7 @@ Goal.Parry = function (arg0, arg1, arg2, arg3)
             arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, 3100, TARGET_ENE_0, 9999, 0)
             return true
         elseif f28_local5 then
-            if arg0:IsTargetGuard(TARGET_SELF) and ReturnKengekiSpecialEffect(arg0) == false then
+            if arg0:IsTargetGuard(TARGET_SELF) and get_kengeki_sp(arg0) == false then
                 return false
             elseif f28_local7 == 2 then
                 return false
@@ -766,7 +766,7 @@ Goal.ShootReaction = function (arg0, arg1)
 end
 
 Goal.Kengeki_Activate = function (arg0, arg1, arg2)
-    local f31_local0 = ReturnKengekiSpecialEffect(arg1)
+    local f31_local0 = get_kengeki_sp(arg1)
     if f31_local0 == 0 then
         return false
     end
@@ -987,7 +987,7 @@ Goal.ActAfter_AdjustSpace = function (arg0, arg1, arg2)
 end
 
 Goal.Update = function (arg0, arg1, arg2)
-    return Update_Default_NoSubGoal(arg0, arg1, arg2)
+    return default_update(arg0, arg1, arg2)
     
 end
 

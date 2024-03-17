@@ -295,16 +295,59 @@ lua 层面
 REGISTER_GOAL_UPDATE_TIME(GOAL_COMMON_ApproachTarget, 0, 0)
 
 
+
+
+arg1:AddSubGoal(GOAL_COMMON_Guard, f23_local4, 9910, TARGET_ENE_0, false, 0)
+
+底层goal
+
+防御状态
+
+
+
+arg1:AddSubGoal(GOAL_COMMON_Wait, 5, TARGET_SELF, 0, 0, 0)
+
+底层goal
+等待一段时间
+没有动作？
+
+
+
+
+
 goal_manager:AddSubGoal(GOAL_COMMON_SidewayMove, f6_local1, TARGET_ENE_0, left_or_right_dir, f6_local3, true, true, f6_local4)
 
 底层goal
-左右移动
+左右横向移动
+
+
+arg1:AddSubGoal(GOAL_COMMON_SpinStep, f20_local0, 5202, TARGET_ENE_0, f20_local1, AI_DIR_TYPE_L, 0)
+
+底层 goal
+围绕目标点的圆周运动
+
 
 
 
 arg1:AddSubGoal(GOAL_COMMON_Turn, 2, TARGET_ENE_0, 20, -1, GOAL_RESULT_Success, true)
 
 和 setturnspeed 关联？
+
+
+
+
+goal_manager:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, 3100, TARGET_ENE_0, 9999, 0)
+
+endure 架出防御动作
+
+底层使用 attack goal
+
+
+
+
+arg1:AddSubGoal(GOAL_COMMON_KeepDist, 10, TARGET_ENE_0, arg2, arg3, TARGET_ENE_0, f38_local1, f38_local2)
+
+底层 goal
 
 
 
@@ -341,7 +384,12 @@ ai 的 combo 命令可输入
 
 
 
+当一个 attack goal is cancelled，相应的 goal 结束
 
+attack 属性
+- if combo
+  - if combo final
+- if turnable
 
 
 

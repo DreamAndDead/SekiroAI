@@ -80,14 +80,14 @@ Goal.Activate = function (arg0, arg1, arg2)
     if SpaceCheck(arg1, arg2, 180, 1) == false then
         f2_local0[25] = 0
     end
-    f2_local0[1] = SetCoolTime(arg1, arg2, 3000, 5, f2_local0[1], 1)
-    f2_local0[5] = SetCoolTime(arg1, arg2, 3005, 3, f2_local0[5], 1)
-    f2_local0[10] = SetCoolTime(arg1, arg2, 3010, 7, f2_local0[10], 1)
-    f2_local0[11] = SetCoolTime(arg1, arg2, 3013, 35, f2_local0[11], 1)
-    f2_local0[12] = SetCoolTime(arg1, arg2, 3015, 8, f2_local0[12], 1)
-    f2_local0[13] = SetCoolTime(arg1, arg2, 3017, 10, f2_local0[13], 1)
-    f2_local0[24] = SetCoolTime(arg1, arg2, 5211, 10, f2_local0[24], 1)
-    f2_local0[24] = SetCoolTime(arg1, arg2, 5211, 10, f2_local0[24], 1)
+    f2_local0[1] = get_weight_base_on_cooldown(arg1, arg2, 3000, 5, f2_local0[1], 1)
+    f2_local0[5] = get_weight_base_on_cooldown(arg1, arg2, 3005, 3, f2_local0[5], 1)
+    f2_local0[10] = get_weight_base_on_cooldown(arg1, arg2, 3010, 7, f2_local0[10], 1)
+    f2_local0[11] = get_weight_base_on_cooldown(arg1, arg2, 3013, 35, f2_local0[11], 1)
+    f2_local0[12] = get_weight_base_on_cooldown(arg1, arg2, 3015, 8, f2_local0[12], 1)
+    f2_local0[13] = get_weight_base_on_cooldown(arg1, arg2, 3017, 10, f2_local0[13], 1)
+    f2_local0[24] = get_weight_base_on_cooldown(arg1, arg2, 5211, 10, f2_local0[24], 1)
+    f2_local0[24] = get_weight_base_on_cooldown(arg1, arg2, 5211, 10, f2_local0[24], 1)
     f2_local1[1] = REGIST_FUNC(arg1, arg2, arg0.Act01)
     f2_local1[2] = REGIST_FUNC(arg1, arg2, arg0.Act02)
     f2_local1[3] = REGIST_FUNC(arg1, arg2, arg0.Act03)
@@ -647,7 +647,7 @@ Goal.ShootReaction = function (arg0, arg1)
 end
 
 Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
-    local f26_local0 = ReturnKengekiSpecialEffect(arg1)
+    local f26_local0 = get_kengeki_sp(arg1)
     if f26_local0 == 0 then
         return false
     end
@@ -733,16 +733,16 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
     if SpaceCheck(arg1, arg2, 180, 1) == false then
         f26_local1[25] = 0
     end
-    f26_local1[1] = SetCoolTime(arg1, arg2, 3050, 30, f26_local1[1], 1)
-    f26_local1[2] = SetCoolTime(arg1, arg2, 3055, 10, f26_local1[2], 1)
-    f26_local1[3] = SetCoolTime(arg1, arg2, 3060, 10, f26_local1[3], 1)
-    f26_local1[4] = SetCoolTime(arg1, arg2, 3067, 10, f26_local1[4], 1)
-    f26_local1[5] = SetCoolTime(arg1, arg2, 3070, 10, f26_local1[5], 1)
-    f26_local1[7] = SetCoolTime(arg1, arg2, 3019, 10, f26_local1[7], 1)
-    f26_local1[8] = SetCoolTime(arg1, arg2, 3016, 10, f26_local1[8], 1)
-    f26_local1[9] = SetCoolTime(arg1, arg2, 3080, 5, f26_local1[9], 1)
-    f26_local1[24] = SetCoolTime(arg1, arg2, 5211, 10, f26_local1[24], 1)
-    f26_local1[24] = SetCoolTime(arg1, arg2, 5211, 10, f26_local1[24], 1)
+    f26_local1[1] = get_weight_base_on_cooldown(arg1, arg2, 3050, 30, f26_local1[1], 1)
+    f26_local1[2] = get_weight_base_on_cooldown(arg1, arg2, 3055, 10, f26_local1[2], 1)
+    f26_local1[3] = get_weight_base_on_cooldown(arg1, arg2, 3060, 10, f26_local1[3], 1)
+    f26_local1[4] = get_weight_base_on_cooldown(arg1, arg2, 3067, 10, f26_local1[4], 1)
+    f26_local1[5] = get_weight_base_on_cooldown(arg1, arg2, 3070, 10, f26_local1[5], 1)
+    f26_local1[7] = get_weight_base_on_cooldown(arg1, arg2, 3019, 10, f26_local1[7], 1)
+    f26_local1[8] = get_weight_base_on_cooldown(arg1, arg2, 3016, 10, f26_local1[8], 1)
+    f26_local1[9] = get_weight_base_on_cooldown(arg1, arg2, 3080, 5, f26_local1[9], 1)
+    f26_local1[24] = get_weight_base_on_cooldown(arg1, arg2, 5211, 10, f26_local1[24], 1)
+    f26_local1[24] = get_weight_base_on_cooldown(arg1, arg2, 5211, 10, f26_local1[24], 1)
     f26_local2[1] = REGIST_FUNC(arg1, arg2, arg0.Kengeki01)
     f26_local2[2] = REGIST_FUNC(arg1, arg2, arg0.Kengeki02)
     f26_local2[3] = REGIST_FUNC(arg1, arg2, arg0.Kengeki03)
@@ -874,7 +874,7 @@ Goal.ActAfter_AdjustSpace = function (arg0, arg1, arg2)
 end
 
 Goal.Update = function (arg0, arg1, arg2)
-    return Update_Default_NoSubGoal(arg0, arg1, arg2)
+    return default_update(arg0, arg1, arg2)
     
 end
 

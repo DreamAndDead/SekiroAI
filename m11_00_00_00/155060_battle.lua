@@ -60,10 +60,10 @@ Goal.Activate = function (arg0, arg1, arg2)
     if SpaceCheck(arg1, arg2, 180, 1) == false then
         f2_local0[25] = 0
     end
-    f2_local0[10] = SetCoolTime(arg1, arg2, 3030, 8, f2_local0[10], 1)
-    f2_local0[11] = SetCoolTime(arg1, arg2, 1040, 8, f2_local0[11], 1)
-    f2_local0[12] = SetCoolTime(arg1, arg2, 3000, 5, f2_local0[12], 1)
-    f2_local0[13] = SetCoolTime(arg1, arg2, 3002, 5, f2_local0[13], 1)
+    f2_local0[10] = get_weight_base_on_cooldown(arg1, arg2, 3030, 8, f2_local0[10], 1)
+    f2_local0[11] = get_weight_base_on_cooldown(arg1, arg2, 1040, 8, f2_local0[11], 1)
+    f2_local0[12] = get_weight_base_on_cooldown(arg1, arg2, 3000, 5, f2_local0[12], 1)
+    f2_local0[13] = get_weight_base_on_cooldown(arg1, arg2, 3002, 5, f2_local0[13], 1)
     f2_local1[12] = REGIST_FUNC(arg1, arg2, arg0.Act12)
     f2_local1[13] = REGIST_FUNC(arg1, arg2, arg0.Act13)
     f2_local1[15] = REGIST_FUNC(arg1, arg2, arg0.Act15)
@@ -291,7 +291,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     if arg1:IsInterupt(INTERUPT_Damaged) then
         return arg0.Damaged(arg1, arg2)
     end
-    if arg1:IsInterupt(INTERUPT_ActivateSpecialEffect) and GetKengekiSpecialEffect(arg1, arg2, f14_local0) then
+    if arg1:IsInterupt(INTERUPT_ActivateSpecialEffect) and is_kengeki_sp(arg1, arg2, f14_local0) then
         arg0:Kengeki(arg1, arg2, f14_local0)
         return true
     end
@@ -496,7 +496,7 @@ Goal.ActAfter_AdjustSpace = function (arg0, arg1, arg2)
 end
 
 Goal.Update = function (arg0, arg1, arg2)
-    return Update_Default_NoSubGoal(arg0, arg1, arg2)
+    return default_update(arg0, arg1, arg2)
     
 end
 

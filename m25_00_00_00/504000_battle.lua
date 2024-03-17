@@ -80,8 +80,8 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[20] = 100
         end
     end
-    f2_local0[4] = SetCoolTime(arg1, arg2, 20005, 10, f2_local0[4], 1)
-    f2_local0[7] = SetCoolTime(arg1, arg2, 20012, 10, f2_local0[7], 1)
+    f2_local0[4] = get_weight_base_on_cooldown(arg1, arg2, 20005, 10, f2_local0[4], 1)
+    f2_local0[7] = get_weight_base_on_cooldown(arg1, arg2, 20012, 10, f2_local0[7], 1)
     f2_local1[1] = REGIST_FUNC(arg1, arg2, arg0.Act01)
     f2_local1[2] = REGIST_FUNC(arg1, arg2, arg0.Act02)
     f2_local1[3] = REGIST_FUNC(arg1, arg2, arg0.Act03)
@@ -333,7 +333,7 @@ Goal.Update = function (arg0, arg1, arg2)
     else
         arg1:SetEventFlag(19625680, true)
     end
-    return Update_Default_NoSubGoal(arg0, arg1, arg2)
+    return default_update(arg0, arg1, arg2)
     
 end
 

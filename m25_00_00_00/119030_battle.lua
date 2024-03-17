@@ -79,11 +79,11 @@ Goal.Activate = function (arg0, arg1, arg2)
     if SpaceCheck(arg1, arg2, 180, 1) == false then
         f2_local0[25] = 0
     end
-    f2_local0[4] = SetCoolTime(arg1, arg2, 3001, 5, f2_local0[4], 1)
-    f2_local0[4] = SetCoolTime(arg1, arg2, 3006, 5, f2_local0[4], 1)
-    f2_local0[10] = SetCoolTime(arg1, arg2, 3010, 4, f2_local0[10], 1)
-    f2_local0[11] = SetCoolTime(arg1, arg2, 3011, 8, f2_local0[11], 1)
-    f2_local0[24] = SetCoolTime(arg1, arg2, 5201, 10, f2_local0[24], 1)
+    f2_local0[4] = get_weight_base_on_cooldown(arg1, arg2, 3001, 5, f2_local0[4], 1)
+    f2_local0[4] = get_weight_base_on_cooldown(arg1, arg2, 3006, 5, f2_local0[4], 1)
+    f2_local0[10] = get_weight_base_on_cooldown(arg1, arg2, 3010, 4, f2_local0[10], 1)
+    f2_local0[11] = get_weight_base_on_cooldown(arg1, arg2, 3011, 8, f2_local0[11], 1)
+    f2_local0[24] = get_weight_base_on_cooldown(arg1, arg2, 5201, 10, f2_local0[24], 1)
     f2_local1[1] = REGIST_FUNC(arg1, arg2, arg0.Act01)
     f2_local1[2] = REGIST_FUNC(arg1, arg2, arg0.Act02)
     f2_local1[3] = REGIST_FUNC(arg1, arg2, arg0.Act03)
@@ -450,7 +450,7 @@ Goal.ShootReaction = function (arg0, arg1)
 end
 
 Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
-    local f21_local0 = ReturnKengekiSpecialEffect(arg1)
+    local f21_local0 = get_kengeki_sp(arg1)
     if f21_local0 == 0 then
         return false
     end
@@ -528,7 +528,7 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
             f21_local1[1] = 10
         end
     end
-    f21_local1[24] = SetCoolTime(arg1, arg2, 5201, 10, f21_local1[24], 1)
+    f21_local1[24] = get_weight_base_on_cooldown(arg1, arg2, 5201, 10, f21_local1[24], 1)
     f21_local2[1] = REGIST_FUNC(arg1, arg2, arg0.Kengeki01)
     f21_local2[21] = REGIST_FUNC(arg1, arg2, arg0.Act21)
     f21_local2[22] = REGIST_FUNC(arg1, arg2, arg0.Act22)
@@ -599,7 +599,7 @@ Goal.ActAfter_AdjustSpace = function (arg0, arg1, arg2)
 end
 
 Goal.Update = function (arg0, arg1, arg2)
-    return Update_Default_NoSubGoal(arg0, arg1, arg2)
+    return default_update(arg0, arg1, arg2)
     
 end
 
