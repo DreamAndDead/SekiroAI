@@ -1,4 +1,5 @@
 REGISTER_GOAL_NO_SUB_GOAL(GOAL_COMMON_LadderAct, true)
+
 function _GetId(arg0, arg1)
     local f1_local0 = false
     if not not arg1:IsNpcPlayer() or arg1:IsLocalPlayer() then

@@ -167,10 +167,6 @@ function _COMMON_AddBattleGoal(arg0, arg1)
     arg0:SetNumber(AI_NUMBER_LATEST_ACTION, COMMON_LATEST_ACTION_BATTLEGOAL)
 end
 
-function _COMMON_AddChangeStateActionGoal(arg0, arg1)
-
-end
-
 function _COMMON_AddCautionAndFindGoal(arg0, arg1, arg2)
     local f7_local0 = arg0:GetExcelParam(AI_EXCEL_THINK_PARAM_TYPE__goalAction_ToCaution)
     local f7_local1 = arg0:GetExcelParam(AI_EXCEL_THINK_PARAM_TYPE__goalAction_ToCautionImportant)
@@ -538,32 +534,4 @@ function _COMMON_SetBattleGoal(arg0)
         f10_local1:SetManagementGoal()
     end
     return true
-end
-
-function COMMON_Interrupt(arg0, arg1)
-    local f11_local0 = false
-    if arg0:IsInterupt(INTERUPT_MovedEnd_OnFailedPath) then
-        arg0:DecideWalkAroundPos()
-        local f11_local1 = arg0:GetActTypeOnFailedPathEnd()
-        if f11_local1 == 0 then
-            f11_local0 = true
-        elseif f11_local1 == 1 then
-            arg1:ClearSubGoal()
-            arg1:AddSubGoal(GOAL_COMMON_Wait_On_FailedPath, -1, 1)
-            f11_local0 = true
-        elseif f11_local1 == 2 then
-            arg1:ClearSubGoal()
-            arg1:AddSubGoal(GOAL_COMMON_Wait_On_FailedPath, 2, 1)
-            f11_local0 = true
-        elseif f11_local1 == 3 then
-            arg1:ClearSubGoal()
-            arg1:AddSubGoal(GOAL_COMMON_WalkAround_On_FailedPath, -1, 1)
-            f11_local0 = true
-        elseif f11_local1 == 4 then
-            arg1:ClearSubGoal()
-            arg1:AddSubGoal(GOAL_COMMON_BackToHome_On_FailedPath, 100, 1, 2)
-            f11_local0 = true
-        end
-    end
-    return f11_local0
 end

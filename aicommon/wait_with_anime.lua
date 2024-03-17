@@ -1,5 +1,6 @@
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_WaitWithAnime, 0, "?A?j??ID", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_WaitWithAnime, 1, "??????", 1)
+
 function WaitWithAnime_Activate(arg0, arg1)
     local f1_local0 = arg1:GetParam(0)
     local f1_local1 = arg1:GetParam(1)

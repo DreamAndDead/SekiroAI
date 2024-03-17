@@ -1,8 +1,9 @@
--- goal 的执行结果
+-- goal 的执行结果，用于 update
 GOAL_RESULT_Failed = -1
 GOAL_RESULT_Continue = 0
 GOAL_RESULT_Success = 1
--- 方向，以 ai self 为参照
+
+-- 方向，以 self 为参照
 AI_DIR_TYPE_CENTER = 0
 AI_DIR_TYPE_F = 1
 AI_DIR_TYPE_B = 2
@@ -18,14 +19,18 @@ AI_SPA_DIR_TYPE_TargetF = 0
 AI_SPA_DIR_TYPE_ToTarget = 1
 AI_SPA_DIR_TYPE_Absolute = 2
 
+-- 距离大小，用于 goal attack 参数
 DIST_Near = -1
 DIST_Middle = -2
 DIST_Far = -3
 DIST_Out = -4
 DIST_None = -5
 
+-- 当前仇恨目标
 TARGET_NONE = -2
+-- 没有仇恨？
 TARGET_SELF = -1
+-- 通常为 pc
 TARGET_ENE_0 = 0
 TARGET_FRI_0 = 10
 TARGET_EVENT = 20
@@ -65,20 +70,8 @@ POINT_AIPredictionTargetPos = 124
 POINT_BackToHome = 125
 POINT_UnreachTerminate = 126
 
-EVENT_TARGET_0 = 1000
-EVENT_TARGET_1 = 1001
-EVENT_TARGET_2 = 1002
-EVENT_TARGET_3 = 1003
-EVENT_TARGET_4 = 1004
-EVENT_TARGET_5 = 1005
-EVENT_TARGET_6 = 1006
-EVENT_TARGET_7 = 1007
-EVENT_TARGET_8 = 1008
-EVENT_TARGET_9 = 1009
-EVENT_TARGET_10 = 1010
-
 -- 引发变招的方式类别
--- 占位符
+-- 占位符，用于 for loop
 INTERUPT_First = 0
 INTERUPT_FindEnemy = 0
 INTERUPT_FindAttack = 1
@@ -104,6 +97,7 @@ INTERUPT_ForgetTarget = 18
 INTERUPT_FriendRequestSupport = 19
 INTERUPT_TargetIsGuard = 20
 INTERUPT_HitEnemyWall = 21
+-- 成功弹开
 INTERUPT_SuccessParry = 22
 INTERUPT_CANNOT_MOVE_DisableInterupt = 23
 -- pc 的攻击信号

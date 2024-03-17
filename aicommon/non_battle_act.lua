@@ -6,6 +6,7 @@ REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_NonBattleAct, 4, "????????????ym?z", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_NonBattleAct, 5, "??@???S?[??", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_NonBattleAct, 6, "?p???I?t?Z?b?g", 0)
 REGISTER_GOAL_UPDATE_TIME(GOAL_COMMON_NonBattleAct, 0.1, 0.2)
+
 function NonBattleAct_Activate(arg0, arg1)
     local f1_local0 = arg1:GetParam(2)
     if arg0:HasSpecialEffectId(TARGET_SELF, 5000) then

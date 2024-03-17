@@ -95,23 +95,6 @@ function Approach_Act(arg0, arg1, arg2, arg3, arg4, arg5)
     arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, arg5, TARGET_ENE_0, arg2, TARGET_SELF, f43_local1, f43_local2)
 end
 
-function Approach_or_Leave_Act(arg0, arg1, arg2, arg3, arg4, arg5)
-    local f44_local0 = arg0:GetDist(TARGET_ENE_0)
-    local f44_local1 = true
-    if arg4 ~= -1 and arg4 <= f44_local0 then
-        f44_local1 = false
-    end
-    local f44_local2 = -1
-    if arg0:GetRandam_Int(1, 100) <= arg5 then
-        f44_local2 = 9910
-    end
-    if arg2 <= f44_local0 then
-        arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, 5, TARGET_ENE_0, arg3, TARGET_SELF, f44_local1, f44_local2)
-    else
-        arg1:AddSubGoal(GOAL_COMMON_LeaveTarget, 5, TARGET_ENE_0, arg2, TARGET_ENE_0, true, f44_local2)
-    end
-end
-
 function Watching_Parry_Chance_Act(arg0, arg1)
     FirstDist = arg0:GetRandam_Float(2, 4)
     SecondDist = arg0:GetRandam_Float(2, 4)
@@ -121,89 +104,6 @@ function Watching_Parry_Chance_Act(arg0, arg1)
     arg1:AddSubGoal(GOAL_COMMON_KeepDist, 5, TARGET_ENE_0, SecondDist, SecondDist + 0.5, TARGET_ENE_0, true, 9920)
     arg1:AddSubGoal(GOAL_COMMON_SidewayMove, arg0:GetRandam_Float(3, 5), TARGET_ENE_0, arg0:GetRandam_Int(0, 1), 180,
         true, true, 9920)
-end
-
-function Parry_Act(arg0, arg1, arg2, arg3, arg4, arg5)
-    local f46_local0 = arg0:GetDist(TARGET_ENE_0)
-    if arg0:IsInterupt(INTERUPT_ParryTiming) then
-        if f46_local0 <= arg2 and arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, arg3) then
-            arg1:ClearSubGoal()
-            arg1:AddSubGoal(GOAL_COMMON_Parry, 1.25, 4000, TARGET_SELF, 0)
-            return true
-        end
-    elseif arg0:IsInterupt(INTERUPT_SuccessParry) and f46_local0 <= arg4 and arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, arg5) then
-        arg1:ClearSubGoal()
-        arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, 3, TARGET_ENE_0, 1, TARGET_SELF, false, -1)
-        local f46_local1 = arg0:GetRandam_Float(0.3, 0.6)
-        arg1:AddSubGoal(GOAL_COMMON_Wait, f46_local1, TARGET_ENE_0)
-        arg1:AddSubGoal(GOAL_COMMON_Attack, 10, 3110, TARGET_ENE_0, 3, 0)
-        return true
-    end
-end
-
-function ObserveAreaForBackstab(arg0, arg1, arg2, arg3, arg4)
-    arg0:AddObserveArea(arg2, TARGET_ENE_0, TARGET_SELF, AI_DIR_TYPE_B, arg4, arg3)
-end
-
-function Backstab_Act(arg0, arg1, arg2, arg3, arg4, arg5)
-    if arg0:IsInterupt(INTERUPT_Inside_ObserveArea) and arg0:IsThrowing() == false and arg0:IsFinishTimer(arg4) == true and arg0:IsInsideObserve(arg2) then
-        arg0:SetTimer(arg4, arg5)
-        arg1:ClearSubGoal()
-        arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, 5, TARGET_ENE_0, arg3, TARGET_SELF, false, -1)
-        arg1:AddSubGoal(GOAL_COMMON_Attack, 10, 3110, TARGET_ENE_0, 3, 0)
-        return true
-    end
-end
-
-function Torimaki_Act(arg0, arg1, arg2)
-    local f49_local0 = -1
-    local f49_local1 = arg0:GetRandam_Int(1, 100)
-    if f49_local1 <= arg2 then
-        f49_local0 = 9910
-    end
-    local f49_local2 = arg0:GetDist(TARGET_ENE_0)
-    if f49_local2 >= 15 then
-        arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, 5, TARGET_ENE_0, 4.5, TARGET_SELF, true, -1)
-    elseif f49_local2 >= 6 then
-        arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, 5, TARGET_ENE_0, 4.5, TARGET_SELF, true, -1)
-    elseif f49_local2 >= 3 then
-        arg1:AddSubGoal(GOAL_COMMON_SidewayMove, 3, TARGET_ENE_0, arg0:GetRandam_Int(0, 1), arg0:GetRandam_Int(30, 45),
-            true, true, f49_local0)
-    else
-        arg1:AddSubGoal(GOAL_COMMON_LeaveTarget, 5, TARGET_ENE_0, 4, TARGET_ENE_0, true, f49_local0)
-    end
-    arg1:AddSubGoal(GOAL_COMMON_SidewayMove, 3, TARGET_ENE_0, arg0:GetRandam_Int(0, 1), arg0:GetRandam_Int(30, 45), true,
-        true, f49_local0)
-end
-
-function Kankyaku_Act(arg0, arg1, arg2)
-    local f50_local0 = -1
-    local f50_local1 = arg0:GetRandam_Int(1, 100)
-    if f50_local1 <= arg2 then
-        f50_local0 = 9910
-    end
-    local f50_local2 = arg0:GetDist(TARGET_ENE_0)
-    if f50_local2 >= 15 then
-        arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, 5, TARGET_ENE_0, 6.5, TARGET_SELF, true, -1)
-    elseif f50_local2 >= 8 then
-        arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, 5, TARGET_ENE_0, 6.5, TARGET_SELF, true, -1)
-    elseif f50_local2 >= 4 then
-        arg1:AddSubGoal(GOAL_COMMON_SidewayMove, 3, TARGET_ENE_0, arg0:GetRandam_Int(0, 1), arg0:GetRandam_Int(30, 45),
-            true, true, f50_local0)
-    else
-        arg1:AddSubGoal(GOAL_COMMON_LeaveTarget, 5, TARGET_ENE_0, 6, TARGET_ENE_0, true, f50_local0)
-    end
-    arg1:AddSubGoal(GOAL_COMMON_SidewayMove, 3, TARGET_ENE_0, arg0:GetRandam_Int(0, 1), arg0:GetRandam_Int(30, 45), true,
-        true, f50_local0)
-end
-
-function ClearTableParam(arg0, arg1)
-    local f51_local0 = 50
-    local f51_local1 = 1
-    for f51_local2 = 1, f51_local0, 1 do
-        arg0[f51_local2] = 0
-        arg1[f51_local2] = {}
-    end
 end
 
 function SelectOddsIndex(arg0, arg1)
@@ -222,64 +122,4 @@ function SelectOddsIndex(arg0, arg1)
     end
     local f52_local3 = -1
     return f52_local3
-end
-
-function SelectFunc(arg0, arg1, arg2)
-    local f53_local0 = SelectOddsIndex(arg0, arg1)
-    if f53_local0 < 1 then
-        return nil
-    end
-    return arg2[f53_local0]
-end
-
-function SelectGoalFunc(arg0, arg1, arg2)
-    local f54_local0 = _GetGoalActFuncTable(arg0)
-    return SelectFunc(arg1, arg2, f54_local0)
-end
-
-function CallAttackAndAfterFunc(arg0, self, goal_manager, arg3, arg4, arg5)
-    local f55_local0 = SelectOddsIndex(self, arg3)
-    local f55_local1 = 0
-    if f55_local0 >= 1 then
-        local f55_local2 = _GetGoalActFuncTable(arg0)
-        local f55_local3 = nil
-        if arg4 ~= nil then
-            f55_local3 = arg4[f55_local0]
-        end
-        f55_local1 = f55_local2[f55_local0](arg0, self, goal_manager, f55_local3)
-    end
-    local f55_local2 = self:GetRandam_Int(1, 100)
-    if f55_local2 <= f55_local1 then
-        if arg0.ActAfter ~= nil then
-            arg0:ActAfter(self, goal_manager, arg5)
-        else
-            HumanCommon_ActAfter_AdjustSpace(self, goal_manager, arg5)
-        end
-    end
-end
-
-function _GetGoalActFuncTable(arg0)
-    local f56_local0 = { arg0.Act01, arg0.Act02, arg0.Act03, arg0.Act04, arg0.Act05, arg0.Act06, arg0.Act07, arg0.Act08,
-        arg0.Act09, arg0.Act10, arg0.Act11, arg0.Act12, arg0.Act13, arg0.Act14, arg0.Act15, arg0.Act16, arg0.Act17, arg0
-        .Act18, arg0.Act19, arg0.Act20 }
-    return f56_local0
-end
-
-function GetTargetAngle(arg0, arg1)
-    if arg0:IsInsideTarget(arg1, AI_DIR_TYPE_F, 90) then
-        if arg0:IsInsideTarget(arg1, AI_DIR_TYPE_F, 90) then
-            return TARGET_ANGLE_FRONT
-        elseif arg0:IsInsideTarget(arg1, AI_DIR_TYPE_L, 180) then
-            return TARGET_ANGLE_LEFT
-        else
-            return TARGET_ANGLE_RIGHT
-        end
-    end
-    if arg0:IsInsideTarget(arg1, AI_DIR_TYPE_L, 90) then
-        return TARGET_ANGLE_LEFT
-    elseif arg0:IsInsideTarget(arg1, AI_DIR_TYPE_R, 90) then
-        return TARGET_ANGLE_RIGHT
-    else
-        return TARGET_ANGLE_BACK
-    end
 end

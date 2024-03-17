@@ -269,10 +269,63 @@ disable ai immediate action
 
 arg1:Replanning()
 
+## update logic
 
+function ApproachSettingDirection_Update(arg0, arg1, arg2)
+    local f2_local0 = arg1:GetParam(7)
+
+    if arg1:GetSubGoalNum() <= 0 then
+        return GOAL_RESULT_Success
+    end
+
+    if arg1:GetLife() <= 0 then
+        if f2_local0 == nil then
+            return GOAL_RESULT_Failed
+        else
+            return GOAL_RESULT_Success
+        end
+    end
+    
+    return GOAL_RESULT_Continue
+end
+
+
+
+every goal has
+- init
+- activate
+- update
+- interrupt
+- terminate
 
 
 ## subgoal chain
+
+- MoveToSomewhere
+  - ApproachSettingDirection
+  - ApproachTarget
+- CommonAttack
+  - EndureAttack (SetEnableEndureCancel)
+  - AttackImmediateAction (SetEnableImmediateAction)
+  - AttackNonCancel
+  - AttackTunableSpin
+  - Attack
+  - ComboAttack_SuccessAngle180
+  - ComboAttackTunableSpin
+  - ComboAttack
+  - ComboFinal
+  - ComboRepeat_SuccessAngle180
+  - ComboRepeat
+  - ComboTunable_SuccessAngle180
+  - GuardBreakAttack
+  - NonspinningAttack
+- BackToHome
+  - BackToHome_With_Parry
+- Wait
+  - ClearTarget
+- Turn
+
+
 
 GOAL_COMMON_LeaveTarget
 底层实现的goal

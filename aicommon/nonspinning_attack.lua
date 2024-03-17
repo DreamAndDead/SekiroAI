@@ -3,6 +3,7 @@ REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_NonspinningAttack, 1, "?U?????yType?z", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_NonspinningAttack, 2, "?????????yType?z", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_NonspinningAttack, 3, "??U???p?x", 0)
 REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_NonspinningAttack, 4, "???U???p?x", 0)
+
 function NonspinningAttack_Activate(arg0, arg1)
     local f1_local0 = arg1:GetLife()
     local f1_local1 = arg1:GetParam(0)

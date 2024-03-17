@@ -21,6 +21,7 @@ Goal.Interrupt = function(arg0, arg1, arg2)
     if arg1:IsInterupt(INTERUPT_ParryTiming) then
         return Common_Parry(arg1, arg2, 0, 0)
     end
+
     if arg1:IsInterupt(INTERUPT_ShootImpact) then
         local f5_local0 = -1
         if arg1:HasSpecialEffectId(TARGET_SELF, 221000) then
@@ -30,6 +31,7 @@ Goal.Interrupt = function(arg0, arg1, arg2)
         elseif arg1:HasSpecialEffectId(TARGET_SELF, 221002) then
             f5_local0 = 2
         end
+
         if f5_local0 == -1 then
             return false
         else
@@ -38,5 +40,6 @@ Goal.Interrupt = function(arg0, arg1, arg2)
             return true
         end
     end
+    
     return false
 end
