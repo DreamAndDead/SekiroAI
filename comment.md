@@ -1,234 +1,181 @@
-# api
+# 机制
 
-## 计时器
+## 计时机制
 
-arg1:IsFinishTimer(0)
-0 号计时器是否已经计时结束
-计时结束就保持在 0
+```lua
+--[[
+  所有计时器为单向不循环计时器
+  在设定时长之后，开始向 0 倒计时
+  到 0 即停止
 
-arg0:SetTimer(0, 10)
-将 0 号计时器置为 10s 并开始倒计时
+  return true 如果n 号计时器倒计时结束
+]]
+self:IsFinishTimer(n)
 
-arg1:GetAttackPassedTime(3020)
-获取某个动作自上次执行，过了多少s
+--[[
+  将 0 号计时器置为 10s 并启动倒计时
+]]
+self:SetTimer(0, 10)
 
-## 计数器
+--[[
+  3020 动作自上次开始，已经过了多少 s
+]]
+self:GetAttackPassedTime(3020)
+```
 
-SetNumber(22, 1)
-计数器22 设置为1，招式有计数忍耐度
+## 计数机制
+
+```lua
+--[[
+  用于招式计数忍耐度
+  
+  将计数器 22 设置为 1
+]]
+self:SetNumber(22, 1)
+```
 
 ## 空间检测
 
-arg0:GetMapHitRadius(TARGET_SELF)
+```lua
+--[[
+  取得自身胶囊碰撞体的半径，单位 m
+  在与玩家进行距离判断时，将其减去
+]]
+self:GetMapHitRadius(TARGET_SELF)
 
-取得自身胶囊碰撞体的半径，单位 m
-在进行与玩家的距离判断时，将其减去
+--[[
+  获取自己到pc的距离
+]]
+self:GetDist(TARGET_ENE_0)
 
-arg0:GetDist(TARGET_ENE_0)
+--[[
+  自己的目标是谁
 
-取得到玩家的距离
-
-arg0:GetStringIndexedNumber("targetWhich") == TARGET_SELF
-TARGET_ENE_0
-
-自己的目标焦点是谁
-如果是self，则说明对玩家没有仇恨
-主要仇恨对象，一般是玩家，也可能是其它npc
-
-
-arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90)
-- target
-- direction
-- degree
-
-目标是否在范围内
-
-正前左右 45 度组成 90 度扇形，进行检测
-
-AI_DIR_TYPE_F = 1
-AI_DIR_TYPE_B = 2
-AI_DIR_TYPE_L = 3
-AI_DIR_TYPE_R = 4
-
-AI_DIR_TYPE_ToF = 5
-AI_DIR_TYPE_ToB = 6
-AI_DIR_TYPE_ToL = 7
-AI_DIR_TYPE_ToR = 8
-AI_DIR_TYPE_Top = 9
-
-arg1:IsInsideTargetEx(TARGET_ENE_0, TARGET_SELF, AI_DIR_TYPE_F, 120, 9999)
-
-- target
-- self
-- direction
-- degree
-- distance
-
-增强版，加上了距离参数
+  主要仇恨对象，一般是玩家，也可能是其它npc
+  如果是self，则说明对玩家没有仇恨
+]]
+self:GetStringIndexedNumber("targetWhich") == TARGET_SELF
 
 
-
-SpaceCheck(arg1, arg2, 180, arg1:GetStringIndexedNumber("Dist_Step_Large"))
-
-- self
-- meanless
-- degree
-- distance
-
-正前是 0 度，顺时针增大；180是背后
-
-检测相应角度的直线上，在 dist 范围内，有没有障碍物
-
-如果没有障碍物，返回true
+--[[
+  目标是否在以自己为中心的范围内
+  
+  前后左右 4 个方向，各摆出 degree / 2 的角度构成扇形，进行检测
+]]
+self:IsInsideTarget(target, direction, degree)
+-- 加上距离
+self:IsInsideTargetEx(target, self, diretion, degree, distance)
 
 
+--[[
+  检测相应角度以 self 发出的 dist 长度的直线上，有没有障碍物
+
+  正前是 0 度，顺时针增大；180是背后
+
+  没有障碍物 返回 true
+]]
+SpaceCheck(self, meaningless, degree, distance)
+
+
+-- 发射射线，进行障碍检测
+self:IsExistMeshOnLine(TARGET_ENE_0, AI_DIR_TYPE_ToB, dist)
+
+--[[
+  添加一个后台 service，时刻进行位置检测
+
+  如果出现情况，则进行中断
+
+  self:IsInterupt(INTERUPT_Inside_ObserveArea)
+  self:IsInsideObserve(0) == true 
+  self:DeleteObserve(0)
+]]
+self:AddObserveArea(obs_name, self, target, direction, degree, distance)
+
+```
+
+# Goal
+
+## 机制描述
+
+每个 goal 中都有 4 个方法
+- activate
+  - 没有返回值
+  - 在被 add 时马上执行一次
+  - 先尝试选择交锋 act，添加对应的 subgoal
+  - 如果没有，则尝试主动 act，添加对应的 subgoal
+- update
+- terminate
+  - 没有返回值
+  - 在 goal 
+- interrupt
+  - topgoal 可以被 interrupt
+  - subgoal 一般不可以被 interrupt
+```
+                     root               
+                       |
+                     top goal
+                       |
+                    sub goal
+                      /   \
+                  sub      sub
+```
+
+每个 goal 都有自己的 lifetime，过期会 terminate
+
+topgoal 作为 root 的 subgoal
+
+top goal 是第一级的 goal，一般第一级只存在一个 goal，时长为 -1，无限存在
+topgoal 一般是一个业务 goal，和某个场景某个人物相关，虽然有时也能复用
+
+subgoal 是用于构建 topgoal 的 goal，一般功能明确，具有复用性
+
+执行过程
+
+root 添加 top goal
+清空正在执行的 top goal，添加当前 top goal，lifetime 为 -1
+马上进行 activate，一般绝对满足条件
+
+top activate 中，
+先执行 交锋 act，如果没有，则执行主动 act
+每个 act 都会添加一些 subgoal，这些 subgoal 都有 lifetime，到时会自动 term，删除节点与所有子节点
+
+
+TODO 使用伪代码来表达对算法的理解
+
+
+被弹开 招架后，动作打断，则 topgoal 进行 clear 并重新 activate
 
 
 
-arg0:IsInsideTargetEx(TARGET_ENE_0, TARGET_SELF, AI_DIR_TYPE_F, 90, parry_dist)
 
+lifetime 只有在开始 update 之后才会开始计时
 
-arg1:IsExistMeshOnLine(TARGET_ENE_0, AI_DIR_TYPE_ToB, dist)
-
-发射射线，进行障碍检测
-return true when no collision？
-
-- target，所检测的目标，可以为自己 or 玩家
-- dir
-- dist
+每次只 update root 到 leaf 链上的所有节点
 
 
 
-arg1:AddObserveArea(0, TARGET_SELF, TARGET_ENE_0, AI_DIR_TYPE_B, 45, 4)
+当前的机制，只是自己的根据现象的推测
 
-时刻进行位置的检测
-用于变招检测的身位判断
-
-- 检测区域命名
-- 检测者
-- 检测目标
-- 检测方向
-- 角度范围
-- 距离
+先将现象描述清楚
 
 
-if arg1:IsInterupt(INTERUPT_Inside_ObserveArea)
-if arg1:IsInsideObserve(0) == true 
-arg1:DeleteObserve(0)
-
-如果检测到，则触发中断
-
-## SubGoal
-
-subgoal 与  jumptable 的关系
-
-
-
-lifetime
-每个 subgoal 是有寿命时长的，过期就会自动消失
-ai的记忆力
-只要在这个时长内，执行 subgoal 的条件得到满足，ai就会执行相应的subgoal
-
-
-
+```lua
+--[[
+  当前正在执行的 subgoal 类型?
+  当前帧是否有jumptable的执行条件？
+]]
 self:IsActiveGoal(GOAL_COMMON_SidewayMove)
-当前正在执行的 subgoal 类型?队列中存在相应类型？
-当前帧是否有jumptable的执行条件？
 
-### move
+parent_goal:ClearSubGoal()
 
-arg1:AddSubGoal(GOAL_COMMON_ApproachTarget, lifetime, target, arg2, TARGET_SELF, f1_local2, f1_local3)
+goal:Replanning()
+```
 
-arg1:AddSubGoal(GOAL_COMMON_Turn, 2, TARGET_ENE_0, 20, -1, GOAL_RESULT_Success, true)
+## goal dep
 
-### EndureAttack
-            
-goal_manager:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, parry_act_id, TARGET_ENE_0, 9999, 0)
-
-准备开始承受攻击，架刀准备
-
-- goal 时长
-- 动作 id
-- target
-- 距离范围内生效
-- ？？
-
-
-生效条件，jumptable 122 允许 ai 输入 endure 命令
-
-
-### Combo
-
-arg1:AddSubGoal(GOAL_COMMON_ComboAttackTunableSpin, 10, 3000, arg0:GetStringIndexedNumber("targetWhich"), f3_local10, f3_local11, f3_local12, 0, 0)
-
-
-arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3001, arg0:GetStringIndexedNumber("targetWhich"), 9999, 0, 0)
-
-- 9999
-成功距离，只有在这个范围内，combo才会输入执行
-9999 代表必定执行，
-如果玩家离的远了，就不必执行
-
-
-
-
-    
-arg1:AddSubGoal(GOAL_COMMON_AttackTunableSpin, 10, f4_local8, arg0:GetStringIndexedNumber("targetWhich"), DistToAtt1,
-        f4_local9, f4_local10, 0, 0)
-
-arg2:AddSubGoal(GOAL_COMMON_SidewayMove, 1, TARGET_ENE_0, 1, arg1:GetRandam_Int(30, 45), true, true, -1)
-
-
-                goal_manager:AddSubGoal(GOAL_COMMON_SpinStep, 1, 5201, TARGET_ENE_0, 0, AI_DIR_TYPE_B, 0)
-后撤步
-
-### AttackImmediateAction
-
-arg0:AddTopGoal(GOAL_COMMON_AttackImmediateAction, 0.5, 20020, TARGET_SELF, 9999, 0, 0, 0, 0)
-
-瞬发
 即刻生效的动作，不需要依赖tae中的条件
 但存在屏蔽瞬发动作的event block
 disable ai immediate action
-
-
-
-        
-### arg2:ClearSubGoal()
-
-arg1:Replanning()
-
-## update logic
-
-function ApproachSettingDirection_Update(arg0, arg1, arg2)
-    local f2_local0 = arg1:GetParam(7)
-
-    if arg1:GetSubGoalNum() <= 0 then
-        return GOAL_RESULT_Success
-    end
-
-    if arg1:GetLife() <= 0 then
-        if f2_local0 == nil then
-            return GOAL_RESULT_Failed
-        else
-            return GOAL_RESULT_Success
-        end
-    end
-    
-    return GOAL_RESULT_Continue
-end
-
-
-
-every goal has
-- init
-- activate
-- update
-- interrupt
-- terminate
-
-
-## subgoal chain
 
 - MoveToSomewhere
   - ApproachSettingDirection
@@ -260,21 +207,11 @@ every goal has
 - LeaveTarget
 
 
-关联block
 
-SetTurnSpeed 224
-每秒可转向角度设置
-
-InvokeAttackBehavior
-关联相应 atk param
-开启碰撞的时间段
-
-attack 属性
+# attack 属性
 - if combo
   - if combo final
 - if turnable
-
-
 
 # ai
 
@@ -289,67 +226,40 @@ attack 属性
 当发现玩家，进入战斗状态   三角形全红，后消失
 
 
+# goal tree
 
+```lua
+function add_subgoal(goal)
+end
 
+function tick(root)
+end
 
+replan
 
+how to handle interrupt?
+service
+call interrupt func
+int by int?
 
-## 机制
+how to handle action break by parry
+clear subgoal
+replan
+```
 
-goal tree
-
-topgoal，整体运作的 root
-下面的第一级 subgoal，通常是一整套的行动体系
-一般为常驻，lifetime -1
-
-由下面的subgoal组成
-
-每个subgoal 有自己的subgoal，从root topgoal 开始，呈现树形结构
-
-当 add subgoal 时，添加到自己的子节点，并等待执行
 
 每帧循环，只执行一个 subgoal，从 root 到其的path会更新 lifetime
 
-当 update 不返回 continue 时，goal的运行结束，排到下个 goal 执行
+当 subgoal update 不返回 continue 时，subgoal 运行结束，parent goal 删除 sub goal
 
-当 topgoal update 结束时，会重新开始 activate replan，重新开始进行计划
+当 topgoal update 不为 continue，如果 lifetime -1, 会 replan，重新开始进行计划
 
-
-
-
-add top goal, 由 self 调用
-add sub goal，由 topgoal 及 subgoal 调用
-
-
-
-主动计划，是ai执行的入口
-
-循环不断的执行
-replanning
-当 subgoal 为空时
-
-
-主动计划，最先执行交锋计划
-否则进行常规计划
-
-内部的 act 最大有 50 个
-
-
-activate 无所谓返回值
-
-act 的返回值是？
-每个 act 返回当前 subgoal 队列的长度？
-no action return -1
 
 
 变招计划则与主动计划并行执行
 不断搜索可能导致变招的信号，必要时将主动计划中断
 
 
-存在一个 goal manager，存储了当前ai所有待执行的 subgoal list
-每个 subgoal 有自己的寿命，过期自动清除
-每个 subgoal 有自己的执行条件
-每帧都会检测subgoal队列，从前到后，优先级从高到低，选择能执行的subgoal，执行，并清除
 
 主动计划，交锋计划，内部分成不同的 act，每个 act 有不同的权重
 每个 act 中，内部可添加 subgoal
@@ -388,9 +298,6 @@ topgoal 决定再次进行 replan，activate 出下个 act
 
 
 
-clear subgoal 会清空所有队列？
-
-
 交锋计划是每帧都在执行的？
 在 queue 中的 act 开始 activate 后开始执行？
 
@@ -413,51 +320,9 @@ clear subgoal 会清空所有队列？
 远
 
 
-
-每个goal都注册到统一table中
-
-有5个方法
-- init
-- activate
-- update
-- term
-- int
-
-在每个方法中，可以进行 add sub goal
 add top goal
-
-get top goal
 add sub goal front
 
-
-sub goal 是一个树？
-
-
-
-logic 和 battle 的区别是什么？
-main
-int
-
-
-
-Goal.Update = function (arg0, arg1, arg2)
-    if arg2:GetSubGoalNum() <= 0 then
-        return GOAL_RESULT_Success
-    end
-    if arg2:GetLife() <= 0 then
-        return GOAL_RESULT_Success
-    end
-    return GOAL_RESULT_Continue
-    
-end
-
-
-function Update_Default_NoSubGoal(arg0, arg1, arg2)
-    if arg2:GetSubGoalNum() <= 0 then
-        return GOAL_RESULT_Success
-    end
-    return GOAL_RESULT_Continue
-end
 
 ## 主动计划 activate
 
