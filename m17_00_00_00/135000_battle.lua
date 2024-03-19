@@ -61,7 +61,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         if arg1:IsInsideTargetEx(TARGET_ENE_0, TARGET_SELF, AI_DIR_TYPE_B, 180, 9999) then
             f2_local0[6] = 1000
         end
-        if arg1:HasSpecialEffectId(TARGET_ENE_0, COMMON_SP_EFFECT_PC_BREAK) then
+        if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PC_BREAK) then
             f2_local0[4] = 100
         elseif f2_local3 >= 12 then
             f2_local0[1] = 100

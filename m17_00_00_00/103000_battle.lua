@@ -67,7 +67,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         f2_local0[6] = 400
         f2_local0[24] = 400
     end
-    if arg1:HasSpecialEffectId(TARGET_SELF, 220020) then
+    if arg1:HasSpecialEffectId(TARGET_SELF, SP_PUPPET_SHINOBI) then
         f2_local0[10] = 99999
     end
     if SpaceCheck(arg1, arg2, 45, arg1:GetStringIndexedNumber("Dist_Step_Small")) == false and SpaceCheck(arg1, arg2, -45, arg1:GetStringIndexedNumber("Dist_Step_Small")) == false then

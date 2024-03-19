@@ -1,6 +1,6 @@
 RegisterTableLogic(505000)
 Logic.Main = function (arg0, arg1)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 220010)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, SP_BLOOD_SMOKE)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110060)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110015)
     if COMMON_HiPrioritySetup(arg1) then
@@ -18,7 +18,7 @@ Logic.Main = function (arg0, arg1)
         else
             arg1:AddTopGoal(GOAL_COMMON_EndureAttack, 1, 1040, TARGET_ENE_0, 9999, 0, 0, 0, 0)
         end
-        _COMMON_SetBattleGoal(arg1)
+        COMMON_SetBattleGoal(arg1)
         arg1:SetStringIndexedNumber("findFlag", 1)
         return true
     elseif arg1:IsCautionState() then
@@ -38,7 +38,7 @@ Logic.Main = function (arg0, arg1)
             arg1:AddObserveArea(0, TARGET_SELF, TARGET_EVENT, AI_DIR_TYPE_FR, 120, 30)
         end
         arg1:SetStringIndexedNumber("findFlag", 0)
-        _COMMON_AddNonBattleGoal(arg1, -1, -1, true)
+        COMMON_AddNonBattleGoal(arg1, -1, -1, true)
         return true
     end
     
@@ -58,7 +58,7 @@ Logic.Interrupt = function (arg0, arg1, arg2)
         return true
     end
     if arg1:IsInterupt(INTERUPT_ActivateSpecialEffect) then
-        if f2_local0 == 220010 then
+        if f2_local0 == SP_BLOOD_SMOKE then
             arg1:ClearEnemyTarget()
             return true
         elseif arg1:GetSpecialEffectActivateInterruptType(0) == 110060 then

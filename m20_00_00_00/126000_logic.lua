@@ -1,7 +1,7 @@
 RegisterTableLogic(126000)
 Logic.Main = function (arg0, arg1)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5029)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 220010)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, SP_BLOOD_SMOKE)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 107710)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110060)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110015)
@@ -21,7 +21,7 @@ Logic.Main = function (arg0, arg1)
     if COMMON_HiPrioritySetup(arg1) then
         return true
     end
-    if arg1:HasSpecialEffectId(TARGET_SELF, 220020) then
+    if arg1:HasSpecialEffectId(TARGET_SELF, SP_PUPPET_SHINOBI) then
         if arg0.KugutsuAct(arg1, goal) then
             return true
         end
@@ -29,7 +29,7 @@ Logic.Main = function (arg0, arg1)
         JuzuReaction(arg1, goal, 0, 20105)
         return true
     end
-    if _COMMON_AddStateTransitionGoal(arg1) then
+    if COMMON_AddStateTransitionGoal(arg1) then
         return true
     end
     if arg1:IsBattleState() == false and arg1:IsCautionState() == false and arg1:IsFindState() == false and arg1:IsInsideTargetRegion(TARGET_SELF, 2002830) and arg1:HasSpecialEffectId(TARGET_SELF, 5021) and arg1:HasSpecialEffectId(TARGET_SELF, 5029) == false then
@@ -87,7 +87,7 @@ Logic.Main = function (arg0, arg1)
                     arg1:AddTopGoal(GOAL_COMMON_WaitWithAnime, 10, 20010, TARGET_ENE_0)
                 end
             else
-                _COMMON_SetBattleGoal(arg1)
+                COMMON_SetBattleGoal(arg1)
             end
             arg1:SetStringIndexedNumber("FirstSight", 1)
         elseif arg1:IsCautionState() then
@@ -127,7 +127,7 @@ Logic.Interrupt = function (arg0, arg1, arg2)
         return true
     end
     if arg1:IsInterupt(INTERUPT_ActivateSpecialEffect) then
-        if f2_local0 == 220010 then
+        if f2_local0 == SP_BLOOD_SMOKE then
             arg1:ClearEnemyTarget()
             return true
         elseif arg1:GetSpecialEffectActivateInterruptType(0) == 110060 then

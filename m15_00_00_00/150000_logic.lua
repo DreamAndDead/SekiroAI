@@ -2,7 +2,7 @@ RegisterTableLogic(150000)
 Logic.Main = function (arg0, arg1)
     if arg1:HasSpecialEffectId(TARGET_SELF, 3150100) then
         if not not arg1:IsFindState() or arg1:IsBattleState() then
-            _COMMON_SetBattleGoal(arg1)
+            COMMON_SetBattleGoal(arg1)
             arg1:SetStringIndexedNumber("findFlag", 1)
             return true
         else
@@ -13,7 +13,7 @@ Logic.Main = function (arg0, arg1)
         if COMMON_HiPrioritySetup(arg1) then
             return true
         end
-        if arg1:HasSpecialEffectId(TARGET_SELF, 220020) then
+        if arg1:HasSpecialEffectId(TARGET_SELF, SP_PUPPET_SHINOBI) then
             if arg0.KugutsuAct(arg1, goal) then
                 return true
             end

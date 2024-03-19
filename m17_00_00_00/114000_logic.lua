@@ -12,7 +12,7 @@ Logic.Main = function (arg0, arg1)
             arg1:AddTopGoal(GOAL_COMMON_AttackTunableSpin, 10, 20000, TARGET_ENE_0, 9999, 0, 0, 0, 0)
         end
     elseif arg1:IsBattleState() and not arg1:HasSpecialEffectId(TARGET_SELF, 3114010) then
-        _COMMON_SetBattleGoal(arg1)
+        COMMON_SetBattleGoal(arg1)
     elseif arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
         arg1:AddTopGoal(GOAL_COMMON_AttackTunableSpin, 10, 3009, TARGET_ENE_0, 9999, 0, 0, 0, 0)
     else

@@ -12,7 +12,7 @@ Logic.Main = function (arg0, arg1)
         arg1:AddTopGoal(GOAL_COMMON_AttackTunableSpin, 10, 3220, TARGET_ENE_0, 9999, 0, 0, 0, 0)
         return true
     end
-    if arg1:HasSpecialEffectId(TARGET_SELF, 220020) then
+    if arg1:HasSpecialEffectId(TARGET_SELF, SP_PUPPET_SHINOBI) then
         if arg0.KugutsuAct(arg1, goal) then
             return true
         end

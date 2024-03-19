@@ -3,7 +3,7 @@ Logic.Main = function (arg0, arg1)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110060)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110015)
     if arg1:IsBattleState() then
-        _COMMON_SetBattleGoal(arg1)
+        COMMON_SetBattleGoal(arg1)
     else
         arg1:AddTopGoal(GOAL_COMMON_Wait, 0.5, TARGET_SELF, 0, 0, 0)
     end

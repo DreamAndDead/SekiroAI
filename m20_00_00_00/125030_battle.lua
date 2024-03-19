@@ -77,7 +77,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[23] = f2_local0[23] * 4
             f2_local0[24] = f2_local0[24] * 3
         end
-        if arg1:HasSpecialEffectId(TARGET_ENE_0, COMMON_SP_EFFECT_PC_BREAK) then
+        if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PC_BREAK) then
             f2_local0[2] = 0
             f2_local0[22] = 0
             f2_local0[23] = 0

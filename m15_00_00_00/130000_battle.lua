@@ -22,7 +22,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 9620)
     if arg1:HasSpecialEffectId(TARGET_SELF, 5026) then
         f2_local0[5] = 100
-    elseif arg1:HasSpecialEffectId(TARGET_SELF, 220020) then
+    elseif arg1:HasSpecialEffectId(TARGET_SELF, SP_PUPPET_SHINOBI) then
         f2_local0[2] = 10000
     elseif Common_ActivateAct(arg1, arg2, 1) then
 

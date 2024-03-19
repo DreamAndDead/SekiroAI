@@ -2,7 +2,7 @@ RegisterTableLogic(702100)
 Logic.Main = function (arg0, arg1)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110060)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110015)
-    _COMMON_SetBattleGoal(arg1)
+    COMMON_SetBattleGoal(arg1)
     
 end
 

@@ -44,7 +44,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         KankyakuAct(arg1, arg2)
     elseif f2_local4 == 1 and arg1:GetTeamOrder(ORDER_TYPE_Role) == ROLE_TYPE_Torimaki then
         TorimakiAct(arg1, arg2, -1, 0)
-    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, COMMON_SP_EFFECT_PC_BREAK) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PC_BREAK) then
         f2_local0[5] = 100
         f2_local0[9] = 100
     elseif f2_local3 >= 7 then

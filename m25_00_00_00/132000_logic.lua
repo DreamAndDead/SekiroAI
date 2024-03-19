@@ -11,7 +11,7 @@ function LOCAL_EzSetup(arg0)
     if not arg0:HasSpecialEffectId(TARGET_SELF, 205050) and not arg0:HasSpecialEffectId(TARGET_SELF, 205051) and LOCAL_AddStateTransitionGoal(arg0) then
         return true
     end
-    _COMMON_SetBattleActLogic(arg0)
+    COMMON_SetBattleActLogic(arg0)
     if arg0:IsLadderAct(TARGET_SELF) and not arg0:HasGoal(GOAL_COMMON_LadderAct) then
         local f2_local0 = arg0:GetTopGoal()
         if f2_local0 ~= nil then

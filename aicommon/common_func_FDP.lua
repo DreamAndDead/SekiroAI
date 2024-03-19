@@ -58,7 +58,7 @@ end
 
     return true 没有障碍物
 ]]
-function SpaceCheck(self, goal_manager, angle, radius)
+function SpaceCheck(self, useless, angle, radius)
     local capsule_radius = self:GetMapHitRadius(TARGET_SELF)
     local f2_local1 = self:GetExistMeshOnLineDistSpecifyAngleEx(TARGET_SELF, angle, radius + capsule_radius,
         AI_SPA_DIR_TYPE_TargetF, capsule_radius, 0)

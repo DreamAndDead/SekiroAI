@@ -32,7 +32,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         f2_local0[2] = 100
     elseif arg1:HasSpecialEffectId(TARGET_SELF, 5028) == true then
         f2_local0[3] = 100
-    elseif arg1:HasSpecialEffectId(TARGET_SELF, 220020) then
+    elseif arg1:HasSpecialEffectId(TARGET_SELF, SP_PUPPET_SHINOBI) then
         if arg1:GetNumber(0) == 0 then
             f2_local0[7] = 100
         else
@@ -80,7 +80,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         f2_local0[33] = 100
     end
     if arg1:HasSpecialEffectId(TARGET_SELF, 5022) then
-        if arg1:HasSpecialEffectId(TARGET_SELF, 220020) then
+        if arg1:HasSpecialEffectId(TARGET_SELF, SP_PUPPET_SHINOBI) then
             f2_local0[7] = 100
         else
             f2_local0[7] = 0
@@ -202,7 +202,7 @@ Goal.Act07 = function (arg0, arg1, arg2)
         arg1:AddSubGoal(GOAL_COMMON_AttackTunableSpin, 10, 3005, TARGET_ENE_0, 9999, f7_local7, f7_local8, 0, 0)
     end
     arg0:SetTimer(0, 5)
-    if arg0:HasSpecialEffectId(TARGET_SELF, 220020) then
+    if arg0:HasSpecialEffectId(TARGET_SELF, SP_PUPPET_SHINOBI) then
         arg0:SetNumber(0, 1)
     end
     GetWellSpace_Odds = 100
@@ -355,7 +355,7 @@ Goal.Act34 = function (arg0, arg1, arg2)
     else
         arg1:AddSubGoal(GOAL_COMMON_AttackTunableSpin, 10, 3030, TARGET_ENE_0, 9999, f14_local10, f14_local11, 0, 0)
     end
-    if arg0:HasSpecialEffectId(TARGET_SELF, 220020) then
+    if arg0:HasSpecialEffectId(TARGET_SELF, SP_PUPPET_SHINOBI) then
         arg0:SetNumber(0, 0)
     end
     GetWellSpace_Odds = 100

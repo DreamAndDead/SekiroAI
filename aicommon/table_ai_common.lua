@@ -156,16 +156,16 @@ function InterruptTableLogic_Common(arg0, arg1, arg2)
         return false
     end
     if arg0:IsInterupt(INTERUPT_ActivateSpecialEffect) then
-        local f12_local2 = arg0:GetSpecialEffectActivateInterruptType(0)
-        if f12_local2 == COMMON_SP_EFFECT_PC_RETURN then
+        local int_sp = arg0:GetSpecialEffectActivateInterruptType(0)
+        if int_sp == SP_RETURN_FROM_FALLING then
             arg0:Replanning()
             return true
-        elseif f12_local2 == COMMON_SP_EFFECT_PC_DEAD then
+        elseif int_sp == SP_DEAD then
             arg0:SetStringIndexedNumber("targetDeadFlag", 1)
             arg0:Replanning()
             return false
-        elseif f12_local2 == COMMON_SP_EFFECT_PC_REVIVAL_AFTER_2 and arg0:HasSpecialEffectId(TARGET_SELF, 200000) then
-            if arg0:HasSpecialEffectId(TARGET_SELF, COMMON_SP_EFFECT_BOSS) then
+        elseif int_sp == SP_REVIVAL_AFTER_2 and arg0:HasSpecialEffectId(TARGET_SELF, 200000) then
+            if arg0:HasSpecialEffectId(TARGET_SELF, SP_BOSS) then
                 arg0:Replanning()
                 return true
             else
@@ -173,8 +173,8 @@ function InterruptTableLogic_Common(arg0, arg1, arg2)
                 arg0:AddTopGoal(GOAL_COMMON_EndureAttack, 10, 1040, TARGET_ENE_0, 9999, 0, 0, 0, 0)
                 return true
             end
-        elseif f12_local2 == COMMON_SP_EFFECT_PC_REVIVAL_AFTER_2 and arg0:HasSpecialEffectId(TARGET_SELF, 200004) then
-            if arg0:HasSpecialEffectId(TARGET_SELF, COMMON_SP_EFFECT_BOSS) then
+        elseif int_sp == SP_REVIVAL_AFTER_2 and arg0:HasSpecialEffectId(TARGET_SELF, 200004) then
+            if arg0:HasSpecialEffectId(TARGET_SELF, SP_BOSS) then
                 arg0:Replanning()
                 return true
             else
@@ -182,37 +182,37 @@ function InterruptTableLogic_Common(arg0, arg1, arg2)
                 arg0:AddTopGoal(GOAL_COMMON_EndureAttack, 10, 401040, TARGET_ENE_0, 9999, 0, 0, 0, 0)
                 return true
             end
-        elseif f12_local2 == COMMON_SP_EFFECT_PC_REVIVAL_AFTER_3 then
+        elseif int_sp == SP_REVIVAL_AFTER_3 then
             arg0:Replanning()
             return true
-        elseif f12_local2 == COMMON_SP_EFFECT_QUICK_TURN_TO_PC then
+        elseif int_sp == SP_TURN_AT_START_OF_CONVERSATION then
             arg1:ClearSubGoal()
             local f12_local3 = arg0:AddTopGoal(GOAL_COMMON_Turn, 3, TARGET_LOCALPLAYER, 20, -1, GOAL_RESULT_Success, true)
             f12_local3:SetFailedEndOption(AI_GOAL_FAILED_END_OPT__PARENT_NEXT_SUB_GOAL)
             arg0:AddTopGoal(GOAL_COMMON_Wait, 0.5, TARGET_LOCALPLAYER, 0, 0, 0)
             return true
-        elseif f12_local2 == COMMON_SP_EFFECT_ENEMY_TURN then
+        elseif int_sp == SP_ENEMY_TURN then
             if arg0:HasSpecialEffectId(TARGET_SELF, 240100) == false then
                 arg0:ClearEnemyTarget()
             end
             arg0:SetTimer(AI_TIMER_TEKIMAWASHI_REACTION, 3)
             arg0:Replanning()
             return true
-        elseif f12_local2 == COMMON_SP_EFFECT_BLOOD_SMOKE then
+        elseif int_sp == SP_BLOOD_SMOKE then
             if not not arg0:IsBattleState() or arg0:IsFindState() then
-                if not not arg0:HasSpecialEffectId(TARGET_SELF, COMMON_SP_EFFECT_ZAKO_REACTION) or arg0:HasSpecialEffectId(TARGET_SELF, COMMON_SP_EFFECT_ZAKO_NOREACTION) then
+                if not not arg0:HasSpecialEffectId(TARGET_SELF, SP_ZAKO_REACTION) or arg0:HasSpecialEffectId(TARGET_SELF, SP_ZAKO_NOREACTION) then
                     arg0:ClearEnemyTarget()
                     return true
-                elseif arg0:HasSpecialEffectId(TARGET_SELF, COMMON_SP_EFFECT_CHUBOSS_REACTION) then
+                elseif arg0:HasSpecialEffectId(TARGET_SELF, SP_CHUBOSS_REACTION) then
                     arg0:SetNumber(AI_NUMBER_BLOOD_SMOKE_BLINDNESS, 1)
                 end
             end
-        elseif f12_local2 == COMMON_SP_EFFECT_HIDE_IN_BLOOD then
-            if (not not arg0:IsBattleState() or arg0:IsFindState()) and (not not arg0:HasSpecialEffectId(TARGET_SELF, COMMON_SP_EFFECT_ZAKO_REACTION) or arg0:HasSpecialEffectId(TARGET_SELF, COMMON_SP_EFFECT_ZAKO_NOREACTION)) then
+        elseif int_sp == SP_HIDE_IN_BLOOD then
+            if (not not arg0:IsBattleState() or arg0:IsFindState()) and (not not arg0:HasSpecialEffectId(TARGET_SELF, SP_ZAKO_REACTION) or arg0:HasSpecialEffectId(TARGET_SELF, SP_ZAKO_NOREACTION)) then
                 arg0:ClearEnemyTarget()
                 return true
             end
-        elseif f12_local2 == 200250 then
+        elseif int_sp == 200250 then
             if arg0:IsFinishTimer(13) then
                 arg0:SetStringIndexedNumber("ConsecutiveGuardCount", 1)
             else
@@ -220,22 +220,22 @@ function InterruptTableLogic_Common(arg0, arg1, arg2)
                     arg0:GetStringIndexedNumber("ConsecutiveGuardCount") + 1)
             end
             arg0:SetTimer(13, 1)
-        elseif f12_local2 == 200210 or f12_local2 == 200211 then
+        elseif int_sp == 200210 or int_sp == 200211 then
             arg0:SetStringIndexedNumber("ConsecutiveGuardCount", 0)
             arg0:SetTimer(13, 0)
-        elseif f12_local2 == COMMON_SP_EFFECT_CONFUSE or f12_local2 == COMMON_SP_EFFECT_CONFUSE_GHOST then
+        elseif int_sp == SP_FINGER_WHISTLE_ENEMY_MADNESS or int_sp == SP_FINGER_WHISTLE_ENEMY_MADNESS_MINOR then
             arg0:Replanning()
             return true
         end
     end
     if arg0:IsInterupt(INTERUPT_InactivateSpecialEffect) then
         local f12_local2 = arg0:GetSpecialEffectInactivateInterruptType(0)
-        if f12_local2 == COMMON_SP_EFFECT_PC_NINSATSU then
+        if f12_local2 == SP_NINSATSU then
             arg0:Replanning()
             return true
         end
     end
-    if arg0:IsInterupt(INTERUPT_ChangeSoundTarget) and arg0:HasSpecialEffectId(TARGET_SELF, 205060) == false and arg0:HasSpecialEffectId(TARGET_SELF, 205061) == false and arg0:GetLatestSoundTargetID() ~= 7700 and (not not arg0:HasSpecialEffectId(TARGET_SELF, COMMON_SP_EFFECT_ZAKO_REACTION) or arg0:HasSpecialEffectId(TARGET_SELF, COMMON_SP_EFFECT_CHUBOSS_REACTION)) then
+    if arg0:IsInterupt(INTERUPT_ChangeSoundTarget) and arg0:HasSpecialEffectId(TARGET_SELF, 205060) == false and arg0:HasSpecialEffectId(TARGET_SELF, 205061) == false and arg0:GetLatestSoundTargetID() ~= 7700 and (not not arg0:HasSpecialEffectId(TARGET_SELF, SP_ZAKO_REACTION) or arg0:HasSpecialEffectId(TARGET_SELF, SP_CHUBOSS_REACTION)) then
         local f12_local2 = arg0:GetLatestSoundTargetRank()
         if f12_local2 == AI_SOUND_RANK__IMPORTANT then
             if arg0:IsFinishTimer(11) and arg0:GetLatestSoundTargetID() ~= arg0:GetNumber(AI_NUMBER_LATEST_SOUND_ID) then

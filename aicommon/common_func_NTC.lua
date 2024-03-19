@@ -185,7 +185,7 @@ function Common_ActivateAct(self, goal_manager, arg2, arg3)
         else
             goal_manager:AddSubGoal(GOAL_COMMON_Wait, 0.5, TARGET_SELF, 0, 0, 0)
         end
-    elseif arg2 <= 1 and (self:HasSpecialEffectId(TARGET_ENE_0, COMMON_SP_EFFECT_PC_REVIVAL_AFTER_1) or self:HasSpecialEffectId(TARGET_ENE_0, COMMON_SP_EFFECT_PC_REVIVAL_AFTER_2)) then
+    elseif arg2 <= 1 and (self:HasSpecialEffectId(TARGET_ENE_0, SP_REVIVAL_AFTER_1) or self:HasSpecialEffectId(TARGET_ENE_0, SP_REVIVAL_AFTER_2)) then
         KankyakuAct(self, goal_manager, 0)
         -- 正在忍杀
     elseif arg2 <= 1 and self:HasSpecialEffectId(TARGET_ENE_0, 110030) then
@@ -264,7 +264,9 @@ function Set_ConsecutiveGuardCount_Interrupt(arg0)
     arg0:AddObserveSpecialEffectAttribute(TARGET_SELF, 200211)
 end
 
--- TODO
+--[[
+   数珠？
+]]
 function JuzuReaction(arg0, arg1, arg2, arg3, arg4)
     local f13_local0 = arg3
     local f13_local1 = 400600
@@ -317,7 +319,7 @@ back_step_type
 function Common_Parry(self, goal_manager, endure_percent_per_guard, back_step_odd, back_step_type, parry_act_id)
     local parry_dist = GetDist_Parry(self)
     local f15_local5 = self:HasSpecialEffectId(TARGET_ENE_0, 109970)
-    local is_pc_continuous_attack = self:HasSpecialEffectId(TARGET_ENE_0, COMMON_SP_EFFECT_PC_ATTACK_RUSH)
+    local is_pc_continuous_attack = self:HasSpecialEffectId(TARGET_ENE_0, SP_CONTINUOUS_ATTACK)
 
     -- 招架中断等级
     -- 2 的级别最高
@@ -506,7 +508,7 @@ end
 ]]
 function Interupt_PC_Break(arg0, arg1, arg2)
     local f19_local0 = false
-    if arg0:IsInterupt(INTERUPT_ActivateSpecialEffect) and arg0:GetSpecialEffectActivateInterruptType(0) == COMMON_SP_EFFECT_PC_BREAK and arg0:IsStartAttack() == false then
+    if arg0:IsInterupt(INTERUPT_ActivateSpecialEffect) and arg0:GetSpecialEffectActivateInterruptType(0) == SP_PC_BREAK and arg0:IsStartAttack() == false then
         if arg1 ~= nil then
             if arg0:IsFinishTimer(arg1) then
                 f19_local0 = true

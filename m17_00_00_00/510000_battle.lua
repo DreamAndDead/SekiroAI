@@ -55,7 +55,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         elseif arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 180) and not arg1:IsExistMeshOnLine(TARGET_SELF, AI_DIR_TYPE_F, 5) and arg1:IsExistMeshOnLine(TARGET_SELF, AI_DIR_TYPE_B, 3) then
             f2_local0[42] = 50
             f2_local0[44] = 100
-        elseif arg1:HasSpecialEffectId(TARGET_ENE_0, COMMON_SP_EFFECT_PC_BREAK) and not f2_local12 then
+        elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PC_BREAK) and not f2_local12 then
             if f2_local5 > 12 then
                 f2_local0[12] = 100
             else

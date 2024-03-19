@@ -3,12 +3,12 @@ Logic.Main = function (arg0, arg1)
     if COMMON_HiPrioritySetup(arg1) then
         return true
     end
-    if arg1:HasSpecialEffectId(TARGET_SELF, 205080) and _COMMON_AddStateTransitionGoal(arg1, COMMON_FLAG_BOSS) then
+    if arg1:HasSpecialEffectId(TARGET_SELF, 205080) and COMMON_AddStateTransitionGoal(arg1, COMMON_FLAG_BOSS) then
         return true
     else
 
     end
-    if arg1:HasSpecialEffectId(TARGET_SELF, 220020) then
+    if arg1:HasSpecialEffectId(TARGET_SELF, SP_PUPPET_SHINOBI) then
         if arg0.KugutsuAct(arg1, goal) then
             return true
         end
@@ -22,7 +22,7 @@ Logic.Main = function (arg0, arg1)
         return true
     end
     if arg1:HasSpecialEffectId(TARGET_SELF, 205080) then
-        _COMMON_SetBattleGoal(arg1)
+        COMMON_SetBattleGoal(arg1)
     else
         COMMON_EzSetup(arg1)
     end

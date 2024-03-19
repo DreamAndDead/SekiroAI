@@ -48,7 +48,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         end
     elseif Common_ActivateAct(arg1, arg2, 1) then
 
-    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, COMMON_SP_EFFECT_PC_BREAK) and arg1:GetNumber(1) == 0 then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PC_BREAK) and arg1:GetNumber(1) == 0 then
         if 20 - arg1:GetMapHitRadius(TARGET_SELF) <= f2_local5 then
             f2_local0[9] = 100
         else

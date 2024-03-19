@@ -15,7 +15,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     local f2_local3 = arg1:GetDist(TARGET_ENE_0)
     local f2_local4 = arg1:GetExcelParam(AI_EXCEL_THINK_PARAM_TYPE__thinkAttr_doAdmirer)
     local f2_local5 = arg1:GetEventRequest()
-    if arg1:HasSpecialEffectId(TARGET_SELF, 220020) then
+    if arg1:HasSpecialEffectId(TARGET_SELF, SP_PUPPET_SHINOBI) then
         f2_local0[1] = 100
         f2_local0[2] = 100
     end

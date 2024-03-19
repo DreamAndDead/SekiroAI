@@ -30,7 +30,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         f2_local0[24] = 10000
         f2_local0[23] = 100
         f2_local0[26] = 1
-    elseif not not arg1:HasSpecialEffectId(TARGET_ENE_0, COMMON_SP_EFFECT_PC_REVIVAL_AFTER_1) or arg1:HasSpecialEffectId(TARGET_ENE_0, COMMON_SP_EFFECT_PC_REVIVAL_AFTER_2) then
+    elseif not not arg1:HasSpecialEffectId(TARGET_ENE_0, SP_REVIVAL_AFTER_1) or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_REVIVAL_AFTER_2) then
         TorimakiAct(arg1, arg2, 0, 0)
     elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110030) then
         if arg1:HasSpecialEffectId(TARGET_SELF, 5031) then

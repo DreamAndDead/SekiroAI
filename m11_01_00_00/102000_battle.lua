@@ -89,7 +89,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         elseif not arg1:IsExistMeshOnLine(TARGET_ENE_0, AI_DIR_TYPE_ToB, f2_local6) then
             f2_local0[1] = 100
             f2_local0[6] = 100
-        elseif arg1:HasSpecialEffectId(TARGET_ENE_0, COMMON_SP_EFFECT_PC_BREAK) then
+        elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PC_BREAK) then
             if f2_local6 >= 1 then
                 f2_local0[8] = 100
             else
@@ -1105,7 +1105,7 @@ Goal.Parry = function (arg0, arg1, arg2, arg3)
     local f43_local4 = arg0:GetRandam_Int(1, 100)
     local f43_local5 = arg0:GetRandam_Int(1, 100)
     local f43_local6 = arg0:HasSpecialEffectId(TARGET_ENE_0, 109970)
-    local f43_local7 = arg0:HasSpecialEffectId(TARGET_ENE_0, COMMON_SP_EFFECT_PC_ATTACK_RUSH)
+    local f43_local7 = arg0:HasSpecialEffectId(TARGET_ENE_0, SP_CONTINUOUS_ATTACK)
     local f43_local8 = -1
     if arg0:HasSpecialEffectId(TARGET_SELF, 221000) then
         f43_local8 = 0

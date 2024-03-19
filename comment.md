@@ -1,5 +1,18 @@
 # 机制
 
+
+# attack 属性
+- if combo
+  - if combo final
+- if turnable
+
+# 距离
+
+将距离分为 3 6 9 等
+3m 内为近距离
+中
+远
+
 ## 计时机制
 
 ```lua
@@ -95,6 +108,17 @@ self:AddObserveArea(obs_name, self, target, direction, degree, distance)
 
 # Goal
 
+## 现象
+
+当前的机制，只是自己的根据现象的推测
+
+先将现象描述清楚
+
+### wait cancel timing
+
+### 
+
+
 ## 机制描述
 
 每个 goal 中都有 4 个方法
@@ -119,6 +143,9 @@ self:AddObserveArea(obs_name, self, target, direction, degree, distance)
                       /   \
                   sub      sub
 ```
+
+启动条件
+终止条件
 
 每个 goal 都有自己的 lifetime，过期会 terminate
 
@@ -153,10 +180,6 @@ lifetime 只有在开始 update 之后才会开始计时
 每次只 update root 到 leaf 链上的所有节点
 
 
-
-当前的机制，只是自己的根据现象的推测
-
-先将现象描述清楚
 
 
 ```lua
@@ -208,14 +231,7 @@ disable ai immediate action
 
 
 
-# attack 属性
-- if combo
-  - if combo final
-- if turnable
-
-# ai
-
-## 索敌机制
+# 索敌机制
 
 自由状态的敌人，在站立 待机 巡逻
 
@@ -261,105 +277,84 @@ replan
 
 
 
-主动计划，交锋计划，内部分成不同的 act，每个 act 有不同的权重
-每个 act 中，内部可添加 subgoal
+主动计划，交锋计划，内部分成不同的 act
+每个 act 有不同的权重
+act 可添加 subgoal
 
 每个 subgoal 有不同的类型
-类型的执行条件，和tae event block中的设定相关
-
-
+启动条件，和tae event block中的设定相关
 
 wait cancel timing  subgoal
 在上个 attack 被 parry or guard 中断之后，当前的 subgoal 就中止
-topgoal 决定再次进行 replan，activate 出下个 act
-如果下个 act 不符合当前动画的 event block cancel 条件，就无法 activate，
-此时需要一个 psudo subgoal  wait cancel timing  进行占位，避免 topgoal 因为 update 结束而replan
-上次未添加的act进入一个queue，每个 update 都会检测其条件
-如果成立，则 clearsubgoal，添加当前 act
+被迫 term，因为已经和动作 id 不符合
 
 因为被弹开 招架的动作 行为并不是代码中计划的 goal
 
+topgoal 决定再次进行 replan，activate new act
 
+如果此时下个 act 不符合启动条件，当前动画的 event block cancel 条件，就无法 update
 
-当攻击动画结束后，进入 idle 态
-此时 attack subgoal 也会结束，它一直跟随着当前的动画 id
-不是这个 id 就会退出
-
-然后 topgoal 再进行replan
+此时需要一个 psudo subgoal  wait cancel timing  进行占位，避免 topgoal 因为 update 结束而replan
 
 
 未被忍杀后恢复，开始replan
 
 
 
-如果 findpath 不通，说明距离为无限，无法开启下一个 attack goal，即使是 9999 的 activate
+如果 findpath 不通，说明距离为无限，无法开启下一个 attack goal，即使是 9999 
 
-这时使用远程攻击方式，如扔石子
-
-
-
-交锋计划是每帧都在执行的？
-在 queue 中的 act 开始 activate 后开始执行？
+这时选择用远程攻击方式，如扔石子
 
 
-交锋只有小幅弹开才有可能续招
-被弹太远，无法进行交锋
-
-
-连续添加多个 subgoal 时，只要当前block event 满足就可以添加？
-还是保留在 queue 中未 activate?
 
 后一个 subgoal 总是想尽全力 cancel 前一个正在执行的 subgoal
-
 当前面没有正在执行的 subgoal 而又无法 cancel 时，用 wait cancel time 来替代
 
-
-将距离分为 3 6 9 等
-3m 内为近距离
-中
-远
-
-
-add top goal
-add sub goal front
 
 
 ## 主动计划 activate
 
-- 判断，并赋予不同技能以权重
+- 先执行交锋，如果未成功，则继续
+- 条件判断，赋予不同act以权重
 	- hp rate
 	- 躯干 rate
 	- dist
 	- random int
-	- space check，不同的度数
-- 每个技能有自己的冷却时间
-	- 在冷却时间内，使用冷却权重 1
-		- 不使用 0，为了防止无技能可用
-	- 在冷却之外，不修改权重，并重置计时器
-- 根据权重，随机选择出技能释放
-- 进行自身 目标的通知状态检测
-- 优先级打断
+	- space check
+  - 每个act有自己的冷却时间
+  	- 未冷却结束，使用冷却权重 1
+  		- 不使用 0，为了防止无技能可用
+  	- 冷却结束，不修改前置权重，重置计时器
+- 根据权重，随机选择 act 执行， add subgoal
 
-approach act flex, move to 
 
-add sub goal, 施放技能
-- goal common combo attack tunable spin
-- goal common combo repeat
-- goal common combo final
+## 交锋计划 kengeki
 
-clear sub goal
+对敌人的多数招式，如果被弹开，玩家马上反斩，敌人会优先防御，而不是发动交锋计划
+
+是否存在交锋 sp
+ 
+交锋只有小幅弹开才有可能续招
+被弹太远，无法进行交锋
+
+
+霸体敌人，ai不用考虑防御，无论近 或 远，更不用考虑交锋
+在主动计划上更为细致
+距离细分
+方位细分
+
 
 
 ## 中断变招计划 interupt
 
-参考 ai_define.lua
-
 返回 false 说明没有中断发生
 true 说明进行了中断
 
-中断有多种类型
-- sp中断，身上有某种sp引发的中断 
-  - 观察相应的sp，需要提前注册
+中断发生在 topgoal的级别上
+
+中断类型
+- 身上有某种sp引发的中断 
+  - 观察相应的sp需要提前注册
 - parry timing 防御行为中断
   - 检测到玩家的攻击信号
   - 通用ai防御
@@ -376,45 +371,71 @@ true 说明进行了中断
   - 3-6m 挥枪
   - 6m 外使用主动计划
 - 失去追踪目标引发的中断，距离太远
+- 事件引发的中断
 
-- 在技能攻击上添加状态，用于打断自己，在特定情况下
-	- 药检
-	- 变招成防御
-    - 格挡计划
-      - 检测对手的攻击前摇状态，打断主动计划，进行格挡
-
-
-变招计划不会因动作冷却而不生效
+变招计划不会考虑动作冷却而修改权重
 但出招后，会影响主动计划 交锋计划的冷却时间
 
 replan noaction 都会回到主动计划
 
-同样可引入计数器机制
 
-特殊变招
+# TODO 事件系统？
 
-可以通过信号，来与其它队友进行联动
+敌人之间的通信
 
-
-
-## 交锋计划 kengeki
-
-根据交锋类型 sp 来进行检测
-
-对敌人的多数招式，如果被弹开，玩家马上反斩，敌人会优先防御，而不是发动交锋计划
+特定地点的触发
 
 
+AI_TARGET_TYPE__NONE = 0
+AI_TARGET_TYPE__NORMAL_ENEMY = 3
+AI_TARGET_TYPE__SOUND = 4
+AI_TARGET_TYPE__MEMORY_ENEMY = 5
+AI_TARGET_TYPE__INDICATION_POS = 6
+AI_TARGET_TYPE__CORPSE_POS = 7
+
+ai 对目标类型的记忆
 
 
-对于霸体敌人，ai不用考虑防御，无论近 或 远，更不用考虑交锋
-在主动计划上更为细致
-距离细分
-方位细分
 
-可能有被弹开的交锋
+            self:ClearEnemyTarget()
+            self:ClearSoundTarget()
+            self:ClearIndicationPosTarget()
+            self:ClearLastMemoryTargetPos()
 
 
-计数机制
+ai 的4种状态 sp
 
-每次交锋计划，都会令计数器+1
-在 3 次之后，出仙峰脚，重置计数器
+AI_TARGET_STATE__NONE = 0
+AI_TARGET_STATE__CAUTION = 1
+AI_TARGET_STATE__FIND = 2
+AI_TARGET_STATE__BATTLE = 3
+
+
+find state
+battle state
+caution state
+
+normal
+
+non combat vigilance
+非战斗警戒
+
+
+combat alert
+战斗警戒
+
+
+discovery or combat
+
+
+sp 是随着程序内部的状态在改变的
+由相应的动画驱使
+
+12
+
+
+
+30
+31
+
+被pc发现，惊动自己

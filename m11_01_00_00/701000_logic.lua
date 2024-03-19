@@ -1,6 +1,6 @@
 RegisterTableLogic(701000)
 Logic.Main = function (arg0, arg1)
-    _COMMON_SetBattleGoal(arg1)
+    COMMON_SetBattleGoal(arg1)
     
 end
 

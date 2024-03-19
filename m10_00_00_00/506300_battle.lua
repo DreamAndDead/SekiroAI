@@ -54,7 +54,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         else
             f2_local0[37] = 100
         end
-    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, COMMON_SP_EFFECT_PC_BREAK) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PC_BREAK) then
         f2_local0[40] = 100
     elseif arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_B, 180) then
         if f2_local5 > 7 then
@@ -1668,7 +1668,7 @@ Goal.Parry = function (arg0, arg1, arg2, arg3)
     local f54_local5 = arg0:GetRandam_Int(1, 100)
     local f54_local6 = arg0:GetRandam_Int(1, 100)
     local f54_local7 = arg0:HasSpecialEffectId(TARGET_ENE_0, 109970)
-    local f54_local8 = arg0:HasSpecialEffectId(TARGET_ENE_0, COMMON_SP_EFFECT_PC_ATTACK_RUSH)
+    local f54_local8 = arg0:HasSpecialEffectId(TARGET_ENE_0, SP_CONTINUOUS_ATTACK)
     if arg0:IsFinishTimer(AI_TIMER_PARRY_INTERVAL) == false then
         return false
     end

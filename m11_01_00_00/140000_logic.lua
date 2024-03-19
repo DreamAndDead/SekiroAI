@@ -11,7 +11,7 @@ Logic.Main = function (arg0, arg1)
         arg1:SetStringIndexedNumber("maxHp", arg1:GetHpRate(TARGET_SELF))
         arg1:SetStringIndexedNumber("firstHpRead", 1)
     end
-    if arg1:HasSpecialEffectId(TARGET_SELF, 220020) then
+    if arg1:HasSpecialEffectId(TARGET_SELF, SP_PUPPET_SHINOBI) then
         if arg0.KugutsuAct(arg1, goal) then
             return true
         end

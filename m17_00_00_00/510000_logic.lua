@@ -1,6 +1,6 @@
 RegisterTableLogic(510000)
 Logic.Main = function (arg0, arg1)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 220010)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, SP_BLOOD_SMOKE)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 107710)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110060)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110015)
@@ -9,7 +9,7 @@ Logic.Main = function (arg0, arg1)
     if COMMON_HiPrioritySetup(arg1, COMMON_FLAG_BOSS) then
         return true
     end
-    if arg1:HasSpecialEffectId(TARGET_SELF, 200031) == false and arg1:HasSpecialEffectId(TARGET_SELF, COMMON_SP_EFFECT_SMOKE_SCREEN) and arg1:HasSpecialEffectId(TARGET_ENE_0, COMMON_SP_EFFECT_HIDE_IN_BUSH) and arg1:IsVisibleCurrTarget() == false then
+    if arg1:HasSpecialEffectId(TARGET_SELF, 200031) == false and arg1:HasSpecialEffectId(TARGET_SELF, SP_DIZZINESS) and arg1:HasSpecialEffectId(TARGET_ENE_0, SP_HIDE_IN_BUSH) and arg1:IsVisibleCurrTarget() == false then
         arg1:AddTopGoal(GOAL_COMMON_WaitWithAnime, 30, 20030, TARGET_SELF)
         arg1:AddTopGoal(GOAL_COMMON_AttackTunableSpin, 10, 20031, TARGET_ENE_0, 9999, 0, 0, 0, 0)
         arg1:AddObserveChrDmyArea(COMMON_OBSERVE_SLOT_BATTLE_STEALTH, TARGET_ENE_0, 7, 90, 120, 30, 4)
@@ -17,7 +17,7 @@ Logic.Main = function (arg0, arg1)
     end
     local f1_local1 = arg1:GetHpLastTarget()
     if not not arg1:IsFindState() or arg1:IsBattleState() then
-        _COMMON_SetBattleGoal(arg1)
+        COMMON_SetBattleGoal(arg1)
         if arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
 
         elseif arg1:HasSpecialEffectId(TARGET_SELF, 200002) then
@@ -42,7 +42,7 @@ end
 Logic.Interrupt = function (arg0, arg1, arg2)
     local f2_local0 = arg1:GetSpecialEffectActivateInterruptType(0)
     if arg1:IsInterupt(INTERUPT_ActivateSpecialEffect) then
-        if f2_local0 == 220010 then
+        if f2_local0 == SP_BLOOD_SMOKE then
             arg1:ClearEnemyTarget()
             return true
         elseif f2_local0 == 107710 then

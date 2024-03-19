@@ -31,7 +31,7 @@ Goal.Activate = function (arg0, arg1, arg2)
 
     elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 3101540) then
         f2_local0[20] = 100
-    elseif arg1:HasSpecialEffectId(TARGET_SELF, 220020) then
+    elseif arg1:HasSpecialEffectId(TARGET_SELF, SP_PUPPET_SHINOBI) then
         if arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_B, 135) then
             f2_local0[21] = 10
         else

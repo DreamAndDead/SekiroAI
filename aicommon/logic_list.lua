@@ -1,3 +1,7 @@
+--[[
+    非战斗 logic id
+    设置在 npc think param 的 logic id 项
+]]
 LOGIC_ID_Default = 0
 LOGIC_ID_Wataa1540 = 1540
 LOGIC_ID_Common10000 = 10000

@@ -637,7 +637,7 @@ Goal.Parry = function (arg0, arg1, arg2)
     local f27_local2 = arg0:GetSp(TARGET_SELF)
     local f27_local3 = arg0:GetRandam_Int(1, 100)
     local f27_local4 = 0
-    local f27_local5 = arg0:HasSpecialEffectId(TARGET_ENE_0, COMMON_SP_EFFECT_PC_ATTACK_RUSH)
+    local f27_local5 = arg0:HasSpecialEffectId(TARGET_ENE_0, SP_CONTINUOUS_ATTACK)
     if arg0:IsFinishTimer(AI_TIMER_PARRY_INTERVAL) == false then
         return false
     end

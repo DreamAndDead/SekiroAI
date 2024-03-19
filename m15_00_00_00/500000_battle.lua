@@ -110,7 +110,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[31] = 100
         elseif not arg1:IsExistMeshOnLine(TARGET_ENE_0, AI_DIR_TYPE_ToB, f2_local5) and arg1:CheckDoesExistPath(TARGET_ENE_0, AI_DIR_TYPE_F, 0, 0) == true then
             f2_local0[30] = 100
-        elseif arg1:HasSpecialEffectId(TARGET_ENE_0, COMMON_SP_EFFECT_PC_BREAK) then
+        elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PC_BREAK) then
             f2_local0[4] = 100
         elseif f2_local5 >= 10 then
             f2_local0[1] = 100

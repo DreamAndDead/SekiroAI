@@ -3,7 +3,7 @@ Logic.Main = function (arg0, arg1)
     if COMMON_HiPrioritySetup(arg1) then
         return true
     end
-    if arg1:HasSpecialEffectId(TARGET_SELF, 220020) then
+    if arg1:HasSpecialEffectId(TARGET_SELF, SP_PUPPET_SHINOBI) then
         if arg1:HasSpecialEffectId(TARGET_SELF, 3136200) then
             arg1:SetEventMoveTarget(2002241)
             if arg1:GetDist(POINT_EVENT) >= 1 then

@@ -1,5 +1,8 @@
 RegisterTableLogic(101000)
 
+--[[
+    不关乎返回值 
+]]
 Logic.Main = function(logic, self)
     self:AddObserveSpecialEffectAttribute(TARGET_SELF, 200299)
 
@@ -13,7 +16,7 @@ Logic.Main = function(logic, self)
         return true
     end
 
-    if self:HasSpecialEffectId(TARGET_SELF, 220020) then
+    if self:HasSpecialEffectId(TARGET_SELF, SP_PUPPET_SHINOBI) then
         if logic.KugutsuAct(self, goal) then
             return true
         end
@@ -23,6 +26,7 @@ Logic.Main = function(logic, self)
     end
 
     local event_req = self:GetEventRequest()
+
     if event_req == 10 then
         self:SetEventMoveTarget(9622490)
         local f1_local1 = self:GetDist_Point(POINT_EVENT)
@@ -32,11 +36,14 @@ Logic.Main = function(logic, self)
     elseif event_req == 11 then
         self:SetEventMoveTarget(9622118)
         self:AddTopGoal(GOAL_COMMON_ApproachTarget, 3, POINT_EVENT, 0, TARGET_SELF, true, -1)
+        -- 直接开始拔刀？
     elseif event_req == 12 then
         if not self:HasSpecialEffectId(TARGET_SELF, 200004) then
             self:AddTopGoal(GOAL_COMMON_AttackTunableSpin, 1, 1040, TARGET_ENE_0, 9999, 0, 0, 0, 0)
         end
+
         self:SetEventMoveTarget(9622492)
+
         local f1_local1 = self:GetDist_Point(POINT_EVENT)
         if f1_local1 > 3 then
             self:AddTopGoal(GOAL_COMMON_ApproachTarget, 3, POINT_EVENT, 0, TARGET_SELF, false, -1)
@@ -58,20 +65,18 @@ Logic.Main = function(logic, self)
         if f1_local1 > 3 then
             self:AddTopGoal(GOAL_COMMON_ApproachTarget, 3, POINT_EVENT, 0, TARGET_SELF, false, -1)
         end
+        -- 被惊动，开始搜索敌人
     elseif event_req == 30 then
         if self:GetNumber(30) == 0 then
             self:AddTopGoal(GOAL_COMMON_EndureAttack, 1, 20002, TARGET_ENE_0, 9999, 0)
             self:SetNumber(30, 1)
         end
+        -- 和 上面一样？
     elseif event_req == 31 then
         if self:GetNumber(30) == 0 then
             self:AddTopGoal(GOAL_COMMON_EndureAttack, 1, 20003, TARGET_ENE_0, 9999, 0)
             self:SetNumber(30, 1)
         end
-    elseif self:HasSpecialEffectId(TARGET_SELF, 200030) and not self:HasSpecialEffectId(TARGET_SELF, 200050) and self:HasSpecialEffectId(TARGET_SELF, 200051) then
-
-    else
-
     end
 
     COMMON_EzSetup(self, COMMON_FLAG_EXPERIMENT)
@@ -79,14 +84,18 @@ end
 
 Logic.Interrupt = function(arg0, arg1, arg2)
     if arg1:IsInterupt(INTERUPT_EventRequest) then
-        local f2_local1 = arg1:GetEventRequest()
-        if f2_local1 == 12 then
+        local event = arg1:GetEventRequest()
+        if event == 12 then
             arg1:Replanning()
         end
     end
+
     return false
 end
 
+--[[
+    傀儡行动
+]]
 Logic.KugutsuAct = function(arg0, arg1)
     if arg0:IsBattleState() == false and arg0:IsFindState() == false then
         arg0:AddTopGoal(GOAL_KugutsuAct_20000_Battle, -1)

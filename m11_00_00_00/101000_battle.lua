@@ -20,7 +20,7 @@ Goal.Activate = function(goal, self, goal_manager)
 
     self:SetStringIndexedNumber("targetWhich", TARGET_ENE_0)
     -- 和傀儡忍杀有关？
-    if self:IsInsideTargetEx(TARGET_ENE_0, TARGET_SELF, AI_DIR_TYPE_F, 120, 9999) or self:HasSpecialEffectId(TARGET_SELF, 220020) then
+    if self:IsInsideTargetEx(TARGET_ENE_0, TARGET_SELF, AI_DIR_TYPE_F, 120, 9999) or self:HasSpecialEffectId(TARGET_SELF, SP_PUPPET_SHINOBI) then
         self:SetStringIndexedNumber("karaburiDist", 0)
     else
         self:SetStringIndexedNumber("karaburiDist", 2)

@@ -178,13 +178,13 @@ function NonBattleAct_Common(arg0, arg1)
                         arg0:SetStringIndexedNumber("RouteMoveAction:AnimId  ", arg0:GetMovePointAnimId(f2_local13))
                         arg0:SetStringIndexedNumber("RouteMoveAction:WaitTime", arg0:GetMovePointWaitTime(f2_local13))
                     end
-                    if arg0:HasSpecialEffectId(TARGET_SELF, COMMON_SP_EFFECT_NOT_TURN_TO_POINT_INITIAL) then
+                    if arg0:HasSpecialEffectId(TARGET_SELF, SP_NOT_TURN_TO_NEST) then
                         arg1:AddSubGoal(GOAL_COMMON_Wait, 10)
                     else
                         arg1:AddSubGoal(GOAL_COMMON_Stay, arg1:GetLife(), 0, f2_local6)
                     end
                 end
-            elseif arg0:HasSpecialEffectId(TARGET_SELF, COMMON_SP_EFFECT_NOT_TURN_TO_POINT_INITIAL) then
+            elseif arg0:HasSpecialEffectId(TARGET_SELF, SP_NOT_TURN_TO_NEST) then
                 arg1:AddSubGoal(GOAL_COMMON_Wait, 10)
             else
                 arg1:AddSubGoal(GOAL_COMMON_Stay, arg1:GetLife(), 0, f2_local6)

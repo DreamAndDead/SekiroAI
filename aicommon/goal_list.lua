@@ -64,6 +64,11 @@ GOAL_COMMON_ClearTarget = 4020
 GOAL_COMMON_WaitCancelTiming = 5000
 GOAL_COMMON_ConfirmCautionTarget = 5100
 
+--[[
+    battle goal id list
+    设置在 npc think param 的 battle goal id 项
+]]
+
 -- 空闲状态
 GOAL_NanimoShinai_11000_Battle = 11000
 -- 傀儡状态

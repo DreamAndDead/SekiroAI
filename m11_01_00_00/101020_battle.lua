@@ -13,7 +13,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     if arg0:Kengeki_Activate(arg1, arg2) then
         return 
     end
-    if not not arg1:IsInsideTargetEx(TARGET_ENE_0, TARGET_SELF, AI_DIR_TYPE_F, 120, 9999) or arg1:HasSpecialEffectId(TARGET_SELF, 220020) then
+    if not not arg1:IsInsideTargetEx(TARGET_ENE_0, TARGET_SELF, AI_DIR_TYPE_F, 120, 9999) or arg1:HasSpecialEffectId(TARGET_SELF, SP_PUPPET_SHINOBI) then
         arg1:SetStringIndexedNumber("karaburiDist", 0)
     else
         arg1:SetStringIndexedNumber("karaburiDist", 2)

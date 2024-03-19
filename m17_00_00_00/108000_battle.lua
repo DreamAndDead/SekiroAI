@@ -41,7 +41,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         else
             f2_local0[21] = 100
         end
-    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, COMMON_SP_EFFECT_PC_BREAK) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PC_BREAK) then
         if f2_local3 >= 5 then
             f2_local0[20] = 300
             f2_local0[32] = 100

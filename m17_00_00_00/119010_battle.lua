@@ -46,7 +46,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         end
     elseif arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_B, 180) then
         f2_local0[21] = 100
-    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, COMMON_SP_EFFECT_PC_BREAK) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PC_BREAK) then
         if f2_local5 >= 5 then
             f2_local0[2] = 100
         else
