@@ -235,7 +235,7 @@ function InterruptTableLogic_Common(arg0, arg1, arg2)
             return true
         end
     end
-    if arg0:IsInterupt(INTERUPT_ChangeSoundTarget) and arg0:HasSpecialEffectId(TARGET_SELF, 205060) == false and arg0:HasSpecialEffectId(TARGET_SELF, 205061) == false and arg0:GetLatestSoundTargetID() ~= 7700 and (not not arg0:HasSpecialEffectId(TARGET_SELF, SP_ZAKO_REACTION) or arg0:HasSpecialEffectId(TARGET_SELF, SP_CHUBOSS_REACTION)) then
+    if arg0:IsInterupt(INTERUPT_ChangeSoundTarget) and arg0:HasSpecialEffectId(TARGET_SELF, 205060) == false and arg0:HasSpecialEffectId(TARGET_SELF, 205061) == false and arg0:GetLatestSoundTargetID() ~= SOUND_ENEMY_TURN and (not not arg0:HasSpecialEffectId(TARGET_SELF, SP_ZAKO_REACTION) or arg0:HasSpecialEffectId(TARGET_SELF, SP_CHUBOSS_REACTION)) then
         local f12_local2 = arg0:GetLatestSoundTargetRank()
         if f12_local2 == AI_SOUND_RANK__IMPORTANT then
             if arg0:IsFinishTimer(11) and arg0:GetLatestSoundTargetID() ~= arg0:GetNumber(AI_NUMBER_LATEST_SOUND_ID) then

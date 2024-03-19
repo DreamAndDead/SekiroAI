@@ -4,7 +4,6 @@ function Normal_Activate(arg0, arg1)
     local f1_local2 = arg0:GetRandam_Int(1, 100)
     local f1_local3 = 2
     local f1_local4 = 4
-    local f1_local5 = 0
     local f1_local6 = 3000
     local f1_local7 = 3000
     local f1_local8 = 3000
@@ -21,10 +20,10 @@ function Normal_Activate(arg0, arg1)
     local f1_local19 = 30
     local f1_local20 = 20
     local f1_local21 = 6
-    local f1_local22 = 0
     local f1_local23 = 9
     local f1_local24 = 7
     local f1_local25 = 3
+
     if f1_local0 <= f1_local21 then
         if f1_local0 < f1_local3 then
             if f1_local1 <= f1_local12 then
@@ -78,7 +77,6 @@ end
 function Normal_Interupt(arg0, arg1)
     local f4_local0 = arg0:GetDist(TARGET_ENE_0)
     local f4_local1 = arg0:GetRandam_Int(1, 100)
-    local f4_local2 = arg0:GetRandam_Int(1, 100)
     local f4_local3 = 3
     local f4_local4 = 50
     local f4_local5 = 9910
@@ -91,6 +89,7 @@ function Normal_Interupt(arg0, arg1)
     local f4_local12 = 3
     local f4_local13 = 40
     local f4_local14 = 3000
+
     if arg0:IsInterupt(INTERUPT_FindAttack) and f4_local0 <= f4_local3 and f4_local1 <= f4_local4 then
         arg1:ClearSubGoal()
         arg1:AddSubGoal(GOAL_COMMON_Guard, 5, f4_local5, TARGET_ENE_0, 0, 0)
@@ -111,5 +110,6 @@ function Normal_Interupt(arg0, arg1)
         arg1:AddSubGoal(GOAL_COMMON_Attack, 5, f4_local14, TARGET_ENE_0, DIST_Near, 0)
         return true
     end
+    
     return false
 end

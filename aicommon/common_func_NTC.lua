@@ -141,7 +141,7 @@ end
 
 --[[
     和角色死亡 复活 守尸相关
-    
+
     return true 如果执行了相应的act
 ]]
 function Common_ActivateAct(self, goal_manager, arg2, arg3)
@@ -267,22 +267,14 @@ end
 --[[
    数珠？
 ]]
-function JuzuReaction(arg0, arg1, arg2, arg3, arg4)
-    local f13_local0 = arg3
-    local f13_local1 = 400600
-    local f13_local2 = arg0:GetRandam_Int(1, 100)
-    local f13_local3 = arg0:GetRandam_Int(1, 100)
+function JuzuReaction(self, arg1, arg2, arg3, arg4)
+    local attack_act_id = arg3
+    if arg4 ~= nil and self:GetRandam_Int(1, 100) <= 50 then
+        attack_act_id = arg4
+    end
 
-    if arg4 ~= nil and f13_local2 <= 50 then
-        f13_local0 = arg4
-    end
-    if arg2 == 0 then
-        local f13_local4 = arg0:AddTopGoal(GOAL_COMMON_AttackTunableSpin, 10, f13_local0, TARGET_NONE, 9999, 0, 0, 0, 0)
-        f13_local4:TimingSetTimer(AI_TIMER_TEKIMAWASHI_REACTION, 0, AI_TIMING_SET__ACTIVATE)
-    else
-        local f13_local4 = arg0:AddTopGoal(GOAL_COMMON_AttackTunableSpin, 10, f13_local0, TARGET_NONE, 9999, 0, 0, 0, 0)
-        f13_local4:TimingSetTimer(AI_TIMER_TEKIMAWASHI_REACTION, 0, AI_TIMING_SET__ACTIVATE)
-    end
+    local topgoal = self:AddTopGoal(GOAL_COMMON_AttackTunableSpin, 10, attack_act_id, TARGET_NONE, 9999, 0, 0, 0, 0)
+    topgoal:TimingSetTimer(AI_TIMER_TEKIMAWASHI_REACTION, 0, AI_TIMING_SET__ACTIVATE)
 
     return true
 end

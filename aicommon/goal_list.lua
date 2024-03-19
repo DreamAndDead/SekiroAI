@@ -8,12 +8,36 @@ GOAL_COMMON_Wait = 2000
 GOAL_COMMON_Turn = 2001
 GOAL_COMMON_WaitWithAnime = 2005
 GOAL_COMMON_MoveToSomewhereSmooth = 2013
+--[[
+    param
+
+    0. 移动到哪个目标
+    1. 到达判定距离，需要接近到目标多近
+    2. 旋转对象？
+    3. 走 or 跑？
+    4. state
+]]
 GOAL_COMMON_ApproachTarget = 2015
 GOAL_COMMON_LeaveTarget = 2016
 GOAL_COMMON_SidewayMove = 2017
 GOAL_COMMON_SidewayMoveAng = 2030
 GOAL_COMMON_SidewayMoveAvoidChr = 2036
 GOAL_COMMON_KeepDist = 2018
+--[[
+    param
+
+    0. 移动到哪个目标
+    1. 方向？
+    2. 到达判定距离，需要接近到目标多近
+    3. 旋转对象？
+    4. 走 or 跑？
+    5. 方向？
+    6. 0？
+    7. 
+    8. state
+    9. 
+    10. 
+]]
 GOAL_COMMON_MoveToSomewhere = 2019
 GOAL_COMMON_SpinStep = 2020
 GOAL_COMMON_MoveTargetRelationPos = 2023
@@ -38,6 +62,13 @@ GOAL_COMMON_NonspinningAttack = 2104
 GOAL_COMMON_ApproachStep = 2107
 GOAL_COMMON_Parry = 2113
 GOAL_COMMON_TeamReplyHelp = 2117
+--[[
+    most important goal
+
+    0.
+    1.
+    2.
+]]
 GOAL_COMMON_CommonAttack = 2200
 GOAL_COMMON_ComboRepeat = 2210
 GOAL_COMMON_ComboFinal = 2211
@@ -46,6 +77,11 @@ GOAL_COMMON_ComboAttackTunableSpin = 2221
 GOAL_COMMON_ComboAttack_SuccessAngle180 = 2230
 GOAL_COMMON_ComboRepeat_SuccessAngle180 = 2231
 GOAL_COMMON_ComboTunable_SuccessAngle180 = 2253
+--[[
+    param
+
+    0.
+]]
 GOAL_COMMON_EndureAttack = 2260
 GOAL_COMMON_AttackImmediateAction = 2262
 GOAL_COMMON_AttackNonCancel = 2263
@@ -59,6 +95,7 @@ GOAL_COMMON_Approach_On_FailedPath = 2701
 GOAL_COMMON_WalkAround_On_FailedPath = 2702
 GOAL_COMMON_BackToHome_On_FailedPath = 2703
 GOAL_COMMON_BackToHome_With_Parry = 2704
+-- wait and see
 GOAL_COMMON_YousumiAct = 2800
 GOAL_COMMON_ClearTarget = 4020
 GOAL_COMMON_WaitCancelTiming = 5000

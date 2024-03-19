@@ -16,6 +16,9 @@ Logic.Main = function(logic, self)
         return true
     end
 
+    -- param place holder
+    local goal = nil
+
     if self:HasSpecialEffectId(TARGET_SELF, SP_PUPPET_SHINOBI) then
         if logic.KugutsuAct(self, goal) then
             return true
@@ -101,5 +104,6 @@ Logic.KugutsuAct = function(arg0, arg1)
         arg0:AddTopGoal(GOAL_KugutsuAct_20000_Battle, -1)
         return true
     end
+    
     return false
 end

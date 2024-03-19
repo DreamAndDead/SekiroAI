@@ -129,6 +129,9 @@ function COMMON_SetBattleActLogic(self, flag)
     end
 end
 
+--[[
+    battle goal?
+]]
 function COMMON_AddBattleGoal(self, flag)
     local cur_target_type = self:GetCurrTargetType()
     local situation = 0
@@ -176,16 +179,20 @@ function COMMON_AddBattleGoal(self, flag)
         COMMON_AddNonBattleGoal(self, 10, -1, true)
     end
 
-    self:SetNumber(AI_NUMBER_LATEST_ACTION, COMMON_LATEST_ACTION_BATTLEGOAL)
+    self:SetNumber(AI_NUMBER_LATEST_ACTION, LATEST_ACTION_BATTLE_GOAL)
 end
 
+--[[
+    进行 caution and find
+]]
 function COMMON_AddCautionAndFindGoal(self, situation, flag)
     local to_caution_act = self:GetExcelParam(AI_EXCEL_THINK_PARAM_TYPE__goalAction_ToCaution)
     local to_caution_important_act = self:GetExcelParam(AI_EXCEL_THINK_PARAM_TYPE__goalAction_ToCautionImportant)
     local to_caution_corpse_target_act = self:GetExcelParam(AI_EXCEL_THINK_PARAM_TYPE__goalAction_ToCautionCorpseTarget)
     local to_find_act = self:GetExcelParam(AI_EXCEL_THINK_PARAM_TYPE__goalAction_ToFind)
     local to_disappear_act = self:GetExcelParam(AI_EXCEL_THINK_PARAM_TYPE__goalAction_ToDisappear)
-    local to_caution_indication_target_act = self:GetExcelParam(AI_EXCEL_THINK_PARAM_TYPE__goalAction_ToCautionIndicationTarget)
+    local to_caution_indication_target_act = self:GetExcelParam(
+        AI_EXCEL_THINK_PARAM_TYPE__goalAction_ToCautionIndicationTarget)
 
     --[[
         0 non battle
@@ -234,7 +241,8 @@ function COMMON_AddCautionAndFindGoal(self, situation, flag)
         elseif goal_action == 2 then
             if self:CheckDoesExistPathWithSetPoint(TARGET_ENE_0, AI_DIR_TYPE_F, 0, 0) == false then
                 if SpaceCheck(self, goal, 0, 3) == true then
-                    self:AddTopGoal(GOAL_COMMON_ApproachTarget, 5, POINT_UnreachTerminate, approach_dist, TARGET_SELF, true, -1)
+                    self:AddTopGoal(GOAL_COMMON_ApproachTarget, 5, POINT_UnreachTerminate, approach_dist, TARGET_SELF,
+                        true, -1)
                 elseif self:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
                     self:AddTopGoal(GOAL_COMMON_Stay, 1, 0, TARGET_ENE_0)
                 else
@@ -244,7 +252,8 @@ function COMMON_AddCautionAndFindGoal(self, situation, flag)
                 self:AddTopGoal(GOAL_COMMON_Turn, 3, TARGET_ENE_0, 40, -1, GOAL_RESULT_Success, true)
 
                 if not self:HasSpecialEffectId(TARGET_SELF, SP_BLOOD_SMOKE) and not self:HasSpecialEffectId(TARGET_SELF, SP_FIRE_CRACKER) then
-                    self:AddTopGoal(GOAL_COMMON_MoveToSomewhere, -1, TARGET_ENE_0, AI_DIR_TYPE_CENTER, approach_dist, TARGET_SELF, true)
+                    self:AddTopGoal(GOAL_COMMON_MoveToSomewhere, -1, TARGET_ENE_0, AI_DIR_TYPE_CENTER, approach_dist,
+                        TARGET_SELF, true)
                 end
             end
         elseif goal_action == 3 then
@@ -256,9 +265,11 @@ function COMMON_AddCautionAndFindGoal(self, situation, flag)
                         f7_local20 = true
                     end
 
-                    self:AddTopGoal(GOAL_COMMON_ApproachTarget, 5, POINT_UnreachTerminate, approach_dist, TARGET_SELF, f7_local20, -1)
+                    self:AddTopGoal(GOAL_COMMON_ApproachTarget, 5, POINT_UnreachTerminate, approach_dist, TARGET_SELF,
+                        f7_local20, -1)
                 elseif SpaceCheck(self, goal, 0, 3) == true then
-                    self:AddTopGoal(GOAL_COMMON_ApproachTarget, 5, POINT_UnreachTerminate, approach_dist, TARGET_SELF, true, -1)
+                    self:AddTopGoal(GOAL_COMMON_ApproachTarget, 5, POINT_UnreachTerminate, approach_dist, TARGET_SELF,
+                        true, -1)
                 elseif self:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
                     self:AddTopGoal(GOAL_COMMON_Stay, 1, 0, TARGET_ENE_0)
                 else
@@ -296,27 +307,28 @@ function COMMON_AddCautionAndFindGoal(self, situation, flag)
             end
         end
 
-        local f7_local20 = 600
+        local confirm_caution_act = 600
         if self:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) or self:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_COMBAT_ALERT) then
             if rand_int_1t100 <= 50 then
-                f7_local20 = 400600
+                confirm_caution_act = 400600
             else
-                f7_local20 = 400610
+                confirm_caution_act = 400610
             end
         elseif rand_int_1t100 <= 50 then
-            f7_local20 = 610
+            confirm_caution_act = 610
         end
+
         self:RegisterTriggerRegionObserver(1000)
-        if self:GetNumber(AI_NUMBER_LATEST_ACTION) == COMMON_LATEST_ACTION_NONBATTLEGOAL_BATTLE then
-            self:AddTopGoal(GOAL_COMMON_ConfirmCautionTarget, 30, f7_local20, TARGET_SELF, self:GetRandam_Float(4, 6),
-                TARGET_SELF)
-        elseif self:GetCurrTargetType() == AI_TARGET_TYPE__SOUND and self:GetLatestSoundTargetID() == 7700 then
-            self:AddTopGoal(GOAL_COMMON_ConfirmCautionTarget, 30, f7_local20, TARGET_SELF, self:GetRandam_Float(4, 6),
-                TARGET_SELF)
+
+        if self:GetNumber(AI_NUMBER_LATEST_ACTION) == LATEST_ACTION_NON_BATTLE_GOAL_BATTLE or
+            (self:GetCurrTargetType() == AI_TARGET_TYPE__SOUND and self:GetLatestSoundTargetID() == SOUND_ENEMY_TURN)
+        then
+            self:AddTopGoal(GOAL_COMMON_ConfirmCautionTarget, 30, confirm_caution_act, TARGET_SELF,
+                self:GetRandam_Float(4, 6), TARGET_SELF)
         elseif goal_action == 1 then
             self:AddTopGoal(GOAL_COMMON_Turn, 3, TARGET_ENE_0, 40, -1, GOAL_RESULT_Success, true)
-            self:AddTopGoal(GOAL_COMMON_ConfirmCautionTarget, 30, f7_local20, TARGET_SELF, self:GetRandam_Float(6, 7),
-                TARGET_SELF)
+            self:AddTopGoal(GOAL_COMMON_ConfirmCautionTarget, 30, confirm_caution_act, TARGET_SELF,
+                self:GetRandam_Float(6, 7), TARGET_SELF)
         elseif goal_action == 2 then
             if self:CheckDoesExistPathWithSetPoint(TARGET_ENE_0, AI_DIR_TYPE_F, 0, 0) == false then
                 if situation == 0 then
@@ -325,13 +337,13 @@ function COMMON_AddCautionAndFindGoal(self, situation, flag)
                         self:AddTopGoal(GOAL_COMMON_MoveToSomewhere, -1, POINT_INITIAL, AI_DIR_TYPE_CENTER, approach_dist,
                             TARGET_ENE_0, false)
                     else
-                        self:AddTopGoal(GOAL_COMMON_ConfirmCautionTarget, 30, f7_local20, TARGET_SELF,
+                        self:AddTopGoal(GOAL_COMMON_ConfirmCautionTarget, 30, confirm_caution_act, TARGET_SELF,
                             self:GetRandam_Float(3, 4), TARGET_SELF)
                     end
                 else
                     self:AddTopGoal(GOAL_COMMON_YousumiAct, 10, false, 60, 30, -1)
                     self:AddTopGoal(GOAL_COMMON_Turn, 3, TARGET_ENE_0, 40, -1, GOAL_RESULT_Success, true)
-                    self:AddTopGoal(GOAL_COMMON_ConfirmCautionTarget, 30, f7_local20, TARGET_SELF,
+                    self:AddTopGoal(GOAL_COMMON_ConfirmCautionTarget, 30, confirm_caution_act, TARGET_SELF,
                         self:GetRandam_Float(3, 4), TARGET_SELF)
                 end
             elseif approach_dist + 0.5 < dist_to_player then
@@ -339,36 +351,40 @@ function COMMON_AddCautionAndFindGoal(self, situation, flag)
                     self:AddTopGoal(GOAL_COMMON_MoveToSomewhere, -1, TARGET_ENE_0, AI_DIR_TYPE_CENTER, approach_dist,
                         TARGET_SELF, true)
                 else
-                    self:AddTopGoal(GOAL_COMMON_ConfirmCautionTarget, 30, f7_local20, TARGET_SELF,
+                    self:AddTopGoal(GOAL_COMMON_ConfirmCautionTarget, 30, confirm_caution_act, TARGET_SELF,
                         self:GetRandam_Float(7, 8), TARGET_SELF)
                 end
             else
                 self:RegisterTriggerRegion(1000, self:GetLatestSoundTargetInstanceID(), 5, 5, TARGET_SELF, AI_DIR_TYPE_F,
                     0)
+
                 self:AddTopGoal(GOAL_COMMON_Turn, 3, TARGET_ENE_0, 40, -1, GOAL_RESULT_Success, true)
-                self:AddTopGoal(GOAL_COMMON_ConfirmCautionTarget, 30, f7_local20, TARGET_SELF, self:GetRandam_Float(3, 4),
+                self:AddTopGoal(GOAL_COMMON_ConfirmCautionTarget, 30, confirm_caution_act, TARGET_SELF,
+                    self:GetRandam_Float(3, 4),
                     TARGET_SELF)
             end
         elseif goal_action == 3 then
             if self:CheckDoesExistPathWithSetPoint(TARGET_ENE_0, AI_DIR_TYPE_F, 0, 0) == false then
                 if situation == 0 then
                     local f7_local21 = self:GetDist_Point(POINT_INITIAL)
+
                     if approach_dist + 0.5 < f7_local21 then
                         self:AddTopGoal(GOAL_COMMON_MoveToSomewhere, -1, POINT_INITIAL, AI_DIR_TYPE_CENTER, approach_dist,
                             TARGET_ENE_0, false)
                     else
-                        self:AddTopGoal(GOAL_COMMON_ConfirmCautionTarget, 30, f7_local20, TARGET_SELF,
+                        self:AddTopGoal(GOAL_COMMON_ConfirmCautionTarget, 30, confirm_caution_act, TARGET_SELF,
                             self:GetRandam_Float(3, 4), TARGET_SELF)
                     end
                 else
                     self:AddTopGoal(GOAL_COMMON_YousumiAct, 10, false, 60, 30, -1)
                     self:AddTopGoal(GOAL_COMMON_Turn, 3, TARGET_ENE_0, 40, -1, GOAL_RESULT_Success, true)
-                    self:AddTopGoal(GOAL_COMMON_ConfirmCautionTarget, 30, f7_local20, TARGET_SELF,
+                    self:AddTopGoal(GOAL_COMMON_ConfirmCautionTarget, 30, confirm_caution_act, TARGET_SELF,
                         self:GetRandam_Float(3, 4), TARGET_SELF)
                 end
             elseif approach_dist + 0.5 < dist_to_player then
                 if not self:HasSpecialEffectId(TARGET_SELF, SP_BLOOD_SMOKE) then
                     local f7_local21 = self:HasSpecialEffectId(TARGET_SELF, SP_FIRE_CRACKER)
+
                     if not f7_local21 then
                         f7_local21 = false
                         if self:IsInsideTargetRegion(TARGET_SELF, COMMON_REGION_FORCE_WALK_M11_0) then
@@ -377,26 +393,32 @@ function COMMON_AddCautionAndFindGoal(self, situation, flag)
                         self:AddTopGoal(GOAL_COMMON_MoveToSomewhere, -1, TARGET_ENE_0, AI_DIR_TYPE_CENTER,
                             approach_dist, TARGET_SELF, f7_local21)
                     else
-                        self:AddTopGoal(GOAL_COMMON_ConfirmCautionTarget, 30, f7_local20, TARGET_SELF,
+                        self:AddTopGoal(GOAL_COMMON_ConfirmCautionTarget, 30, confirm_caution_act, TARGET_SELF,
                             self:GetRandam_Float(3, 4), TARGET_SELF)
                     end
                 end
-                self:AddTopGoal(GOAL_COMMON_ConfirmCautionTarget, 30, f7_local20, TARGET_SELF, self:GetRandam_Float(3, 4),
+
+                self:AddTopGoal(GOAL_COMMON_ConfirmCautionTarget, 30, confirm_caution_act, TARGET_SELF,
+                    self:GetRandam_Float(3, 4),
                     TARGET_SELF)
             else
                 self:RegisterTriggerRegion(1000, self:GetLatestSoundTargetInstanceID(), 5, 5, TARGET_SELF, AI_DIR_TYPE_F,
                     0)
+
                 self:AddTopGoal(GOAL_COMMON_Turn, 3, TARGET_ENE_0, 40, -1, GOAL_RESULT_Success, true)
-                self:AddTopGoal(GOAL_COMMON_ConfirmCautionTarget, 30, f7_local20, TARGET_SELF, self:GetRandam_Float(3, 4),
+                self:AddTopGoal(GOAL_COMMON_ConfirmCautionTarget, 30, confirm_caution_act, TARGET_SELF,
+                    self:GetRandam_Float(3, 4),
                     TARGET_SELF)
             end
         elseif goal_action == 4 then
             self:AddTopGoal(GOAL_COMMON_Turn, 3, TARGET_ENE_0, 40, -1, GOAL_RESULT_Success, true)
-            self:AddTopGoal(GOAL_COMMON_ConfirmCautionTarget, 30, f7_local20, TARGET_SELF, self:GetRandam_Float(6, 7),
+            self:AddTopGoal(GOAL_COMMON_ConfirmCautionTarget, 30, confirm_caution_act, TARGET_SELF,
+                self:GetRandam_Float(6, 7),
                 TARGET_SELF)
         elseif goal_action == 5 then
             if approach_dist <= dist_to_player then
-                self:AddTopGoal(GOAL_COMMON_ConfirmCautionTarget, 30, f7_local20, TARGET_SELF, self:GetRandam_Float(3, 4),
+                self:AddTopGoal(GOAL_COMMON_ConfirmCautionTarget, 30, confirm_caution_act, TARGET_SELF,
+                    self:GetRandam_Float(3, 4),
                     TARGET_SELF)
             elseif approach_dist / 2 <= dist_to_player then
                 self:AddTopGoal(GOAL_COMMON_LeaveTarget, -1, TARGET_ENE_0, approach_dist, TARGET_ENE_0, true, -1)
@@ -405,24 +427,31 @@ function COMMON_AddCautionAndFindGoal(self, situation, flag)
             end
         else
             self:AddTopGoal(GOAL_COMMON_Turn, 3, TARGET_ENE_0, 40, -1, GOAL_RESULT_Success, true)
-            self:AddTopGoal(GOAL_COMMON_ConfirmCautionTarget, 30, f7_local20, TARGET_SELF, self:GetRandam_Float(6, 7),
+            self:AddTopGoal(GOAL_COMMON_ConfirmCautionTarget, 30, confirm_caution_act, TARGET_SELF,
+                self:GetRandam_Float(6, 7),
                 TARGET_SELF)
         end
     end
 end
 
-function COMMON_AddNonBattleGoal(arg0, arg1, arg2, arg3)
-    arg0:TeamHelp_ValidateCall()
-    arg0:TeamHelp_ValidateReply()
+--[[
+    non battle goal?
+]]
+function COMMON_AddNonBattleGoal(self, lifetime, arg2, arg3)
+    self:TeamHelp_ValidateCall()
+    self:TeamHelp_ValidateReply()
+
     local f8_local0 = -1
-    if not not arg0:HasSpecialEffectId(TARGET_SELF, 205100) or arg0:HasSpecialEffectId(TARGET_SELF, 205101) then
+    if self:HasSpecialEffectId(TARGET_SELF, 205100) or self:HasSpecialEffectId(TARGET_SELF, 205101) then
         f8_local0 = 9920
     end
-    arg0:AddTopGoal(GOAL_COMMON_NonBattleAct, arg1, arg2, arg3, false, POINT_INIT_POSE, 0, 0, f8_local0)
-    if not not arg0:IsBattleState() or not not arg0:IsFindState() or arg0:IsCautionState() then
-        arg0:SetNumber(AI_NUMBER_LATEST_ACTION, COMMON_LATEST_ACTION_NONBATTLEGOAL_BATTLE)
+
+    self:AddTopGoal(GOAL_COMMON_NonBattleAct, lifetime, arg2, arg3, false, POINT_INIT_POSE, 0, 0, f8_local0)
+
+    if self:IsBattleState() or self:IsFindState() or self:IsCautionState() then
+        self:SetNumber(AI_NUMBER_LATEST_ACTION, LATEST_ACTION_NON_BATTLE_GOAL_BATTLE)
     else
-        arg0:SetNumber(AI_NUMBER_LATEST_ACTION, COMMON_LATEST_ACTION_NONBATTLEGOAL_NON)
+        self:SetNumber(AI_NUMBER_LATEST_ACTION, LATEST_ACTION_NON_BATTLE_GOAL_NON)
     end
 end
 

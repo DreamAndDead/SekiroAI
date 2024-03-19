@@ -14,12 +14,14 @@ function EndureAttack_Activate(arg0, arg1)
     local f1_local4 = 180
     local f1_local5 = arg1:GetParam(3)
     local f1_local6 = arg1:GetParam(4)
+
     if f1_local5 < 0 then
         f1_local5 = 1.5
     end
     if f1_local6 < 0 then
         f1_local6 = 20
     end
+    
     local f1_local7 = true
     local f1_local8 = false
     local f1_local9 = true

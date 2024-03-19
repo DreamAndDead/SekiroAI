@@ -5,7 +5,6 @@ REGISTER_DBG_GOAL_PARAM(GOAL_COMMON_WalkAround, 2, "?G????????��??", 0)
 function WalkAround_Activate(arg0, arg1)
     local f1_local0 = arg1:GetParam(0)
     local f1_local1 = arg1:GetParam(1)
-    local f1_local2 = arg1:GetParam(2)
     local f1_local3 = arg1:GetParam(3) ~= 0
     local f1_local4 = 30
     local f1_local5 = POINT_WalkAroundPosition_Home

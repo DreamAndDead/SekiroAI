@@ -29,25 +29,13 @@ function _GetId(arg0, arg1)
 end
 
 local f0_local0 = -1
-local f0_local1 = 0
-local f0_local2 = 1
-local f0_local3 = 2
-local f0_local4 = 3
-local f0_local5 = 4
-local f0_local6 = 5
-local f0_local7 = 6
-local f0_local8 = 7
 local f0_local9 = 8
 local f0_local10 = 9
 local f0_local11 = 23
 local f0_local12 = 7210
 local f0_local13 = 7220
-local f0_local14 = 7230
 function LadderAct_Activate(arg0, arg1)
-    local f2_local0 = arg1:GetParam(0)
-    local f2_local1 = arg1:GetParam(1)
     local f2_local2 = arg1:GetParam(2)
-    local f2_local3 = f2_local2
     local f2_local4 = arg0:GetLadderActState(TARGET_SELF)
     local f2_local5 = 0
     local f2_local6 = arg0:CalcGetNearestLadderActDmyIdByLadderObj()
@@ -72,7 +60,6 @@ function LadderAct_Activate(arg0, arg1)
 end
 
 function LadderAct_Update(arg0, arg1)
-    local f3_local0 = arg1:GetParam(0)
     local f3_local1 = arg1:GetParam(1)
     if arg0:LastPathFindingIsFailed() == false and arg0:HasPathResult() == false then
         arg0:FollowPath(f3_local1, AI_DIR_TYPE_CENTER, 1.5, true, 0)

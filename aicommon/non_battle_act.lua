@@ -24,8 +24,6 @@ function NonBattleAct_Activate(arg0, arg1)
 
         if f1_local2 == 5 then
             if arg0:IsSearchTarget(TARGET_ENE_0) then
-                local f1_local4 = arg1:GetParam(7)
-                local f1_local5 = arg1:GetParam(6)
                 arg1:AddSubGoal(GOAL_COMMON_BackToHome_With_Parry, arg1:GetLife())
             elseif f1_local3 < 1 then
                 arg1:AddSubGoal(GOAL_COMMON_Stay, 0.5, 0, TARGET_TEAM_FORMATION)
@@ -137,12 +135,9 @@ function NonBattleAct_Common(arg0, arg1)
             f2_local7 = 1
         end
         if f2_local7 < f2_local5 then
-            local f2_local11 = arg1:GetParam(7)
             if not not arg0:HasSpecialEffectId(TARGET_SELF, 205070) or arg0:HasSpecialEffectId(TARGET_SELF, 205071) then
                 arg1:AddSubGoal(GOAL_COMMON_Wait, 5, TARGET_SELF, 0, 0, 0)
             else
-                local f2_local12 = arg1:GetParam(7)
-                local f2_local13 = arg1:GetParam(6)
                 arg1:AddSubGoal(GOAL_COMMON_BackToHome_With_Parry, arg1:GetLife())
             end
         else
