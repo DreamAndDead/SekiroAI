@@ -156,7 +156,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     if arg1:HasSpecialEffectId(TARGET_SELF, 5020) then
         f2_local0[8] = 0
     end
-    if not not arg1:IsInsideTargetRegion(TARGET_SELF, 1112250) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 1112250) then
+    if arg1:IsInsideTargetRegion(TARGET_SELF, 1112250) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 1112250) then
         f2_local0[16] = 0
     end
     f2_local0[1] = get_weight_base_on_cooldown(arg1, arg2, 3000, 8, f2_local0[1], 1)
@@ -522,7 +522,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     if arg1:IsLadderAct(TARGET_SELF) then
         return false
     end
-    if not arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if not arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         return false
     end
     if Interupt_PC_Break(arg1) then
@@ -632,7 +632,7 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
                 f22_local1[8] = 20
                 f22_local1[10] = 100
             end
-        elseif f22_local0 == 200210 then
+        elseif f22_local0 == SP_PARRY_COUNT_RIGHT then
             if f22_local4 >= 3.2 then
                 f22_local1[6] = 100
             elseif f22_local4 <= 0 then
@@ -642,7 +642,7 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
                 f22_local1[5] = 100
                 f22_local1[6] = 200
             end
-        elseif f22_local0 == 200211 then
+        elseif f22_local0 == SP_PARRY_COUNT_LEFT then
             if f22_local4 >= 3.2 then
                 f22_local1[13] = 100
             elseif f22_local4 <= 0 then
@@ -720,7 +720,7 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
             f22_local1[8] = 100
             f22_local1[10] = 100
         end
-    elseif f22_local0 == 200210 then
+    elseif f22_local0 == SP_PARRY_COUNT_RIGHT then
         if f22_local4 >= 3.2 then
             f22_local1[50] = 100
         elseif f22_local4 <= 0 then
@@ -729,7 +729,7 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
             f22_local1[2] = 100
             f22_local1[5] = 100
         end
-    elseif f22_local0 == 200211 then
+    elseif f22_local0 == SP_PARRY_COUNT_LEFT then
         if f22_local4 >= 3.2 then
             f22_local1[50] = 100
         elseif f22_local4 <= 0 then
@@ -773,7 +773,7 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
     else
         f22_local1[50] = 100
     end
-    if not not arg1:IsInsideTargetRegion(TARGET_SELF, 1112250) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 1112250) then
+    if arg1:IsInsideTargetRegion(TARGET_SELF, 1112250) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 1112250) then
         f22_local1[5] = 0
     end
     f22_local1[1] = get_weight_base_on_cooldown(arg1, arg2, 3050, 5, f22_local1[1], 1)

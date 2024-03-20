@@ -1,7 +1,7 @@
 RegisterTableLogic(507300)
 Logic.Main = function (arg0, arg1)
     local f1_local0 = arg1:GetEventRequest()
-    if arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         COMMON_SetBattleGoal(arg1)
     elseif f1_local0 == 30 then
         arg1:AddTopGoal(GOAL_COMMON_AttackTunableSpin, 10, 3030, TARGET_ENE_0, 9999, 0, 0, 0, 0)

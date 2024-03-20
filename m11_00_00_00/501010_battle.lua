@@ -50,11 +50,11 @@ Goal.Activate = function (arg0, arg1, arg2)
     local f2_local6 = arg1:GetRandam_Int(1, 100)
     local f2_local7 = arg1:GetExcelParam(AI_EXCEL_THINK_PARAM_TYPE__thinkAttr_doAdmirer)
     local f2_local8 = arg1:GetEventRequest()
-    if not not arg1:IsEventFlag(11100850) or arg1:GetNumber(3) == 1 then
+    if arg1:IsEventFlag(11100850) or arg1:GetNumber(3) == 1 then
         f2_local0[30] = 100
     elseif arg1:IsInsideTargetRegion(TARGET_ENE_0, 1102865) and arg1:GetNumber(0) == 0 then
         f2_local0[8] = 100
-    elseif (not not arg1:IsInsideTargetRegion(TARGET_ENE_0, 1102861) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 1102862)) and arg1:HasSpecialEffectId(TARGET_SELF, 3501033) == false and arg1:GetNumber(0) == 0 then
+    elseif (arg1:IsInsideTargetRegion(TARGET_ENE_0, 1102861) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 1102862)) and arg1:HasSpecialEffectId(TARGET_SELF, 3501033) == false and arg1:GetNumber(0) == 0 then
         if arg1:HasSpecialEffectId(TARGET_SELF, 3501010) == false then
             f2_local0[1] = 100
         elseif arg1:GetNumber(1) == 0 then
@@ -83,7 +83,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             else
                 f2_local0[22] = 100
             end
-        elseif not not arg1:IsInsideTargetRegion(TARGET_ENE_0, 1102886) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 1102889) then
+        elseif arg1:IsInsideTargetRegion(TARGET_ENE_0, 1102886) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 1102889) then
             f2_local0[18] = 50
         elseif arg1:IsInsideTargetRegion(TARGET_ENE_0, 1102882) then
             f2_local0[14] = 50
@@ -413,7 +413,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     local f32_local3 = arg1:GetRandam_Int(1, 100)
     local f32_local4 = arg1:GetEventRequest()
     if arg1:GetNumber(3) == 1 then
-        if not not arg1:IsInsideObserve(2) or arg1:IsInsideObserve(3) then
+        if arg1:IsInsideObserve(2) or arg1:IsInsideObserve(3) then
             arg2:ClearSubGoal()
             arg2:AddSubGoal(GOAL_COMMON_EndureAttack, 1, 20020, TARGET_ENE_0, 999, 0)
             arg1:SetNumber(3, 2)
@@ -457,7 +457,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
                     return true
                 end
             end
-        elseif not not arg1:IsInsideObserve(4) or arg1:IsInsideObserve(5) then
+        elseif arg1:IsInsideObserve(4) or arg1:IsInsideObserve(5) then
             if arg1:IsEventFlag(11100850) == false and arg1:GetNumber(0) ~= 1 and arg1:HasSpecialEffectId(TARGET_SELF, 3501010) == false then
                 arg2:ClearSubGoal()
                 arg2:AddSubGoal(GOAL_COMMON_EndureAttack, 1, 20010, TARGET_ENE_0, 999, 0)
@@ -508,14 +508,14 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             return true
         end
     end
-    if arg1:IsInterupt(INTERUPT_InactivateSpecialEffect) and arg1:GetSpecialEffectInactivateInterruptType(0) == 3501021 and (not not arg1:HasSpecialEffectId(TARGET_SELF, 3501012) or arg1:HasSpecialEffectId(TARGET_SELF, 3501017)) then
+    if arg1:IsInterupt(INTERUPT_InactivateSpecialEffect) and arg1:GetSpecialEffectInactivateInterruptType(0) == 3501021 and (arg1:HasSpecialEffectId(TARGET_SELF, 3501012) or arg1:HasSpecialEffectId(TARGET_SELF, 3501017)) then
         arg2:ClearSubGoal()
         arg2:AddSubGoal(GOAL_COMMON_EndureAttack, 1, 20038, TARGET_ENE_0, 999, 0)
         return true
     end
     if not arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) and f32_local4 == 10 then
         if arg1:IsInterupt(INTERUPT_ActivateSpecialEffect) then
-            if arg1:GetSpecialEffectActivateInterruptType(0) == 5025 and (not not arg1:IsInsideTargetRegion(TARGET_ENE_0, 1102866) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 1102864)) then
+            if arg1:GetSpecialEffectActivateInterruptType(0) == 5025 and (arg1:IsInsideTargetRegion(TARGET_ENE_0, 1102866) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 1102864)) then
                 arg2:ClearSubGoal()
                 arg2:AddSubGoal(GOAL_COMMON_ComboFinal, 20, 20031, TARGET_ENE_0, 999, 0, 0, 0, 0)
                 return true

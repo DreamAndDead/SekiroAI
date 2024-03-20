@@ -37,7 +37,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     if arg1:HasSpecialEffectId(TARGET_SELF, 5023) then
         if arg1:IsFinishTimer(1) == false then
             f2_local0[27] = 100
-        elseif not not arg1:IsInsideTargetRegion(TARGET_LOCALPLAYER, 1702605) or arg1:HasSpecialEffectId(TARGET_SELF, 5034) then
+        elseif arg1:IsInsideTargetRegion(TARGET_LOCALPLAYER, 1702605) or arg1:HasSpecialEffectId(TARGET_SELF, 5034) then
             if arg1:IsEventFlag(11700602) then
                 f2_local0[15] = 100
             else
@@ -48,19 +48,19 @@ Goal.Activate = function (arg0, arg1, arg2)
         end
     elseif arg1:IsEventFlag(11700603) then
         f2_local0[27] = 100
-    elseif not not arg1:IsInsideTargetRegion(TARGET_LOCALPLAYER, 1702605) or arg1:HasSpecialEffectId(TARGET_SELF, 5034) then
+    elseif arg1:IsInsideTargetRegion(TARGET_LOCALPLAYER, 1702605) or arg1:HasSpecialEffectId(TARGET_SELF, 5034) then
         if arg1:IsEventFlag(11700602) then
             f2_local0[5] = 100
         else
             f2_local0[6] = 100
         end
-    elseif (not not arg1:HasSpecialEffectId(TARGET_SELF, 5038) or arg1:HasSpecialEffectId(TARGET_SELF, 5037)) and arg1:GetNumber(2) == 1 then
+    elseif (arg1:HasSpecialEffectId(TARGET_SELF, 5038) or arg1:HasSpecialEffectId(TARGET_SELF, 5037)) and arg1:GetNumber(2) == 1 then
         f2_local0[7] = 100
     elseif arg1:IsEventFlag(11700601) then
         f2_local0[6] = 100
     elseif arg1:IsEventFlag(11700100) == false and arg1:IsInsideTargetRegion(TARGET_LOCALPLAYER, 1702632) then
         f2_local0[4] = 100
-    elseif not not arg1:HasSpecialEffectId(TARGET_LOCALPLAYER, 110060) or arg1:HasSpecialEffectId(TARGET_LOCALPLAYER, 110010) then
+    elseif arg1:HasSpecialEffectId(TARGET_LOCALPLAYER, 110060) or arg1:HasSpecialEffectId(TARGET_LOCALPLAYER, 110010) then
         f2_local0[26] = 100
     elseif arg1:IsInsideTargetRegion(TARGET_LOCALPLAYER, 1702600) then
         if arg1:IsInsideTargetRegion(TARGET_LOCALPLAYER, 1702602) then
@@ -80,7 +80,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         else
             f2_local0[2] = 100
         end
-    elseif not not arg1:IsInsideTargetRegion(TARGET_LOCALPLAYER, 1702635) or not not arg1:IsInsideTargetRegion(TARGET_LOCALPLAYER, 1702636) or arg1:IsInsideTargetRegion(TARGET_LOCALPLAYER, 1702637) then
+    elseif arg1:IsInsideTargetRegion(TARGET_LOCALPLAYER, 1702635) or arg1:IsInsideTargetRegion(TARGET_LOCALPLAYER, 1702636) or arg1:IsInsideTargetRegion(TARGET_LOCALPLAYER, 1702637) then
         f2_local0[8] = 100
     else
         f2_local0[26] = 100
@@ -299,7 +299,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
                         f15_local2:TimingSetNumber(1, 0, AI_TIMING_SET__ACTIVATE)
                     end
                     return true
-                elseif not not arg1:IsInsideTargetRegion(TARGET_ENE_0, 1702609) or not not arg1:IsInsideTargetRegion(TARGET_ENE_0, 1702613) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 1702614) then
+                elseif arg1:IsInsideTargetRegion(TARGET_ENE_0, 1702609) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 1702613) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 1702614) then
                     arg2:ClearSubGoal()
                     arg2:AddSubGoal(GOAL_COMMON_EndureAttack, 0.1, 20018, TARGET_ENE_0, 9999, 0)
                     return true
@@ -321,12 +321,12 @@ Goal.Interrupt = function (arg0, arg1, arg2)
                     arg2:ClearSubGoal()
                     arg2:AddSubGoal(GOAL_COMMON_EndureAttack, 0.1, 20007, TARGET_ENE_0, 9999, 0)
                     return true
-                elseif not not arg1:IsInsideTargetRegion(TARGET_ENE_0, 1702611) or not not arg1:IsInsideTargetRegion(TARGET_ENE_0, 1702612) or not not arg1:IsInsideTargetRegion(TARGET_ENE_0, 1702613) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 1702614) then
+                elseif arg1:IsInsideTargetRegion(TARGET_ENE_0, 1702611) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 1702612) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 1702613) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 1702614) then
                     arg2:ClearSubGoal()
                     arg2:AddSubGoal(GOAL_COMMON_EndureAttack, 0.1, 20007, TARGET_ENE_0, 9999, 0)
                     return true
                 end
-            elseif f15_local1 == 5030 and (not not arg1:IsInsideTargetRegion(TARGET_ENE_0, 1702611) or not not arg1:IsInsideTargetRegion(TARGET_ENE_0, 1702612) or not not arg1:IsInsideTargetRegion(TARGET_ENE_0, 1702613) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 1702614)) then
+            elseif f15_local1 == 5030 and (arg1:IsInsideTargetRegion(TARGET_ENE_0, 1702611) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 1702612) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 1702613) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 1702614)) then
                 arg2:ClearSubGoal()
                 arg2:AddSubGoal(GOAL_COMMON_EndureAttack, 0.1, 20009, TARGET_ENE_0, 9999, 0)
                 return true
@@ -350,7 +350,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             end
         end
         if arg1:IsInterupt(INTERUPT_Inside_ObserveArea) then
-            if not not arg1:IsInsideObserve(0) or not not arg1:IsInsideObserve(1) or not not arg1:IsInsideObserve(2) or not not arg1:IsInsideObserve(4) or arg1:IsInsideObserve(8) then
+            if arg1:IsInsideObserve(0) or arg1:IsInsideObserve(1) or arg1:IsInsideObserve(2) or arg1:IsInsideObserve(4) or arg1:IsInsideObserve(8) then
                 arg1:Replanning()
                 return true
             elseif arg1:IsInsideObserve(3) then

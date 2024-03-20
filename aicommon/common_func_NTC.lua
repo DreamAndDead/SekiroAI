@@ -2,7 +2,7 @@
     if sp is kengeki sp
 ]]
 function is_kengeki_sp(arg0, arg1, sp)
-    if sp == 200200 or sp == 200201 or sp == 200205 or sp == 200206 or sp == 200210 or sp == 200211 or sp == 200215 or sp == 200216 or sp == 200225 or sp == 200226 or sp == 200227 or sp == 200228 or sp == 200229 then
+    if sp == 200200 or sp == 200201 or sp == 200205 or sp == 200206 or sp == SP_PARRY_COUNT_RIGHT or sp == SP_PARRY_COUNT_LEFT or sp == 200215 or sp == 200216 or sp == 200225 or sp == 200226 or sp == 200227 or sp == 200228 or sp == 200229 then
         return true
     end
     return false
@@ -21,10 +21,10 @@ function get_kengeki_sp(self)
         return 200205
     elseif self:HasSpecialEffectId(TARGET_SELF, 200206) then
         return 200206
-    elseif self:HasSpecialEffectId(TARGET_SELF, 200210) then
-        return 200210
-    elseif self:HasSpecialEffectId(TARGET_SELF, 200211) then
-        return 200211
+    elseif self:HasSpecialEffectId(TARGET_SELF, SP_PARRY_COUNT_RIGHT) then
+        return SP_PARRY_COUNT_RIGHT
+    elseif self:HasSpecialEffectId(TARGET_SELF, SP_PARRY_COUNT_LEFT) then
+        return SP_PARRY_COUNT_LEFT
     elseif self:HasSpecialEffectId(TARGET_SELF, 200215) then
         return 200215
     elseif self:HasSpecialEffectId(TARGET_SELF, 200216) then
@@ -249,7 +249,7 @@ function Set_ConsecutiveGuardCount(self, sp)
             self:SetStringIndexedNumber("ConsecutiveGuardCount", self:GetStringIndexedNumber("ConsecutiveGuardCount") + 1)
         end
         self:SetTimer(13, 1)
-    elseif sp == 200210 or sp == 200211 then
+    elseif sp == SP_PARRY_COUNT_RIGHT or sp == SP_PARRY_COUNT_LEFT then
         self:SetStringIndexedNumber("ConsecutiveGuardCount", 0)
         self:SetTimer(13, 0)
     end
@@ -259,9 +259,9 @@ end
     与连续招架次数相关的 sp 中断点，包含弹开与招架
 ]]
 function Set_ConsecutiveGuardCount_Interrupt(arg0)
-    arg0:AddObserveSpecialEffectAttribute(TARGET_SELF, 200250)
-    arg0:AddObserveSpecialEffectAttribute(TARGET_SELF, 200210)
-    arg0:AddObserveSpecialEffectAttribute(TARGET_SELF, 200211)
+    arg0:AddObserveSpecialEffectAttribute(TARGET_SELF, SP_GUARD_COUNT)
+    arg0:AddObserveSpecialEffectAttribute(TARGET_SELF, SP_PARRY_COUNT_RIGHT)
+    arg0:AddObserveSpecialEffectAttribute(TARGET_SELF, SP_PARRY_COUNT_LEFT)
 end
 
 --[[
@@ -527,7 +527,7 @@ function Check_ReachAttack(self, dist)
         else
             f20_local0 = REACH_ATTACK_TARGET_LOW_POSITION
         end
-    elseif not not self:HasSpecialEffectId(TARGET_ENE_0, 109220) or self:HasSpecialEffectId(TARGET_ENE_0, 109221) then
+    elseif self:HasSpecialEffectId(TARGET_ENE_0, 109220) or self:HasSpecialEffectId(TARGET_ENE_0, 109221) then
         if dist < f20_local1 then
             f20_local0 = UNREACH_ATTACK
         elseif f20_local2 >= 0 then

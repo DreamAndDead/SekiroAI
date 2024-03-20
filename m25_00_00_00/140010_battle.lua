@@ -185,7 +185,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         arg1:SetNumber(2, 0)
         f2_local0[19] = 0
     end
-    if not not arg1:IsInsideTargetRegion(TARGET_SELF, 1112250) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 1112250) then
+    if arg1:IsInsideTargetRegion(TARGET_SELF, 1112250) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 1112250) then
         f2_local0[4] = 0
     end
     f2_local0[1] = get_weight_base_on_cooldown(arg1, arg2, 3011, 10, f2_local0[1], 1)
@@ -242,7 +242,7 @@ Goal.Act01 = function (arg0, arg1, arg2)
     if 0 == 1 then
         f3_local3 = 3011
     end
-    if not not arg0:IsInsideTargetRegion(TARGET_SELF, 1112250) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 1112250) then
+    if arg0:IsInsideTargetRegion(TARGET_SELF, 1112250) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 1112250) then
         arg1:AddSubGoal(GOAL_COMMON_ComboAttackTunableSpin, 10, f3_local3, TARGET_ENE_0, 4, f3_local0, f3_local1, 0, 0)
         arg1:AddSubGoal(GOAL_COMMON_ComboRepeat, 10, 3012, TARGET_ENE_0, 3, 0)
     else
@@ -276,7 +276,7 @@ Goal.Act03 = function (arg0, arg1, arg2)
     local f5_local2 = arg0:GetRandam_Int(1, 100)
     local f5_local3 = 3001
     local f5_local4 = arg0:GetSpRate(TARGET_SELF)
-    if not not arg0:IsInsideTargetRegion(TARGET_SELF, 1112250) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 1112250) then
+    if arg0:IsInsideTargetRegion(TARGET_SELF, 1112250) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 1112250) then
         arg1:AddSubGoal(GOAL_COMMON_AttackTunableSpin, 10, f5_local3, TARGET_ENE_0, 6, f5_local0, f5_local1, 0, 0)
     else
         arg1:AddSubGoal(GOAL_COMMON_AttackTunableSpin, 10, f5_local3, TARGET_ENE_0, 6, f5_local0, f5_local1, 0, 0)
@@ -349,7 +349,7 @@ Goal.Act09 = function (arg0, arg1, arg2)
     local f11_local0 = 0
     local f11_local1 = 120
     local f11_local2 = arg0:GetRandam_Int(1, 100)
-    if not not arg0:IsInsideTargetRegion(TARGET_SELF, 1112250) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 1112250) then
+    if arg0:IsInsideTargetRegion(TARGET_SELF, 1112250) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 1112250) then
         arg1:AddSubGoal(GOAL_COMMON_ComboAttackTunableSpin, 10, 3009, TARGET_ENE_0, 6, f11_local0, f11_local1, 0, 0)
     else
         arg1:AddSubGoal(GOAL_COMMON_ComboAttackTunableSpin, 10, 3009, TARGET_ENE_0, 6, f11_local0, f11_local1, 0, 0)
@@ -634,7 +634,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     if arg1:IsLadderAct(TARGET_SELF) then
         return false
     end
-    if not arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if not arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         return false
     end
     if arg1:IsInterupt(INTERUPT_ParryTiming) then
@@ -783,14 +783,14 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
             f32_local1[6] = 100
             f32_local1[4] = 100
         end
-    elseif f32_local0 == 200210 then
+    elseif f32_local0 == SP_PARRY_COUNT_RIGHT then
         if f32_local4 >= 2.5 then
             f32_local1[50] = 100
         else
             f32_local1[4] = 10
             f32_local1[9] = 200
         end
-    elseif f32_local0 == 200211 then
+    elseif f32_local0 == SP_PARRY_COUNT_LEFT then
         if f32_local4 >= 2.5 then
             f32_local1[50] = 100
         else
@@ -831,7 +831,7 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
         f32_local1[6] = 0
         f32_local1[24] = 100
     end
-    if not not arg1:IsInsideTargetRegion(TARGET_SELF, 1112250) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 1112250) then
+    if arg1:IsInsideTargetRegion(TARGET_SELF, 1112250) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 1112250) then
         f32_local1[9] = 0
         f32_local1[13] = 0
     end
@@ -941,7 +941,7 @@ end
 Goal.Kengeki11 = function (arg0, arg1, arg2)
     local f43_local0 = arg0:GetRandam_Int(1, 100)
     arg1:ClearSubGoal()
-    if not not arg0:IsInsideTargetRegion(TARGET_SELF, 1112250) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 1112250) then
+    if arg0:IsInsideTargetRegion(TARGET_SELF, 1112250) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 1112250) then
         arg1:AddSubGoal(GOAL_COMMON_ComboRepeat, 10, 3076, TARGET_ENE_0, 6, 0)
     else
         arg1:AddSubGoal(GOAL_COMMON_ComboRepeat, 10, 3076, TARGET_ENE_0, 6, 0)

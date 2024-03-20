@@ -35,7 +35,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     if arg0:Kengeki_Activate(arg1, arg2) then
         return 
     end
-    if not not arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
         if arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
             f2_local0[21] = 1
             f2_local0[28] = 100
@@ -67,7 +67,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         end
         f2_local0[21] = 10
         f2_local0[22] = 100
-    elseif not not arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
         f2_local0[27] = 100
     elseif arg1:GetNumber(10) ~= 3 or not arg1:HasSpecialEffectId(TARGET_ENE_0, 400244) then
         if f2_local3 >= 10 then
@@ -1448,7 +1448,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     if arg1:IsLadderAct(TARGET_SELF) then
         return false
     end
-    if not arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if not arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         return false
     end
     if arg1:IsInterupt(INTERUPT_ParryTiming) then
@@ -1518,7 +1518,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         local f49_local4 = arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 10, 3024, TARGET_ENE_0, 9999, 0, 0, 0, 0)
         f49_local4:TimingSetNumber(9, 1, AI_TIMING_SET__ACTIVATE)
     end
-    if (not (not (f49_local2 <= 13 and (not not arg1:HasSpecialEffectId(TARGET_ENE_0, 9505) or arg1:HasSpecialEffectId(TARGET_ENE_0, 9506))) or not arg1:HasSpecialEffectId(TARGET_ENE_0, 100328) and not arg1:HasSpecialEffectId(TARGET_ENE_0, 100235)) or (not not arg1:HasSpecialEffectId(TARGET_ENE_0, 9507) or arg1:HasSpecialEffectId(TARGET_ENE_0, 9508)) and arg1:HasSpecialEffectId(TARGET_ENE_0, 100274)) and (arg1:GetNumber(9) == 1 or arg1:GetNumber(9) == 5) and arg1:IsFinishTimer(13) == true then
+    if (not (not (f49_local2 <= 13 and (arg1:HasSpecialEffectId(TARGET_ENE_0, 9505) or arg1:HasSpecialEffectId(TARGET_ENE_0, 9506))) or not arg1:HasSpecialEffectId(TARGET_ENE_0, 100328) and not arg1:HasSpecialEffectId(TARGET_ENE_0, 100235)) or (arg1:HasSpecialEffectId(TARGET_ENE_0, 9507) or arg1:HasSpecialEffectId(TARGET_ENE_0, 9508)) and arg1:HasSpecialEffectId(TARGET_ENE_0, 100274)) and (arg1:GetNumber(9) == 1 or arg1:GetNumber(9) == 5) and arg1:IsFinishTimer(13) == true then
         arg2:ClearSubGoal()
         local f49_local4 = arg2:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3027, TARGET_ENE_0, 9999, 0, 0, 0, 0)
         f49_local4:TimingSetNumber(9, 2, AI_TIMING_SET__ACTIVATE)
@@ -1555,7 +1555,7 @@ Goal.Parry = function (arg0, arg1, arg2, arg3)
     elseif arg0:HasSpecialEffectId(TARGET_SELF, 221001) then
         f50_local8 = 1
     end
-    if not not arg0:HasSpecialEffectId(TARGET_ENE_0, 110450) or not not arg0:HasSpecialEffectId(TARGET_ENE_0, 110501) or not not arg0:HasSpecialEffectId(TARGET_ENE_0, 110500) or arg0:HasSpecialEffectId(TARGET_ENE_0, 100328) then
+    if arg0:HasSpecialEffectId(TARGET_ENE_0, 110450) or arg0:HasSpecialEffectId(TARGET_ENE_0, 110501) or arg0:HasSpecialEffectId(TARGET_ENE_0, 110500) or arg0:HasSpecialEffectId(TARGET_ENE_0, 100328) then
         return false
     end
     if arg0:IsFinishTimer(AI_TIMER_PARRY_INTERVAL) == false then
@@ -1746,11 +1746,11 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
         else
             f53_local1[35] = 100
         end
-    elseif f53_local0 == 200210 then
+    elseif f53_local0 == SP_PARRY_COUNT_RIGHT then
         f53_local1[17] = 100
         f53_local1[38] = 50
         f53_local1[31] = 50
-    elseif f53_local0 == 200211 then
+    elseif f53_local0 == SP_PARRY_COUNT_LEFT then
         f53_local1[31] = 50
         f53_local1[38] = 50
     elseif f53_local0 == 200216 then

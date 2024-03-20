@@ -27,7 +27,7 @@ Logic.Main = function (arg0, arg1)
         arg1:SetEventMoveTarget(9622118)
         arg1:AddTopGoal(GOAL_COMMON_ApproachTarget, 3, POINT_EVENT, 0, TARGET_SELF, true, -1)
     elseif f1_local0 == 12 then
-        if not arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+        if not arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
             arg1:AddTopGoal(GOAL_COMMON_AttackTunableSpin, 1, 1040, TARGET_ENE_0, 9999, 0, 0, 0, 0)
         end
         arg1:SetEventMoveTarget(9622492)

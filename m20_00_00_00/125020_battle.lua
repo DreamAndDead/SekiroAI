@@ -29,7 +29,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[24] = 10000
             f2_local0[23] = 100
             f2_local0[26] = 1
-        elseif not not arg1:HasSpecialEffectId(TARGET_ENE_0, SP_REVIVAL_AFTER_1) or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_REVIVAL_AFTER_2) then
+        elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_REVIVAL_AFTER_1) or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_REVIVAL_AFTER_2) then
             if TorimakiAct(arg1, arg2, 0, 60) then
                 f2_local0[10] = 100
                 f2_local0[11] = 100
@@ -458,7 +458,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     if arg1:IsLadderAct(TARGET_SELF) then
         return false
     end
-    if not arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if not arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         return false
     end
     if arg1:IsInterupt(INTERUPT_ParryTiming) and arg1:HasSpecialEffectId(TARGET_SELF, 200032) then

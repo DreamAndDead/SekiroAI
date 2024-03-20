@@ -14,7 +14,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     local f2_local4 = arg1:GetExcelParam(AI_EXCEL_THINK_PARAM_TYPE__thinkAttr_doAdmirer)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 106020)
     if arg1:HasSpecialEffectId(TARGET_SELF, 3150100) then
-        if not not arg1:HasSpecialEffectId(TARGET_ENE_0, 108030) or not not arg1:HasSpecialEffectId(TARGET_ENE_0, 110030) or not not arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or not not arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110032) then
+        if arg1:HasSpecialEffectId(TARGET_ENE_0, 108030) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110030) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110032) then
             f2_local0[17] = 100
         elseif arg1:HasSpecialEffectId(TARGET_SELF, 5030) then
             f2_local0[15] = 100
@@ -666,7 +666,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     if arg1:IsLadderAct(TARGET_SELF) then
         return false
     end
-    if not arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if not arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         return false
     end
     if arg1:IsInterupt(INTERUPT_Damaged) then

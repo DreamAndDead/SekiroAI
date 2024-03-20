@@ -11,7 +11,7 @@ Logic.Main = function (arg0, arg1)
         JuzuReaction(arg1, goal, 1, 20105)
         return true
     end
-    if not arg1:IsFindState() and not arg1:IsBattleState() and not arg1:IsCautionState() and arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if not arg1:IsFindState() and not arg1:IsBattleState() and not arg1:IsCautionState() and arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         arg1:AddTopGoal(GOAL_COMMON_AttackTunableSpin, 10, 401000, TARGET_LOCALPLAYER, 9999, 0, 0, 0, 0)
         return true
     end

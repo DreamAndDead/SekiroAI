@@ -18,7 +18,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5025)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5022)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 109031)
-    if not not arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
         if arg1:HasSpecialEffectId(TARGET_SELF, 5036) and arg1:IsInsideTargetRegion(TARGET_ENE_0, 1702626) then
             f2_local0[12] = 100
         else

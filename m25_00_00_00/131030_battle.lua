@@ -21,7 +21,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         f2_local0[21] = 100
     elseif f2_local5 == 13100301 then
         if f2_local3 >= 40 then
-            if not not arg1:HasSpecialEffectId(TARGET_ENE_0, 110040) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110041) then
+            if arg1:HasSpecialEffectId(TARGET_ENE_0, 110040) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110041) then
                 if arg1:IsInsideTargetRegion(TARGET_ENE_0, 2502630) then
                     f2_local0[26] = 1
                 else
@@ -467,7 +467,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     if arg1:IsLadderAct(TARGET_SELF) then
         return false
     end
-    if not arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if not arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         return false
     end
     if arg1:IsInterupt(INTERUPT_Damaged) then

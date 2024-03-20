@@ -5,7 +5,7 @@ Logic.Main = function (arg0, arg1)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 107710)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110060)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110015)
-    if arg1:HasSpecialEffectId(TAEGET_SELF, 200000) then
+    if arg1:HasSpecialEffectId(TAEGET_SELF, SP_AI_STATE_NORMAL) then
         arg1:AddTopGoal(GOAL_COMMON_Wait, 10, TARGET_SELF, 0, 0, 0)
     else
         COMMON_SetBattleGoal(arg1)

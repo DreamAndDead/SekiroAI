@@ -304,7 +304,7 @@ end
 Goal.Act09 = function (arg0, arg1, arg2)
     local f11_local0 = 3
     local f11_local1 = 45
-    if not not arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_R, 90) or arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_L, 90) then
+    if arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_R, 90) or arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_L, 90) then
         if arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_R, 180) then
             arg1:AddSubGoal(GOAL_COMMON_AttackTunableSpin, 10, 3021, TARGET_ENE_0, 9999, 0, 0, 0, 0)
         else
@@ -596,7 +596,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     if arg1:IsLadderAct(TARGET_SELF) then
         return false
     end
-    if not arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if not arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         return false
     end
     if arg1:IsInterupt(INTERUPT_ActivateSpecialEffect) and f25_local3 == 3505010 then

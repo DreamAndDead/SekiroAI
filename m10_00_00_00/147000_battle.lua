@@ -169,7 +169,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         f2_local0[1] = 1
         f2_local0[23] = 10000
         arg1:SetTimer(0, 0)
-    elseif (not not arg1:HasSpecialEffectId(TARGET_ENE_0, 109031) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110125)) and arg1:HasSpecialEffectId(TARGET_SELF, 5022) then
+    elseif (arg1:HasSpecialEffectId(TARGET_ENE_0, 109031) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110125)) and arg1:HasSpecialEffectId(TARGET_SELF, 5022) then
         f2_local0[6] = 100
     elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110120) and f2_local3 <= 4 then
         f2_local0[8] = 100
@@ -263,7 +263,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     if SpaceCheck(arg1, arg2, 180, 1) == false then
         f2_local0[25] = 0
     end
-    if not not arg1:IsInsideTargetRegion(TARGET_SELF, 1112250) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 1112250) then
+    if arg1:IsInsideTargetRegion(TARGET_SELF, 1112250) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 1112250) then
         f2_local0[42] = 0
     end
     if arg1:HasSpecialEffectId(TARGET_SELF, 5023) and arg1:HasSpecialEffectId(TARGET_ENE_0, 110270) then
@@ -1226,7 +1226,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     if arg1:IsLadderAct(TARGET_SELF) then
         return false
     end
-    if not arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if not arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         return false
     end
     if arg1:IsInterupt(INTERUPT_ParryTiming) then
@@ -1358,11 +1358,11 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
         f48_local1[18] = 500
         f48_local1[26] = 400
         f48_local1[50] = 100
-    elseif f48_local0 == 200210 then
+    elseif f48_local0 == SP_PARRY_COUNT_RIGHT then
         f48_local1[5] = 350
         f48_local1[6] = 650
         f48_local1[22] = 650
-    elseif f48_local0 == 200211 then
+    elseif f48_local0 == SP_PARRY_COUNT_LEFT then
         f48_local1[5] = 350
         f48_local1[6] = 650
         f48_local1[22] = 650
@@ -1442,7 +1442,7 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
     if arg1:IsFinishTimer(3) == false then
         f48_local1[24] = 0
     end
-    if not not arg1:IsInsideTargetRegion(TARGET_SELF, 1112250) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 1112250) then
+    if arg1:IsInsideTargetRegion(TARGET_SELF, 1112250) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 1112250) then
         f48_local1[6] = 0
     end
     f48_local1[1] = get_weight_base_on_cooldown(arg1, arg2, 3015, 5, f48_local1[1], 1)

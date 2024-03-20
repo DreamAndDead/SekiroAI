@@ -1,7 +1,7 @@
 RegisterTableLogic(150000)
 Logic.Main = function (arg0, arg1)
     if arg1:HasSpecialEffectId(TARGET_SELF, 3150100) then
-        if not not arg1:IsFindState() or arg1:IsBattleState() then
+        if arg1:IsFindState() or arg1:IsBattleState() then
             COMMON_SetBattleGoal(arg1)
             arg1:SetStringIndexedNumber("findFlag", 1)
             return true

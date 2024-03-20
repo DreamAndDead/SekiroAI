@@ -30,7 +30,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         f2_local0[24] = 10000
         f2_local0[23] = 100
         f2_local0[26] = 1
-    elseif not not arg1:HasSpecialEffectId(TARGET_ENE_0, SP_REVIVAL_AFTER_1) or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_REVIVAL_AFTER_2) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_REVIVAL_AFTER_1) or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_REVIVAL_AFTER_2) then
         TorimakiAct(arg1, arg2, 0, 0)
     elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110030) then
         if arg1:HasSpecialEffectId(TARGET_SELF, 5031) then
@@ -430,7 +430,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     if arg1:IsLadderAct(TARGET_SELF) then
         return false
     end
-    if not arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if not arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         return false
     end
     if arg1:IsInterupt(INTERUPT_ActivateSpecialEffect) then
@@ -543,7 +543,7 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
         else
             f18_local1[2] = 100
         end
-    elseif f18_local0 == 200210 then
+    elseif f18_local0 == SP_PARRY_COUNT_RIGHT then
         if f18_local4 >= 2 then
             f18_local1[50] = 100
         elseif f18_local4 <= 0.2 then
@@ -551,7 +551,7 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
         else
             f18_local1[7] = 100
         end
-    elseif f18_local0 == 200211 then
+    elseif f18_local0 == SP_PARRY_COUNT_LEFT then
         if f18_local4 >= 2 then
             f18_local1[50] = 100
         elseif f18_local4 <= 0.2 then

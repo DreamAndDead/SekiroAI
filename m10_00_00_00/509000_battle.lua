@@ -29,8 +29,8 @@ Goal.Activate = function (arg0, arg1, arg2)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 200201)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 200205)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 200206)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 200210)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 200211)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, SP_PARRY_COUNT_RIGHT)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, SP_PARRY_COUNT_LEFT)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 200215)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 200216)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 200225)
@@ -66,7 +66,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         else
             f2_local0[41] = 100
         end
-    elseif not not arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) then
         if arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
             f2_local0[28] = 100
         else
@@ -1083,7 +1083,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     if arg1:IsLadderAct(TARGET_SELF) then
         return false
     end
-    if not arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if not arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         return false
     end
     if arg1:IsInterupt(INTERUPT_ParryTiming) and arg1:HasSpecialEffectId(TARGET_SELF, 5030) == false then
@@ -1154,7 +1154,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             end
         end
         if f44_local0 == 5027 then
-            if (not not arg1:HasSpecialEffectId(TARGET_ENE_0, 109031) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110125)) and f44_local1 <= 10 then
+            if (arg1:HasSpecialEffectId(TARGET_ENE_0, 109031) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110125)) and f44_local1 <= 10 then
                 arg2:ClearSubGoal()
                 local f44_local6 = arg2:AddSubGoal(GOAL_COMMON_ComboFinal, 1, 3240, TARGET_ENE_0, 9999, 0)
                 f44_local6:TimingSetNumber(1, arg1:GetNumber(1) + 5, AI_TIMING_SET__ACTIVATE)
@@ -1230,7 +1230,7 @@ Goal.Parry = function (arg0, arg1, arg2, arg3)
     if arg0:IsFinishTimer(AI_TIMER_PARRY_INTERVAL) == false then
         return false
     end
-    if not not arg0:HasSpecialEffectId(TARGET_ENE_0, 110450) or not not arg0:HasSpecialEffectId(TARGET_ENE_0, 110501) or arg0:HasSpecialEffectId(TARGET_ENE_0, 110500) then
+    if arg0:HasSpecialEffectId(TARGET_ENE_0, 110450) or arg0:HasSpecialEffectId(TARGET_ENE_0, 110501) or arg0:HasSpecialEffectId(TARGET_ENE_0, 110500) then
         return false
     end
     arg0:SetTimer(AI_TIMER_PARRY_INTERVAL, 0.1)
@@ -1257,7 +1257,7 @@ Goal.Parry = function (arg0, arg1, arg2, arg3)
             arg1:ClearSubGoal()
             arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, 3103, TARGET_ENE_0, 9999, 0)
             return true
-        elseif not not arg0:HasSpecialEffectId(TARGET_SELF, 5030) or arg0:HasSpecialEffectId(TARGET_SELF, 5031) then
+        elseif arg0:HasSpecialEffectId(TARGET_SELF, 5030) or arg0:HasSpecialEffectId(TARGET_SELF, 5031) then
             arg1:ClearSubGoal()
             arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, 3102, TARGET_ENE_0, 9999, 0)
             return true
@@ -1320,7 +1320,7 @@ Goal.ShootReaction = function (arg0, arg1)
                 return true
             end
         end
-    elseif (not not arg0:HasSpecialEffectId(TARGET_SELF, 5030) or arg0:HasSpecialEffectId(TARGET_SELF, 5031)) and arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 180, 190) then
+    elseif (arg0:HasSpecialEffectId(TARGET_SELF, 5030) or arg0:HasSpecialEffectId(TARGET_SELF, 5031)) and arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 180, 190) then
         if f47_local0 <= 20 then
             arg1:ClearSubGoal()
             arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.1, 3102, TARGET_ENE_0, 9999, 0)
@@ -1385,7 +1385,7 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2)
         elseif f48_local4 <= 0.05 then
 
         end
-    elseif f48_local0 == 200210 then
+    elseif f48_local0 == SP_PARRY_COUNT_RIGHT then
         if f48_local4 >= 4 then
             f48_local1[50] = 100
         elseif SpaceCheck(arg1, arg2, 180, 4) == false then
@@ -1396,7 +1396,7 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2)
             f48_local1[9] = 15
             f48_local1[10] = 100
         end
-    elseif f48_local0 == 200211 then
+    elseif f48_local0 == SP_PARRY_COUNT_LEFT then
         if f48_local4 >= 4 then
             f48_local1[50] = 100
         elseif SpaceCheck(arg1, arg2, 180, 4) == false then

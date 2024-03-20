@@ -16,8 +16,8 @@ Goal.Activate = function (arg0, arg1, arg2)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 200201)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 200205)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 200206)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 200210)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 200211)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, SP_PARRY_COUNT_RIGHT)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, SP_PARRY_COUNT_LEFT)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 200215)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 200216)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 3155020)
@@ -503,7 +503,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     if arg1:IsLadderAct(TARGET_SELF) then
         return false
     end
-    if not arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if not arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         return false
     end
     if arg1:IsInterupt(INTERUPT_ParryTiming) then
@@ -620,7 +620,7 @@ Goal.Kengeki = function (arg0, arg1, arg2, arg3)
         else
             f27_local0[2] = 100
         end
-    elseif arg3 == 200210 then
+    elseif arg3 == SP_PARRY_COUNT_RIGHT then
         if f27_local3 >= 2 then
             f27_local0[50] = 100
         elseif f27_local3 <= 0.2 then
@@ -628,7 +628,7 @@ Goal.Kengeki = function (arg0, arg1, arg2, arg3)
         else
             f27_local0[7] = 100
         end
-    elseif arg3 == 200211 then
+    elseif arg3 == SP_PARRY_COUNT_LEFT then
         if f27_local3 >= 2 then
             f27_local0[50] = 100
         elseif f27_local3 <= 0.2 then

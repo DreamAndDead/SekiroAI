@@ -490,7 +490,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     if arg1:IsLadderAct(TARGET_SELF) then
         return false
     end
-    if not arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if not arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         return false
     end
     if arg1:IsInterupt(INTERUPT_ParryTiming) then
@@ -559,7 +559,7 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
     Common_Clear_Param(f24_local1, f24_local2, f24_local3)
     local f24_local4 = arg1:GetDist(TARGET_ENE_0)
     local f24_local5 = arg1:GetSp(TARGET_SELF)
-    if f24_local0 == 200210 then
+    if f24_local0 == SP_PARRY_COUNT_RIGHT then
         if f24_local4 <= 0.2 then
             f24_local1[7] = 100
         elseif SpaceCheck(arg1, arg2, 180, 4) == false then
@@ -568,7 +568,7 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
         else
             f24_local1[7] = 100
         end
-    elseif f24_local0 == 200211 then
+    elseif f24_local0 == SP_PARRY_COUNT_LEFT then
         if f24_local4 <= 0.2 then
             f24_local1[7] = 100
         elseif SpaceCheck(arg1, arg2, 180, 4) == false then

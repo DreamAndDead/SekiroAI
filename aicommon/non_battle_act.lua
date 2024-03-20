@@ -66,7 +66,7 @@ function NonBattleAct_Common(arg0, arg1)
             arg1:AddSubGoal(GOAL_COMMON_WalkAround, -1, 0.5, f2_local4)
         end
     elseif f2_local3 >= 0 then
-        if not not arg0:HasSpecialEffectId(TARGET_SELF, 205070) or arg0:HasSpecialEffectId(TARGET_SELF, 205071) then
+        if arg0:HasSpecialEffectId(TARGET_SELF, 205070) or arg0:HasSpecialEffectId(TARGET_SELF, 205071) then
             arg1:AddSubGoal(GOAL_COMMON_Wait, 5, TARGET_SELF, 0, 0, 0)
         elseif arg0:IsSearchTarget(TARGET_ENE_0) then
             arg1:AddSubGoal(GOAL_COMMON_BackToHome_With_Parry, arg1:GetLife())
@@ -135,7 +135,7 @@ function NonBattleAct_Common(arg0, arg1)
             f2_local7 = 1
         end
         if f2_local7 < f2_local5 then
-            if not not arg0:HasSpecialEffectId(TARGET_SELF, 205070) or arg0:HasSpecialEffectId(TARGET_SELF, 205071) then
+            if arg0:HasSpecialEffectId(TARGET_SELF, 205070) or arg0:HasSpecialEffectId(TARGET_SELF, 205071) then
                 arg1:AddSubGoal(GOAL_COMMON_Wait, 5, TARGET_SELF, 0, 0, 0)
             else
                 arg1:AddSubGoal(GOAL_COMMON_BackToHome_With_Parry, arg1:GetLife())

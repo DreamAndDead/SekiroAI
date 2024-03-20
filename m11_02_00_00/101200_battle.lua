@@ -51,7 +51,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         end
     elseif arg1:HasSpecialEffectId(TARGET_SELF, 310031) then
         f2_local0[3] = 10
-    elseif not not arg1:HasSpecialEffectId(TARGET_SELF, 310030) or arg1:HasSpecialEffectId(TARGET_SELF, 310080) then
+    elseif arg1:HasSpecialEffectId(TARGET_SELF, 310030) or arg1:HasSpecialEffectId(TARGET_SELF, 310080) then
         f2_local0[2] = 10
     elseif arg1:HasSpecialEffectId(TARGET_SELF, 310040) then
         if f2_local3 >= 7 then
@@ -385,7 +385,7 @@ Goal.Act23 = function (arg0, arg1, arg2)
     local f15_local2 = 20
     local f15_local3 = arg0:GetRandam_Int(1, 100)
     local f15_local4 = 9910
-    if not not arg0:HasSpecialEffectId(TARGET_SELF, 310020) or arg0:HasSpecialEffectId(TARGET_SELF, 310041) then
+    if arg0:HasSpecialEffectId(TARGET_SELF, 310020) or arg0:HasSpecialEffectId(TARGET_SELF, 310041) then
         local f15_local5 = -1
     end
     local f15_local5 = 0
@@ -621,7 +621,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     if arg1:IsLadderAct(TARGET_SELF) then
         return false
     end
-    if not arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if not arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         return false
     end
     if arg1:IsInterupt(INTERUPT_ParryTiming) and arg0.Parry(arg1, arg2) then
@@ -641,7 +641,7 @@ Goal.Parry = function (arg0, arg1, arg2)
     if arg0:IsFinishTimer(AI_TIMER_PARRY_INTERVAL) == false then
         return false
     end
-    if not not arg0:HasSpecialEffectId(TARGET_ENE_0, 110450) or not not arg0:HasSpecialEffectId(TARGET_ENE_0, 110501) or arg0:HasSpecialEffectId(TARGET_ENE_0, 110500) then
+    if arg0:HasSpecialEffectId(TARGET_ENE_0, 110450) or arg0:HasSpecialEffectId(TARGET_ENE_0, 110501) or arg0:HasSpecialEffectId(TARGET_ENE_0, 110500) then
         return false
     end
     arg0:SetTimer(AI_TIMER_PARRY_INTERVAL, 0.1)

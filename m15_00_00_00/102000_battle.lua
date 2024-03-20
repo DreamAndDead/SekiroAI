@@ -196,7 +196,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[6] = 1
         end
     end
-    if not not arg1:HasSpecialEffectId(TARGET_ENE_0, 109220) or arg1:HasSpecialEffectId(TARGET_ENE_0, 109221) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, 109220) or arg1:HasSpecialEffectId(TARGET_ENE_0, 109221) then
         f2_local0[6] = 0
     end
     if arg1:IsFinishTimer(2) == false or arg1:IsFinishTimer(3) == false then
@@ -260,7 +260,7 @@ Goal.Act01 = function (arg0, arg1, arg2)
     local f3_local5 = 0
     local f3_local6 = 2.5
     local f3_local7 = 5
-    if not not arg0:HasSpecialEffectId(TARGET_ENE_0, 3102000) or f3_local0 <= f3_local1 + 1 then
+    if arg0:HasSpecialEffectId(TARGET_ENE_0, 3102000) or f3_local0 <= f3_local1 + 1 then
         Approach_Act_Flex(arg0, arg1, f3_local1, f3_local2, f3_local3, f3_local4, f3_local5, f3_local6, f3_local7)
     else
         Approach_Act_Flex(arg0, arg1, f3_local1 + 1, f3_local2, f3_local3, f3_local4, f3_local5, f3_local6, f3_local7)
@@ -289,7 +289,7 @@ Goal.Act02 = function (arg0, arg1, arg2)
     local f4_local5 = 0
     local f4_local6 = 2.5
     local f4_local7 = 10
-    if not not arg0:HasSpecialEffectId(TARGET_ENE_0, 3102000) or f4_local0 <= f4_local1 + 1 then
+    if arg0:HasSpecialEffectId(TARGET_ENE_0, 3102000) or f4_local0 <= f4_local1 + 1 then
         Approach_Act_Flex(arg0, arg1, f4_local1, f4_local2, f4_local3, f4_local4, f4_local5, f4_local6, f4_local7)
     else
         Approach_Act_Flex(arg0, arg1, f4_local1 + 1, f4_local2, f4_local3, f4_local4, f4_local5, f4_local6, f4_local7)
@@ -313,7 +313,7 @@ Goal.Act03 = function (arg0, arg1, arg2)
     local f5_local6 = 2.5
     local f5_local7 = 10
     local f5_local8 = arg0:GetNpcThinkParamID()
-    if not not arg0:HasSpecialEffectId(TARGET_ENE_0, 3102000) or f5_local0 <= f5_local1 + 1 then
+    if arg0:HasSpecialEffectId(TARGET_ENE_0, 3102000) or f5_local0 <= f5_local1 + 1 then
         Approach_Act_Flex(arg0, arg1, f5_local1, f5_local2, f5_local3, f5_local4, f5_local5, f5_local6, f5_local7)
     else
         Approach_Act_Flex(arg0, arg1, f5_local1 + 1, f5_local2, f5_local3, f5_local4, f5_local5, f5_local6, f5_local7)
@@ -344,7 +344,7 @@ Goal.Act04 = function (arg0, arg1, arg2)
     local f6_local5 = 0
     local f6_local6 = 2.5
     local f6_local7 = 10
-    if not not arg0:HasSpecialEffectId(TARGET_ENE_0, 3102000) or f6_local0 <= f6_local1 + 1 then
+    if arg0:HasSpecialEffectId(TARGET_ENE_0, 3102000) or f6_local0 <= f6_local1 + 1 then
         Approach_Act_Flex(arg0, arg1, f6_local1, f6_local2, f6_local3, f6_local4, f6_local5, f6_local6, f6_local7)
     else
         Approach_Act_Flex(arg0, arg1, f6_local1 + 1, f6_local2, f6_local3, f6_local4, f6_local5, f6_local6, f6_local7)
@@ -366,7 +366,7 @@ Goal.Act05 = function (arg0, arg1, arg2)
     local f7_local5 = 0
     local f7_local6 = 2.5
     local f7_local7 = 5
-    if not not arg0:HasSpecialEffectId(TARGET_ENE_0, 3102000) or f7_local0 <= f7_local1 + 1 then
+    if arg0:HasSpecialEffectId(TARGET_ENE_0, 3102000) or f7_local0 <= f7_local1 + 1 then
         Approach_Act_Flex(arg0, arg1, f7_local1, f7_local2, f7_local3, f7_local4, f7_local5, f7_local6, f7_local7)
     else
         Approach_Act_Flex(arg0, arg1, f7_local1 + 1, f7_local2, f7_local3, f7_local4, f7_local5, f7_local6, f7_local7)
@@ -389,7 +389,7 @@ Goal.Act06 = function (arg0, arg1, arg2)
     local f8_local5 = 0
     local f8_local6 = 1.5
     local f8_local7 = 2.5
-    if not not arg0:HasSpecialEffectId(TARGET_ENE_0, 3102000) or f8_local0 <= f8_local1 + 1 then
+    if arg0:HasSpecialEffectId(TARGET_ENE_0, 3102000) or f8_local0 <= f8_local1 + 1 then
         Approach_Act_Flex(arg0, arg1, f8_local1, f8_local2, f8_local3, f8_local4, f8_local5, f8_local6, f8_local7)
     else
         Approach_Act_Flex(arg0, arg1, f8_local1 + 1, f8_local2, f8_local3, f8_local4, f8_local5, f8_local6, f8_local7)
@@ -421,7 +421,7 @@ Goal.Act07 = function (arg0, arg1, arg2)
     local f9_local5 = 0
     local f9_local6 = 2.5
     local f9_local7 = 10
-    if not not arg0:HasSpecialEffectId(TARGET_ENE_0, 3102000) or f9_local0 <= f9_local1 + 1 then
+    if arg0:HasSpecialEffectId(TARGET_ENE_0, 3102000) or f9_local0 <= f9_local1 + 1 then
         Approach_Act_Flex(arg0, arg1, f9_local1, f9_local2, f9_local3, f9_local4, f9_local5, f9_local6, f9_local7)
     else
         Approach_Act_Flex(arg0, arg1, f9_local1 + 1, f9_local2, f9_local3, f9_local4, f9_local5, f9_local6, f9_local7)
@@ -444,7 +444,7 @@ Goal.Act08 = function (arg0, arg1, arg2)
     local f10_local5 = 0
     local f10_local6 = 2.5
     local f10_local7 = 5
-    if not not arg0:HasSpecialEffectId(TARGET_ENE_0, 3102000) or f10_local0 <= f10_local1 + 1 then
+    if arg0:HasSpecialEffectId(TARGET_ENE_0, 3102000) or f10_local0 <= f10_local1 + 1 then
         Approach_Act_Flex(arg0, arg1, f10_local1, f10_local2, f10_local3, f10_local4, f10_local5, f10_local6, f10_local7)
     else
         Approach_Act_Flex(arg0, arg1, f10_local1 + 1, f10_local2, f10_local3, f10_local4, f10_local5, f10_local6, f10_local7)
@@ -500,7 +500,7 @@ Goal.Act10 = function (arg0, arg1, arg2)
     local f12_local5 = 0
     local f12_local6 = 2.5
     local f12_local7 = 5
-    if not not arg0:HasSpecialEffectId(TARGET_ENE_0, 3102000) or f12_local0 <= f12_local1 + 1 then
+    if arg0:HasSpecialEffectId(TARGET_ENE_0, 3102000) or f12_local0 <= f12_local1 + 1 then
         Approach_Act_Flex(arg0, arg1, f12_local1, f12_local2, f12_local3, f12_local4, f12_local5, f12_local6, f12_local7)
     else
         Approach_Act_Flex(arg0, arg1, f12_local1 + 1, f12_local2, f12_local3, f12_local4, f12_local5, f12_local6, f12_local7)
@@ -523,7 +523,7 @@ Goal.Act11 = function (arg0, arg1, arg2)
     local f13_local5 = 0
     local f13_local6 = 2.5
     local f13_local7 = 5
-    if not not arg0:HasSpecialEffectId(TARGET_ENE_0, 3102000) or f13_local0 <= f13_local1 + 1 then
+    if arg0:HasSpecialEffectId(TARGET_ENE_0, 3102000) or f13_local0 <= f13_local1 + 1 then
         Approach_Act_Flex(arg0, arg1, f13_local1, f13_local2, f13_local3, f13_local4, f13_local5, f13_local6, f13_local7)
     else
         Approach_Act_Flex(arg0, arg1, f13_local1 + 1, f13_local2, f13_local3, f13_local4, f13_local5, f13_local6, f13_local7)
@@ -840,14 +840,14 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2)
             f23_local1[18] = 100
             f23_local1[3] = 300
         end
-    elseif f23_local0 == 200210 then
+    elseif f23_local0 == SP_PARRY_COUNT_RIGHT then
         if f23_local4 >= 3 then
 
         else
             f23_local1[5] = 100
             f23_local1[16] = 200
         end
-    elseif f23_local0 == 200211 then
+    elseif f23_local0 == SP_PARRY_COUNT_LEFT then
         if f23_local4 >= 3 then
 
         else
@@ -1033,7 +1033,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     if arg1:IsLadderAct(TARGET_SELF) then
         return false
     end
-    if not arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if not arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         return false
     end
     if arg1:IsInterupt(INTERUPT_ParryTiming) then
@@ -1123,7 +1123,7 @@ Goal.Parry = function (arg0, arg1, arg2, arg3)
     if arg0:HasSpecialEffectId(TARGET_SELF, 220062) then
         return false
     end
-    if not not arg0:HasSpecialEffectId(TARGET_ENE_0, 110450) or not not arg0:HasSpecialEffectId(TARGET_ENE_0, 110501) or arg0:HasSpecialEffectId(TARGET_ENE_0, 110500) then
+    if arg0:HasSpecialEffectId(TARGET_ENE_0, 110450) or arg0:HasSpecialEffectId(TARGET_ENE_0, 110501) or arg0:HasSpecialEffectId(TARGET_ENE_0, 110500) then
         return false
     end
     arg0:SetTimer(AI_TIMER_PARRY_INTERVAL, 0.1)

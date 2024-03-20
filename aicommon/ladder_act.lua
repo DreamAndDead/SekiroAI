@@ -2,7 +2,7 @@ REGISTER_GOAL_NO_SUB_GOAL(GOAL_COMMON_LadderAct, true)
 
 function _GetId(arg0, arg1)
     local f1_local0 = false
-    if not not arg1:IsNpcPlayer() or arg1:IsLocalPlayer() then
+    if arg1:IsNpcPlayer() or arg1:IsLocalPlayer() then
         f1_local0 = true
     end
     local f1_local1 = arg0
@@ -71,7 +71,7 @@ function LadderAct_Update(arg0, arg1)
     local f3_local4 = false
     if f3_local3 == f0_local9 or f3_local3 == f0_local10 then
         f3_local4 = true
-    elseif not not arg0:IsFinishAttack() or arg0:IsEnableComboAttack() then
+    elseif arg0:IsFinishAttack() or arg0:IsEnableComboAttack() then
         f3_local4 = true
     end
     if f3_local4 then

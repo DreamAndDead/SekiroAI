@@ -77,7 +77,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         f2_local0[4] = 0
         f2_local0[25] = 100
     end
-    if not not arg1:HasSpecialEffectId(TARGET_SELF, 3155120) or arg1:IsFinishTimer(0) == false then
+    if arg1:HasSpecialEffectId(TARGET_SELF, 3155120) or arg1:IsFinishTimer(0) == false then
         f2_local0[3] = 0
         f2_local0[4] = 0
     elseif arg1:HasSpecialEffectId(TARGET_SELF, 3155520) and arg1:GetNumber(0) == 0 then
@@ -140,7 +140,7 @@ Goal.Act01 = function (arg0, arg1, arg2)
     Approach_Act_Flex(arg0, arg1, f3_local0, f3_local1, f3_local2, f3_local3, f3_local4, f3_local5, f3_local6)
     local f3_local8 = 0
     local f3_local9 = 0
-    if not not arg0:IsTargetGuard(TARGET_SELF) or arg0:HasSpecialEffectId(TARGET_SELF, 3155060) then
+    if arg0:IsTargetGuard(TARGET_SELF) or arg0:HasSpecialEffectId(TARGET_SELF, 3155060) then
         arg1:AddSubGoal(GOAL_COMMON_AttackTunableSpin, 10, f3_local7, TARGET_ENE_0, 9999, f3_local8, f3_local9, 0, 0)
     else
         arg1:AddSubGoal(GOAL_COMMON_Guard, 0.5, 9910, TARGET_ENE_0, false, 0)
@@ -162,7 +162,7 @@ Goal.Act02 = function (arg0, arg1, arg2)
     Approach_Act_Flex(arg0, arg1, f4_local0, f4_local1, f4_local2, f4_local3, f4_local4, f4_local5, f4_local6)
     local f4_local7 = 0
     local f4_local8 = 0
-    if not not arg0:IsTargetGuard(TARGET_SELF) or arg0:HasSpecialEffectId(TARGET_SELF, 3155060) then
+    if arg0:IsTargetGuard(TARGET_SELF) or arg0:HasSpecialEffectId(TARGET_SELF, 3155060) then
         arg1:AddSubGoal(GOAL_COMMON_AttackTunableSpin, 10, 503001, TARGET_ENE_0, 9999, f4_local7, f4_local8, 0, 0)
     else
         arg1:AddSubGoal(GOAL_COMMON_Guard, 0.5, 9910, TARGET_ENE_0, false, 0)
@@ -245,7 +245,7 @@ end
 Goal.Act21 = function (arg0, arg1, arg2)
     local f9_local0 = 3
     local f9_local1 = 45
-    if not not arg0:IsTargetGuard(TARGET_SELF) or arg0:HasSpecialEffectId(TARGET_SELF, 3155060) then
+    if arg0:IsTargetGuard(TARGET_SELF) or arg0:HasSpecialEffectId(TARGET_SELF, 3155060) then
         arg1:AddSubGoal(GOAL_COMMON_Turn, f9_local0, TARGET_ENE_0, f9_local1, 9910, GOAL_RESULT_Success, true)
     else
         arg1:AddSubGoal(GOAL_COMMON_Turn, f9_local0, TARGET_ENE_0, f9_local1, -1, GOAL_RESULT_Success, true)
@@ -405,7 +405,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     if arg1:IsLadderAct(TARGET_SELF) then
         return false
     end
-    if not arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if not arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         return false
     end
     if arg1:IsInterupt(INTERUPT_ActivateSpecialEffect) and f18_local0 == 5029 and f18_local4 <= 6 then

@@ -14,7 +14,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         return 
     end
     arg1:SetStringIndexedNumber("targetWhich", TARGET_ENE_0)
-    if not not arg1:IsInsideTargetEx(TARGET_ENE_0, TARGET_SELF, AI_DIR_TYPE_F, 120, 9999) or arg1:HasSpecialEffectId(TARGET_SELF, SP_PUPPET_SHINOBI) then
+    if arg1:IsInsideTargetEx(TARGET_ENE_0, TARGET_SELF, AI_DIR_TYPE_F, 120, 9999) or arg1:HasSpecialEffectId(TARGET_SELF, SP_PUPPET_SHINOBI) then
         arg1:SetStringIndexedNumber("karaburiDist", 0)
     else
         arg1:SetStringIndexedNumber("karaburiDist", 2)
@@ -47,7 +47,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         f2_local0[27] = 100
     elseif Common_ActivateAct(arg1, arg2) then
 
-    elseif arg1:CheckDoesExistPath(TARGET_ENE_0, AI_DIR_TYPE_F, 0, 0) == false or not not arg1:HasSpecialEffectId(TARGET_ENE_0, 109220) or arg1:HasSpecialEffectId(TARGET_ENE_0, 109221) then
+    elseif arg1:CheckDoesExistPath(TARGET_ENE_0, AI_DIR_TYPE_F, 0, 0) == false or arg1:HasSpecialEffectId(TARGET_ENE_0, 109220) or arg1:HasSpecialEffectId(TARGET_ENE_0, 109221) then
         f2_local0[7] = 100
         f2_local0[27] = 100
     elseif arg1:HasSpecialEffectId(TARGET_SELF, 107900) and arg1:GetNumber(12) == 1 then
@@ -799,7 +799,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     if arg1:IsLadderAct(TARGET_SELF) then
         return false
     end
-    if not arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if not arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         return false
     end
     if arg1:GetSpecialEffectActivateInterruptType(0) == 109031 then
@@ -879,12 +879,12 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2)
             f29_local1[4] = 100
             f29_local1[50] = 50
         end
-    elseif f29_local0 == 200210 or f29_local0 == 200215 then
+    elseif f29_local0 == SP_PARRY_COUNT_RIGHT or f29_local0 == 200215 then
         if f29_local4 >= 2.7 then
 
         elseif f29_local4 <= 0.2 then
 
-        elseif f29_local0 == 200210 and arg1:HasSpecialEffectId(TARGET_SELF, 310080) then
+        elseif f29_local0 == SP_PARRY_COUNT_RIGHT and arg1:HasSpecialEffectId(TARGET_SELF, 310080) then
             f29_local1[3] = 100
         elseif f29_local0 == 200215 and arg1:HasSpecialEffectId(TARGET_SELF, 310080) then
             f29_local1[4] = 100
@@ -893,12 +893,12 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2)
             f29_local1[5] = 0
             f29_local1[50] = 100
         end
-    elseif f29_local0 == 200211 or f29_local0 == 200216 then
+    elseif f29_local0 == SP_PARRY_COUNT_LEFT or f29_local0 == 200216 then
         if f29_local4 >= 2.7 then
 
         elseif f29_local4 <= 0.2 then
 
-        elseif f29_local0 == 200211 and arg1:HasSpecialEffectId(TARGET_SELF, 310080) then
+        elseif f29_local0 == SP_PARRY_COUNT_LEFT and arg1:HasSpecialEffectId(TARGET_SELF, 310080) then
             f29_local1[3] = 100
         elseif f29_local0 == 200216 and arg1:HasSpecialEffectId(TARGET_SELF, 310080) then
             f29_local1[4] = 100

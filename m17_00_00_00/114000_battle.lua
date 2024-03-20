@@ -23,20 +23,20 @@ Goal.Activate = function (arg0, arg1, arg2)
         f2_local0[26] = 100
     elseif arg1:HasSpecialEffectId(TARGET_SELF, 220900) == false and arg1:IsInsideTargetRegion(TARGET_ENE_0, 1702430) == false and arg1:HasSpecialEffectId(TARGET_SELF, 3114020) then
         f2_local0[26] = 100
-    elseif (arg1:GetNumber(1) == 1 or not not arg1:HasSpecialEffectId(TARGET_SELF, 200211) or arg1:HasSpecialEffectId(TARGET_SELF, 200210)) and arg1:IsFinishTimer(1) then
-        if arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    elseif (arg1:GetNumber(1) == 1 or arg1:HasSpecialEffectId(TARGET_SELF, SP_PARRY_COUNT_LEFT) or arg1:HasSpecialEffectId(TARGET_SELF, SP_PARRY_COUNT_RIGHT)) and arg1:IsFinishTimer(1) then
+        if arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
             f2_local0[3] = 100
         else
             f2_local0[26] = 100
         end
     elseif f2_local3 > 4.1 then
-        if arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+        if arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
             f2_local0[3] = 100
         else
             f2_local0[26] = 100
         end
     elseif f2_local3 > 3.1 then
-        if arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+        if arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
             if arg1:IsFinishTimer(0) then
                 f2_local0[3] = 100
             else
@@ -48,7 +48,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110030) then
         f2_local0[26] = 100
     elseif arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_B, 180) then
-        if arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+        if arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
             f2_local0[3] = 100
             f2_local0[7] = 500
         else
@@ -56,7 +56,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[26] = 100
         end
     elseif arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 140) then
-        if arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+        if arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
             if f2_local3 <= 1.4 - arg1:GetMapHitRadius(TARGET_SELF) then
                 if arg1:HasSpecialEffectId(TARGET_ENE_0, 109012) then
                     f2_local0[11] = 800
@@ -74,14 +74,14 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[1] = 10000
             f2_local0[26] = 1
         end
-    elseif arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    elseif arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         f2_local0[6] = 100
         f2_local0[7] = 100
     else
         f2_local0[1] = 10000
         f2_local0[26] = 1
     end
-    if arg1:HasSpecialEffectId(TARGET_SELF, 200004) == false and arg1:HasSpecialEffectId(TARGET_SELF, 5020) then
+    if arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) == false and arg1:HasSpecialEffectId(TARGET_SELF, 5020) then
         if arg1:IsInsideTargetRegion(TARGET_ENE_0, 9902020) and not arg1:HasSpecialEffectId(TARGET_SELF, 3114000) then
             f2_local0[1] = 100
             f2_local0[26] = 0
@@ -89,8 +89,8 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[1] = 0
             f2_local0[26] = 100
         end
-    elseif arg1:HasSpecialEffectId(TARGET_SELF, 200004) == false and arg1:HasSpecialEffectId(TARGET_SELF, 5021) then
-        if not not arg1:IsInsideTargetRegion(TARGET_ENE_0, 9902030) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 9902031) and arg1:HasSpecialEffectId(TARGET_ENE_0, 109016) then
+    elseif arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) == false and arg1:HasSpecialEffectId(TARGET_SELF, 5021) then
+        if arg1:IsInsideTargetRegion(TARGET_ENE_0, 9902030) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 9902031) and arg1:HasSpecialEffectId(TARGET_ENE_0, 109016) then
             f2_local0[1] = 100
             f2_local0[26] = 0
         else
@@ -345,7 +345,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     if arg1:IsLadderAct(TARGET_SELF) then
         return false
     end
-    if not arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if not arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         return false
     end
     if arg1:IsInterupt(INTERUPT_ParryTiming) then

@@ -73,9 +73,13 @@ POINT_UnreachTerminate = 126
 -- 引发变招的方式类别
 -- 占位符，用于 for loop
 INTERUPT_First = 0
+-- 发现敌人？
 INTERUPT_FindEnemy = 0
+-- 发现攻击？
 INTERUPT_FindAttack = 1
+-- 
 INTERUPT_Damaged = 2
+-- 
 INTERUPT_Damaged_Stranger = 3
 INTERUPT_FindMissile = 4
 INTERUPT_SuccessGuard = 5
@@ -125,8 +129,10 @@ INTERUPT_Outside_ObserveArea = 40
 -- pc 在角度外？？？
 INTERUPT_TargetOutOfAngle = 41
 INTERUPT_PlatoonAiOrder = 42
+-- 被观察的 sp 中断
 INTERUPT_ActivateSpecialEffect = 43
 INTERUPT_InactivateSpecialEffect = 44
+--
 INTERUPT_MovedEnd_OnFailedPath = 45
 INTERUPT_ChangeSoundTarget = 46
 INTERUPT_OnCreateDamage = 47
@@ -609,15 +615,15 @@ SP_AI_STATE_DISCOVERY_OR_COMBAT = 200004
 
 -- 死亡
 SP_DEAD = 110060
--- 从跌倒中恢复
+-- 从跌倒中恢复，站起来
 SP_RETURN_FROM_FALLING = 120
 -- 忍杀
 SP_NINSATSU = 110030
--- 复活后 1？
+-- 复活后 1？一阶段？
 SP_REVIVAL_AFTER_1 = 110031
--- 复活后 2？
+-- 复活后 2？二阶段？
 SP_REVIVAL_AFTER_2 = 110032
--- 复活后 3？
+-- 复活后 3？三阶段？
 SP_REVIVAL_AFTER_3 = 110033
 -- 蹲伏灌木丛隐身
 SP_HIDE_IN_BUSH = 109203
@@ -635,11 +641,11 @@ SP_ENEMY_TURN = 107710
 SP_BLOOD_SMOKE = 220010
 -- 敌人反应回放 爆竹？
 SP_FIRE_CRACKER = 220011
--- small fish 声响反应？
+-- small fish 声响反应？普通小兵？
 SP_ZAKO_REACTION = 241000
 -- small fish 声响没反应？
 SP_ZAKO_NOREACTION = 241010
--- middle boss sound reaction?
+-- middle boss sound reaction? 精英？
 SP_CHUBOSS_REACTION = 241100
 -- middle boss sound no reaction?
 SP_CHUBOSS_NOREACTION = 241110
@@ -655,6 +661,25 @@ SP_TURN_AT_START_OF_CONVERSATION = 30600
 SP_NOT_TURN_TO_NEST = 30601
 -- 傀儡忍殺?
 SP_PUPPET_SHINOBI = 220020
+-- 无法中断？
+SP_CANT_BE_INTERRUPTED_PERSISTENT = 205050
+-- 无法中断？
+SP_CANT_BE_INTERRUPTED_MOMENT = 205051
+-- 因为被转向，失去对 pc sight 跟踪
+SP_LOST_SIGHT_OF_PC_BY_TURNING = 240100
+-- 用于招架计数
+SP_GUARD_COUNT = 200250
+-- 用于弹开计数 右
+SP_PARRY_COUNT_RIGHT = 200210
+-- 用于弹开计数 左
+SP_PARRY_COUNT_LEFT = 200211
+-- 不响应声响 永久
+SP_NOT_REACT_TO_SOUND_PERSISTENT = 205060
+-- 不响应声响 暂时
+SP_NOT_REACT_TO_SOUND_MOMENT = 205061
+
+
+
 
 COMMON_OBSERVE_SLOT_BATTLE_STEALTH = 101
 COMMON_OBSERVE_SLOT_FINISH_BACKHOME = 102

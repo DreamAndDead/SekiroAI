@@ -21,7 +21,7 @@ function EndureAttack_Activate(arg0, arg1)
     if f1_local6 < 0 then
         f1_local6 = 20
     end
-    
+
     local f1_local7 = true
     local f1_local8 = false
     local f1_local9 = true
@@ -32,7 +32,7 @@ function EndureAttack_Activate(arg0, arg1)
 
     arg1:AddSubGoal(GOAL_COMMON_CommonAttack, lifetime, f1_local1, f1_local2, f1_local3, f1_local4, f1_local5, f1_local6,
         f1_local8, f1_local9, f1_local10, f1_local11, f1_local12, f1_local13, f1_local7)
-        
+
     arg0:SetEnableEndureCancel_forGoal()
 end
 

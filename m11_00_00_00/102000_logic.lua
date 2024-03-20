@@ -20,7 +20,7 @@ Logic.Main = function (arg0, arg1)
     local f1_local1 = arg1:GetHpLastTarget()
     local f1_local2 = arg1:GetEventRequest()
     if f1_local2 == 10 then
-        if not arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+        if not arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
             arg1:AddTopGoal(GOAL_COMMON_AttackTunableSpin, 1, 1040, TARGET_ENE_0, 9999, 0, 0, 0, 0)
         end
         arg1:SetEventMoveTarget(9622492)

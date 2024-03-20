@@ -14,9 +14,9 @@ Goal.Activate = function(arg0, self, goal_manager)
     local f2_local1 = goal_manager:GetParam(1)
     local dist_to_player = self:GetDist(TARGET_LOCALPLAYER)
 
-    if self:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if self:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
 
-    elseif self:HasSpecialEffectId(TARGET_SELF, 200002) then
+    elseif self:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_COMBAT_ALERT) then
         goal_manager:AddSubGoal(GOAL_COMMON_AttackTunableSpin, 3, 201040, TARGET_SELF, 9999, 0, 0, 0, 0)
     else
         goal_manager:AddSubGoal(GOAL_COMMON_AttackTunableSpin, 3, 1040, TARGET_SELF, 9999, 0, 0, 0, 0)

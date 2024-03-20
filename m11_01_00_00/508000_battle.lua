@@ -53,7 +53,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         f2_local0[34] = 100
     elseif arg1:HasSpecialEffectId(TARGET_SELF, 3508530) and f2_local5 >= 4 then
         f2_local0[22] = 100
-    elseif not not arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
         if arg1:HasSpecialEffectId(TARGET_SELF, 3508000) then
             f2_local0[32] = 100
         else
@@ -78,7 +78,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         if f2_local9 <= 1 then
             f2_local0[25] = 120
         end
-    elseif not not arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_R, 90) or arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
+    elseif arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_R, 90) or arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
         if f2_local5 >= 10 then
             f2_local0[3] = 5
         elseif f2_local5 >= 7 then
@@ -229,7 +229,7 @@ Goal.Act01 = function (arg0, arg1, arg2)
     local f3_local4 = 0
     local f3_local5 = 1.5
     local f3_local6 = 3
-    if not not arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_L, 180) or arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_B, 60) then
+    if arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_L, 180) or arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_B, 60) then
         arg1:AddSubGoal(GOAL_COMMON_ApproachSettingDirection, 0.1, TARGET_ENE_0, 0, TARGET_SELF, false, -1, AI_DIR_TYPE_ToL, 3)
     end
     local f3_local7 = 3
@@ -873,7 +873,7 @@ Goal.Act45 = function (arg0, arg1, arg2)
     local f39_local4 = 0
     local f39_local5 = 1.5
     local f39_local6 = 3
-    if not not arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_L, 180) or arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_B, 60) then
+    if arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_L, 180) or arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_B, 60) then
         arg1:AddSubGoal(GOAL_COMMON_ApproachSettingDirection, 0.1, TARGET_ENE_0, 0, TARGET_SELF, false, -1, AI_DIR_TYPE_ToL, 3)
     end
     local f39_local7 = 3
@@ -1081,7 +1081,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     local f50_local7 = arg1:GetNinsatsuNum()
     if arg1:IsInterupt(INTERUPT_ActivateSpecialEffect) then
         if arg1:GetSpecialEffectActivateInterruptType(0) == 5026 and arg1:GetNumber(8) == 0 then
-            if not not arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_R, 135) or arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 60) then
+            if arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_R, 135) or arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 60) then
                 if f50_local1 >= 12 then
                     if not arg1:HasSpecialEffectId(TARGET_SELF, 3508100) then
                         arg2:ClearSubGoal()

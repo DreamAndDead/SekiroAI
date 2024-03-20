@@ -33,7 +33,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[6] = 100
         elseif arg1:IsEventFlag(12505875) == true then
             f2_local0[5] = 100
-        elseif not not arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+        elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
             f2_local0[28] = 100
         elseif Common_ActivateAct(arg1, arg2, 1) then
 
@@ -414,7 +414,7 @@ Goal.Act19 = function (arg0, arg1, arg2)
     else
         f20_local7 = 0
     end
-    if not not f20_local8 or arg0:HasSpecialEffectId(TARGET_FRI_0, 200031) then
+    if f20_local8 or arg0:HasSpecialEffectId(TARGET_FRI_0, 200031) then
         if f20_local7 == 0 then
             f20_local7 = 1
         else
@@ -635,7 +635,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     if arg1:IsLadderAct(TARGET_SELF) then
         return false
     end
-    if not arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if not arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         return false
     end
     if arg1:IsInterupt(INTERUPT_ActivateSpecialEffect) then

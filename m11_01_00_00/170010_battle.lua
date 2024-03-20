@@ -123,7 +123,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     if f2_local5 >= 200 then
         f2_local0[4] = 0
     end
-    if not not arg1:IsInsideTargetRegion(TARGET_SELF, 1112250) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 1112250) then
+    if arg1:IsInsideTargetRegion(TARGET_SELF, 1112250) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 1112250) then
         f2_local0[8] = 0
     end
     f2_local0[1] = get_weight_base_on_cooldown(arg1, arg2, 3005, 15, f2_local0[1], 1)
@@ -614,7 +614,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     if arg1:IsLadderAct(TARGET_SELF) then
         return false
     end
-    if not arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if not arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         return false
     end
     if arg1:IsInterupt(INTERUPT_ParryTiming) then
@@ -775,7 +775,7 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
                 f24_local1[13] = 100
                 f24_local1[14] = 100
             end
-        elseif f24_local0 == 200210 then
+        elseif f24_local0 == SP_PARRY_COUNT_RIGHT then
             if f24_local4 >= 3 then
                 f24_local1[50] = 100
             elseif f24_local4 <= -1 then
@@ -785,7 +785,7 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
                 f24_local1[22] = 100
                 f24_local1[25] = 100
             end
-        elseif f24_local0 == 200211 then
+        elseif f24_local0 == SP_PARRY_COUNT_LEFT then
             if f24_local4 >= 3 then
                 f24_local1[50] = 100
             elseif f24_local4 <= -1 then

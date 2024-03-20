@@ -42,10 +42,10 @@ Goal.Activate = function (arg0, arg1, arg2)
     local f2_local6 = arg1:GetRandam_Int(1, 100)
     local f2_local7 = arg1:GetExcelParam(AI_EXCEL_THINK_PARAM_TYPE__thinkAttr_doAdmirer)
     local f2_local8 = arg1:GetEventRequest()
-    if not not arg1:IsInsideTargetRegion(TARGET_ENE_0, 9622450) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 9622451) then
+    if arg1:IsInsideTargetRegion(TARGET_ENE_0, 9622450) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 9622451) then
         if arg1:HasSpecialEffectId(TARGET_SELF, 3501010) == false then
             f2_local0[1] = 100
-        elseif not not arg1:IsInsideTargetRegion(TARGET_ENE_0, 9622450) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 9622452) then
+        elseif arg1:IsInsideTargetRegion(TARGET_ENE_0, 9622450) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 9622452) then
             f2_local0[2] = 80
             f2_local0[4] = 50
             f2_local0[5] = 50
@@ -60,7 +60,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     elseif arg1:IsInsideTargetRegion(TARGET_ENE_0, 9622460) and arg1:HasSpecialEffectId(TARGET_SELF, 3501013) == false then
         if arg1:HasSpecialEffectId(TARGET_SELF, 3501011) == false then
             f2_local0[11] = 100
-        elseif not not arg1:HasSpecialEffectId(TARGET_ENE_0, 109940) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 9622471) then
+        elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 109940) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 9622471) then
             if arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
                 f2_local0[18] = 100
             elseif arg1:HasSpecialEffectId(TARGET_SELF, 3501012) == false then
@@ -455,7 +455,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
                 arg2:AddSubGoal(GOAL_COMMON_ComboFinal, 20, 20039, TARGET_ENE_0, 999, 0, 0, 0, 0)
                 return true
             end
-            if arg1:GetSpecialEffectActivateInterruptType(0) == 5030 and (not not arg1:IsInsideTargetRegion(TARGET_ENE_0, 9622463) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 9622462)) then
+            if arg1:GetSpecialEffectActivateInterruptType(0) == 5030 and (arg1:IsInsideTargetRegion(TARGET_ENE_0, 9622463) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 9622462)) then
                 arg1:SetTimer(3, 10)
                 arg1:DeleteObserveSpecialEffectAttribute(TARGET_SELF, 5030)
                 arg2:ClearSubGoal()

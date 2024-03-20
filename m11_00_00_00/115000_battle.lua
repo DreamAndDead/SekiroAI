@@ -66,7 +66,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         else
             f2_local0[21] = 100
         end
-    elseif not not arg1:IsInsideTargetRegion(TARGET_ENE_0, 2502430) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 2502431) then
+    elseif arg1:IsInsideTargetRegion(TARGET_ENE_0, 2502430) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 2502431) then
         if f2_local3 <= 10 then
             f2_local0[21] = 50
             f2_local0[24] = 500
@@ -81,7 +81,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[27] = 1
             f2_local0[10] = 300
         end
-    elseif arg1:CheckDoesExistPath(TARGET_ENE_0, AI_DIR_TYPE_F, 0, 0) == false or not not arg1:HasSpecialEffectId(TARGET_ENE_0, 109220) or arg1:HasSpecialEffectId(TARGET_ENE_0, 109221) then
+    elseif arg1:CheckDoesExistPath(TARGET_ENE_0, AI_DIR_TYPE_F, 0, 0) == false or arg1:HasSpecialEffectId(TARGET_ENE_0, 109220) or arg1:HasSpecialEffectId(TARGET_ENE_0, 109221) then
         f2_local0[27] = 100
         f2_local0[21] = 50
         if arg1:HasSpecialEffectId(TARGET_SELF, 200051) and arg1:IsVisibleTarget(TARGET_ENE_0) then

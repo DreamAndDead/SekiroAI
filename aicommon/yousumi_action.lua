@@ -99,6 +99,6 @@ Goal.Interrupt = function(arg0, arg1, arg2)
         arg2:AddSubGoal(GOAL_COMMON_Wait_On_FailedPath, 0.5, 0.1)
         return true
     end
-    
+
     return false
 end

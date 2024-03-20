@@ -75,8 +75,8 @@ Logic.Main = function (arg0, arg1)
             return true
         end
     end
-    if not not arg1:HasSpecialEffectId(TARGET_SELF, 5020) or arg1:HasSpecialEffectId(TARGET_SELF, 5021) then
-        if not not arg1:IsBattleState() or arg1:IsFindState() then
+    if arg1:HasSpecialEffectId(TARGET_SELF, 5020) or arg1:HasSpecialEffectId(TARGET_SELF, 5021) then
+        if arg1:IsBattleState() or arg1:IsFindState() then
             if arg1:GetStringIndexedNumber("FirstSight") == 0 then
                 arg1:AddObserveArea(0, TARGET_SELF, TARGET_ENE_0, AI_DIR_TYPE_F, f1_local0, f1_local1)
                 if arg1:HasSpecialEffectId(TARGET_SELF, 5020) then
@@ -98,7 +98,7 @@ Logic.Main = function (arg0, arg1)
             arg1:SetStringIndexedNumber("FirstSight", 0)
         end
     elseif arg1:HasSpecialEffectId(TARGET_SELF, 5022) then
-        if not not arg1:IsBattleState() or arg1:IsFindState() then
+        if arg1:IsBattleState() or arg1:IsFindState() then
             if arg1:GetStringIndexedNumber("FirstSight") == 0 then
                 arg1:AddObserveArea(0, TARGET_SELF, TARGET_ENE_0, AI_DIR_TYPE_F, f1_local0, f1_local1)
                 if arg1:HasSpecialEffectId(TARGET_SELF, 5022) then

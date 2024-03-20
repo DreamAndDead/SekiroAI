@@ -9,11 +9,11 @@ Logic.Main = function (arg0, arg1)
     local f1_local0 = arg1:GetRandam_Int(1, 100)
     local f1_local1 = arg1:GetHpLastTarget()
     local f1_local2 = arg1:GetRandam_Float(3.5, 4.5)
-    if not not arg1:IsFindState() or arg1:IsBattleState() then
+    if arg1:IsFindState() or arg1:IsBattleState() then
         arg1:DeleteObserve(0)
-        if arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+        if arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
 
-        elseif arg1:HasSpecialEffectId(TARGET_SELF, 200002) then
+        elseif arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_COMBAT_ALERT) then
 
         else
             arg1:AddTopGoal(GOAL_COMMON_EndureAttack, 1, 1040, TARGET_ENE_0, 9999, 0, 0, 0, 0)
@@ -23,7 +23,7 @@ Logic.Main = function (arg0, arg1)
         return true
     elseif arg1:IsCautionState() then
         arg1:DeleteObserve(0)
-        if arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+        if arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
             arg1:AddTopGoal(GOAL_COMMON_AttackTunableSpin, 1, 401000, TARGET_SELF, 9999, 0, 0, 0, 0)
             arg1:SetStringIndexedNumber("findFlag", 0)
         elseif not arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
@@ -32,7 +32,7 @@ Logic.Main = function (arg0, arg1)
         end
         return true
     else
-        if arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+        if arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
             arg1:AddTopGoal(GOAL_COMMON_AttackTunableSpin, 1, 401000, TARGET_SELF, 9999, 0, 0, 0, 0)
         elseif arg1:HasSpecialEffectId(TARGET_SELF, 3505040) == false then
             arg1:AddObserveArea(0, TARGET_SELF, TARGET_EVENT, AI_DIR_TYPE_FR, 120, 30)

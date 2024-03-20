@@ -17,6 +17,7 @@ function ComboAttackTunableSpin_Activate(arg0, arg1)
     if f1_local4 < 0 then
         f1_local4 = 1.5
     end
+    
     if f1_local5 < 0 then
         f1_local5 = 20
     end

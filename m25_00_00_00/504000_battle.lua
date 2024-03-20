@@ -28,7 +28,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     local f2_local7 = arg1:GetRandam_Int(1, 100)
     local f2_local8 = arg1:GetExcelParam(AI_EXCEL_THINK_PARAM_TYPE__thinkAttr_doAdmirer)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 200200)
-    if not not arg1:HasSpecialEffectId(TARGET_SELF, 200030) or arg1:HasSpecialEffectId(TARGET_SELF, 200031) then
+    if arg1:HasSpecialEffectId(TARGET_SELF, 200030) or arg1:HasSpecialEffectId(TARGET_SELF, 200031) then
         if arg1:IsEventFlag(19625685) == true then
             f2_local0[7] = 100
         elseif arg1:IsEventFlag(19625681) == true then
@@ -316,9 +316,9 @@ Goal.Update = function (arg0, arg1, arg2)
         arg1:SetEventFlag(19625693, true)
     elseif arg1:IsInsideObserve(7) then
         arg1:SetEventFlag(19625688, true)
-    elseif not not arg1:IsInsideObserve(4) or not not arg1:IsInsideObserve(5) or arg1:IsInsideObserve(6) then
+    elseif arg1:IsInsideObserve(4) or arg1:IsInsideObserve(5) or arg1:IsInsideObserve(6) then
         arg1:SetEventFlag(19625687, true)
-    elseif not not arg1:IsInsideObserve(1) or not not arg1:IsInsideObserve(2) or arg1:IsInsideObserve(3) then
+    elseif arg1:IsInsideObserve(1) or arg1:IsInsideObserve(2) or arg1:IsInsideObserve(3) then
         arg1:SetEventFlag(19625686, true)
     elseif arg1:IsInsideObserve(0) then
         arg1:SetEventFlag(19625685, true)

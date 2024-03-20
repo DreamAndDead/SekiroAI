@@ -8,7 +8,7 @@ Logic.Main = function (arg0, arg1)
 end
 
 function LOCAL_EzSetup(arg0)
-    if not arg0:HasSpecialEffectId(TARGET_SELF, 205050) and not arg0:HasSpecialEffectId(TARGET_SELF, 205051) and LOCAL_AddStateTransitionGoal(arg0) then
+    if not arg0:HasSpecialEffectId(TARGET_SELF, SP_CANT_BE_INTERRUPTED_PERSISTENT) and not arg0:HasSpecialEffectId(TARGET_SELF, SP_CANT_BE_INTERRUPTED_MOMENT) and LOCAL_AddStateTransitionGoal(arg0) then
         return true
     end
     COMMON_SetBattleActLogic(arg0)
@@ -27,12 +27,12 @@ function LOCAL_AddStateTransitionGoal(arg0)
     local f3_local0 = arg0:IsSearchTarget(TARGET_ENE_0)
     local f3_local1 = arg0:GetPrevTargetState()
     local f3_local2 = arg0:GetCurrTargetType()
-    if not not arg0:IsFindState() or arg0:IsBattleState() then
+    if arg0:IsFindState() or arg0:IsBattleState() then
         arg0:ClearSoundTarget()
         arg0:ClearIndicationPosTarget()
-        if arg0:HasSpecialEffectId(TARGET_SELF, 200004) then
+        if arg0:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
 
-        elseif arg0:HasSpecialEffectId(TARGET_SELF, 200002) then
+        elseif arg0:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_COMBAT_ALERT) then
             if arg0:HasSpecialEffectId(TARGET_SELF, 220070) and arg0:IsVisibleCurrTarget() == false then
                 if not arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
                     arg0:AddTopGoal(GOAL_COMMON_Turn, 3, TARGET_ENE_0, 40, -1, GOAL_RESULT_Success, true)
@@ -43,7 +43,7 @@ function LOCAL_AddStateTransitionGoal(arg0)
                 arg0:AddTopGoal(GOAL_COMMON_EndureAttack, 10, 201040, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             end
             return true
-        elseif arg0:HasSpecialEffectId(TARGET_SELF, 200001) then
+        elseif arg0:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_NON_COMBAT_VIGILANCE) then
             if arg0:HasSpecialEffectId(TARGET_SELF, 220070) and arg0:IsVisibleCurrTarget() == false then
                 if not arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
                     arg0:AddTopGoal(GOAL_COMMON_Turn, 3, TARGET_ENE_0, 40, -1, GOAL_RESULT_Success, true)
@@ -70,11 +70,11 @@ function LOCAL_AddStateTransitionGoal(arg0)
         end
     elseif arg0:IsCautionState() then
         if f3_local2 == AI_TARGET_TYPE__MEMORY_ENEMY then
-            if arg0:HasSpecialEffectId(TARGET_SELF, 200004) then
+            if arg0:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
                 arg0:AddTopGoal(GOAL_COMMON_AttackTunableSpin, 10, 401020, TARGET_ENE_0, 9999, 0, 0, 0, 0)
                 return true
-            elseif not arg0:HasSpecialEffectId(TARGET_SELF, 200002) then
-                if arg0:HasSpecialEffectId(TARGET_SELF, 200001) then
+            elseif not arg0:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_COMBAT_ALERT) then
+                if arg0:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_NON_COMBAT_VIGILANCE) then
 
                 else
                     arg0:AddTopGoal(GOAL_COMMON_EndureAttack, 10, 1010, TARGET_ENE_0, 9999, 0, 0, 0, 0)
@@ -83,11 +83,11 @@ function LOCAL_AddStateTransitionGoal(arg0)
             end
         elseif f3_local2 == AI_TARGET_TYPE__SOUND then
             arg0:SetStringIndexedNumber("toCaotionFlag", 1)
-            if arg0:HasSpecialEffectId(TARGET_SELF, 200004) then
+            if arg0:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
                 arg0:AddTopGoal(GOAL_COMMON_AttackTunableSpin, 10, 401020, TARGET_ENE_0, 9999, 0, 0, 0, 0)
                 return true
-            elseif not arg0:HasSpecialEffectId(TARGET_SELF, 200002) then
-                if arg0:HasSpecialEffectId(TARGET_SELF, 200001) then
+            elseif not arg0:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_COMBAT_ALERT) then
+                if arg0:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_NON_COMBAT_VIGILANCE) then
 
                 else
                     arg0:AddTopGoal(GOAL_COMMON_EndureAttack, 10, 1010, TARGET_ENE_0, 9999, 0, 0, 0, 0)
@@ -96,11 +96,11 @@ function LOCAL_AddStateTransitionGoal(arg0)
             end
         elseif f3_local2 == AI_TARGET_TYPE__INDICATION_POS then
             arg0:SetStringIndexedNumber("toCaotionFlag", 1)
-            if arg0:HasSpecialEffectId(TARGET_SELF, 200004) then
+            if arg0:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
                 arg0:AddTopGoal(GOAL_COMMON_AttackTunableSpin, 10, 401020, TARGET_ENE_0, 9999, 0, 0, 0, 0)
                 return true
-            elseif not arg0:HasSpecialEffectId(TARGET_SELF, 200002) then
-                if arg0:HasSpecialEffectId(TARGET_SELF, 200001) then
+            elseif not arg0:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_COMBAT_ALERT) then
+                if arg0:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_NON_COMBAT_VIGILANCE) then
 
                 else
                     arg0:AddTopGoal(GOAL_COMMON_EndureAttack, 10, 1010, TARGET_ENE_0, 9999, 0, 0, 0, 0)
@@ -109,11 +109,11 @@ function LOCAL_AddStateTransitionGoal(arg0)
             end
         elseif f3_local2 == AI_TARGET_TYPE__CORPSE_POS then
             arg0:SetStringIndexedNumber("toCaotionFlag", 1)
-            if arg0:HasSpecialEffectId(TARGET_SELF, 200004) then
+            if arg0:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
                 arg0:AddTopGoal(GOAL_COMMON_AttackTunableSpin, 10, 401020, TARGET_ENE_0, 9999, 0, 0, 0, 0)
                 return true
-            elseif not arg0:HasSpecialEffectId(TARGET_SELF, 200002) then
-                if arg0:HasSpecialEffectId(TARGET_SELF, 200001) then
+            elseif not arg0:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_COMBAT_ALERT) then
+                if arg0:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_NON_COMBAT_VIGILANCE) then
 
                 else
                     arg0:AddTopGoal(GOAL_COMMON_EndureAttack, 10, 1010, TARGET_ENE_0, 9999, 0, 0, 0, 0)
@@ -121,13 +121,13 @@ function LOCAL_AddStateTransitionGoal(arg0)
                 end
             end
         end
-    elseif arg0:HasSpecialEffectId(TARGET_SELF, 200004) then
+    elseif arg0:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         arg0:AddTopGoal(GOAL_COMMON_AttackTunableSpin, 10, 401000, TARGET_ENE_0, 9999, 0, 0, 0, 0)
         return true
-    elseif arg0:HasSpecialEffectId(TARGET_SELF, 200002) then
+    elseif arg0:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_COMBAT_ALERT) then
         arg0:AddTopGoal(GOAL_COMMON_AttackTunableSpin, 10, 201000, TARGET_SELF, 9999, 0, 0, 0, 0)
         return true
-    elseif arg0:HasSpecialEffectId(TARGET_SELF, 200001) then
+    elseif arg0:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_NON_COMBAT_VIGILANCE) then
         arg0:AddTopGoal(GOAL_COMMON_AttackTunableSpin, 10, 201000, TARGET_SELF, 9999, 0, 0, 0, 0)
         return true
     else

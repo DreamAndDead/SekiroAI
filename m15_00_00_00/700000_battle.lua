@@ -23,7 +23,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     if arg0:Kengeki_Activate(arg1, arg2) then
         return 
     end
-    if not not arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
         if arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
             f2_local0[21] = 1
             f2_local0[28] = 100
@@ -665,7 +665,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     if arg1:IsLadderAct(TARGET_SELF) then
         return false
     end
-    if not arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if not arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         return false
     end
     if arg1:IsInterupt(INTERUPT_ParryTiming) then
@@ -759,13 +759,13 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
         else
             f32_local1[31] = 100
         end
-    elseif f32_local0 == 200210 then
+    elseif f32_local0 == SP_PARRY_COUNT_RIGHT then
         if f32_local4 >= 3 then
             f32_local1[31] = 100
         else
             f32_local1[7] = 100
         end
-    elseif f32_local0 == 200211 then
+    elseif f32_local0 == SP_PARRY_COUNT_LEFT then
         if f32_local4 >= 3 then
             f32_local1[31] = 100
         else

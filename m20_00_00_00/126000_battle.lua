@@ -24,10 +24,10 @@ Goal.Activate = function (arg0, arg1, arg2)
     local f2_local14 = 90
     local f2_local15 = 15
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5026)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 200004)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 3126000)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 3126070)
-    if arg1:HasSpecialEffectId(TARGET_SELF, 200004) and arg1:HasSpecialEffectId(TARGET_SELF, 5023) then
+    if arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) and arg1:HasSpecialEffectId(TARGET_SELF, 5023) then
         if arg1:HasSpecialEffectId(TARGET_ENE_0, 3126070) then
             f2_local0[26] = 100
         else
@@ -44,7 +44,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[24] = 10000
             f2_local0[23] = 100
             f2_local0[26] = 1
-        elseif not not arg1:HasSpecialEffectId(TARGET_ENE_0, SP_REVIVAL_AFTER_1) or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_REVIVAL_AFTER_2) then
+        elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_REVIVAL_AFTER_1) or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_REVIVAL_AFTER_2) then
             if TorimakiAct(arg1, arg2, 0, 80) then
                 f2_local0[7] = 100
                 f2_local0[10] = 100
@@ -534,7 +534,7 @@ Goal.Act17 = function (arg0, arg1, arg2)
             end
         elseif arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902842) then
             f18_local3 = 9902819
-        elseif not not arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902843) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902840) then
+        elseif arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902843) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902840) then
             if arg0:HasSpecialEffectId(TARGET_SELF, 5020) then
                 f18_local3 = 9902859
             else
@@ -546,7 +546,7 @@ Goal.Act17 = function (arg0, arg1, arg2)
     elseif arg0:IsInsideTargetRegion(TARGET_SELF, 9902850) then
         if arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902842) then
             f18_local3 = 9902848
-        elseif not not arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902850) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902851) then
+        elseif arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902850) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902851) then
             f18_local3 = 9902849
         else
             f18_local3 = 9902859
@@ -572,13 +572,13 @@ Goal.Act17 = function (arg0, arg1, arg2)
             f18_local3 = 9902451
         end
     elseif arg0:IsInsideTargetRegion(TARGET_SELF, 9902822) then
-        if not not arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902822) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902820) then
+        if arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902822) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902820) then
             f18_local3 = 9902839
         else
             f18_local3 = 9902829
         end
     elseif arg0:IsInsideTargetRegion(TARGET_SELF, 9902832) then
-        if not not arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902840) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902832) then
+        if arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902840) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902832) then
             f18_local3 = 9902839
         else
             f18_local3 = 9902849
@@ -650,7 +650,7 @@ Goal.Act17 = function (arg0, arg1, arg2)
             f18_local3 = 9902848
         end
     elseif arg0:IsInsideTargetRegion(TARGET_SELF, 9902851) then
-        if not not arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902841) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902845) then
+        if arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902841) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902845) then
             f18_local3 = 9902849
         else
             f18_local3 = 9902848
@@ -668,27 +668,27 @@ Goal.Act17 = function (arg0, arg1, arg2)
             f18_local3 = 9902868
         end
     elseif arg0:IsInsideTargetRegion(TARGET_SELF, 9902825) then
-        if not not arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902821) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902815) then
+        if arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902821) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902815) then
             f18_local3 = 9902838
         else
             f18_local3 = 9902828
         end
     elseif arg0:IsInsideTargetRegion(TARGET_SELF, 9902815) then
-        if not not arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902821) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902825) then
+        if arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902821) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902825) then
             f18_local3 = 9902818
         else
             f18_local3 = 9902828
         end
     elseif arg0:IsInsideTargetRegion(TARGET_SELF, 9902835) then
-        if not not arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902831) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902825) then
+        if arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902831) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902825) then
             f18_local3 = 9902849
         else
             f18_local3 = 9902831
         end
     elseif arg0:IsInsideTargetRegion(TARGET_SELF, 9902816) then
-        if not not arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902811) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902815) then
+        if arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902811) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902815) then
             f18_local3 = 9902848
-        elseif not not arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902841) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902835) then
+        elseif arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902841) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902835) then
             f18_local3 = 9902818
         else
             f18_local3 = 9902453
@@ -706,25 +706,25 @@ Goal.Act17 = function (arg0, arg1, arg2)
             f18_local3 = 9902451
         end
     elseif arg0:IsInsideTargetRegion(TARGET_SELF, 9902814) then
-        if not not arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902810) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902812) then
+        if arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902810) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902812) then
             f18_local3 = 9902869
         else
             f18_local3 = 9902819
         end
     elseif arg0:IsInsideTargetRegion(TARGET_SELF, 9902843) then
-        if not not arg0:IsInsideTargetRegion(TARGET_ENE_0, R_23) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902832) then
+        if arg0:IsInsideTargetRegion(TARGET_ENE_0, R_23) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902832) then
             f18_local3 = 9902869
         else
             f18_local3 = 9902849
         end
     elseif arg0:IsInsideTargetRegion(TARGET_SELF, 9902881) then
-        if not not arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902880) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902860) then
+        if arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902880) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902860) then
             f18_local3 = 9902849
         else
             f18_local3 = 9902869
         end
     elseif arg0:IsInsideTargetRegion(TARGET_SELF, 9902880) then
-        if not not arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902860) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902883) then
+        if arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902860) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 9902883) then
             f18_local3 = 9902819
         else
             f18_local3 = 9902869
@@ -770,7 +770,7 @@ Goal.Act17 = function (arg0, arg1, arg2)
             f18_local3 = 2002829
         end
     elseif arg0:IsInsideTargetRegion(TARGET_SELF, 2002831) then
-        if not not arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002830) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002831) then
+        if arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002830) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002831) then
             if arg0:HasSpecialEffectId(TARGET_SELF, 5020) then
                 f18_local3 = 2002898
             elseif arg0:HasSpecialEffectId(TARGET_SELF, 5021) then
@@ -850,7 +850,7 @@ Goal.Act17 = function (arg0, arg1, arg2)
             else
                 f18_local3 = 2002583
             end
-        elseif not not arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002853) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002856) then
+        elseif arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002853) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002856) then
             if arg0:HasSpecialEffectId(TARGET_SELF, 5020) then
                 f18_local3 = 2002869
             elseif arg0:HasSpecialEffectId(TARGET_SELF, 5021) then
@@ -862,7 +862,7 @@ Goal.Act17 = function (arg0, arg1, arg2)
             f18_local3 = 2002859
         end
     elseif arg0:IsInsideTargetRegion(TARGET_SELF, 2002856) then
-        if not not arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002851) or arg0:IsInsideTargetRegion(TARGET_SELF, 2002855) then
+        if arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002851) or arg0:IsInsideTargetRegion(TARGET_SELF, 2002855) then
             if arg0:HasSpecialEffectId(TARGET_SELF, 5020) then
                 f18_local3 = 2002889
             elseif arg0:HasSpecialEffectId(TARGET_SELF, 5021) then
@@ -882,7 +882,7 @@ Goal.Act17 = function (arg0, arg1, arg2)
             f18_local3 = 2002859
         end
     elseif arg0:IsInsideTargetRegion(TARGET_SELF, 2002866) then
-        if not not arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002881) or not not arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002856) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002866) then
+        if arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002881) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002856) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002866) then
             if arg0:HasSpecialEffectId(TARGET_SELF, 5020) then
                 f18_local3 = 2002869
             elseif arg0:HasSpecialEffectId(TARGET_SELF, 5021) then
@@ -926,7 +926,7 @@ Goal.Act17 = function (arg0, arg1, arg2)
             else
                 f18_local3 = 2002898
             end
-        elseif not not arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002863) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002866) then
+        elseif arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002863) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002866) then
             if arg0:HasSpecialEffectId(TARGET_SELF, 5020) then
                 f18_local3 = 2002581
             elseif arg0:HasSpecialEffectId(TARGET_SELF, 5021) then
@@ -938,7 +938,7 @@ Goal.Act17 = function (arg0, arg1, arg2)
             f18_local3 = 2002869
         end
     elseif arg0:IsInsideTargetRegion(TARGET_SELF, 2002564) then
-        if not not arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002870) or not not arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002862) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002570) then
+        if arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002870) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002862) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002570) then
             if arg0:HasSpecialEffectId(TARGET_SELF, 5020) then
                 f18_local3 = 2002879
             elseif arg0:HasSpecialEffectId(TARGET_SELF, 5021) then
@@ -950,7 +950,7 @@ Goal.Act17 = function (arg0, arg1, arg2)
             f18_local3 = 2002878
         end
     elseif arg0:IsInsideTargetRegion(TARGET_SELF, 2002581) then
-        if not not arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002870) or not not arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002862) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002570) then
+        if arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002870) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002862) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002570) then
             if arg0:HasSpecialEffectId(TARGET_SELF, 5020) then
                 f18_local3 = 2002879
             elseif arg0:HasSpecialEffectId(TARGET_SELF, 5021) then
@@ -1134,7 +1134,7 @@ Goal.Act17 = function (arg0, arg1, arg2)
             else
                 f18_local3 = 2002829
             end
-        elseif not not arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002822) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002566) then
+        elseif arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002822) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002566) then
             if arg0:HasSpecialEffectId(TARGET_SELF, 5020) then
                 f18_local3 = 2002838
             elseif arg0:HasSpecialEffectId(TARGET_SELF, 5021) then
@@ -1186,7 +1186,7 @@ Goal.Act17 = function (arg0, arg1, arg2)
             else
                 f18_local3 = 2002878
             end
-        elseif not not arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002870) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002862) then
+        elseif arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002870) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002862) then
             if arg0:HasSpecialEffectId(TARGET_SELF, 5020) then
                 f18_local3 = 2002898
             elseif arg0:HasSpecialEffectId(TARGET_SELF, 5021) then
@@ -1234,7 +1234,7 @@ Goal.Act17 = function (arg0, arg1, arg2)
             else
                 f18_local3 = 2002879
             end
-        elseif not not arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002870) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002570) then
+        elseif arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002870) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002570) then
             if arg0:HasSpecialEffectId(TARGET_SELF, 5020) then
                 f18_local3 = 2002569
             elseif arg0:HasSpecialEffectId(TARGET_SELF, 5021) then
@@ -1322,7 +1322,7 @@ Goal.Act17 = function (arg0, arg1, arg2)
             else
                 f18_local3 = 2002869
             end
-        elseif not not arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002551) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002552) then
+        elseif arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002551) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002552) then
             if arg0:HasSpecialEffectId(TARGET_SELF, 5020) then
                 f18_local3 = 2002857
             elseif arg0:HasSpecialEffectId(TARGET_SELF, 5021) then
@@ -1374,7 +1374,7 @@ Goal.Act17 = function (arg0, arg1, arg2)
             else
                 f18_local3 = 2002869
             end
-        elseif not not arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002551) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002552) then
+        elseif arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002551) or arg0:IsInsideTargetRegion(TARGET_ENE_0, 2002552) then
             if arg0:HasSpecialEffectId(TARGET_SELF, 5020) then
                 f18_local3 = 2002869
             elseif arg0:HasSpecialEffectId(TARGET_SELF, 5021) then
@@ -1677,7 +1677,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     if arg1:IsLadderAct(TARGET_SELF) then
         return false
     end
-    if not arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if not arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         return false
     end
     if arg1:IsInterupt(INTERUPT_Damaged) then

@@ -48,7 +48,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             else
                 f2_local0[42] = 100
             end
-        elseif not not arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+        elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
             f2_local0[39] = 100
         elseif Common_ActivateAct(arg1, arg2) then
 
@@ -97,7 +97,7 @@ Goal.Activate = function (arg0, arg1, arg2)
                 f2_local0[42] = 200
             end
         end
-    elseif not not arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
         f2_local0[39] = 100
     elseif Common_ActivateAct(arg1, arg2) then
 
@@ -119,7 +119,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[42] = 100
         end
     else
-        if not not arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+        if arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
             f2_local0[39] = 100
         else
             if f2_local5 >= 22 then
@@ -188,7 +188,7 @@ Goal.Activate = function (arg0, arg1, arg2)
                 f2_local0[15] = 200
             end
         end
-        if not not arg1:HasSpecialEffectId(TARGET_ENE_0, 109031) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110125) then
+        if arg1:HasSpecialEffectId(TARGET_ENE_0, 109031) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110125) then
             f2_local0[5] = 1
             f2_local0[13] = 1
             f2_local0[33] = 1
@@ -1227,7 +1227,7 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2)
         else
             f45_local1[2] = 100
         end
-    elseif arg1:GetStringIndexedNumber("KengekiID") == 200210 then
+    elseif arg1:GetStringIndexedNumber("KengekiID") == SP_PARRY_COUNT_RIGHT then
         if f45_local4 >= 10 then
             f45_local1[26] = 100
         elseif f45_local4 <= 0.2 then
@@ -1235,7 +1235,7 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2)
         else
             f45_local1[7] = 100
         end
-    elseif arg1:GetStringIndexedNumber("KengekiID") == 200211 then
+    elseif arg1:GetStringIndexedNumber("KengekiID") == SP_PARRY_COUNT_LEFT then
         if f45_local4 >= 10 then
             f45_local1[26] = 100
         elseif f45_local4 <= 0.2 then

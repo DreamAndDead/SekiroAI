@@ -33,7 +33,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         elseif f2_local4 == 1 and arg1:GetTeamOrder(ORDER_TYPE_Role) == ROLE_TYPE_Torimaki then
             f2_local0[27] = 100
         elseif f2_local6 == UNREACH_ATTACK then
-            if not not arg1:HasSpecialEffectId(TARGET_SELF, 5020) or arg1:HasSpecialEffectId(TARGET_SELF, 5021) then
+            if arg1:HasSpecialEffectId(TARGET_SELF, 5020) or arg1:HasSpecialEffectId(TARGET_SELF, 5021) then
                 f2_local0[19] = 100
             else
                 f2_local0[27] = 100
@@ -50,7 +50,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[27] = 100
         end
     elseif arg1:CheckDoesExistPath(TARGET_ENE_0, AI_DIR_TYPE_F, 0, 0) == false then
-        if not not arg1:HasSpecialEffectId(TARGET_SELF, 5020) or arg1:HasSpecialEffectId(TARGET_SELF, 5021) then
+        if arg1:HasSpecialEffectId(TARGET_SELF, 5020) or arg1:HasSpecialEffectId(TARGET_SELF, 5021) then
             f2_local0[19] = 100
         else
             f2_local0[27] = 100
@@ -642,7 +642,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     if arg1:IsLadderAct(TARGET_SELF) then
         return false
     end
-    if not arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if not arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         return false
     end
     if arg1:IsInterupt(INTERUPT_ParryTiming) then
@@ -694,7 +694,7 @@ Goal.Parry = function (arg0, arg1, arg2, arg3)
     if arg0:HasSpecialEffectId(TARGET_SELF, 220062) then
         return false
     end
-    if not not arg0:HasSpecialEffectId(TARGET_ENE_0, 110450) or not not arg0:HasSpecialEffectId(TARGET_ENE_0, 110501) or arg0:HasSpecialEffectId(TARGET_ENE_0, 110500) then
+    if arg0:HasSpecialEffectId(TARGET_ENE_0, 110450) or arg0:HasSpecialEffectId(TARGET_ENE_0, 110501) or arg0:HasSpecialEffectId(TARGET_ENE_0, 110500) then
         return false
     end
     arg0:SetTimer(AI_TIMER_PARRY_INTERVAL, 0.1)
@@ -829,19 +829,19 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2)
                 f31_local1[4] = 100
                 f31_local1[50] = 100
             end
-        elseif f31_local0 == 200215 or f31_local0 == 200210 then
+        elseif f31_local0 == 200215 or f31_local0 == SP_PARRY_COUNT_RIGHT then
             if f31_local4 >= 3.5 then
                 f31_local1[50] = 100
-            elseif f31_local0 == 200210 then
+            elseif f31_local0 == SP_PARRY_COUNT_RIGHT then
                 f31_local1[7] = 1000
             else
                 f31_local1[5] = 100
                 f31_local1[6] = 100
             end
-        elseif f31_local0 == 200216 or f31_local0 == 200211 then
+        elseif f31_local0 == 200216 or f31_local0 == SP_PARRY_COUNT_LEFT then
             if f31_local4 >= 3.5 then
                 f31_local1[50] = 100
-            elseif f31_local0 == 200211 then
+            elseif f31_local0 == SP_PARRY_COUNT_LEFT then
                 f31_local1[5] = 1000
             else
                 f31_local1[5] = 100

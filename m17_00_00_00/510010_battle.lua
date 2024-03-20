@@ -40,7 +40,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     elseif f2_local7 == 11 then
         arg2:AddSubGoal(GOAL_COMMON_AttackTunableSpin, 10, 3018, TARGET_ENE_0, 9999, 0, 0, 0, 0)
         arg2:AddSubGoal(GOAL_COMMON_Wait, 3, TARGET_SELF, 0, 0, 0)
-    elseif not not arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
         if arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
             f2_local0[27] = 100
         else
@@ -151,7 +151,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[22] = 100
             f2_local0[24] = 100
         end
-        if not not arg1:HasSpecialEffectId(TARGET_ENE_0, 109031) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110125) then
+        if arg1:HasSpecialEffectId(TARGET_ENE_0, 109031) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110125) then
             f2_local0[22] = 1
             f2_local0[24] = 1
         end
@@ -647,7 +647,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     if arg1:IsLadderAct(TARGET_SELF) then
         return false
     end
-    if not arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if not arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         return false
     end
     if Interupt_PC_Break(arg1) then

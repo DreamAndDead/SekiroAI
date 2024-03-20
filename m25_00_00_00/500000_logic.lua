@@ -6,22 +6,22 @@ Logic.Main = function (arg0, arg1)
     if COMMON_HiPrioritySetup(arg1) then
         return true
     end
-    if not not arg1:IsFindState() or arg1:IsBattleState() then
-        if arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if arg1:IsFindState() or arg1:IsBattleState() then
+        if arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
 
-        elseif arg1:HasSpecialEffectId(TARGET_SELF, 200002) then
+        elseif arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_COMBAT_ALERT) then
 
         end
     elseif arg1:IsCautionState() then
-        if arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+        if arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
 
-        elseif arg1:HasSpecialEffectId(TARGET_SELF, 200002) then
+        elseif arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_COMBAT_ALERT) then
 
         end
     else
-        if arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+        if arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
 
-        elseif arg1:HasSpecialEffectId(TARGET_SELF, 200002) then
+        elseif arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_COMBAT_ALERT) then
 
         else
 

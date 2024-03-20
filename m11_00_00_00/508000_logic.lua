@@ -7,12 +7,12 @@ Logic.Main = function (arg0, arg1)
     if COMMON_HiPrioritySetup(arg1, COMMON_FLAG_BOSS) then
         return true
     end
-    if not not arg1:IsFindState() or arg1:IsBattleState() then
-        if arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if arg1:IsFindState() or arg1:IsBattleState() then
+        if arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
             if arg1:GetStringIndexedNumber("findFlag") == 0 then
                 arg1:AddTopGoal(GOAL_COMMON_EndureAttack, 0.1, 401040, TARGET_ENE_0, 9999, 0, 0, 0, 0)
             end
-        elseif arg1:HasSpecialEffectId(TARGET_SELF, 200002) then
+        elseif arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_COMBAT_ALERT) then
 
         else
 
@@ -21,10 +21,10 @@ Logic.Main = function (arg0, arg1)
     elseif arg1:IsCautionState() then
         arg1:SetStringIndexedNumber("findFlag", 0)
     else
-        if arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+        if arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
             arg1:AddTopGoal(GOAL_COMMON_Wait, arg1:GetRandam_Float(0, 2), TARGET_SELF, 0, 0, 0)
             arg1:AddTopGoal(GOAL_COMMON_AttackTunableSpin, 3, 401000, TARGET_SELF, 9999, 0, 0, 0, 0)
-        elseif arg1:HasSpecialEffectId(TARGET_SELF, 200002) then
+        elseif arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_COMBAT_ALERT) then
 
         else
 

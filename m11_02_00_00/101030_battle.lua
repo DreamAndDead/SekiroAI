@@ -22,8 +22,8 @@ Goal.Activate = function (arg0, arg1, arg2)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 200201)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 200205)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 200206)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 200210)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 200211)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, SP_PARRY_COUNT_RIGHT)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, SP_PARRY_COUNT_LEFT)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 200215)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 200216)
     Set_ConsecutiveGuardCount_Interrupt(arg1)
@@ -58,7 +58,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[3] = 0
             f2_local0[20] = 10
         end
-    elseif not not arg1:HasSpecialEffectId(TARGET_ENE_0, 110040) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110041) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110040) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110041) then
         f2_local0[5] = 90
     elseif arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_B, 135) then
         f2_local0[21] = 10
@@ -425,7 +425,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     if arg1:IsLadderAct(TARGET_SELF) then
         return false
     end
-    if not arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if not arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         return false
     end
     if arg1:IsInterupt(INTERUPT_ParryTiming) then

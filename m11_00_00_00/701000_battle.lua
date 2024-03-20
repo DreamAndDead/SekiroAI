@@ -261,7 +261,7 @@ Goal.Parry = function (arg0, arg1, arg2)
                 end
             elseif arg0:IsTargetGuard(TARGET_SELF) then
                 return false
-            elseif not not arg0:HasSpecialEffectId(TARGET_ENE_0, 109970) or not arg0:IsFinishTimer(5) then
+            elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 109970) or not arg0:IsFinishTimer(5) then
                 arg1:ClearSubGoal()
                 arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.1, 3101, TARGET_ENE_0, 9999, 0)
                 return true

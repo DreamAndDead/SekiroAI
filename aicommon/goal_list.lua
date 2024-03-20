@@ -33,10 +33,10 @@ GOAL_COMMON_KeepDist = 2018
     4. 走 or 跑？
     5. 方向？
     6. 0？
-    7. 
+    7. bool
     8. state
-    9. 
-    10. 
+    9. update result?
+    10. bool
 ]]
 GOAL_COMMON_MoveToSomewhere = 2019
 GOAL_COMMON_SpinStep = 2020
@@ -65,9 +65,19 @@ GOAL_COMMON_TeamReplyHelp = 2117
 --[[
     most important goal
 
-    0.
-    1.
-    2.
+    0. 动作编号，如果角色不在执行这个动作，则此 goal 结束
+    1. 攻击目标
+    2. 成功距离，只有在这个距离内才进行攻击？还是和activate条件相关？
+    3. 角度？
+    4. 攻击前旋转时间
+    5. 正面判定角度
+    6. bool
+    7. bool turnable？spinable?
+    8. bool combo?
+    9. bool 
+    10. 上攻击角度？
+    11. 下攻击角度？
+    12. bool 
 ]]
 GOAL_COMMON_CommonAttack = 2200
 GOAL_COMMON_ComboRepeat = 2210

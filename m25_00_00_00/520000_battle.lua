@@ -36,7 +36,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     end
     if arg1:HasSpecialEffectId(TARGET_SELF, 3520012) then
         f2_local0[18] = 100
-    elseif not not arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
         f2_local0[26] = 100
     elseif f2_local5 == 1 then
         if arg1:GetNumber(0) == 0 then
@@ -518,7 +518,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     if arg1:IsLadderAct(TARGET_SELF) then
         return false
     end
-    if not arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if not arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         return false
     end
     if arg1:IsInterupt(INTERUPT_ActivateSpecialEffect) then

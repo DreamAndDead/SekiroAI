@@ -47,7 +47,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         f2_local0[20] = 100
     elseif arg1:HasSpecialEffectId(TARGET_EVENT, 5033) then
         f2_local0[39] = 100
-    elseif not not arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
         if arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
             f2_local0[27] = 100
         else
@@ -1178,7 +1178,7 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
         else
             f47_local1[2] = 100
         end
-    elseif f47_local0 == 200210 then
+    elseif f47_local0 == SP_PARRY_COUNT_RIGHT then
         if f47_local4 >= 10 then
             f47_local1[50] = 100
         elseif f47_local4 <= 0.2 then
@@ -1186,7 +1186,7 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
         else
             f47_local1[7] = 100
         end
-    elseif f47_local0 == 200211 then
+    elseif f47_local0 == SP_PARRY_COUNT_LEFT then
         if f47_local4 >= 10 then
             f47_local1[50] = 100
         elseif f47_local4 <= 0.2 then

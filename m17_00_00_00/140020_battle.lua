@@ -505,7 +505,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     if arg1:IsLadderAct(TARGET_SELF) then
         return false
     end
-    if not arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if not arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         return false
     end
     if arg1:IsInterupt(INTERUPT_Shoot) then
@@ -629,7 +629,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     end
     if arg1:IsInterupt(INTERUPT_Inside_ObserveArea) then
         if arg1:IsInsideObserve(1) and arg1:HasSpecialEffectId(TARGET_SELF, 200031) and f17_local4 == 0 then
-            if arg1:HasSpecialEffectId(TARGET_SELF, 200031) and (not not arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_R, 90) or arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_L, 90)) then
+            if arg1:HasSpecialEffectId(TARGET_SELF, 200031) and (arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_R, 90) or arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_L, 90)) then
                 arg2:ClearSubGoal()
                 arg2:AddSubGoal(GOAL_COMMON_EndureAttack, 0.1, 5201, TARGET_ENE_0, 9999, 0, 0, 0, 0)
                 return true
@@ -690,7 +690,7 @@ Goal.Parry = function (arg0, arg1, arg2, arg3)
     if arg0:HasSpecialEffectId(TARGET_SELF, 220062) then
         return false
     end
-    if not not arg0:HasSpecialEffectId(TARGET_ENE_0, 110450) or not not arg0:HasSpecialEffectId(TARGET_ENE_0, 110501) or arg0:HasSpecialEffectId(TARGET_ENE_0, 110500) then
+    if arg0:HasSpecialEffectId(TARGET_ENE_0, 110450) or arg0:HasSpecialEffectId(TARGET_ENE_0, 110501) or arg0:HasSpecialEffectId(TARGET_ENE_0, 110500) then
         return false
     end
     arg0:SetTimer(AI_TIMER_PARRY_INTERVAL, 0.1)
@@ -978,7 +978,7 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
             f21_local1[14] = 100
             f21_local1[15] = 0
         end
-    elseif f21_local0 == 200210 or f21_local0 == 200211 then
+    elseif f21_local0 == SP_PARRY_COUNT_RIGHT or f21_local0 == SP_PARRY_COUNT_LEFT then
         if f21_local4 <= 2.8 then
             f21_local1[14] = 100
             f21_local1[15] = 100
@@ -1034,7 +1034,7 @@ Goal.Kengeki14 = function (arg0, arg1, arg2)
 
     elseif f22_local2 <= 50 then
         f22_local1 = 3083
-        if arg0:HasSpecialEffectId(TARGET_SELF, 200210) then
+        if arg0:HasSpecialEffectId(TARGET_SELF, SP_PARRY_COUNT_RIGHT) then
             f22_local1 = 3087
         end
     end

@@ -177,7 +177,7 @@ Goal.Act11 = function (arg0, arg1, arg2)
     local f8_local4 = arg0:GetNumber(3)
     local f8_local5 = arg0:GetNumber(4)
     local f8_local6 = arg0:GetNumber(5)
-    if arg0:HasSpecialEffectId(TARGET_SELF, 200000) then
+    if arg0:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_NORMAL) then
         f8_local0 = f8_local0 + 1
         f8_local1 = f8_local1 + 1
     end
@@ -262,7 +262,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     if arg1:IsLadderAct(TARGET_SELF) then
         return false
     end
-    if not arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if not arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         return false
     end
     if arg1:IsInterupt(INTERUPT_EventRequest) then

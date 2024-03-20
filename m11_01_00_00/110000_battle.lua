@@ -371,10 +371,10 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     if arg1:IsLadderAct(TARGET_SELF) then
         return false
     end
-    if not arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if not arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         return false
     end
-    if not not arg1:HasSpecialEffectId(TARGET_SELF, 5026) or not not arg1:HasSpecialEffectId(TARGET_SELF, 5027) or arg1:HasSpecialEffectId(TARGET_SELF, 5028) then
+    if arg1:HasSpecialEffectId(TARGET_SELF, 5026) or arg1:HasSpecialEffectId(TARGET_SELF, 5027) or arg1:HasSpecialEffectId(TARGET_SELF, 5028) then
         return false
     end
     if arg1:IsInterupt(INTERUPT_ActivateSpecialEffect) then

@@ -32,7 +32,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     if arg0:Kengeki_Activate(arg1, arg2) then
         return 
     end
-    if not not arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
         if arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
             f2_local0[21] = 1
             f2_local0[28] = 100
@@ -53,7 +53,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         f2_local0[13] = 100
         f2_local0[21] = 10
         f2_local0[22] = 100
-    elseif not not arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
         f2_local0[27] = 100
     elseif f2_local3 >= 10 then
         f2_local0[20] = 30
@@ -95,7 +95,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[41] = 75
         end
     end
-    if not not arg1:HasSpecialEffectId(TARGET_ENE_0, 109031) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110125) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, 109031) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110125) then
         f2_local0[18] = 1000000000000
     end
     if arg1:GetNumber(2) == 1 then
@@ -893,7 +893,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     if arg1:IsLadderAct(TARGET_SELF) then
         return false
     end
-    if not arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if not arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         return false
     end
     if arg1:IsInterupt(INTERUPT_ParryTiming) then
@@ -991,7 +991,7 @@ Goal.Parry = function (arg0, arg1, arg2, arg3)
     if arg0:IsFinishTimer(AI_TIMER_PARRY_INTERVAL) == false then
         return false
     end
-    if not not arg0:HasSpecialEffectId(TARGET_ENE_0, 110450) or not not arg0:HasSpecialEffectId(TARGET_ENE_0, 110501) or arg0:HasSpecialEffectId(TARGET_ENE_0, 110500) then
+    if arg0:HasSpecialEffectId(TARGET_ENE_0, 110450) or arg0:HasSpecialEffectId(TARGET_ENE_0, 110501) or arg0:HasSpecialEffectId(TARGET_ENE_0, 110500) then
         return false
     end
     arg0:SetTimer(AI_TIMER_PARRY_INTERVAL, 0.1)
@@ -1166,11 +1166,11 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
         else
             f43_local1[35] = 100
         end
-    elseif f43_local0 == 200210 then
+    elseif f43_local0 == SP_PARRY_COUNT_RIGHT then
         f43_local1[17] = 100
         f43_local1[38] = 50
         f43_local1[31] = 50
-    elseif f43_local0 == 200211 then
+    elseif f43_local0 == SP_PARRY_COUNT_LEFT then
         f43_local1[31] = 50
         f43_local1[38] = 50
     elseif f43_local0 == 200216 then

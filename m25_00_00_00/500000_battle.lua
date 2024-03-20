@@ -52,7 +52,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     if f2_local16 then
         f2_local18 = 1
     end
-    if not not arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
         f2_local0[39] = 100
     elseif Common_ActivateAct(arg1, arg2, f2_local18, 1) then
 
@@ -1629,7 +1629,7 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
                 f46_local1[30] = 100
             end
         end
-    elseif f46_local0 == 200210 then
+    elseif f46_local0 == SP_PARRY_COUNT_RIGHT then
         if f46_local4 >= 10 then
             f46_local1[46] = 100
         else
@@ -1639,7 +1639,7 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
                 f46_local1[30] = 50
             end
         end
-    elseif f46_local0 == 200211 then
+    elseif f46_local0 == SP_PARRY_COUNT_LEFT then
         if f46_local4 >= 10 then
             f46_local1[46] = 100
         else

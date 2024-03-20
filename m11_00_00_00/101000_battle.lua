@@ -836,7 +836,7 @@ Goal.Interrupt = function(goal, self, goal_manager)
     end
 
     -- 非战斗状态
-    if not self:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if not self:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         return false
     end
 
@@ -925,12 +925,12 @@ Goal.Kengeki_Activate = function(goal, self, goal_manager)
             act_weight_list[4] = 100
             act_weight_list[50] = 50
         end
-    elseif kengeki_sp == 200210 or kengeki_sp == 200215 then
+    elseif kengeki_sp == SP_PARRY_COUNT_RIGHT or kengeki_sp == 200215 then
         if dist_to_player >= 2.7 then
 
         elseif dist_to_player <= 0.2 then
 
-        elseif kengeki_sp == 200210 and self:HasSpecialEffectId(TARGET_SELF, 310080) then
+        elseif kengeki_sp == SP_PARRY_COUNT_RIGHT and self:HasSpecialEffectId(TARGET_SELF, 310080) then
             act_weight_list[3] = 100
         elseif kengeki_sp == 200215 and self:HasSpecialEffectId(TARGET_SELF, 310080) then
             act_weight_list[4] = 100
@@ -939,12 +939,12 @@ Goal.Kengeki_Activate = function(goal, self, goal_manager)
             act_weight_list[5] = 0
             act_weight_list[50] = 100
         end
-    elseif kengeki_sp == 200211 or kengeki_sp == 200216 then
+    elseif kengeki_sp == SP_PARRY_COUNT_LEFT or kengeki_sp == 200216 then
         if dist_to_player >= 2.7 then
 
         elseif dist_to_player <= 0.2 then
 
-        elseif kengeki_sp == 200211 and self:HasSpecialEffectId(TARGET_SELF, 310080) then
+        elseif kengeki_sp == SP_PARRY_COUNT_LEFT and self:HasSpecialEffectId(TARGET_SELF, 310080) then
             act_weight_list[3] = 100
         elseif kengeki_sp == 200216 and self:HasSpecialEffectId(TARGET_SELF, 310080) then
             act_weight_list[4] = 100

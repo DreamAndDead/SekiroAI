@@ -73,7 +73,7 @@ function COMMON_HiPrioritySetup(self, arg1)
 end
 
 function COMMON_EzSetup(self, flag)
-    if not self:HasSpecialEffectId(TARGET_SELF, 205050) and not self:HasSpecialEffectId(TARGET_SELF, 205051) and COMMON_AddStateTransitionGoal(self, flag) then
+    if not self:HasSpecialEffectId(TARGET_SELF, SP_CANT_BE_INTERRUPTED_PERSISTENT) and not self:HasSpecialEffectId(TARGET_SELF, SP_CANT_BE_INTERRUPTED_MOMENT) and COMMON_AddStateTransitionGoal(self, flag) then
         return true
     end
 
@@ -226,7 +226,7 @@ function COMMON_AddCautionAndFindGoal(self, situation, flag)
     -- space check useless 2nd param
     local goal = nil
 
-    if self:HasSpecialEffectId(TARGET_SELF, 205050) or self:HasSpecialEffectId(TARGET_SELF, 205051) then
+    if self:HasSpecialEffectId(TARGET_SELF, SP_CANT_BE_INTERRUPTED_PERSISTENT) or self:HasSpecialEffectId(TARGET_SELF, SP_CANT_BE_INTERRUPTED_MOMENT) then
         if self:IsFindState() then
             COMMON_SetBattleGoal(self)
         else

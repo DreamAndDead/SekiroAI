@@ -41,7 +41,7 @@ Logic.Main = function(logic, self)
         self:AddTopGoal(GOAL_COMMON_ApproachTarget, 3, POINT_EVENT, 0, TARGET_SELF, true, -1)
         -- 直接开始拔刀？
     elseif event_req == 12 then
-        if not self:HasSpecialEffectId(TARGET_SELF, 200004) then
+        if not self:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
             self:AddTopGoal(GOAL_COMMON_AttackTunableSpin, 1, 1040, TARGET_ENE_0, 9999, 0, 0, 0, 0)
         end
 

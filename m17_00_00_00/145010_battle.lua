@@ -548,7 +548,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     if arg1:IsLadderAct(TARGET_SELF) then
         return false
     end
-    if not arg1:HasSpecialEffectId(TARGET_SELF, 200004) then
+    if not arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         return false
     end
     if arg1:IsInterupt(INTERUPT_ParryTiming) then
@@ -607,7 +607,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             arg1:SetNumber(1, 1)
             arg1:DeleteObserve(0)
             return true
-        elseif arg1:HasSpecialEffectId(TARGET_SELF, 3145010) and (not not arg1:IsInsideObserve(1) or arg1:IsInsideObserve(2)) then
+        elseif arg1:HasSpecialEffectId(TARGET_SELF, 3145010) and (arg1:IsInsideObserve(1) or arg1:IsInsideObserve(2)) then
             arg2:ClearSubGoal()
             arg2:AddSubGoal(GOAL_COMMON_AttackImmediateAction, 10, 20000, TARGET_ENE_0, 9999, 0)
             arg1:DeleteObserve(1)
