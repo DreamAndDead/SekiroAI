@@ -26,11 +26,11 @@ DIST_Far = -3
 DIST_Out = -4
 DIST_None = -5
 
--- 当前仇恨目标
+-- 无 target
 TARGET_NONE = -2
--- 没有仇恨？
+-- ai pawn self
 TARGET_SELF = -1
--- 通常为 pc
+-- ai 的 enemy target，通常为 pc
 TARGET_ENE_0 = 0
 TARGET_FRI_0 = 10
 TARGET_EVENT = 20
@@ -669,9 +669,9 @@ SP_CANT_BE_INTERRUPTED_MOMENT = 205051
 SP_LOST_SIGHT_OF_PC_BY_TURNING = 240100
 -- 用于招架计数
 SP_GUARD_COUNT = 200250
--- 用于弹开计数 右
+-- ai 从右侧弹开玩家 计数
 SP_PARRY_COUNT_RIGHT = 200210
--- 用于弹开计数 左
+-- ai 从左侧弹开玩家 计数
 SP_PARRY_COUNT_LEFT = 200211
 -- 不响应声响 永久
 SP_NOT_REACT_TO_SOUND_PERSISTENT = 205060

@@ -391,9 +391,11 @@ function Common_Kengeki_Activate(self, goal_manager, act_weights, act_funcs, act
 
     -- >= 0 means get well space act odd
     -- -1 means no action act is selected and run
-    local get_well_space_odd = 0
     -- 0 means no debug
+    local get_well_space_odd = 0
+
     local force_kengeki_index = self:DbgGetForceKengekiActIdx()
+    
     -- debug in game developer menu
     if 0 < force_kengeki_index and force_kengeki_index <= act_list_max_size then
         get_well_space_odd = merged_act_funcs[force_kengeki_index]()
@@ -1251,7 +1253,7 @@ function get_first_not_nil(not_nil_param, nil_param)
 end
 
 --[[
-    function p3(p1, p2, p4)
+    return function p3(p1, p2, p4)
 ]]
 function REGIST_FUNC(p1, p2, func, p3)
     return function()
