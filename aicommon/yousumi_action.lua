@@ -42,7 +42,7 @@ Goal.Activate = function(arg0, arg1, arg2)
 
     local f1_local18 = TARGET_ENE_0
 
-    if arg1:CheckDoesExistPathWithSetPoint(TARGET_ENE_0, AI_DIR_TYPE_F, 0, 0) == false then
+    if arg1:CheckDoesExistPathWithSetPoint(TARGET_ENE_0, DIR_FRONT, 0, 0) == false then
         f1_local18 = POINT_UnreachTerminate
         f1_local7 = arg1:GetDist_Point(POINT_UnreachTerminate)
         f1_local15 = 0.5
@@ -62,23 +62,23 @@ Goal.Activate = function(arg0, arg1, arg2)
                 arg2:AddSubGoal(GOAL_COMMON_ApproachTarget, 3, f1_local18, f1_local15, TARGET_SELF, true, f1_local16)
             end
         elseif f1_local7 <= f1_local11 then
-            if arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 180) then
-                if SpaceCheck(arg1, arg2, 180, 1.5) == true then
+            if arg1:IsInsideTarget(TARGET_ENE_0, DIR_FRONT, 180) then
+                if NoCollisionAround(arg1, arg2, 180, 1.5) == true then
                     arg2:AddSubGoal(GOAL_COMMON_LeaveTarget, f1_local4, TARGET_ENE_0, 50, TARGET_ENE_0, true, f1_local16)
                 end
-            elseif SpaceCheck(arg1, arg2, 0, 0.5) == true then
+            elseif NoCollisionAround(arg1, arg2, 0, 0.5) == true then
                 arg2:AddSubGoal(GOAL_COMMON_LeaveTarget, f1_local4, TARGET_ENE_0, 50, TARGET_ENE_0, true, f1_local16)
             else
                 arg2:AddSubGoal(GOAL_COMMON_Turn, 3, TARGET_ENE_0, 0, 0, 0, 0)
             end
         end
-    elseif SpaceCheck(arg1, arg2, 0, 0.5) == false then
+    elseif NoCollisionAround(arg1, arg2, 0, 0.5) == false then
         arg2:AddSubGoal(GOAL_COMMON_LeaveTarget, f1_local4, TARGET_ENE_0, 50, TARGET_ENE_0, true, f1_local16)
     elseif f1_local7 <= f1_local15 then
 
-    elseif SpaceCheck(arg1, arg2, 0, 4) == true and f1_local0 == false then
+    elseif NoCollisionAround(arg1, arg2, 0, 4) == true and f1_local0 == false then
         arg2:AddSubGoal(GOAL_COMMON_ApproachTarget, 1.5, f1_local18, f1_local15, TARGET_SELF, false, f1_local16)
-    elseif SpaceCheck(arg1, arg2, 0, 3) == true then
+    elseif NoCollisionAround(arg1, arg2, 0, 3) == true then
         arg2:AddSubGoal(GOAL_COMMON_ApproachTarget, 3, f1_local18, f1_local15, TARGET_SELF, true, f1_local16)
     else
 

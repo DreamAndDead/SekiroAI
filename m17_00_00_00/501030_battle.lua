@@ -17,8 +17,8 @@ Goal.Activate = function (arg0, arg1, arg2)
     arg1:AddObserveRegion(2, TARGET_LOCALPLAYER, 1702627)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5025)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5022)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 109031)
-    if arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_PLAYER_DOWN)
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PRETEND_DEAD) then
         if arg1:HasSpecialEffectId(TARGET_SELF, 5036) and arg1:IsInsideTargetRegion(TARGET_ENE_0, 1702626) then
             f2_local0[12] = 100
         else
@@ -129,11 +129,11 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     if arg1:IsInterupt(INTERUPT_Damaged) then
         return arg0.Damaged(arg1, arg2)
     end
-    if arg1:GetSpecialEffectActivateInterruptType(0) == 109031 then
+    if arg1:GetSpecialEffectActivateInterruptType(0) == SP_PLAYER_DOWN then
         arg1:Replanning()
         return true
     end
-    if arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PRETEND_DEAD) then
         return false
     end
     if arg1:IsInterupt(INTERUPT_Inside_ObserveArea) and arg1:HasSpecialEffectId(TARGET_SELF, 5021) then

@@ -110,11 +110,11 @@ function TorimakiAct(self, goal_manager, keep_dist, still_odd, arg4)
             f6_local7, -1)
     elseif still_odd ~= nil and f6_local6 <= still_odd then
         return true
-    elseif SpaceCheck(self, goal_manager, 90, 1) == true or SpaceCheck(self, goal_manager, -90, 1) == true then
+    elseif NoCollisionAround(self, goal_manager, 90, 1) == true or NoCollisionAround(self, goal_manager, -90, 1) == true then
         left_or_right_dir = GetDirection_Sideway(self)
         goal_manager:AddSubGoal(GOAL_COMMON_SidewayMove, rand_lifetime, TARGET_ENE_0, left_or_right_dir, rand_angle, true,
             true, f6_local4)
-    elseif SpaceCheck(self, goal_manager, 180, 1) == true then
+    elseif NoCollisionAround(self, goal_manager, 180, 1) == true then
         goal_manager:AddSubGoal(GOAL_COMMON_LeaveTarget, lifetime, TARGET_ENE_0, 999, TARGET_ENE_0, true, f6_local4)
     else
         goal_manager:AddSubGoal(GOAL_COMMON_Wait, 0.5, TARGET_SELF, 0, 0, 0)
@@ -159,16 +159,16 @@ function Common_ActivateAct(self, goal_manager, arg2, arg3)
     end
 
     -- pc 死亡
-    if self:HasSpecialEffectId(TARGET_ENE_0, 110060) then
-        if self:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
+    if self:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) then
+        if self:IsInsideTarget(TARGET_ENE_0, DIR_FRONT, 90) then
             goal_manager:AddSubGoal(GOAL_COMMON_Wait, 0.5, TARGET_SELF, 0, 0, 0)
         else
             goal_manager:AddSubGoal(GOAL_COMMON_Turn, 3, TARGET_ENE_0, 45, -1, GOAL_RESULT_Success, true)
         end
         -- 半血复活
     elseif self:HasSpecialEffectId(TARGET_ENE_0, 110015) and self:GetStringIndexedNumber("Steped") ~= 1 then
-        if arg2 == 0 and SpaceCheck(self, goal_manager, 180, self:GetStringIndexedNumber("Dist_Step_Small")) == true then
-            if (arg3 == 0 or arg3 == 2) and SpaceCheck(self, goal_manager, 180, self:GetStringIndexedNumber("Dist_Step_Large")) == true then
+        if arg2 == 0 and NoCollisionAround(self, goal_manager, 180, self:GetStringIndexedNumber("Dist_Step_Small")) == true then
+            if (arg3 == 0 or arg3 == 2) and NoCollisionAround(self, goal_manager, 180, self:GetStringIndexedNumber("Dist_Step_Large")) == true then
                 if not (arg3 ~= 0 or dist_to_player <= 4) or arg3 == 1 then
                     goal_manager:AddSubGoal(GOAL_COMMON_SpinStep, 3, 5201, TARGET_ENE_0, 0, AI_DIR_TYPE_B, 0)
                 else
@@ -178,7 +178,7 @@ function Common_ActivateAct(self, goal_manager, arg2, arg3)
                 goal_manager:AddSubGoal(GOAL_COMMON_SpinStep, 3, 5201, TARGET_ENE_0, 0, AI_DIR_TYPE_B, 0)
             end
             self:SetStringIndexedNumber("Steped", 1)
-        elseif arg2 <= 1 and (SpaceCheck(self, goal_manager, 90, 1) == true or SpaceCheck(self, goal_manager, -90, 1) == true) then
+        elseif arg2 <= 1 and (NoCollisionAround(self, goal_manager, 90, 1) == true or NoCollisionAround(self, goal_manager, -90, 1) == true) then
             f8_local4 = GetDirection_Sideway(self)
             goal_manager:AddSubGoal(GOAL_COMMON_SidewayMove, rand_float_1t2, TARGET_ENE_0, f8_local4, rand_int_30t45,
                 true, true, f8_local3)
@@ -188,7 +188,7 @@ function Common_ActivateAct(self, goal_manager, arg2, arg3)
     elseif arg2 <= 1 and (self:HasSpecialEffectId(TARGET_ENE_0, SP_REVIVAL_AFTER_1) or self:HasSpecialEffectId(TARGET_ENE_0, SP_REVIVAL_AFTER_2)) then
         KankyakuAct(self, goal_manager, 0)
         -- 正在忍杀
-    elseif arg2 <= 1 and self:HasSpecialEffectId(TARGET_ENE_0, 110030) then
+    elseif arg2 <= 1 and self:HasSpecialEffectId(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_SHINOBI) then
         KankyakuAct(self, goal_manager, 0)
     else
         self:SetStringIndexedNumber("Steped", 0)
@@ -205,8 +205,8 @@ end
     return 1 右边
 ]]
 function GetDirection_Sideway(self)
-    if SpaceCheck(self, goal, -90, 1) == true then
-        if SpaceCheck(self, goal, 90, 1) == true then
+    if NoCollisionAround(self, goal, -90, 1) == true then
+        if NoCollisionAround(self, goal, 90, 1) == true then
             if self:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_R, 180) then
                 return 1
             else
@@ -215,7 +215,7 @@ function GetDirection_Sideway(self)
         else
             return 0
         end
-    elseif SpaceCheck(self, goal, 90, 1) == true then
+    elseif NoCollisionAround(self, goal, 90, 1) == true then
         return 1
     else
         return 0
@@ -284,13 +284,13 @@ end
 ]]
 function SpaceCheck_SidewayMove(arg0, arg1, arg2)
     local f14_local0 = nil
-    if SpaceCheck(arg0, arg1, -90, arg2) == true then
-        if SpaceCheck(arg0, arg1, 90, arg2) == true then
+    if NoCollisionAround(arg0, arg1, -90, arg2) == true then
+        if NoCollisionAround(arg0, arg1, 90, arg2) == true then
             f14_local0 = 2
         else
             f14_local0 = 0
         end
-    elseif SpaceCheck(arg0, arg1, 90, arg2) == true then
+    elseif NoCollisionAround(arg0, arg1, 90, arg2) == true then
         f14_local0 = 1
     else
         f14_local0 = 3
@@ -310,7 +310,7 @@ back_step_type
 ]]
 function Common_Parry(self, goal_manager, endure_percent_per_guard, back_step_odd, back_step_type, parry_act_id)
     local parry_dist = GetDist_Parry(self)
-    local f15_local5 = self:HasSpecialEffectId(TARGET_ENE_0, 109970)
+    local f15_local5 = self:HasSpecialEffectId(TARGET_ENE_0, SP_PUSH)
     local is_pc_continuous_attack = self:HasSpecialEffectId(TARGET_ENE_0, SP_CONTINUOUS_ATTACK)
 
     -- 招架中断等级
@@ -325,7 +325,7 @@ function Common_Parry(self, goal_manager, endure_percent_per_guard, back_step_od
     end
 
     -- ai 用来连续防御的计时器
-    if self:IsFinishTimer(AI_TIMER_PARRY_INTERVAL) == false then
+    if self:IsFinishTimer(AI_TIMER_PARRY) == false then
         return false
     end
 
@@ -342,7 +342,7 @@ function Common_Parry(self, goal_manager, endure_percent_per_guard, back_step_od
         return false
     end
 
-    self:SetTimer(AI_TIMER_PARRY_INTERVAL, 0.1)
+    self:SetTimer(AI_TIMER_PARRY, 0.1)
 
     if endure_percent_per_guard == nil then
         endure_percent_per_guard = 50
@@ -358,7 +358,7 @@ function Common_Parry(self, goal_manager, endure_percent_per_guard, back_step_od
         parry_act_id = 3100
     end
 
-    if self:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) and self:IsInsideTargetEx(TARGET_ENE_0, TARGET_SELF, AI_DIR_TYPE_F, 90, parry_dist) then
+    if self:IsInsideTarget(TARGET_ENE_0, DIR_FRONT, 90) and self:IsInsideTargetEx(TARGET_ENE_0, TARGET_SELF, DIR_FRONT, 90, parry_dist) then
         if is_pc_continuous_attack then
             goal_manager:ClearSubGoal()
             goal_manager:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, parry_act_id, TARGET_ENE_0, 9999, 0)
@@ -403,7 +403,7 @@ function Common_Parry(self, goal_manager, endure_percent_per_guard, back_step_od
             goal_manager:AddSubGoal(GOAL_COMMON_EndureAttack, 0.3, 3100, TARGET_ENE_0, 9999, 0)
             return true
         end
-    elseif self:IsInsideTargetEx(TARGET_ENE_0, TARGET_SELF, AI_DIR_TYPE_F, 90, parry_dist + 1) then
+    elseif self:IsInsideTargetEx(TARGET_ENE_0, TARGET_SELF, DIR_FRONT, 90, parry_dist + 1) then
         if back_step_type ~= -1 and self:GetRandam_Int(1, 100) <= back_step_odd then
             if back_step_type == 1 then
                 goal_manager:ClearSubGoal()
@@ -470,7 +470,7 @@ function GetDist_Parry(self)
         dist = PC_ATTACK_DIST_PUNCHI
     elseif self:HasSpecialEffectId(TARGET_ENE_0, 110501) then
         dist = PC_ATTACK_DIST_GATOTSU
-    elseif self:HasSpecialEffectId(TARGET_ENE_0, 109970) then
+    elseif self:HasSpecialEffectId(TARGET_ENE_0, SP_PUSH) then
         dist = PC_ATTACK_DIST_THRUST
     end
 
@@ -519,7 +519,7 @@ function Check_ReachAttack(self, dist)
     local f20_local1 = self:GetDist(TARGET_ENE_0)
     local f20_local2 = self:GetDistYSigned(TARGET_ENE_0)
 
-    if self:CheckDoesExistPathWithSetPoint(TARGET_ENE_0, AI_DIR_TYPE_F, 0, 0) == false then
+    if self:CheckDoesExistPathWithSetPoint(TARGET_ENE_0, DIR_FRONT, 0, 0) == false then
         if dist < f20_local1 then
             f20_local0 = UNREACH_ATTACK
         elseif f20_local2 >= 0 then

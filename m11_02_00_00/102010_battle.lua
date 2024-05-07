@@ -439,7 +439,7 @@ Goal.Parry = function (arg0, arg1, arg2, arg3)
     local f16_local2 = arg0:GetRandam_Int(1, 100)
     local f16_local3 = arg0:GetRandam_Int(1, 100)
     local f16_local4 = arg0:GetRandam_Int(1, 100)
-    local f16_local5 = arg0:HasSpecialEffectId(TARGET_ENE_0, 109970)
+    local f16_local5 = arg0:HasSpecialEffectId(TARGET_ENE_0, SP_PUSH)
     local f16_local6 = arg0:HasSpecialEffectId(TARGET_ENE_0, SP_CONTINUOUS_ATTACK)
     local f16_local7 = -1
     if arg0:HasSpecialEffectId(TARGET_SELF, 221000) then

@@ -35,7 +35,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     local f2_local12 = arg1:GetExcelParam(AI_EXCEL_THINK_PARAM_TYPE__thinkAttr_doAdmirer)
     local f2_local13 = arg1:GetNpcThinkParamID()
     local f2_local14 = arg1:GetEventRequest()
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 109031)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_PLAYER_DOWN)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 107900)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 109220)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 109221)
@@ -86,10 +86,10 @@ Goal.Activate = function (arg0, arg1, arg2)
         f2_local0[3] = 10
         f2_local0[11] = 10
     elseif f2_local10 >= 7 then
-        if not (not arg1:HasSpecialEffectId(TARGET_SELF, 200050) or arg1:GetNumber(5) ~= 0) or arg1:HasSpecialEffectId(TARGET_ENE_0, 100002) then
+        if not (not arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0) or arg1:GetNumber(5) ~= 0) or arg1:HasSpecialEffectId(TARGET_ENE_0, 100002) then
             f2_local0[8] = 100
             f2_local0[9] = 100
-        elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 109031) then
+        elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PLAYER_DOWN) then
             f2_local0[23] = 100
         elseif arg1:IsTargetGuard(TARGET_ENE_0) then
             f2_local0[1] = 0
@@ -111,7 +111,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[11] = 0
         end
     elseif f2_local10 >= 5 then
-        if arg1:HasSpecialEffectId(TARGET_ENE_0, 109031) then
+        if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PLAYER_DOWN) then
             f2_local0[23] = 100
         elseif arg1:IsTargetGuard(TARGET_ENE_0) then
             f2_local0[1] = 0
@@ -133,7 +133,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[11] = 100
         end
     elseif f2_local10 >= 3 then
-        if arg1:HasSpecialEffectId(TARGET_ENE_0, 109031) then
+        if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PLAYER_DOWN) then
             f2_local0[24] = 100
             f2_local0[25] = 100
         elseif arg1:IsTargetGuard(TARGET_ENE_0) then
@@ -156,7 +156,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[11] = 100
         end
     elseif f2_local10 >= 1 then
-        if arg1:HasSpecialEffectId(TARGET_ENE_0, 109031) then
+        if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PLAYER_DOWN) then
             f2_local0[24] = 100
             f2_local0[25] = 100
         elseif arg1:IsTargetGuard(TARGET_ENE_0) then
@@ -180,7 +180,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[11] = 200
             f2_local0[24] = 0
         end
-    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 109031) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PLAYER_DOWN) then
         f2_local0[24] = 100
         f2_local0[25] = 100
     elseif arg1:IsTargetGuard(TARGET_ENE_0) then
@@ -434,7 +434,7 @@ Goal.Act08 = function (arg0, arg1, arg2)
     arg0:SetNumber(5, 1)
     local f10_local0 = arg0:GetDist(TARGET_ENE_0)
     local f10_local1 = 5 - arg0:GetMapHitRadius(TARGET_SELF)
-    if arg0:HasSpecialEffectId(TARGET_ENE_0, 109900) then
+    if arg0:HasSpecialEffectId(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_DASHING) then
         f10_local1 = f10_local1 + 4
     end
     local f10_local2 = f10_local1 + 0
@@ -459,7 +459,7 @@ Goal.Act09 = function (arg0, arg1, arg2)
     arg0:SetNumber(5, 1)
     local f11_local0 = arg0:GetDist(TARGET_ENE_0)
     local f11_local1 = 7.6 - arg0:GetMapHitRadius(TARGET_SELF)
-    if arg0:HasSpecialEffectId(TARGET_ENE_0, 109900) then
+    if arg0:HasSpecialEffectId(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_DASHING) then
         f11_local1 = f11_local1 + 4
     end
     local f11_local2 = f11_local1 + 0
@@ -802,7 +802,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     if not arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         return false
     end
-    if arg1:GetSpecialEffectActivateInterruptType(0) == 109031 then
+    if arg1:GetSpecialEffectActivateInterruptType(0) == SP_PLAYER_DOWN then
         arg1:Replanning()
         return true
     end

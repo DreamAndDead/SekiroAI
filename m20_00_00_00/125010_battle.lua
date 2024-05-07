@@ -16,7 +16,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     if arg1:HasSpecialEffectId(TARGET_SELF, 200030) then
         arg2:AddSubGoal(GOAL_YashazaruKenzoku_sude_125000_Battle, -1)
     else
-        if arg1:HasSpecialEffectId(TARGET_SELF, 200050) and arg1:GetNumber(0) < 9 then
+        if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0) and arg1:GetNumber(0) < 9 then
             local f2_local5 = 1702320 + arg1:GetNumber(0)
             arg1:SetEventMoveTarget(f2_local5)
             if arg1:GetDist(POINT_EVENT) >= 0.2 then
@@ -474,10 +474,10 @@ Goal.Parry = function (arg0, arg1, arg2)
         if arg0:HasSpecialEffectId(TARGET_ENE_0, 109012) then
 
         elseif arg0:IsTargetGuard(TARGET_SELF) then
-            if arg0:HasSpecialEffectId(TARGET_ENE_0, 109970) then
+            if arg0:HasSpecialEffectId(TARGET_ENE_0, SP_PUSH) then
 
             end
-        elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 109970) then
+        elseif arg0:HasSpecialEffectId(TARGET_ENE_0, SP_PUSH) then
 
         else
 

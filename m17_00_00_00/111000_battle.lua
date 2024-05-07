@@ -19,8 +19,8 @@ Goal.Activate = function (arg0, arg1, arg2)
     local f2_local5 = arg1:GetRandam_Int(1, 100)
     local f2_local6 = arg1:GetExcelParam(AI_EXCEL_THINK_PARAM_TYPE__thinkAttr_doAdmirer)
     local f2_local7 = arg1:GetEventRequest(0)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 109031)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110030)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_PLAYER_DOWN)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_SHINOBI)
     if f2_local7 == 10 then
         f2_local0[10] = 100
     elseif f2_local7 == 11 then

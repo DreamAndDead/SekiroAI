@@ -51,14 +51,15 @@ end
 --[[
     self中心的扇形区域是否有障碍物
 
-    - 正前方 0 度
-    - 正右方 90 度
-    - 正左方 -90 度
-    - 正后方 180 度
-
+           ^
+           |
+           0
+    -90          90
+          180
+           
     return true 没有障碍物
 ]]
-function SpaceCheck(self, useless, angle, radius)
+function NoCollisionAround(self, xxxx, angle, radius)
     local capsule_radius = self:GetMapHitRadius(TARGET_SELF)
     local f2_local1 = self:GetExistMeshOnLineDistSpecifyAngleEx(TARGET_SELF, angle, radius + capsule_radius,
         AI_SPA_DIR_TYPE_TargetF, capsule_radius, 0)
@@ -111,7 +112,7 @@ function Init_Pseudo_Global(self, arg1)
     self:SetStringIndexedNumber("AddDistRun", 0)
     self:SetStringIndexedNumber("DistMin_AAA", -999)
     self:SetStringIndexedNumber("DistMax_AAA", 999)
-    self:SetStringIndexedNumber("BaseDir_AAA", AI_DIR_TYPE_F)
+    self:SetStringIndexedNumber("BaseDir_AAA", DIR_FRONT)
     self:SetStringIndexedNumber("Angle_AAA", 360)
     self:SetStringIndexedNumber("Odds_Guard_AAA", 0)
     self:SetStringIndexedNumber("Odds_NoAct_AAA", 0)

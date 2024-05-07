@@ -25,7 +25,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     local f2_local9 = 0
     local f2_local10 = arg1:GetEventRequest()
     local f2_local11 = 0
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 109031)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_PLAYER_DOWN)
     Set_ConsecutiveGuardCount_Interrupt(arg1)
     if arg0:Kengeki_Activate(arg1, arg2) then
         return 

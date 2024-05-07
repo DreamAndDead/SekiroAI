@@ -13,7 +13,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     local f2_local3 = arg1:GetDist(TARGET_ENE_0)
     local f2_local4 = arg1:GetExcelParam(AI_EXCEL_THINK_PARAM_TYPE__thinkAttr_doAdmirer)
     local f2_local5 = Check_ReachAttack(arg1, 0)
-    if arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) then
         if arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
             f2_local0[26] = 100
         else
@@ -33,7 +33,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[14] = 100
             f2_local0[15] = 100
         end
-    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110030) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_SHINOBI) then
         if TorimakiAct(arg1, arg2, 0, 80) then
             f2_local0[7] = 100
             f2_local0[10] = 100
@@ -118,7 +118,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         f2_local0[5] = 100
         f2_local0[24] = 400
     end
-    if arg1:HasSpecialEffectId(TARGET_SELF, 200050) then
+    if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0) then
         f2_local0[6] = 0
     elseif arg1:HasSpecialEffectId(TARGET_SELF, 3125041) then
         if arg1:HasSpecialEffectId(TARGET_SELF, 4000) then
@@ -630,10 +630,10 @@ Goal.Parry = function (arg0, arg1, arg2)
         if arg0:HasSpecialEffectId(TARGET_ENE_0, 109012) then
 
         elseif arg0:IsTargetGuard(TARGET_SELF) then
-            if arg0:HasSpecialEffectId(TARGET_ENE_0, 109970) then
+            if arg0:HasSpecialEffectId(TARGET_ENE_0, SP_PUSH) then
 
             end
-        elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 109970) then
+        elseif arg0:HasSpecialEffectId(TARGET_ENE_0, SP_PUSH) then
 
         else
 

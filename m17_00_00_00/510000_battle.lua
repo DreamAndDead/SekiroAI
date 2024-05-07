@@ -21,7 +21,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     local f2_local9 = arg1:GetEventRequest(1)
     local f2_local10 = arg1:GetDistY(TARGET_SELF)
     local f2_local11 = arg1:GetDistY(TARGET_ENE_0)
-    local f2_local12 = arg1:HasSpecialEffectId(TARGET_SELF, 200050)
+    local f2_local12 = arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0)
     arg1:SetNumber(11, 0)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5025)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5026)
@@ -30,8 +30,8 @@ Goal.Activate = function (arg0, arg1, arg2)
     arg1:AddObserveSpecialEffectAttribute(TARGET_EVENT, 5034)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5039)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 3510020)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110010)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110030)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_PRETEND_DEAD)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_SHINOBI)
     arg1:DeleteObserve(2)
     arg1:DeleteObserve(3)
     if arg0:Kengeki_Activate(arg1, arg2) then
@@ -48,7 +48,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             else
                 f2_local0[42] = 100
             end
-        elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+        elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PRETEND_DEAD) then
             f2_local0[39] = 100
         elseif Common_ActivateAct(arg1, arg2) then
 
@@ -97,7 +97,7 @@ Goal.Activate = function (arg0, arg1, arg2)
                 f2_local0[42] = 200
             end
         end
-    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PRETEND_DEAD) then
         f2_local0[39] = 100
     elseif Common_ActivateAct(arg1, arg2) then
 
@@ -119,7 +119,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[42] = 100
         end
     else
-        if arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+        if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PRETEND_DEAD) then
             f2_local0[39] = 100
         else
             if f2_local5 >= 22 then
@@ -188,7 +188,7 @@ Goal.Activate = function (arg0, arg1, arg2)
                 f2_local0[15] = 200
             end
         end
-        if arg1:HasSpecialEffectId(TARGET_ENE_0, 109031) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110125) then
+        if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PLAYER_DOWN) or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PC_BREAK) then
             f2_local0[5] = 1
             f2_local0[13] = 1
             f2_local0[33] = 1

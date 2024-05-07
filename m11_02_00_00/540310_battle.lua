@@ -28,14 +28,14 @@ Goal.Activate = function (arg0, arg1, arg2)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5033)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5034)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 3091)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 109031)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_PLAYER_DOWN)
     if arg1:GetNumber(6) == 0 and arg1:GetTimer(11) > 0 then
         arg1:SetNumber(6, 1)
     end
     if arg0:Kengeki_Activate(arg1, arg2) then
         return 
     end
-    if arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PRETEND_DEAD) then
         if arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
             f2_local0[21] = 1
             f2_local0[28] = 100
@@ -44,7 +44,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         end
     elseif Common_ActivateAct(arg1, arg2, 0, 1) then
 
-    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 109031) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PLAYER_DOWN) then
         if f2_local3 >= 10 then
             f2_local0[4] = 100
         elseif f2_local3 >= 6 then
@@ -1338,7 +1338,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         end
     end
     if arg1:IsInterupt(INTERUPT_ActivateSpecialEffect) then
-        if f52_local0 == 109031 and arg1:HasSpecialEffectId(TARGET_SELF, 3540050) then
+        if f52_local0 == SP_PLAYER_DOWN and arg1:HasSpecialEffectId(TARGET_SELF, 3540050) then
             arg2:ClearSubGoal()
             arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 4, 3012, TARGET_ENE_0, 9999, 0)
             return true

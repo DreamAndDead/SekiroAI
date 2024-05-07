@@ -18,7 +18,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     local f2_local8 = arg1:GetHpRate(TARGET_TEAM_LEADER)
     local f2_local9 = arg1:GetDist(TARGET_TEAM_LEADER)
     arg1:DeleteObserve(0)
-    if arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) then
         if arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
             f2_local0[20] = 100
         else

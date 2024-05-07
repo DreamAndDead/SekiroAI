@@ -23,7 +23,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     if arg0:Kengeki_Activate(arg1, arg2) then
         return 
     end
-    if arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PRETEND_DEAD) then
         if arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
             f2_local0[21] = 1
             f2_local0[28] = 100
@@ -700,7 +700,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     end
     if arg1:IsInterupt(INTERUPT_ActivateSpecialEffect) then
         if f30_local1 == 5025 then
-            if arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) == false or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) == false or arg1:HasSpecialEffectId(TARGET_ENE_0, 110015) == false then
+            if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) == false or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PRETEND_DEAD) == false or arg1:HasSpecialEffectId(TARGET_ENE_0, 110015) == false then
                 if f30_local3 <= 3.34 - arg1:GetMapHitRadius(TARGET_SELF) then
                     arg2:ClearSubGoal()
                     arg2:AddSubGoal(GOAL_COMMON_EndureAttack, 3, 3023, TARGET_ENE_0, 9999, 0)

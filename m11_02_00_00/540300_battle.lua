@@ -37,13 +37,13 @@ Goal.Activate = function (arg0, arg1, arg2)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110112)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110113)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110114)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110010)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110620)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_PRETEND_DEAD)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_DEDICATED_RESPONSE_IAI_STANCE)
     Set_ConsecutiveGuardCount_Interrupt(arg1)
     if arg0:Kengeki_Activate(arg1, arg2) then
         return 
     end
-    if arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PRETEND_DEAD) then
         if arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
             f2_local0[21] = 1
             f2_local0[28] = 100
@@ -52,7 +52,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         end
     elseif Common_ActivateAct(arg1, arg2, 0, 1) then
 
-    elseif f2_local6 <= 2 and arg1:HasSpecialEffectId(TARGET_SELF, 200050) then
+    elseif f2_local6 <= 2 and arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0) then
         f2_local0[40] = 100
     elseif arg1:GetNumber(8) == 0 then
         f2_local0[33] = 50
@@ -119,7 +119,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         if f2_local8 <= 0.8 then
             f2_local0[10] = 100
         end
-        if arg1:HasSpecialEffectId(TARGET_ENE_0, 110621) then
+        if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_DEDICATED_RESPONSE_IAI_SLASHING) then
             f2_local0[6] = 400
         end
     else
@@ -132,12 +132,12 @@ Goal.Activate = function (arg0, arg1, arg2)
         if f2_local8 <= 0.8 then
             f2_local0[10] = 200
         end
-        if arg1:HasSpecialEffectId(TARGET_ENE_0, 110621) then
+        if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_DEDICATED_RESPONSE_IAI_SLASHING) then
             f2_local0[6] = 400
         end
     end
     arg1:SetNumber(9, 0)
-    if arg1:HasSpecialEffectId(TARGET_ENE_0, 109900) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_DASHING) then
         f2_local0[7] = 300
         f2_local0[2] = 0
     end
@@ -852,7 +852,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             arg1:SetTimer(12, 2)
             arg1:SetNumber(9, 1)
             return true
-        elseif f39_local0 == 5034 and arg1:HasSpecialEffectId(TARGET_SELF, 200050) then
+        elseif f39_local0 == 5034 and arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0) then
             if f39_local2 <= 60 then
                 if f39_local1 <= 4.2 - arg1:GetMapHitRadius(TARGET_SELF) and arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 120) then
                     arg2:ClearSubGoal()
@@ -901,7 +901,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             arg2:ClearSubGoal()
             arg2:AddSubGoal(GOAL_COMMON_ComboFinal, 0.1, 3048, TARGET_ENE_0, 999, 0, 0, 0, 0)
             return true
-        elseif f39_local0 == 110620 then
+        elseif f39_local0 == SP_ENEMY_AI_REFERENCE_DEDICATED_RESPONSE_IAI_STANCE then
             arg1:Replanning()
             return true
         end
@@ -936,7 +936,7 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
         f41_local1[50] = 100
     else
         arg1:SetNumber(0, arg1:GetNumber(0) + 1)
-        if f41_local6 <= 2 and arg1:HasSpecialEffectId(TARGET_SELF, 200050) then
+        if f41_local6 <= 2 and arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0) then
             f41_local1[40] = 100
         elseif f41_local0 == 200205 or f41_local0 == 200200 then
             f41_local1[2] = 100
@@ -1005,7 +1005,7 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
                 f41_local1[4] = 500
             end
         elseif f41_local0 == 200226 then
-            if arg1:HasSpecialEffectId(TARGET_SELF, 200050) then
+            if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0) then
                 f41_local1[30] = 100
                 f41_local1[50] = 100
             end
@@ -1021,9 +1021,9 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
         f41_local1[5] = 0
         f41_local1[6] = 0
     end
-    if arg1:HasSpecialEffectId(TARGET_SELF, 200050) then
+    if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0) then
         f41_local1[20] = 0
-    elseif arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+    elseif arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
         f41_local1[5] = 0
     end
     if SpaceCheck(arg1, arg2, 45, 2) == false and SpaceCheck(arg1, arg2, -45, 2) == false then

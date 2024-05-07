@@ -33,7 +33,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     if arg1:GetNumber(2) == 2 and (arg1:IsFinishTimer(1) == true or f2_local3 >= 10) then
         arg1:SetNumber(2, 1)
     end
-    if arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) then
         if arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
             f2_local0[1] = 100
         else
@@ -713,7 +713,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     if not arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then
         return false
     end
-    if arg1:GetSpecialEffectActivateInterruptType(0) == 109031 then
+    if arg1:GetSpecialEffectActivateInterruptType(0) == SP_PLAYER_DOWN then
         arg1:Replanning()
         return true
     end

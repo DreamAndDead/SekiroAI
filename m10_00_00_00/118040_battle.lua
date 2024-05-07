@@ -15,8 +15,8 @@ Goal.Activate = function (arg0, arg1, arg2)
     local f2_local5 = Check_ReachAttack(arg1, 0)
     arg1:DeleteObserve(0)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 3118110)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 109031)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110125)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_PLAYER_DOWN)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_PC_BREAK)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 3118120)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 3118100)
     Set_ConsecutiveGuardCount_Interrupt(arg1)
@@ -504,7 +504,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         if f26_local0 == 3118100 then
             arg1:Replanning()
             return true
-        elseif f26_local0 == 109031 and f26_local1 <= 4 then
+        elseif f26_local0 == SP_PLAYER_DOWN and f26_local1 <= 4 then
             arg2:ClearSubGoal()
             arg2:AddSubGoal(GOAL_COMMON_EndureAttack, 1, 3015, TARGET_ENE_0, 9999, 0)
             return true

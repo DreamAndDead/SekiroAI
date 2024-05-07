@@ -38,7 +38,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[1] = 100
         end
         arg1:SetNumber(8, 0)
-    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) then
         if arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
             f2_local0[26] = 100
         else
@@ -46,7 +46,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         end
     elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110015) then
         f2_local0[10] = 100
-    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110030) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_SHINOBI) then
         f2_local0[10] = 100
     elseif arg1:HasSpecialEffectId(TARGET_SELF, SP_PUPPET_SHINOBI) then
         f2_local0[1] = 200
@@ -60,7 +60,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         f2_local0[14] = 200
     elseif arg1:IsFinishTimer(3) == false then
         f2_local0[1] = 100
-    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) then
         if arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
             f2_local0[26] = 100
         else
@@ -71,10 +71,10 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[21] = 50
             f2_local0[24] = 500
             f2_local0[27] = 1
-            if arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+            if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
                 f2_local0[5] = 10
             end
-        elseif arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+        elseif arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
             f2_local0[5] = 400
         else
             f2_local0[41] = 300
@@ -84,7 +84,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     elseif arg1:CheckDoesExistPath(TARGET_ENE_0, AI_DIR_TYPE_F, 0, 0) == false or arg1:HasSpecialEffectId(TARGET_ENE_0, 109220) or arg1:HasSpecialEffectId(TARGET_ENE_0, 109221) then
         f2_local0[27] = 100
         f2_local0[21] = 50
-        if arg1:HasSpecialEffectId(TARGET_SELF, 200051) and arg1:IsVisibleTarget(TARGET_ENE_0) then
+        if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) and arg1:IsVisibleTarget(TARGET_ENE_0) then
             f2_local0[5] = 400
         end
     elseif arg1:GetNumber(4) == 1 then
@@ -92,7 +92,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     elseif f2_local3 >= 15 then
         f2_local0[34] = 100
     elseif f2_local4 == 1 and arg1:GetTeamOrder(ORDER_TYPE_Role) == ROLE_TYPE_Kankyaku then
-        if arg1:HasSpecialEffectId(TARGET_ENE_0, 109900) and arg1:HasSpecialEffectId(TARGET_SELF, 3115020) == false then
+        if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_DASHING) and arg1:HasSpecialEffectId(TARGET_SELF, 3115020) == false then
             f2_local0[2] = 100
         elseif arg1:IsInsideTargetEx(TARGET_ENE_0, TARGET_SELF, AI_DIR_TYPE_B, 270, 9999) then
             if arg1:HasSpecialEffectId(TARGET_SELF, 3115020) then
@@ -116,7 +116,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[10] = 1
         end
     elseif f2_local4 == 1 and arg1:GetTeamOrder(ORDER_TYPE_Role) == ROLE_TYPE_Torimaki then
-        if arg1:HasSpecialEffectId(TARGET_ENE_0, 109900) and arg1:HasSpecialEffectId(TARGET_SELF, 3115020) == false then
+        if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_DASHING) and arg1:HasSpecialEffectId(TARGET_SELF, 3115020) == false then
             f2_local0[2] = 100
         elseif arg1:IsInsideTargetEx(TARGET_ENE_0, TARGET_SELF, AI_DIR_TYPE_B, 270, 9999) then
             if arg1:HasSpecialEffectId(TARGET_SELF, 3115020) then
@@ -144,7 +144,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         elseif f2_local3 <= 5 then
             f2_local0[1] = 0
         end
-    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 109900) and arg1:HasSpecialEffectId(TARGET_SELF, 3115020) == false then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_DASHING) and arg1:HasSpecialEffectId(TARGET_SELF, 3115020) == false then
         f2_local0[2] = 100
     elseif arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_B, 180) then
         if arg1:HasSpecialEffectId(TARGET_SELF, 3115020) then
@@ -163,7 +163,7 @@ Goal.Activate = function (arg0, arg1, arg2)
                 f2_local0[1] = 150
                 f2_local0[20] = 1
                 f2_local0[31] = 200
-                if arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+                if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
                     f2_local0[3] = 400
                     f2_local0[4] = 400
                 end
@@ -178,7 +178,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[10] = 50
             f2_local0[24] = 0
             f2_local0[31] = 100
-            if arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+            if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
                 f2_local0[3] = 400
                 f2_local0[4] = 400
             end
@@ -195,7 +195,7 @@ Goal.Activate = function (arg0, arg1, arg2)
                 f2_local0[10] = 200
                 f2_local0[20] = 1
                 f2_local0[31] = 200
-                if arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+                if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
                     f2_local0[3] = 400
                     f2_local0[4] = 400
                 end
@@ -211,7 +211,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[24] = 50
             f2_local0[10] = 100
             f2_local0[31] = 100
-            if arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+            if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
                 f2_local0[3] = 400
                 f2_local0[4] = 400
             end
@@ -229,7 +229,7 @@ Goal.Activate = function (arg0, arg1, arg2)
                 f2_local0[10] = 300
                 f2_local0[20] = 1
                 f2_local0[31] = 200
-                if arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+                if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
                     f2_local0[3] = 400
                     f2_local0[4] = 400
                 end
@@ -245,7 +245,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[10] = 200
             f2_local0[24] = 100
             f2_local0[31] = 100
-            if arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+            if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
                 f2_local0[3] = 400
                 f2_local0[4] = 400
             end

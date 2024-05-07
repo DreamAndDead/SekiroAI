@@ -40,8 +40,8 @@ Goal.Activate = function (arg0, arg1, arg2)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5029)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5035)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5038)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110010)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110125)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_PRETEND_DEAD)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_PC_BREAK)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 107900)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 3500051)
     Set_ConsecutiveGuardCount_Interrupt(arg1)
@@ -52,7 +52,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     if f2_local16 then
         f2_local18 = 1
     end
-    if arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PRETEND_DEAD) then
         f2_local0[39] = 100
     elseif Common_ActivateAct(arg1, arg2, f2_local18, 1) then
 
@@ -232,7 +232,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         if (not arg1:IsExistMeshOnLine(TARGET_SELF, AI_DIR_TYPE_L, 2) or not arg1:IsExistMeshOnLine(TARGET_SELF, AI_DIR_TYPE_R, 2)) and f2_local5 <= 5 and not f2_local16 then
             f2_local0[42] = 400
         end
-        if arg1:HasSpecialEffectId(TARGET_ENE_0, 109900) then
+        if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_DASHING) then
             f2_local0[1] = f2_local0[1] * 1.5
             f2_local0[3] = f2_local0[3] * 0.5
             f2_local0[5] = f2_local0[5] * 1.5
@@ -1454,7 +1454,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             arg1:SetNumber(1, 0)
             arg1:SetNumber(5, 0)
         end
-        if arg1:GetSpecialEffectActivateInterruptType(0) == 110125 then
+        if arg1:GetSpecialEffectActivateInterruptType(0) == SP_PC_BREAK then
 
         else
 

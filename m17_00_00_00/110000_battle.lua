@@ -38,7 +38,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         else
             f2_local0[34] = 100
         end
-    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) then
         if arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
             f2_local0[26] = 100
         else
@@ -47,7 +47,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     elseif arg1:CheckDoesExistPath(TARGET_ENE_0, AI_DIR_TYPE_F, 0, 0) == false then
         f2_local0[6] = 100
         f2_local0[26] = 100
-    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110030) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_SHINOBI) then
         f2_local0[28] = 100
     elseif arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_B, 180) then
         if f2_local5 > 7 then

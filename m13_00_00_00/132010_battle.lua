@@ -12,7 +12,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     Common_Clear_Param(f2_local0, f2_local1, f2_local2)
     local f2_local3 = arg1:GetDist(TARGET_ENE_0)
     local f2_local4 = arg1:GetExcelParam(AI_EXCEL_THINK_PARAM_TYPE__thinkAttr_doAdmirer)
-    if arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) then
         if arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
             f2_local0[20] = 100
         else
@@ -181,14 +181,14 @@ Goal.Parry = function (arg0, arg1, arg2)
         if arg0:HasSpecialEffectId(TARGET_ENE_0, 109012) then
 
         elseif arg0:IsTargetGuard(TARGET_SELF) then
-            if arg0:HasSpecialEffectId(TARGET_ENE_0, 109970) then
+            if arg0:HasSpecialEffectId(TARGET_ENE_0, SP_PUSH) then
 
             else
                 arg1:ClearSubGoal()
                 arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.1, 3100, TARGET_ENE_0, 9999, 0)
                 return true
             end
-        elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 109970) then
+        elseif arg0:HasSpecialEffectId(TARGET_ENE_0, SP_PUSH) then
             arg1:ClearSubGoal()
             arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.1, 3101, TARGET_ENE_0, 9999, 0)
             return true

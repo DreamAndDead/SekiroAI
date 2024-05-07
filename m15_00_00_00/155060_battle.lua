@@ -20,7 +20,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, SP_PARRY_COUNT_LEFT)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 200215)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 200216)
-    if arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) then
         if arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
             f2_local0[26] = 100
         else
@@ -32,7 +32,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         f2_local0[28] = 200
     elseif f2_local4 == 1 and arg1:GetTeamOrder(ORDER_TYPE_Role) == ROLE_TYPE_Torimaki then
         f2_local0[28] = 200
-    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110030) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_SHINOBI) then
         f2_local0[28] = 100
     elseif arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_B, 180) then
         f2_local0[21] = 100
@@ -45,7 +45,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     else
         f2_local0[12] = 100
     end
-    if arg1:HasSpecialEffectId(TARGET_SELF, 200050) then
+    if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0) then
         f2_local0[15] = 999999
     end
     if SpaceCheck(arg1, arg2, 45, 2) == false and SpaceCheck(arg1, arg2, -45, 2) == false then
@@ -95,7 +95,7 @@ Goal.Act12 = function (arg0, arg1, arg2)
     local f3_local9 = 35 - arg0:GetMapHitRadius(TARGET_SELF) + 1
     local f3_local10 = 0
     local f3_local11 = 0
-    if arg0:HasSpecialEffectId(TARGET_SELF, 200050) then
+    if arg0:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0) then
         arg1:AddSubGoal(GOAL_COMMON_AttackTunableSpin, 10, 3000, TARGET_ENE_0, 9999, f3_local10, f3_local11, 0, 0)
     else
         arg1:AddSubGoal(GOAL_COMMON_AttackTunableSpin, 10, 603000, TARGET_ENE_0, 9999, f3_local10, f3_local11, 0, 0)
@@ -145,7 +145,7 @@ end
 Goal.Act21 = function (arg0, arg1, arg2)
     local f7_local0 = 3
     local f7_local1 = 45
-    if arg0:HasSpecialEffectId(TARGET_SELF, 200050) then
+    if arg0:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0) then
         arg1:AddSubGoal(GOAL_COMMON_Turn, f7_local0, TARGET_ENE_0, f7_local1, -1, GOAL_RESULT_Success, true)
     else
         arg1:AddSubGoal(GOAL_COMMON_Turn, f7_local0, TARGET_ENE_0, f7_local1, 9920, GOAL_RESULT_Success, true)
@@ -179,7 +179,7 @@ Goal.Act23 = function (arg0, arg1, arg2)
     end
     local f8_local5 = 1.8
     local f8_local6 = arg0:GetRandam_Int(30, 45)
-    if arg0:HasSpecialEffectId(TARGET_SELF, 200050) then
+    if arg0:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0) then
         arg1:AddSubGoal(GOAL_COMMON_SidewayMove, f8_local5, TARGET_ENE_0, f8_local4, f8_local6, true, true, f8_local3)
     else
         arg1:AddSubGoal(GOAL_COMMON_SidewayMove, f8_local5, TARGET_ENE_0, f8_local4, f8_local6, true, true, 9920)
@@ -309,14 +309,14 @@ Goal.Parry = function (arg0, arg1, arg2)
         if arg0:HasSpecialEffectId(TARGET_ENE_0, 109012) then
 
         elseif arg0:IsTargetGuard(TARGET_SELF) then
-            if arg0:HasSpecialEffectId(TARGET_ENE_0, 109970) then
+            if arg0:HasSpecialEffectId(TARGET_ENE_0, SP_PUSH) then
 
             else
                 arg1:ClearSubGoal()
                 arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.1, 3100, TARGET_ENE_0, 9999, 0)
                 return true
             end
-        elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 109970) then
+        elseif arg0:HasSpecialEffectId(TARGET_ENE_0, SP_PUSH) then
             arg1:ClearSubGoal()
             arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.1, 3101, TARGET_ENE_0, 9999, 0)
             return true

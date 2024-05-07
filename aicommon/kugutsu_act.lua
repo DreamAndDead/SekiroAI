@@ -23,30 +23,30 @@ Goal.Activate = function(arg0, self, goal_manager)
     end
 
     if dist_to_player >= 6 then
-        if self:CheckDoesExistPath(TARGET_LOCALPLAYER, AI_DIR_TYPE_F, 0, 0) == true then
+        if self:CheckDoesExistPath(TARGET_LOCALPLAYER, DIR_FRONT, 0, 0) == true then
             if f2_local1 == 1 then
                 goal_manager:AddSubGoal(GOAL_COMMON_ApproachTarget, 0.5, TARGET_LOCALPLAYER, 5, TARGET_SELF, true, -1)
             else
                 goal_manager:AddSubGoal(GOAL_COMMON_ApproachTarget, 0.5, TARGET_LOCALPLAYER, 5, TARGET_SELF, false, -1)
             end
-        elseif self:IsInsideTarget(TARGET_LOCALPLAYER, AI_DIR_TYPE_F, 90) then
+        elseif self:IsInsideTarget(TARGET_LOCALPLAYER, DIR_FRONT, 90) then
             goal_manager:AddSubGoal(GOAL_COMMON_Wait, 1, TARGET_SELF, 0, 0, 0)
         else
             goal_manager:AddSubGoal(GOAL_COMMON_Turn, 1, TARGET_LOCALPLAYER, 0, 0, 0)
         end
     elseif dist_to_player >= 3 then
-        if self:CheckDoesExistPath(TARGET_LOCALPLAYER, AI_DIR_TYPE_F, 0, 0) == true then
+        if self:CheckDoesExistPath(TARGET_LOCALPLAYER, DIR_FRONT, 0, 0) == true then
             goal_manager:AddSubGoal(GOAL_COMMON_ApproachTarget, 0.5, TARGET_LOCALPLAYER, 2, TARGET_SELF, true, -1)
-        elseif self:IsInsideTarget(TARGET_LOCALPLAYER, AI_DIR_TYPE_F, 90) then
+        elseif self:IsInsideTarget(TARGET_LOCALPLAYER, DIR_FRONT, 90) then
             goal_manager:AddSubGoal(GOAL_COMMON_Wait, 1, TARGET_SELF, 0, 0, 0)
         else
             goal_manager:AddSubGoal(GOAL_COMMON_Turn, 1, TARGET_LOCALPLAYER, 0, 0, 0)
         end
     elseif dist_to_player >= 1 then
         goal_manager:AddSubGoal(GOAL_COMMON_Wait, 0.1, TARGET_SELF, 0, 0, 0)
-    elseif SpaceCheck(self, goal_manager, 180, 1) == true then
+    elseif NoCollisionAround(self, goal_manager, 180, 1) == true then
         if f2_local0 == 1 then
-            if self:IsInsideTarget(TARGET_LOCALPLAYER, AI_DIR_TYPE_F, 90) then
+            if self:IsInsideTarget(TARGET_LOCALPLAYER, DIR_FRONT, 90) then
                 goal_manager:AddSubGoal(GOAL_COMMON_Wait, 1, TARGET_SELF, 0, 0, 0)
             else
                 goal_manager:AddSubGoal(GOAL_COMMON_Turn, 1, TARGET_LOCALPLAYER, 0, 0, 0)
@@ -54,7 +54,7 @@ Goal.Activate = function(arg0, self, goal_manager)
         else
             goal_manager:AddSubGoal(GOAL_COMMON_LeaveTarget, 0.5, TARGET_LOCALPLAYER, 999, TARGET_LOCALPLAYER, true, -1)
         end
-    elseif self:IsInsideTarget(TARGET_LOCALPLAYER, AI_DIR_TYPE_F, 90) then
+    elseif self:IsInsideTarget(TARGET_LOCALPLAYER, DIR_FRONT, 90) then
         goal_manager:AddSubGoal(GOAL_COMMON_Wait, 1, TARGET_SELF, 0, 0, 0)
     else
         goal_manager:AddSubGoal(GOAL_COMMON_Turn, 1, TARGET_LOCALPLAYER, 0, 0, 0)

@@ -21,13 +21,13 @@ Goal.Activate = function (arg0, arg1, arg2)
     if arg0:Kengeki_Activate(arg1, arg2) then
         return 
     end
-    if arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) then
         if arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
             f2_local0[26] = 100
         else
             f2_local0[21] = 100
         end
-    elseif arg1:HasSpecialEffectId(TARGET_SELF, 200050) then
+    elseif arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0) then
         f2_local0[20] = 100
     elseif Common_ActivateAct(arg1, arg2) then
 
@@ -115,7 +115,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     if SpaceCheck(arg1, arg2, 180, 1) == false then
         f2_local0[25] = 0
     end
-    if arg1:HasSpecialEffectId(TARGET_ENE_0, 109031) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PLAYER_DOWN) then
         f2_local0[1] = 100
         f2_local0[2] = 0
         f2_local0[3] = 0

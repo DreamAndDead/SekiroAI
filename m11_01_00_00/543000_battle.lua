@@ -35,14 +35,14 @@ Goal.Activate = function (arg0, arg1, arg2)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110112)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110113)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110114)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110010)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_PRETEND_DEAD)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110450)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110620)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_DEDICATED_RESPONSE_IAI_STANCE)
     Set_ConsecutiveGuardCount_Interrupt(arg1)
     if arg0:Kengeki_Activate(arg1, arg2) then
         return 
     end
-    if arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PRETEND_DEAD) then
         if arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
             f2_local0[21] = 1
             f2_local0[28] = 100
@@ -123,7 +123,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[44] = 300
             f2_local0[45] = 300
         end
-        if arg1:HasSpecialEffectId(TARGET_ENE_0, 110621) then
+        if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_DEDICATED_RESPONSE_IAI_SLASHING) then
             f2_local0[6] = 400
         end
     else
@@ -137,12 +137,12 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[44] = 300
             f2_local0[45] = 300
         end
-        if arg1:HasSpecialEffectId(TARGET_ENE_0, 110621) then
+        if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_DEDICATED_RESPONSE_IAI_SLASHING) then
             f2_local0[6] = 400
         end
     end
     arg1:SetNumber(NUMBER_SLOT_AFTER_SIDEWAY_RUN_FLAG, 0)
-    if arg1:HasSpecialEffectId(TARGET_ENE_0, 109900) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_DASHING) then
         f2_local0[7] = 300
         f2_local0[2] = 0
         f2_local0[41] = 0
@@ -1001,7 +1001,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
                 arg2:AddSubGoal(GOAL_COMMON_ComboAttackTunableSpin, 10, 3007, TARGET_ENE_0, 999, 0, 0, 0, 0)
                 return true
             end
-        elseif f47_local0 == 5028 and arg1:GetNumber(11) == 1 and arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) == false and arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) == false then
+        elseif f47_local0 == 5028 and arg1:GetNumber(11) == 1 and arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) == false and arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PRETEND_DEAD) == false then
             arg2:ClearSubGoal()
             arg2:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3080, TARGET_ENE_0, 999, 0, 0, 0, 0)
             return true
@@ -1058,7 +1058,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             arg2:ClearSubGoal()
             arg2:AddSubGoal(GOAL_COMMON_ComboFinal, 0.1, 3048, TARGET_ENE_0, 999, 0, 0, 0, 0)
             return true
-        elseif f47_local0 == 110620 then
+        elseif f47_local0 == SP_ENEMY_AI_REFERENCE_DEDICATED_RESPONSE_IAI_STANCE then
             arg1:Replanning()
             return true
         end
@@ -1076,7 +1076,7 @@ Goal.Parry = function (arg0, arg1, arg2, arg3)
     local f48_local2 = arg0:GetRandam_Int(1, 100)
     local f48_local3 = arg0:GetRandam_Int(1, 100)
     local f48_local4 = arg0:GetRandam_Int(1, 100)
-    local f48_local5 = arg0:HasSpecialEffectId(TARGET_ENE_0, 109970)
+    local f48_local5 = arg0:HasSpecialEffectId(TARGET_ENE_0, SP_PUSH)
     local f48_local6 = arg0:HasSpecialEffectId(TARGET_ENE_0, SP_CONTINUOUS_ATTACK)
     if arg0:IsFinishTimer(AI_TIMER_PARRY_INTERVAL) == false then
         return false

@@ -147,7 +147,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         f2_local0[5] = f2_local0[5] * f2_local9 / 2
         f2_local0[11] = f2_local0[11] * f2_local9
     end
-    if arg1:HasSpecialEffectId(TARGET_ENE_0, 90) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110125) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, 90) or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PC_BREAK) then
         f2_local0[23] = 0
     end
     if SpaceCheck(arg1, arg2, 90, 1) == false and SpaceCheck(arg1, arg2, -45, 1) == false then
@@ -156,10 +156,10 @@ Goal.Activate = function (arg0, arg1, arg2)
     if SpaceCheck(arg1, arg2, 180, 1) == false then
         f2_local0[25] = 0
     end
-    if arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+    if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
         f2_local0[8] = 0
     end
-    if arg1:HasSpecialEffectId(TARGET_SELF, 200050) then
+    if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0) then
         f2_local0[9] = 0
         f2_local0[10] = 0
         f2_local0[20] = 0
@@ -632,9 +632,9 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         if arg1:GetSpecialEffectActivateInterruptType(0) == 3107001 then
             if arg1:HasSpecialEffectId(TARGET_SELF, 3107000) then
                 arg2:ClearSubGoal()
-                if arg1:HasSpecialEffectId(TARGET_SELF, 200050) and not arg1:IsTargetGuard(TARGET_ENE_0) then
+                if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0) and not arg1:IsTargetGuard(TARGET_ENE_0) then
                     arg2:AddSubGoal(GOAL_COMMON_ComboFinal, 1, 3018, TARGET_ENE_0, 9999, 0, 0)
-                elseif arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+                elseif arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
                     arg2:AddSubGoal(GOAL_COMMON_ComboFinal, 1, 3022, TARGET_ENE_0, 9999, 0, 0)
                 else
                     arg2:AddSubGoal(GOAL_COMMON_ComboFinal, 1, 3003, TARGET_ENE_0, 9999, 0, 0)
@@ -673,7 +673,7 @@ Goal.Parry = function (arg0, arg1, arg2, arg3, arg4, arg5)
     local f28_local2 = arg0:GetRandam_Int(1, 100)
     local f28_local3 = arg0:GetRandam_Int(1, 100)
     local f28_local4 = arg0:GetRandam_Int(1, 100)
-    local f28_local5 = arg0:HasSpecialEffectId(TARGET_ENE_0, 109970)
+    local f28_local5 = arg0:HasSpecialEffectId(TARGET_ENE_0, SP_PUSH)
     local f28_local6 = arg0:HasSpecialEffectId(TARGET_ENE_0, SP_CONTINUOUS_ATTACK)
     local f28_local7 = -1
     if arg0:HasSpecialEffectId(TARGET_SELF, 221000) then
@@ -838,7 +838,7 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
     else
         f30_local1[50] = 1
     end
-    if arg1:HasSpecialEffectId(TARGET_SELF, 200050) then
+    if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0) then
         f30_local1[4] = 0
     end
     f30_local1[1] = get_weight_base_on_cooldown(arg1, arg2, 3090, 5, f30_local1[1], 1)

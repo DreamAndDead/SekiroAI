@@ -19,13 +19,13 @@ Goal.Activate = function (arg0, arg1, arg2)
         f2_local0[10] = 100
     elseif arg1:IsEventFlag(19959970) == true then
         f2_local0[2] = 100
-    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) then
         if arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
             f2_local0[26] = 100
         else
             f2_local0[21] = 100
         end
-    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110030) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_SHINOBI) then
         f2_local0[23] = 100
         f2_local0[25] = 100
     elseif f2_local4 >= 3 then
@@ -378,14 +378,14 @@ Goal.Parry = function (arg0, arg1, arg2)
         if arg0:HasSpecialEffectId(TARGET_ENE_0, 109012) then
 
         elseif arg0:IsTargetGuard(TARGET_SELF) then
-            if arg0:HasSpecialEffectId(TARGET_ENE_0, 109970) then
+            if arg0:HasSpecialEffectId(TARGET_ENE_0, SP_PUSH) then
 
             else
                 arg1:ClearSubGoal()
                 arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.1, 3100, TARGET_ENE_0, 9999, 0)
                 return true
             end
-        elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 109970) then
+        elseif arg0:HasSpecialEffectId(TARGET_ENE_0, SP_PUSH) then
             arg1:ClearSubGoal()
             arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.1, 3101, TARGET_ENE_0, 9999, 0)
             return true

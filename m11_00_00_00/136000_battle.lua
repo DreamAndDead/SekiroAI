@@ -822,7 +822,7 @@ Goal.Act25 = function (arg0, arg1, arg2)
 end
 
 Goal.Act26 = function (arg0, arg1, arg2)
-    if arg0:HasSpecialEffectId(TARGET_SELF, 200051) then
+    if arg0:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
         arg0:AddObserveArea(4, TARGET_SELF, TARGET_ENE_0, AI_DIR_TYPE_F, 180, 6)
     end
     arg1:AddSubGoal(GOAL_COMMON_Wait, 0.5, TARGET_SELF, 0, 0, 0)
@@ -1056,7 +1056,7 @@ Goal.Parry = function (arg0, arg1, arg2, arg3, arg4)
     local f37_local2 = arg0:GetRandam_Int(1, 100)
     local f37_local3 = arg0:GetRandam_Int(1, 100)
     local f37_local4 = arg0:GetRandam_Int(1, 100)
-    local f37_local5 = arg0:HasSpecialEffectId(TARGET_ENE_0, 109970)
+    local f37_local5 = arg0:HasSpecialEffectId(TARGET_ENE_0, SP_PUSH)
     local f37_local6 = arg0:HasSpecialEffectId(TARGET_ENE_0, SP_CONTINUOUS_ATTACK)
     local f37_local7 = -1
     if arg0:HasSpecialEffectId(TARGET_SELF, 221000) then

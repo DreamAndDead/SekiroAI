@@ -57,7 +57,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         f2_local0[3] = 100
         f2_local0[5] = 100
     end
-    if arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+    if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
         f2_local0[41] = 200
     end
     if arg1:HasSpecialEffectId(TARGET_SELF, 5020) then

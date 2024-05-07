@@ -19,7 +19,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     if arg1:HasSpecialEffectId(TARGET_SELF, 200030) then
         arg2:AddSubGoal(GOAL_YashazaruKenzoku_sude_125000_Battle, -1)
     else
-        if arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) then
+        if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) then
             if arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
                 f2_local0[26] = 100
             else
@@ -36,7 +36,7 @@ Goal.Activate = function (arg0, arg1, arg2)
                 f2_local0[12] = 100
                 f2_local0[13] = 100
             end
-        elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110030) then
+        elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_SHINOBI) then
             if TorimakiAct(arg1, arg2, 0, 60) then
                 f2_local0[10] = 100
                 f2_local0[11] = 100

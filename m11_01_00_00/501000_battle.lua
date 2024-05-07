@@ -61,7 +61,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         if arg1:HasSpecialEffectId(TARGET_SELF, 3501011) == false then
             f2_local0[11] = 100
         elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 109940) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 9622471) then
-            if arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+            if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PRETEND_DEAD) then
                 f2_local0[18] = 100
             elseif arg1:HasSpecialEffectId(TARGET_SELF, 3501012) == false then
                 f2_local0[21] = 100
@@ -75,7 +75,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[14] = 50
             f2_local0[15] = 30
         elseif arg1:IsInsideTargetRegion(TARGET_ENE_0, 9622464) then
-            if arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+            if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PRETEND_DEAD) then
                 f2_local0[13] = 10
             else
                 f2_local0[12] = 20
@@ -425,7 +425,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             return true
         end
     end
-    if not arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) and f35_local4 == 10 then
+    if not arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PRETEND_DEAD) and f35_local4 == 10 then
         if arg1:IsInterupt(INTERUPT_ActivateSpecialEffect) then
             if arg1:GetSpecialEffectActivateInterruptType(0) == 5026 and arg1:IsInsideTargetRegion(TARGET_ENE_0, 9622453) then
                 arg1:SetTimer(0, 10)

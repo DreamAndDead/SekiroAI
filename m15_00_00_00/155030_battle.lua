@@ -46,7 +46,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     elseif arg1:HasSpecialEffectId(TARGET_SELF, 3155550) then
         f2_local0[4] = 150
         f2_local0[28] = 200
-    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110030) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_SHINOBI) then
         f2_local0[28] = 100
     elseif arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_B, 180) then
         f2_local0[21] = 100

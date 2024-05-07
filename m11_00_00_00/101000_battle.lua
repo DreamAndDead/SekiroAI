@@ -20,7 +20,7 @@ Goal.Activate = function(goal, self, goal_manager)
 
     self:SetStringIndexedNumber("targetWhich", TARGET_ENE_0)
     -- 和傀儡忍杀有关？
-    if self:IsInsideTargetEx(TARGET_ENE_0, TARGET_SELF, AI_DIR_TYPE_F, 120, 9999) or self:HasSpecialEffectId(TARGET_SELF, SP_PUPPET_SHINOBI) then
+    if self:IsInsideTargetEx(TARGET_ENE_0, TARGET_SELF, DIR_FRONT, 120, 9999) or self:HasSpecialEffectId(TARGET_SELF, SP_PUPPET_SHINOBI) then
         self:SetStringIndexedNumber("karaburiDist", 0)
     else
         self:SetStringIndexedNumber("karaburiDist", 2)
@@ -37,7 +37,7 @@ Goal.Activate = function(goal, self, goal_manager)
     local think_attr_do_admirer = self:GetExcelParam(AI_EXCEL_THINK_PARAM_TYPE__thinkAttr_doAdmirer)
     
     -- 变招输入的 sp 观察点，会引发变招信号
-    self:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 109031)
+    self:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_PLAYER_DOWN)
     self:AddObserveSpecialEffectAttribute(TARGET_SELF, 107900)
     self:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 109220)
     self:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 109221)
@@ -54,7 +54,7 @@ Goal.Activate = function(goal, self, goal_manager)
     elseif Common_ActivateAct(self, goal_manager) then
 
     -- 悬挂隐蔽？
-    elseif self:CheckDoesExistPath(TARGET_ENE_0, AI_DIR_TYPE_F, 0, 0) == false or self:HasSpecialEffectId(TARGET_ENE_0, 109220) or self:HasSpecialEffectId(TARGET_ENE_0, 109221) then
+    elseif self:CheckDoesExistPath(TARGET_ENE_0, DIR_FRONT, 0, 0) == false or self:HasSpecialEffectId(TARGET_ENE_0, 109220) or self:HasSpecialEffectId(TARGET_ENE_0, 109221) then
         act_weight_list[7] = 100
         act_weight_list[27] = 100
     -- 指笛相关？
@@ -99,10 +99,10 @@ Goal.Activate = function(goal, self, goal_manager)
         act_weight_list[3] = 10
         act_weight_list[11] = 10
     elseif dist_to_player >= 7 then
-        if not (not self:HasSpecialEffectId(TARGET_SELF, 200050) or self:GetNumber(5) ~= 0) or self:HasSpecialEffectId(TARGET_ENE_0, 100002) then
+        if not (not self:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0) or self:GetNumber(5) ~= 0) or self:HasSpecialEffectId(TARGET_ENE_0, 100002) then
             act_weight_list[8] = 100
             act_weight_list[9] = 100
-        elseif self:HasSpecialEffectId(TARGET_ENE_0, 109031) then
+        elseif self:HasSpecialEffectId(TARGET_ENE_0, SP_PLAYER_DOWN) then
             act_weight_list[23] = 100
         elseif self:IsTargetGuard(TARGET_ENE_0) then
             act_weight_list[1] = 0
@@ -124,7 +124,7 @@ Goal.Activate = function(goal, self, goal_manager)
             act_weight_list[11] = 0
         end
     elseif dist_to_player >= 5 then
-        if self:HasSpecialEffectId(TARGET_ENE_0, 109031) then
+        if self:HasSpecialEffectId(TARGET_ENE_0, SP_PLAYER_DOWN) then
             act_weight_list[23] = 100
         elseif self:IsTargetGuard(TARGET_ENE_0) then
             act_weight_list[1] = 0
@@ -146,7 +146,7 @@ Goal.Activate = function(goal, self, goal_manager)
             act_weight_list[11] = 100
         end
     elseif dist_to_player >= 3 then
-        if self:HasSpecialEffectId(TARGET_ENE_0, 109031) then
+        if self:HasSpecialEffectId(TARGET_ENE_0, SP_PLAYER_DOWN) then
             act_weight_list[24] = 100
             act_weight_list[25] = 100
         elseif self:IsTargetGuard(TARGET_ENE_0) then
@@ -169,7 +169,7 @@ Goal.Activate = function(goal, self, goal_manager)
             act_weight_list[11] = 100
         end
     elseif dist_to_player >= 1 then
-        if self:HasSpecialEffectId(TARGET_ENE_0, 109031) then
+        if self:HasSpecialEffectId(TARGET_ENE_0, SP_PLAYER_DOWN) then
             act_weight_list[24] = 100
             act_weight_list[25] = 100
         elseif self:IsTargetGuard(TARGET_ENE_0) then
@@ -193,7 +193,7 @@ Goal.Activate = function(goal, self, goal_manager)
             act_weight_list[11] = 200
             act_weight_list[24] = 0
         end
-    elseif self:HasSpecialEffectId(TARGET_ENE_0, 109031) then
+    elseif self:HasSpecialEffectId(TARGET_ENE_0, SP_PLAYER_DOWN) then
         act_weight_list[24] = 100
         act_weight_list[25] = 100
     elseif self:IsTargetGuard(TARGET_ENE_0) then
@@ -223,16 +223,16 @@ Goal.Activate = function(goal, self, goal_manager)
     end
 
     -- 四周如果有障碍，取消相应方向的移动
-    if SpaceCheck(self, goal_manager, 45, self:GetStringIndexedNumber("Dist_Step_Small")) == false and SpaceCheck(self, goal_manager, -45, self:GetStringIndexedNumber("Dist_Step_Small")) == false then
+    if NoCollisionAround(self, goal_manager, 45, self:GetStringIndexedNumber("Dist_Step_Small")) == false and NoCollisionAround(self, goal_manager, -45, self:GetStringIndexedNumber("Dist_Step_Small")) == false then
         act_weight_list[22] = 0
     end
-    if SpaceCheck(self, goal_manager, 90, 1) == false and SpaceCheck(self, goal_manager, -90, 1) == false then
+    if NoCollisionAround(self, goal_manager, 90, 1) == false and NoCollisionAround(self, goal_manager, -90, 1) == false then
         act_weight_list[23] = 0
     end
-    if SpaceCheck(self, goal_manager, 180, self:GetStringIndexedNumber("Dist_Step_Small")) == false then
+    if NoCollisionAround(self, goal_manager, 180, self:GetStringIndexedNumber("Dist_Step_Small")) == false then
         act_weight_list[24] = 0
     end
-    if SpaceCheck(self, goal_manager, 180, 1) == false then
+    if NoCollisionAround(self, goal_manager, 180, 1) == false then
         act_weight_list[25] = 0
     end
 
@@ -454,7 +454,7 @@ Goal.Act08 = function(arg0, arg1, arg2)
     local f10_local0 = arg0:GetDist(TARGET_ENE_0)
     local f10_local1 = 5 - arg0:GetMapHitRadius(TARGET_SELF)
 
-    if arg0:HasSpecialEffectId(TARGET_ENE_0, 109900) then
+    if arg0:HasSpecialEffectId(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_DASHING) then
         f10_local1 = f10_local1 + 4
     end
 
@@ -484,7 +484,7 @@ Goal.Act09 = function(arg0, arg1, arg2)
     arg0:SetNumber(5, 1)
     local f11_local0 = arg0:GetDist(TARGET_ENE_0)
     local f11_local1 = 7.6 - arg0:GetMapHitRadius(TARGET_SELF)
-    if arg0:HasSpecialEffectId(TARGET_ENE_0, 109900) then
+    if arg0:HasSpecialEffectId(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_DASHING) then
         f11_local1 = f11_local1 + 4
     end
 
@@ -551,7 +551,7 @@ Goal.Act12 = function(arg0, arg1, arg2)
     local f14_local1 = 0.5
     local f14_local2 = 90
 
-    if f14_local0 <= 5 and SpaceCheck(arg0, arg1, 180, 4) == true then
+    if f14_local0 <= 5 and NoCollisionAround(arg0, arg1, 180, 4) == true then
         arg1:AddSubGoal(GOAL_COMMON_ComboAttackTunableSpin, 10, 5211, arg0:GetStringIndexedNumber("targetWhich"), 9999, 0,
             0)
         arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3030, TARGET_SELF, 9999, f14_local1, f14_local2, 0, 0)
@@ -623,8 +623,8 @@ Goal.Act41 = function(arg0, arg1, arg2)
     local f18_local1 = arg0:GetRandam_Int(30, 45)
     local f18_local2 = 0
 
-    if SpaceCheck(arg0, arg1, -90, 1) == true then
-        if SpaceCheck(arg0, arg1, 90, 1) == true then
+    if NoCollisionAround(arg0, arg1, -90, 1) == true then
+        if NoCollisionAround(arg0, arg1, 90, 1) == true then
             if arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_R, 180) then
                 f18_local2 = 0
             else
@@ -633,7 +633,7 @@ Goal.Act41 = function(arg0, arg1, arg2)
         else
             f18_local2 = 0
         end
-    elseif SpaceCheck(arg0, arg1, 90, 1) == true then
+    elseif NoCollisionAround(arg0, arg1, 90, 1) == true then
         f18_local2 = 1
     else
 
@@ -660,8 +660,8 @@ Goal.Act22 = function(arg0, arg1, arg2)
     local f20_local0 = 3
     local f20_local1 = 0
 
-    if SpaceCheck(arg0, arg1, -45, arg0:GetStringIndexedNumber("Dist_Step_Small")) == true then
-        if SpaceCheck(arg0, arg1, 45, arg0:GetStringIndexedNumber("Dist_Step_Small")) == true then
+    if NoCollisionAround(arg0, arg1, -45, arg0:GetStringIndexedNumber("Dist_Step_Small")) == true then
+        if NoCollisionAround(arg0, arg1, 45, arg0:GetStringIndexedNumber("Dist_Step_Small")) == true then
             if arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_R, 180) then
                 arg1:AddSubGoal(GOAL_COMMON_SpinStep, f20_local0, 5202, TARGET_ENE_0, f20_local1, AI_DIR_TYPE_L, 0)
             else
@@ -670,7 +670,7 @@ Goal.Act22 = function(arg0, arg1, arg2)
         else
             arg1:AddSubGoal(GOAL_COMMON_SpinStep, f20_local0, 5202, TARGET_ENE_0, f20_local1, AI_DIR_TYPE_L, 0)
         end
-    elseif SpaceCheck(arg0, arg1, 45, arg0:GetStringIndexedNumber("Dist_Step_Small")) == true then
+    elseif NoCollisionAround(arg0, arg1, 45, arg0:GetStringIndexedNumber("Dist_Step_Small")) == true then
         arg1:AddSubGoal(GOAL_COMMON_SpinStep, f20_local0, 5203, TARGET_ENE_0, f20_local1, AI_DIR_TYPE_R, 0)
     else
 
@@ -690,8 +690,8 @@ Goal.Act23 = function(arg0, arg1, arg2)
         f21_local3 = 9910
     end
 
-    if SpaceCheck(arg0, arg1, -90, 1) == true then
-        if SpaceCheck(arg0, arg1, 90, 1) == true then
+    if NoCollisionAround(arg0, arg1, -90, 1) == true then
+        if NoCollisionAround(arg0, arg1, 90, 1) == true then
             if arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_R, 180) then
                 f21_local4 = 1
             else
@@ -700,7 +700,7 @@ Goal.Act23 = function(arg0, arg1, arg2)
         else
             f21_local4 = 0
         end
-    elseif SpaceCheck(arg0, arg1, 90, 1) == true then
+    elseif NoCollisionAround(arg0, arg1, 90, 1) == true then
         f21_local4 = 1
     else
         GetWellSpace_Odds = 100
@@ -719,8 +719,8 @@ Goal.Act24 = function(arg0, arg1, arg2)
     local f22_local1 = 3
     local f22_local2 = 0
 
-    if SpaceCheck(arg0, arg1, 180, arg0:GetStringIndexedNumber("Dist_Step_Small")) == true then
-        if SpaceCheck(arg0, arg1, 180, arg0:GetStringIndexedNumber("Dist_Step_Large")) == true then
+    if NoCollisionAround(arg0, arg1, 180, arg0:GetStringIndexedNumber("Dist_Step_Small")) == true then
+        if NoCollisionAround(arg0, arg1, 180, arg0:GetStringIndexedNumber("Dist_Step_Large")) == true then
             if f22_local0 > 4 then
                 arg1:AddSubGoal(GOAL_COMMON_SpinStep, f22_local1, 5201, TARGET_ENE_0, f22_local2, AI_DIR_TYPE_B, 0)
             else
@@ -742,7 +742,7 @@ Goal.Act25 = function(arg0, arg1, arg2)
         f23_local5 = 999
     end
 
-    if SpaceCheck(arg0, arg1, 180, 1) == true then
+    if NoCollisionAround(arg0, arg1, 180, 1) == true then
         arg1:AddSubGoal(GOAL_COMMON_LeaveTarget, f23_local4, TARGET_ENE_0, f23_local5, TARGET_ENE_0, true, f23_local3)
     elseif f23_local3 == 9910 then
         arg1:AddSubGoal(GOAL_COMMON_Guard, f23_local4, 9910, TARGET_ENE_0, false, 0)
@@ -800,8 +800,8 @@ Goal.Act28 = function(arg0, arg1, arg2)
     local f26_local4 = 0
 
     if f26_local0 <= 3 then
-        if SpaceCheck(arg0, arg1, -90, 1) == true then
-            if SpaceCheck(arg0, arg1, 90, 1) == true then
+        if NoCollisionAround(arg0, arg1, -90, 1) == true then
+            if NoCollisionAround(arg0, arg1, 90, 1) == true then
                 if arg0:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_R, 180) then
                     f26_local4 = 1
                 else
@@ -810,7 +810,7 @@ Goal.Act28 = function(arg0, arg1, arg2)
             else
                 f26_local4 = 0
             end
-        elseif SpaceCheck(arg0, arg1, 90, 1) == true then
+        elseif NoCollisionAround(arg0, arg1, 90, 1) == true then
             f26_local4 = 1
         else
             GetWellSpace_Odds = 100
@@ -840,7 +840,7 @@ Goal.Interrupt = function(goal, self, goal_manager)
         return false
     end
 
-    if interupt_sp == 109031 then
+    if interupt_sp == SP_PLAYER_DOWN then
         self:Replanning()
         return true
     end
@@ -906,7 +906,7 @@ Goal.Kengeki_Activate = function(goal, self, goal_manager)
         if dist_to_player >= 2.7 then
 
         -- 0.2 是不是太近了？难道在空中？
-        elseif dist_to_player <= 0.2 and SpaceCheck(self, goal_manager, 180, self:GetStringIndexedNumber("Dist_Step_Large")) == true then
+        elseif dist_to_player <= 0.2 and NoCollisionAround(self, goal_manager, 180, self:GetStringIndexedNumber("Dist_Step_Large")) == true then
             act_weight_list[30] = 50
             act_weight_list[50] = 50
         else
@@ -917,7 +917,7 @@ Goal.Kengeki_Activate = function(goal, self, goal_manager)
     elseif kengeki_sp == 200201 or kengeki_sp == 200206 then
         if dist_to_player >= 2.7 then
 
-        elseif dist_to_player <= 0.2 and SpaceCheck(self, goal_manager, 180, self:GetStringIndexedNumber("Dist_Step_Large")) == true then
+        elseif dist_to_player <= 0.2 and NoCollisionAround(self, goal_manager, 180, self:GetStringIndexedNumber("Dist_Step_Large")) == true then
             act_weight_list[30] = 50
             act_weight_list[50] = 50
         else

@@ -14,7 +14,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     local f2_local3 = arg1:GetDist(TARGET_ENE_0)
     local f2_local4 = arg1:GetExcelParam(AI_EXCEL_THINK_PARAM_TYPE__thinkAttr_doAdmirer)
     local f2_local5 = 0
-    if arg1:HasSpecialEffectId(TARGET_ENE_0, 109031) == true or arg1:HasSpecialEffectId(TARGET_ENE_0, 110125) == true then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PLAYER_DOWN) == true or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PC_BREAK) == true then
         f2_local5 = 1
     else
         f2_local5 = 0
@@ -27,8 +27,8 @@ Goal.Activate = function (arg0, arg1, arg2)
     end
     arg1:DeleteObserve(1)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110111)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 109031)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110125)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_PLAYER_DOWN)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_PC_BREAK)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5025)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5027)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5028)
@@ -38,7 +38,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     if arg0:Kengeki_Activate(arg1, arg2) then
         return 
     end
-    if arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PRETEND_DEAD) then
         if arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
             f2_local0[21] = 1
             f2_local0[28] = 100
@@ -749,7 +749,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         elseif f37_local0 == 110111 then
             arg1:AddObserveArea(0, TARGET_SELF, TARGET_ENE_0, AI_DIR_TYPE_F, 120, 4)
             return true
-        elseif f37_local0 == 109031 or f37_local0 == 110125 then
+        elseif f37_local0 == SP_PLAYER_DOWN or f37_local0 == SP_PC_BREAK then
             arg2:ClearSubGoal()
             arg1:Replanning()
             return true
@@ -783,7 +783,7 @@ Goal.Parry = function (arg0, arg1, arg2, arg3)
     local f38_local2 = arg0:GetRandam_Int(1, 100)
     local f38_local3 = arg0:GetRandam_Int(1, 100)
     local f38_local4 = arg0:GetRandam_Int(1, 100)
-    local f38_local5 = arg0:HasSpecialEffectId(TARGET_ENE_0, 109970)
+    local f38_local5 = arg0:HasSpecialEffectId(TARGET_ENE_0, SP_PUSH)
     local f38_local6 = arg0:HasSpecialEffectId(TARGET_ENE_0, SP_CONTINUOUS_ATTACK)
     local f38_local7 = 2
     if arg0:HasSpecialEffectId(TARGET_SELF, 221000) then

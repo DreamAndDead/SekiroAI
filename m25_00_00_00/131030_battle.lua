@@ -81,7 +81,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     else
         arg1:SetStringIndexedNumber("hassouDisable_Flg", 0)
     end
-    if arg1:GetStringIndexedNumber("hassouDisable_Flg") == 1 and arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+    if arg1:GetStringIndexedNumber("hassouDisable_Flg") == 1 and arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
         f2_local0[10] = 0
     end
     f2_local0[1] = get_weight_base_on_cooldown(arg1, arg2, 3000, 10, f2_local0[1], 1)
@@ -126,7 +126,7 @@ Goal.Act01 = function (arg0, arg1, arg2)
     Approach_Act_Flex(arg0, arg1, f3_local0, f3_local1, f3_local2, f3_local3, f3_local4, f3_local5, f3_local6)
     local f3_local7 = 0
     local f3_local8 = 0
-    if arg0:HasSpecialEffectId(TARGET_SELF, 200051) then
+    if arg0:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
         arg1:AddSubGoal(GOAL_COMMON_AttackTunableSpin, 10, 3006, TARGET_ENE_0, 9999, f3_local7, f3_local8, 0, 0)
     else
         arg1:AddSubGoal(GOAL_COMMON_AttackTunableSpin, 10, 3000, TARGET_ENE_0, 9999, f3_local7, f3_local8, 0, 0)
@@ -234,7 +234,7 @@ Goal.Act07 = function (arg0, arg1, arg2)
     local f9_local8 = 0
     local f9_local9 = arg0:GetRandam_Int(1, 100)
     arg1:AddSubGoal(GOAL_COMMON_ComboAttackTunableSpin, 10, 3020, TARGET_ENE_0, 9999, f9_local7, f9_local8, 0, 0)
-    if arg0:GetStringIndexedNumber("hassouDisable_Flg") == 0 or arg0:HasSpecialEffectId(TARGET_SELF, 200051) == false then
+    if arg0:GetStringIndexedNumber("hassouDisable_Flg") == 0 or arg0:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) == false then
         if f9_local9 <= 50 then
             arg1:AddSubGoal(GOAL_COMMON_ComboRepeat, 10, 3045, TARGET_ENE_0, 9999, f9_local7, f9_local8, 0, 0)
             arg1:AddSubGoal(GOAL_COMMON_ComboRepeat, 10, 3044, TARGET_ENE_0, 9999, f9_local7, f9_local8, 0, 0)
@@ -243,7 +243,7 @@ Goal.Act07 = function (arg0, arg1, arg2)
             arg1:AddSubGoal(GOAL_COMMON_ComboRepeat, 10, 3045, TARGET_ENE_0, 9999, f9_local7, f9_local8, 0, 0)
         end
     end
-    if arg0:HasSpecialEffectId(TARGET_SELF, 200050) then
+    if arg0:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0) then
         arg1:AddSubGoal(GOAL_COMMON_ComboRepeat, 10, 3000, TARGET_ENE_0, 9999, f9_local7, f9_local8, 0, 0)
     end
     GetWellSpace_Odds = 100
@@ -272,7 +272,7 @@ Goal.Act10 = function (arg0, arg1, arg2)
     local f11_local0 = arg0:GetRandam_Int(1, 100)
     local f11_local1 = 0
     local f11_local2 = 0
-    if arg0:HasSpecialEffectId(TARGET_SELF, 200051) then
+    if arg0:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
         if f11_local0 <= 50 then
             if arg0:GetStringIndexedNumber("hassouDisable_Flg") == 0 then
                 arg1:AddSubGoal(GOAL_COMMON_ComboAttackTunableSpin, 10, 3044, TARGET_ENE_0, 9999, f11_local1, f11_local2, 0, 0)
@@ -480,7 +480,7 @@ end
 Goal.Damaged = function (arg0, arg1, arg2)
     local f22_local0 = arg0:GetRandam_Int(1, 100)
     local f22_local1 = 5
-    if arg0:GetStringIndexedNumber("hassouDisable_Flg") == 1 and arg0:HasSpecialEffectId(TARGET_SELF, 200051) then
+    if arg0:GetStringIndexedNumber("hassouDisable_Flg") == 1 and arg0:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
         return true
     end
     if SpaceCheck(arg0, arg1, 180, 3) == true then

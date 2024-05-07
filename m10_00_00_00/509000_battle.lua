@@ -49,9 +49,9 @@ Goal.Activate = function (arg0, arg1, arg2)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 3509070)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 3509100)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 3509110)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 109031)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_PLAYER_DOWN)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 3531)
-    if arg1:HasSpecialEffectId(TARGET_ENE_0, 109900) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_DASHING) then
         arg1:SetNumber(6, 10)
     else
         arg1:SetNumber(6, 1)
@@ -66,7 +66,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         else
             f2_local0[41] = 100
         end
-    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PRETEND_DEAD) or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) then
         if arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
             f2_local0[28] = 100
         else
@@ -103,7 +103,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[23] = 100
             arg1:SetTimer(4, 3)
             arg1:SetNumber(1, 0)
-        elseif arg1:HasSpecialEffectId(TARGET_SELF, 200051) and arg1:HasSpecialEffectId(TARGET_SELF, 200060) and arg1:IsFinishTimer(0) == true and arg1:IsFinishTimer(6) == true and f2_local9 == -1 then
+        elseif arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) and arg1:HasSpecialEffectId(TARGET_SELF, 200060) and arg1:IsFinishTimer(0) == true and arg1:IsFinishTimer(6) == true and f2_local9 == -1 then
             if arg1:HasSpecialEffectId(TARGET_SELF, 5031) then
                 f2_local0[8] = 100
             elseif f2_local3 >= 7 then
@@ -111,13 +111,13 @@ Goal.Activate = function (arg0, arg1, arg2)
             else
                 f2_local0[14] = 100
             end
-        elseif arg1:HasSpecialEffectId(TARGET_SELF, 200051) and arg1:IsFinishTimer(6) == true and not arg1:HasSpecialEffectId(TARGET_SELF, 5020) then
+        elseif arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) and arg1:IsFinishTimer(6) == true and not arg1:HasSpecialEffectId(TARGET_SELF, 5020) then
             if f2_local3 >= 7 then
                 f2_local0[7] = 100
             else
                 f2_local0[11] = 100
             end
-        elseif arg1:HasSpecialEffectId(TARGET_SELF, 200051) and (f2_local6 <= 0.6 or f2_local7 <= 0.8) and arg1:IsFinishTimer(0) == true and arg1:IsFinishTimer(6) == true and not arg1:HasSpecialEffectId(TARGET_SELF, 200060) then
+        elseif arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) and (f2_local6 <= 0.6 or f2_local7 <= 0.8) and arg1:IsFinishTimer(0) == true and arg1:IsFinishTimer(6) == true and not arg1:HasSpecialEffectId(TARGET_SELF, 200060) then
             if f2_local3 >= 7 then
                 f2_local0[7] = 100
             else
@@ -195,7 +195,7 @@ Goal.Activate = function (arg0, arg1, arg2)
                 if arg1:IsFinishTimer(3) == true then
                     f2_local0[24] = 100
                 end
-                if arg1:HasSpecialEffectId(TARGET_ENE_0, 109900) then
+                if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_DASHING) then
                     f2_local0[9] = 500
                 end
             elseif f2_local3 > 3 then
@@ -205,7 +205,7 @@ Goal.Activate = function (arg0, arg1, arg2)
                 f2_local0[5] = 1
                 f2_local0[16] = 150
                 f2_local0[23] = 1
-                if arg1:HasSpecialEffectId(TARGET_ENE_0, 109900) then
+                if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_DASHING) then
                     f2_local0[9] = 300
                 end
             else
@@ -270,7 +270,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     if not arg1:IsFinishTimer(7) then
         f2_local0[16] = 0
     end
-    if arg1:HasSpecialEffectId(TARGET_ENE_0, 109900) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_DASHING) then
         f2_local0[16] = 0
         f2_local0[37] = 0
     end
@@ -1154,7 +1154,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             end
         end
         if f44_local0 == 5027 then
-            if (arg1:HasSpecialEffectId(TARGET_ENE_0, 109031) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110125)) and f44_local1 <= 10 then
+            if (arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PLAYER_DOWN) or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PC_BREAK)) and f44_local1 <= 10 then
                 arg2:ClearSubGoal()
                 local f44_local6 = arg2:AddSubGoal(GOAL_COMMON_ComboFinal, 1, 3240, TARGET_ENE_0, 9999, 0)
                 f44_local6:TimingSetNumber(1, arg1:GetNumber(1) + 5, AI_TIMING_SET__ACTIVATE)
@@ -1225,7 +1225,7 @@ Goal.Parry = function (arg0, arg1, arg2, arg3)
     local f45_local2 = arg0:GetRandam_Int(1, 100)
     local f45_local3 = arg0:GetRandam_Int(1, 100)
     local f45_local4 = arg0:GetRandam_Int(1, 100)
-    local f45_local5 = arg0:HasSpecialEffectId(TARGET_ENE_0, 109970)
+    local f45_local5 = arg0:HasSpecialEffectId(TARGET_ENE_0, SP_PUSH)
     local f45_local6 = arg0:HasSpecialEffectId(TARGET_ENE_0, SP_CONTINUOUS_ATTACK)
     if arg0:IsFinishTimer(AI_TIMER_PARRY_INTERVAL) == false then
         return false

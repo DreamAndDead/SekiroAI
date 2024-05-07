@@ -76,7 +76,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         elseif not arg1:HasSpecialEffectId(TARGET_SELF, 3501013) and arg1:IsInsideTargetRegion(TARGET_ENE_0, 1102879) then
             f2_local0[26] = 100
         elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 109940) and not arg1:HasSpecialEffectId(TARGET_SELF, 3501030) then
-            if arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+            if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PRETEND_DEAD) then
                 f2_local0[18] = 100
             elseif arg1:HasSpecialEffectId(TARGET_SELF, 3501012) == false then
                 f2_local0[21] = 100
@@ -94,7 +94,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         elseif arg1:IsInsideTargetRegion(TARGET_ENE_0, 1102885) then
             f2_local0[18] = 50
         elseif arg1:IsInsideTargetRegion(TARGET_ENE_0, 1102884) then
-            if arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+            if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PRETEND_DEAD) then
                 f2_local0[13] = 10
             else
                 f2_local0[12] = 20
@@ -488,12 +488,12 @@ Goal.Interrupt = function (arg0, arg1, arg2)
                 arg2:ClearSubGoal()
                 arg2:AddSubGoal(GOAL_COMMON_ComboFinal, 20, 20006, TARGET_ENE_0, 999, 0, 0, 0, 0)
                 return true
-            elseif arg1:IsInsideTargetRegion(TARGET_ENE_0, 1102895) and arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) == false and arg1:IsEventFlag(11100850) == false then
+            elseif arg1:IsInsideTargetRegion(TARGET_ENE_0, 1102895) and arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PRETEND_DEAD) == false and arg1:IsEventFlag(11100850) == false then
                 arg2:ClearSubGoal()
                 arg2:AddSubGoal(GOAL_COMMON_ComboFinal, 20, 20005, TARGET_ENE_0, 999, 0, 0, 0, 0)
                 return true
             else
-                if arg1:IsInsideTargetRegion(TARGET_ENE_0, 1102895) and arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+                if arg1:IsInsideTargetRegion(TARGET_ENE_0, 1102895) and arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PRETEND_DEAD) then
                     arg1:DeleteObserveSpecialEffectAttribute(TARGET_SELF, 5036)
                     arg2:ClearSubGoal()
                     arg2:AddSubGoal(GOAL_COMMON_ComboFinal, 20, 20020, TARGET_ENE_0, 999, 0, 0, 0, 0)
@@ -513,7 +513,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         arg2:AddSubGoal(GOAL_COMMON_EndureAttack, 1, 20038, TARGET_ENE_0, 999, 0)
         return true
     end
-    if not arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) and f32_local4 == 10 then
+    if not arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PRETEND_DEAD) and f32_local4 == 10 then
         if arg1:IsInterupt(INTERUPT_ActivateSpecialEffect) then
             if arg1:GetSpecialEffectActivateInterruptType(0) == 5025 and (arg1:IsInsideTargetRegion(TARGET_ENE_0, 1102866) or arg1:IsInsideTargetRegion(TARGET_ENE_0, 1102864)) then
                 arg2:ClearSubGoal()

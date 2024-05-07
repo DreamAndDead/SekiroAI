@@ -44,7 +44,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     elseif not arg1:IsExistMeshOnLine(TARGET_ENE_0, AI_DIR_TYPE_ToB, f2_local3) and f2_local3 >= 3 then
         f2_local0[29] = 100
     elseif f2_local4 == 1 and arg1:GetTeamOrder(ORDER_TYPE_Role) == ROLE_TYPE_Kankyaku then
-        if arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+        if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
             if KankyakuAct(arg1, arg2, -1, 70) then
                 f2_local0[15] = 300
                 f2_local0[17] = 200
@@ -53,7 +53,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             KankyakuAct(arg1, arg2)
         end
     elseif f2_local4 == 1 and arg1:GetTeamOrder(ORDER_TYPE_Role) == ROLE_TYPE_Torimaki then
-        if arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+        if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
             if TorimakiAct(arg1, arg2, -1, 70) then
                 f2_local0[15] = 300
                 f2_local0[17] = 200
@@ -70,13 +70,13 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[29] = 100
         elseif f2_local3 >= 7 then
             f2_local0[23] = 100
-            if arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+            if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
                 f2_local0[15] = 200
                 f2_local0[17] = 200
             end
         elseif f2_local3 >= 5 then
             f2_local0[23] = 300
-            if arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+            if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
                 f2_local0[15] = 200
                 f2_local0[16] = 200
             end
@@ -84,7 +84,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[3] = 100
             f2_local0[6] = 100
             f2_local0[23] = 100
-            if arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+            if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
                 f2_local0[15] = 150
                 f2_local0[16] = 150
             end
@@ -97,7 +97,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             if arg1:GetNumber(1) >= 2 then
                 f2_local0[9] = 500
             end
-            if arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+            if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
                 f2_local0[15] = 300
                 f2_local0[16] = 300
             end
@@ -110,7 +110,7 @@ Goal.Activate = function (arg0, arg1, arg2)
                 f2_local0[5] = 100
                 f2_local0[9] = 100
             end
-            if arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+            if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
                 f2_local0[15] = 300
                 f2_local0[16] = 300
             end
@@ -120,14 +120,14 @@ Goal.Activate = function (arg0, arg1, arg2)
     elseif f2_local3 > 7 then
         f2_local0[4] = 100
         f2_local0[29] = 100
-        if arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+        if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
             f2_local0[15] = 100
             f2_local0[17] = 100
         end
     elseif f2_local3 >= 5 then
         f2_local0[4] = 100
         f2_local0[23] = 100
-        if arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+        if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
             f2_local0[15] = 100
             f2_local0[16] = 150
             f2_local0[17] = 100
@@ -137,11 +137,11 @@ Goal.Activate = function (arg0, arg1, arg2)
         f2_local0[2] = 100
         f2_local0[3] = 100
         f2_local0[6] = 100
-        if arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+        if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
             f2_local0[16] = 400
         end
     end
-    if arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+    if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
         f2_local0[3] = 0
         f2_local0[4] = 0
     end

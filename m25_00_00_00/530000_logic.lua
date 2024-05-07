@@ -1,6 +1,6 @@
 RegisterTableLogic(530000)
 Logic.Main = function (arg0, arg1)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110060)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_DEAD)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110015)
     if arg1:IsBattleState() then
         COMMON_SetBattleGoal(arg1)
@@ -13,7 +13,7 @@ end
 Logic.Interrupt = function (arg0, arg1, arg2)
     local f2_local0 = arg1:GetSpecialEffectActivateInterruptType(0)
     if arg1:IsInterupt(INTERUPT_ActivateSpecialEffect) then
-        if arg1:GetSpecialEffectActivateInterruptType(0) == 110060 then
+        if arg1:GetSpecialEffectActivateInterruptType(0) == SP_DEAD then
             arg1:SetStringIndexedNumber("targetDeadFlag", 1)
             arg2:ClearSubGoal()
             arg1:AddTopGoal(GOAL_COMMON_ApproachTarget, 1, TARGET_ENE_0, 9999, TARGET_SELF, true, -1)

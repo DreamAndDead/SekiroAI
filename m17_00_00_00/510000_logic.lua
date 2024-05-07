@@ -2,7 +2,7 @@ RegisterTableLogic(510000)
 Logic.Main = function (arg0, arg1)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, SP_BLOOD_SMOKE)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 107710)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110060)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_DEAD)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110015)
     arg1:DeleteObserve(COMMON_OBSERVE_SLOT_BATTLE_STEALTH)
     local f1_local0 = arg1:GetDist(TARGET_ENE_0)
@@ -48,7 +48,7 @@ Logic.Interrupt = function (arg0, arg1, arg2)
         elseif f2_local0 == 107710 then
             arg1:Replanning()
             return true
-        elseif f2_local0 == 110060 then
+        elseif f2_local0 == SP_DEAD then
             arg1:SetStringIndexedNumber("TargetDeadFlag", 1)
             arg2:ClearSubGoal()
             arg2:AddSubGoal(GOAL_COMMON_Wait, 0, TARGET_ENE_0, 0, 0, 0)
@@ -58,7 +58,7 @@ Logic.Interrupt = function (arg0, arg1, arg2)
             arg2:ClearSubGoal()
             arg2:AddSubGoal(GOAL_COMMON_Wait, 0, TARGET_ENE_0, 0, 0, 0)
             return true
-        elseif f2_local0 == 110060 then
+        elseif f2_local0 == SP_DEAD then
             arg1:SetStringIndexedNumber("targetDeadFlag", 1)
             arg1:Replanning()
             retval = false

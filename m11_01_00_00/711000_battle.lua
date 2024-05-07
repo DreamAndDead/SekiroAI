@@ -21,18 +21,18 @@ Goal.Activate = function (arg0, arg1, arg2)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5030)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5031)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 3710010)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 3710020)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 3710030)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, SP_SHINOBI_JUDGMENT)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, SP_AI_INT_JUDGMENT_ADDITION_PLAYED)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 3710031)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 109031)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110010)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_PLAYER_DOWN)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_PRETEND_DEAD)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 3711000)
     Set_ConsecutiveGuardCount_Interrupt(arg1)
     arg1:DeleteObserve(0)
     if arg0:Kengeki_Activate(arg1, arg2) then
         return 
     end
-    if arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PRETEND_DEAD) then
         if arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
             f2_local0[21] = 1
             f2_local0[28] = 100
@@ -53,7 +53,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         f2_local0[13] = 100
         f2_local0[21] = 10
         f2_local0[22] = 100
-    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PRETEND_DEAD) then
         f2_local0[27] = 100
     elseif f2_local3 >= 10 then
         f2_local0[20] = 30
@@ -95,7 +95,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[41] = 75
         end
     end
-    if arg1:HasSpecialEffectId(TARGET_ENE_0, 109031) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110125) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PLAYER_DOWN) or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PC_BREAK) then
         f2_local0[18] = 1000000000000
     end
     if arg1:GetNumber(2) == 1 then
@@ -112,7 +112,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     if arg1:IsFinishTimer(3) == false then
         f2_local0[24] = 0
     end
-    if arg1:HasSpecialEffectId(TARGET_ENE_0, 109900) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_DASHING) then
         f2_local0[17] = 0
         f2_local0[18] = 0
         f2_local0[20] = 0
@@ -153,7 +153,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     if SpaceCheck(arg1, arg2, 180, 1) == false then
         f2_local0[25] = 0
     end
-    if arg1:HasSpecialEffectId(TARGET_ENE_0, 110621) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_DEDICATED_RESPONSE_IAI_SLASHING) then
         f2_local0[23] = 0
         f2_local0[24] = 0
     end
@@ -926,10 +926,10 @@ Goal.Interrupt = function (arg0, arg1, arg2)
                 arg2:ClearSubGoal()
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 10, 3086, TARGET_ENE_0, 6, 0, 0)
             end
-        elseif f39_local0 == 3710020 then
+        elseif f39_local0 == SP_SHINOBI_JUDGMENT then
             arg1:SetNumber(0, 0)
             return true
-        elseif f39_local0 == 3710030 and arg1:HasSpecialEffectId(TARGET_SELF, 3710032) then
+        elseif f39_local0 == SP_AI_INT_JUDGMENT_ADDITION_PLAYED and arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_INT_JUDGMENT_PARRIED_AND_STRONG_ATTACK) then
             arg2:ClearSubGoal()
             arg2:AddSubGoal(GOAL_COMMON_EndureAttack, 5, 3092, TARGET_ENE_0, 9999, 0)
             arg1:SetTimer(6, 50)
@@ -938,7 +938,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             arg2:ClearSubGoal()
             arg2:AddSubGoal(GOAL_COMMON_ComboFinal, 5, 3009, TARGET_ENE_0, 9999, 0, 0)
             return true
-        elseif f39_local0 == 109031 or f39_local0 == 110125 then
+        elseif f39_local0 == SP_PLAYER_DOWN or f39_local0 == SP_PC_BREAK then
             if f39_local3 <= 50 then
                 arg1:Replanning()
                 return true
@@ -949,10 +949,10 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         end
     end
     if arg1:IsInterupt(INTERUPT_InactivateSpecialEffect) then
-        if f39_local1 == 109031 or f39_local1 == 110125 then
+        if f39_local1 == SP_PLAYER_DOWN or f39_local1 == SP_PC_BREAK then
             arg1:Replanning()
             return true
-        elseif f39_local1 == 110010 then
+        elseif f39_local1 == SP_PRETEND_DEAD then
             arg1:Replanning()
             return true
         end
@@ -980,7 +980,7 @@ Goal.Parry = function (arg0, arg1, arg2, arg3)
     local f40_local2 = arg0:GetRandam_Int(1, 100)
     local f40_local3 = arg0:GetRandam_Int(1, 100)
     local f40_local4 = arg0:GetRandam_Int(1, 100)
-    local f40_local5 = arg0:HasSpecialEffectId(TARGET_ENE_0, 109970)
+    local f40_local5 = arg0:HasSpecialEffectId(TARGET_ENE_0, SP_PUSH)
     local f40_local6 = arg0:HasSpecialEffectId(TARGET_ENE_0, SP_CONTINUOUS_ATTACK)
     local f40_local7 = 2
     if arg0:HasSpecialEffectId(TARGET_SELF, 221000) then
@@ -1067,7 +1067,7 @@ Goal.Damaged = function (arg0, arg1, arg2)
             arg0:SetNumber(0, arg0:GetNumber(0) - 3)
         end
         return true
-    elseif f41_local3 <= 30 and arg0:HasSpecialEffectId(TARGET_SELF, 200050) then
+    elseif f41_local3 <= 30 and arg0:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0) then
         arg1:ClearSubGoal()
         arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3009, TARGET_ENE_0, 9999, 0)
         arg0:SetNumber(2, 1)

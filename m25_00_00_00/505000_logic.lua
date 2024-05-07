@@ -1,7 +1,7 @@
 RegisterTableLogic(505000)
 Logic.Main = function (arg0, arg1)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, SP_BLOOD_SMOKE)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110060)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_DEAD)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110015)
     if COMMON_HiPrioritySetup(arg1) then
         return true
@@ -61,7 +61,7 @@ Logic.Interrupt = function (arg0, arg1, arg2)
         if f2_local0 == SP_BLOOD_SMOKE then
             arg1:ClearEnemyTarget()
             return true
-        elseif arg1:GetSpecialEffectActivateInterruptType(0) == 110060 then
+        elseif arg1:GetSpecialEffectActivateInterruptType(0) == SP_DEAD then
             arg1:SetStringIndexedNumber("targetDeadFlag", 1)
             arg2:ClearSubGoal()
             arg2:AddSubGoal(GOAL_COMMON_ApproachTarget, 1, TARGET_ENE_0, 9999, TARGET_SELF, true, -1)

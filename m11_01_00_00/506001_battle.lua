@@ -17,8 +17,8 @@ Goal.Activate = function (arg0, arg1, arg2)
     local f2_local7 = arg1:GetRandam_Int(1, 100)
     local f2_local8 = arg1:GetExcelParam(AI_EXCEL_THINK_PARAM_TYPE__thinkAttr_doAdmirer)
     local f2_local9 = arg1:GetEventRequest()
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110010)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110125)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_PRETEND_DEAD)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_PC_BREAK)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 3506000)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 3506030)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 3506021)
@@ -29,7 +29,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     if arg0:Kengeki_Activate(arg1, arg2) then
         return 
     end
-    if arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PRETEND_DEAD) then
         if arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
             f2_local0[21] = 1
             f2_local0[28] = 100
@@ -38,7 +38,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         end
     elseif Common_ActivateAct(arg1, arg2, 0, 1) then
 
-    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110125) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PC_BREAK) then
         f2_local0[40] = 100
     elseif arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_B, 90) then
         if f2_local6 > 7 then
@@ -900,7 +900,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             arg1:Replanning()
             return true
         elseif f33_local2 == 3506000 then
-            if arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+            if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
                 arg2:ClearSubGoal()
                 local f33_local4 = arg2:AddSubGoal(GOAL_COMMON_ComboFinal, 1, 3030, TARGET_ENE_0, 9999, 0, 0)
                 f33_local4:TimingSetNumber(5, arg1:GetNumber(5) + 25, AI_TIMING_SET__ACTIVATE)
@@ -938,10 +938,10 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         end
     end
     if arg1:IsInterupt(INTERUPT_InactivateSpecialEffect) then
-        if arg1:GetSpecialEffectInactivateInterruptType(0) == 110125 then
+        if arg1:GetSpecialEffectInactivateInterruptType(0) == SP_PC_BREAK then
             arg1:Replanning()
             return true
-        elseif arg1:GetSpecialEffectInactivateInterruptType(0) == 110010 then
+        elseif arg1:GetSpecialEffectInactivateInterruptType(0) == SP_PRETEND_DEAD then
             arg1:Replanning()
             return true
         end
@@ -977,7 +977,7 @@ Goal.Parry = function (arg0, arg1, arg2, arg3)
     local f34_local2 = arg0:GetRandam_Int(1, 100)
     local f34_local3 = arg0:GetRandam_Int(1, 100)
     local f34_local4 = arg0:GetRandam_Int(1, 100)
-    local f34_local5 = arg0:HasSpecialEffectId(TARGET_ENE_0, 109970)
+    local f34_local5 = arg0:HasSpecialEffectId(TARGET_ENE_0, SP_PUSH)
     local f34_local6 = arg0:HasSpecialEffectId(TARGET_ENE_0, SP_CONTINUOUS_ATTACK)
     if arg0:IsFinishTimer(AI_TIMER_PARRY_INTERVAL) == false then
         return false
@@ -1128,7 +1128,7 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
             f36_local1[8] = 1500
         end
     end
-    if arg1:HasSpecialEffectId(TARGET_SELF, 200051) == false then
+    if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) == false then
         f36_local1[8] = 0
     end
     f36_local1[1] = get_weight_base_on_cooldown(arg1, arg2, 3061, 2, f36_local1[1], 1)

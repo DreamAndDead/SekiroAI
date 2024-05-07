@@ -116,7 +116,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     else
         arg1:SetNumber(2, 0)
     end
-    if arg1:GetNumber(2) <= 3 or arg1:HasSpecialEffectId(TARGET_SELF, 200050) then
+    if arg1:GetNumber(2) <= 3 or arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0) then
         f2_local0[3] = 0
         f2_local0[24] = 0
     end

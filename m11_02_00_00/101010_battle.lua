@@ -12,7 +12,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     Common_Clear_Param(f2_local0, f2_local1, f2_local2)
     local f2_local3 = arg1:GetDist(TARGET_ENE_0)
     local f2_local4 = arg1:GetExcelParam(AI_EXCEL_THINK_PARAM_TYPE__thinkAttr_doAdmirer)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 109031)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_PLAYER_DOWN)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 107900)
     Set_ConsecutiveGuardCount_Interrupt(arg1)
     if arg0:Kengeki_Activate(arg1, arg2) then

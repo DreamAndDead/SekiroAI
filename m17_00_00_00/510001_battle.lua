@@ -21,7 +21,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     local f2_local9 = arg1:GetEventRequest(1)
     local f2_local10 = arg1:GetDistY(TARGET_SELF)
     local f2_local11 = arg1:GetDistY(TARGET_ENE_0)
-    local f2_local12 = arg1:HasSpecialEffectId(TARGET_SELF, 200050)
+    local f2_local12 = arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0)
     local f2_local13 = arg1:GetDist(TARGET_EVENT)
     arg1:SetNumber(11, 0)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5025)
@@ -36,8 +36,8 @@ Goal.Activate = function (arg0, arg1, arg2)
     arg1:AddObserveSpecialEffectAttribute(TARGET_EVENT, 3510903)
     arg1:AddObserveSpecialEffectAttribute(TARGET_EVENT, 3510904)
     arg1:AddObserveSpecialEffectAttribute(TARGET_EVENT, 3510905)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110010)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110030)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_PRETEND_DEAD)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_SHINOBI)
     arg1:DeleteObserve(2)
     arg1:DeleteObserve(3)
     if arg0:Kengeki_Activate(arg1, arg2) then
@@ -47,7 +47,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         f2_local0[20] = 100
     elseif arg1:HasSpecialEffectId(TARGET_EVENT, 5033) then
         f2_local0[39] = 100
-    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PRETEND_DEAD) then
         if arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
             f2_local0[27] = 100
         else

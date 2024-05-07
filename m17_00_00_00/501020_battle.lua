@@ -60,7 +60,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         f2_local0[6] = 100
     elseif arg1:IsEventFlag(11700100) == false and arg1:IsInsideTargetRegion(TARGET_LOCALPLAYER, 1702632) then
         f2_local0[4] = 100
-    elseif arg1:HasSpecialEffectId(TARGET_LOCALPLAYER, 110060) or arg1:HasSpecialEffectId(TARGET_LOCALPLAYER, 110010) then
+    elseif arg1:HasSpecialEffectId(TARGET_LOCALPLAYER, SP_DEAD) or arg1:HasSpecialEffectId(TARGET_LOCALPLAYER, SP_PRETEND_DEAD) then
         f2_local0[26] = 100
     elseif arg1:IsInsideTargetRegion(TARGET_LOCALPLAYER, 1702600) then
         if arg1:IsInsideTargetRegion(TARGET_LOCALPLAYER, 1702602) then
@@ -277,7 +277,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
     local f15_local0 = 0
     if arg1:HasSpecialEffectId(TARGET_SELF, 5022) then
         local f15_local1 = arg1:GetSpecialEffectActivateInterruptType(0)
-        if arg1:IsInterupt(INTERUPT_ActivateSpecialEffect) and arg1:HasSpecialEffectId(TARGET_LOCALPLAYER, 110060) == false and arg1:HasSpecialEffectId(TARGET_LOCALPLAYER, 110010) == false then
+        if arg1:IsInterupt(INTERUPT_ActivateSpecialEffect) and arg1:HasSpecialEffectId(TARGET_LOCALPLAYER, SP_DEAD) == false and arg1:HasSpecialEffectId(TARGET_LOCALPLAYER, SP_PRETEND_DEAD) == false then
             if f15_local1 == 5025 then
                 if arg1:IsInsideTargetRegion(TARGET_ENE_0, 1702611) then
                     arg2:ClearSubGoal()

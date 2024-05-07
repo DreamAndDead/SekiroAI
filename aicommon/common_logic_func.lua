@@ -4,7 +4,7 @@
 function COMMON_HiPrioritySetup(self, arg1)
     self:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_DEAD)
     self:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_RETURN_FROM_FALLING)
-    self:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_NINSATSU)
+    self:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_SHINOBI)
     self:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_REVIVAL_AFTER_2)
     self:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_REVIVAL_AFTER_3)
     self:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_HIDE_IN_BLOOD)
@@ -20,7 +20,7 @@ function COMMON_HiPrioritySetup(self, arg1)
 
     local f1_local0 = self:GetEventRequest(2)
 
-    if self:HasSpecialEffectId(TARGET_ENE_0, 110010) and not self:HasSpecialEffectId(TARGET_SELF, 205090) then
+    if self:HasSpecialEffectId(TARGET_ENE_0, SP_PRETEND_DEAD) and not self:HasSpecialEffectId(TARGET_SELF, 205090) then
         if not self:HasSpecialEffectId(TARGET_SELF, 205091) then
             self:ClearEnemyTarget()
             self:ClearSoundTarget()
@@ -239,11 +239,11 @@ function COMMON_AddCautionAndFindGoal(self, situation, flag)
             self:AddTopGoal(GOAL_COMMON_Turn, 3, TARGET_ENE_0, 40, -1, GOAL_RESULT_Success, true)
             self:AddTopGoal(GOAL_COMMON_Stay, 1, 0, TARGET_ENE_0)
         elseif goal_action == 2 then
-            if self:CheckDoesExistPathWithSetPoint(TARGET_ENE_0, AI_DIR_TYPE_F, 0, 0) == false then
-                if SpaceCheck(self, goal, 0, 3) == true then
+            if self:CheckDoesExistPathWithSetPoint(TARGET_ENE_0, DIR_FRONT, 0, 0) == false then
+                if NoCollisionAround(self, goal, 0, 3) == true then
                     self:AddTopGoal(GOAL_COMMON_ApproachTarget, 5, POINT_UnreachTerminate, approach_dist, TARGET_SELF,
                         true, -1)
-                elseif self:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
+                elseif self:IsInsideTarget(TARGET_ENE_0, DIR_FRONT, 90) then
                     self:AddTopGoal(GOAL_COMMON_Stay, 1, 0, TARGET_ENE_0)
                 else
                     self:AddTopGoal(GOAL_COMMON_Turn, 3, TARGET_ENE_0, 40, -1, GOAL_RESULT_Success, true)
@@ -257,8 +257,8 @@ function COMMON_AddCautionAndFindGoal(self, situation, flag)
                 end
             end
         elseif goal_action == 3 then
-            if self:CheckDoesExistPathWithSetPoint(TARGET_ENE_0, AI_DIR_TYPE_F, 0, 0) == false then
-                if SpaceCheck(self, goal, 0, 4) == true then
+            if self:CheckDoesExistPathWithSetPoint(TARGET_ENE_0, DIR_FRONT, 0, 0) == false then
+                if NoCollisionAround(self, goal, 0, 4) == true then
                     local f7_local20 = false
 
                     if self:IsInsideTargetRegion(TARGET_SELF, COMMON_REGION_FORCE_WALK_M11_0) then
@@ -267,10 +267,10 @@ function COMMON_AddCautionAndFindGoal(self, situation, flag)
 
                     self:AddTopGoal(GOAL_COMMON_ApproachTarget, 5, POINT_UnreachTerminate, approach_dist, TARGET_SELF,
                         f7_local20, -1)
-                elseif SpaceCheck(self, goal, 0, 3) == true then
+                elseif NoCollisionAround(self, goal, 0, 3) == true then
                     self:AddTopGoal(GOAL_COMMON_ApproachTarget, 5, POINT_UnreachTerminate, approach_dist, TARGET_SELF,
                         true, -1)
-                elseif self:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
+                elseif self:IsInsideTarget(TARGET_ENE_0, DIR_FRONT, 90) then
                     self:AddTopGoal(GOAL_COMMON_Stay, 1, 0, TARGET_ENE_0)
                 else
                     self:AddTopGoal(GOAL_COMMON_Turn, 3, TARGET_ENE_0, 40, -1, GOAL_RESULT_Success, true)
@@ -330,7 +330,7 @@ function COMMON_AddCautionAndFindGoal(self, situation, flag)
             self:AddTopGoal(GOAL_COMMON_ConfirmCautionTarget, 30, confirm_caution_act, TARGET_SELF,
                 self:GetRandam_Float(6, 7), TARGET_SELF)
         elseif goal_action == 2 then
-            if self:CheckDoesExistPathWithSetPoint(TARGET_ENE_0, AI_DIR_TYPE_F, 0, 0) == false then
+            if self:CheckDoesExistPathWithSetPoint(TARGET_ENE_0, DIR_FRONT, 0, 0) == false then
                 if situation == 0 then
                     local f7_local21 = self:GetDist_Point(POINT_INITIAL)
                     if approach_dist + 0.5 < f7_local21 then
@@ -355,7 +355,7 @@ function COMMON_AddCautionAndFindGoal(self, situation, flag)
                         self:GetRandam_Float(7, 8), TARGET_SELF)
                 end
             else
-                self:RegisterTriggerRegion(1000, self:GetLatestSoundTargetInstanceID(), 5, 5, TARGET_SELF, AI_DIR_TYPE_F,
+                self:RegisterTriggerRegion(1000, self:GetLatestSoundTargetInstanceID(), 5, 5, TARGET_SELF, DIR_FRONT,
                     0)
 
                 self:AddTopGoal(GOAL_COMMON_Turn, 3, TARGET_ENE_0, 40, -1, GOAL_RESULT_Success, true)
@@ -364,7 +364,7 @@ function COMMON_AddCautionAndFindGoal(self, situation, flag)
                     TARGET_SELF)
             end
         elseif goal_action == 3 then
-            if self:CheckDoesExistPathWithSetPoint(TARGET_ENE_0, AI_DIR_TYPE_F, 0, 0) == false then
+            if self:CheckDoesExistPathWithSetPoint(TARGET_ENE_0, DIR_FRONT, 0, 0) == false then
                 if situation == 0 then
                     local f7_local21 = self:GetDist_Point(POINT_INITIAL)
 
@@ -402,7 +402,7 @@ function COMMON_AddCautionAndFindGoal(self, situation, flag)
                     self:GetRandam_Float(3, 4),
                     TARGET_SELF)
             else
-                self:RegisterTriggerRegion(1000, self:GetLatestSoundTargetInstanceID(), 5, 5, TARGET_SELF, AI_DIR_TYPE_F,
+                self:RegisterTriggerRegion(1000, self:GetLatestSoundTargetInstanceID(), 5, 5, TARGET_SELF, DIR_FRONT,
                     0)
 
                 self:AddTopGoal(GOAL_COMMON_Turn, 3, TARGET_ENE_0, 40, -1, GOAL_RESULT_Success, true)
@@ -482,7 +482,7 @@ function COMMON_AddStateTransitionGoal(self, flag)
             end
         elseif self:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_COMBAT_ALERT) then
             if self:HasSpecialEffectId(TARGET_SELF, 220070) and self:IsVisibleCurrTarget() == false then
-                if not self:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
+                if not self:IsInsideTarget(TARGET_ENE_0, DIR_FRONT, 90) then
                     self:AddTopGoal(GOAL_COMMON_Turn, 3, TARGET_ENE_0, 40, -1, GOAL_RESULT_Success, true)
                 else
                     self:AddTopGoal(GOAL_COMMON_ClearTarget, 3, AI_TARGET_TYPE__NORMAL_ENEMY)
@@ -494,7 +494,7 @@ function COMMON_AddStateTransitionGoal(self, flag)
             return true
         elseif self:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_NON_COMBAT_VIGILANCE) then
             if self:HasSpecialEffectId(TARGET_SELF, 220070) and self:IsVisibleCurrTarget() == false then
-                if not self:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
+                if not self:IsInsideTarget(TARGET_ENE_0, DIR_FRONT, 90) then
                     self:AddTopGoal(GOAL_COMMON_Turn, 3, TARGET_ENE_0, 40, -1, GOAL_RESULT_Success, true)
                 else
                     self:AddTopGoal(GOAL_COMMON_EndureAttack, 10, 101040, TARGET_ENE_0, 9999, 0, 0, 0, 0)

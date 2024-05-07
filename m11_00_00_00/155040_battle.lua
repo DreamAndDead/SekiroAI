@@ -23,7 +23,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     if arg0:Kengeki_Activate(arg1, arg2) then
         return 
     end
-    if arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) then
         if arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
             f2_local0[26] = 100
         else
@@ -36,7 +36,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         elseif arg1:GetNumber(0) == 1 then
             f2_local0[30] = 100
         end
-    elseif arg1:HasSpecialEffectId(TARGET_SELF, 200050) then
+    elseif arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0) then
         f2_local0[35] = 100
     elseif Common_ActivateAct(arg1, arg2) then
 

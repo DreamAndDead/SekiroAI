@@ -43,10 +43,10 @@ Goal.Activate = function (arg0, arg1, arg2)
         f2_local13 = 1
     end
     f2_local15 = 0
-    if arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+    if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
         f2_local15 = 1
     end
-    if f2_local3 <= 1 or arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+    if f2_local3 <= 1 or arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
         f2_local14 = 1
     end
     if Common_ActivateAct(arg1, arg2) then
@@ -764,7 +764,7 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2)
     local f23_local7 = arg1:GetSpRate(TARGET_SELF)
     local f23_local8 = arg1:GetNpcThinkParamID()
     local f23_local9 = 0
-    if arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+    if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
         f23_local9 = 1
     end
     if f23_local9 == 0 and f23_local7 <= 0.5 and arg1:GetAttackPassedTime(3020) >= 10 then
@@ -1104,7 +1104,7 @@ Goal.Parry = function (arg0, arg1, arg2, arg3)
     local f43_local3 = arg0:GetRandam_Int(1, 100)
     local f43_local4 = arg0:GetRandam_Int(1, 100)
     local f43_local5 = arg0:GetRandam_Int(1, 100)
-    local f43_local6 = arg0:HasSpecialEffectId(TARGET_ENE_0, 109970)
+    local f43_local6 = arg0:HasSpecialEffectId(TARGET_ENE_0, SP_PUSH)
     local f43_local7 = arg0:HasSpecialEffectId(TARGET_ENE_0, SP_CONTINUOUS_ATTACK)
     local f43_local8 = -1
     if arg0:HasSpecialEffectId(TARGET_SELF, 221000) then

@@ -237,7 +237,7 @@ function InterruptTableLogic_Common(self, parent_logic, logic_id)
 
     if self:IsInterupt(INTERUPT_InactivateSpecialEffect) then
         local f12_local2 = self:GetSpecialEffectInactivateInterruptType(0)
-        if f12_local2 == SP_NINSATSU then
+        if f12_local2 == SP_ENEMY_AI_REFERENCE_SHINOBI then
             self:Replanning()
             return true
         end

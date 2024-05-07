@@ -556,7 +556,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
                 arg2:ClearSubGoal()
                 arg2:AddSubGoal(GOAL_COMMON_EndureAttack, 5, 3032, TARGET_ENE_0, 9999, 0, 0, 0, 0)
                 return true
-            elseif arg1:HasSpecialEffectId(TARGET_SELF, 200031) and arg1:HasSpecialEffectId(TARGET_ENE_0, 110125) then
+            elseif arg1:HasSpecialEffectId(TARGET_SELF, 200031) and arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PC_BREAK) then
                 arg1:Replanning()
                 return true
             end
@@ -571,7 +571,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             return true
         end
         if arg1:GetSpecialEffectActivateInterruptType(0) == 5029 and arg1:GetNumber(5) == 0 then
-            if arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) and f17_local2 <= 2 and not arg1:HasSpecialEffectId(TARGET_ENE_0, 110125) then
+            if arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) and f17_local2 <= 2 and not arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PC_BREAK) then
                 arg2:ClearSubGoal()
                 if f17_local1 <= 70 then
                     local f17_local8 = arg2:AddSubGoal(GOAL_COMMON_EndureAttack, 0.1, 3033, TARGET_ENE_0, 9999, 0)
@@ -599,7 +599,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
                 f17_local8:TimingSetTimer(9, 0.1, AI_TIMING_SET__ACTIVATE)
                 arg1:AddObserveArea(1, TARGET_SELF, TARGET_ENE_0, AI_DIR_TYPE_F, f17_local5, f17_local6)
                 return true
-            elseif arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) and f17_local2 <= 2 and not arg1:HasSpecialEffectId(TARGET_ENE_0, 110125) then
+            elseif arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) and f17_local2 <= 2 and not arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PC_BREAK) then
                 if f17_local4 >= 2 or f17_local3 < 0.6 then
                     arg2:ClearSubGoal()
                     arg2:AddSubGoal(GOAL_COMMON_EndureAttack, 1, 3033, TARGET_ENE_0, 9999, 0)
@@ -647,7 +647,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         elseif arg1:IsInsideObserve(0) and f17_local4 == 0 and arg1:HasSpecialEffectId(TARGET_SELF, 200031) and arg1:GetHpRate(TARGET_ENE_0) > 0 and f17_local4 == 0 then
             if arg1:GetNumber(12) == 1 then
 
-            elseif f17_local4 == 0 and arg1:IsFinishTimer(9) == true and f17_local1 <= 80 and not arg1:HasSpecialEffectId(TARGET_ENE_0, 110125) then
+            elseif f17_local4 == 0 and arg1:IsFinishTimer(9) == true and f17_local1 <= 80 and not arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PC_BREAK) then
                 arg2:ClearSubGoal()
                 arg1:SetNumber(11, arg1:GetNumber(11) + 1)
                 local f17_local8 = arg2:AddSubGoal(GOAL_COMMON_EndureAttack, 1.5, 3010, TARGET_ENE_0, 9999, 0, 0, 0, 0)
@@ -670,7 +670,7 @@ Goal.Parry = function (arg0, arg1, arg2, arg3)
     local f18_local2 = arg0:GetRandam_Int(1, 100)
     local f18_local3 = arg0:GetRandam_Int(1, 100)
     local f18_local4 = arg0:GetRandam_Int(1, 100)
-    local f18_local5 = arg0:HasSpecialEffectId(TARGET_ENE_0, 109970)
+    local f18_local5 = arg0:HasSpecialEffectId(TARGET_ENE_0, SP_PUSH)
     local f18_local6 = arg0:HasSpecialEffectId(TARGET_ENE_0, SP_CONTINUOUS_ATTACK)
     local f18_local7 = -1
     local f18_local8 = 3.7

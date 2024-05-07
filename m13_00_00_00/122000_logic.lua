@@ -30,7 +30,7 @@ Logic.Interrupt = function (arg0, arg1, arg2)
                     arg2:AddTopGoal(GOAL_COMMON_EndureAttack, 0.1, 3101, TARGET_ENE_0, 9999, 0)
                     return true
                 end
-            elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 109970) then
+            elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PUSH) then
                 if arg1:IsInsideTargetEx(TARGET_ENE_0, TARGET_SELF, AI_DIR_TYPE_F, 90, PC_ATTACK_DIST_THRUST) then
                     if arg1:IsTargetGuard(TARGET_SELF) then
                         return false

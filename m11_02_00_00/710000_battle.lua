@@ -21,18 +21,18 @@ Goal.Activate = function (arg0, arg1, arg2)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5030)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5031)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 3710010)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 3710020)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 3710030)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, SP_SHINOBI_JUDGMENT)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, SP_AI_INT_JUDGMENT_ADDITION_PLAYED)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 3710031)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110010)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 3710050)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110620)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_PRETEND_DEAD)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_ROUNDHOUSE_KICK_HIT)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_DEDICATED_RESPONSE_IAI_STANCE)
     Set_ConsecutiveGuardCount_Interrupt(arg1)
     arg1:DeleteObserve(0)
     if arg0:Kengeki_Activate(arg1, arg2) then
         return 
     end
-    if arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PRETEND_DEAD) then
         if arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
             f2_local0[21] = 1
             f2_local0[28] = 100
@@ -41,14 +41,14 @@ Goal.Activate = function (arg0, arg1, arg2)
         end
     elseif Common_ActivateAct(arg1, arg2, 0, 1) then
 
-    elseif arg1:GetNumber(7) == 0 and arg1:HasSpecialEffectId(TARGET_SELF, 200050) then
+    elseif arg1:GetNumber(7) == 0 and arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0) then
         f2_local0[15] = 600
-    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110030) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_SHINOBI) then
         f2_local0[28] = 100
     elseif arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_B, 180) then
         f2_local0[21] = 100
         f2_local0[22] = 1
-    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PRETEND_DEAD) then
         f2_local0[27] = 100
     elseif f2_local3 >= 7 then
         f2_local0[10] = 300
@@ -78,10 +78,10 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[24] = 30
         end
     end
-    if (arg1:HasSpecialEffectId(TARGET_ENE_0, 109031) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110125)) and f2_local3 <= 5 then
+    if (arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PLAYER_DOWN) or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PC_BREAK)) and f2_local3 <= 5 then
         f2_local0[16] = 100
     end
-    if arg1:HasSpecialEffectId(TARGET_ENE_0, 109900) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_DASHING) then
         f2_local0[1] = 5
         f2_local0[2] = 5
         f2_local0[3] = 5
@@ -109,7 +109,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     if arg1:IsFinishTimer(6) == false then
         f2_local0[9] = 0
     end
-    if arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+    if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
         f2_local0[15] = 0
         f2_local0[18] = 0
         f2_local0[19] = 0
@@ -128,7 +128,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     if SpaceCheck(arg1, arg2, 180, 1) == false then
         f2_local0[25] = 0
     end
-    if arg1:HasSpecialEffectId(TARGET_ENE_0, 110621) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_DEDICATED_RESPONSE_IAI_SLASHING) then
         f2_local0[23] = 0
         f2_local0[24] = 0
         f2_local0[31] = 10
@@ -482,7 +482,7 @@ Goal.Act24 = function (arg0, arg1, arg2)
     arg0:SetNumber(2, 1)
     local f17_local5 = arg1:AddSubGoal(GOAL_COMMON_SpinStep, f17_local1, f17_local3, TARGET_ENE_0, f17_local2, AI_DIR_TYPE_B, 0)
     f17_local5:TimingSetTimer(3, 30, AI_TIMING_SET__UPDATE_SUCCESS)
-    if f17_local4 <= 0.7 and arg0:HasSpecialEffectId(TARGET_SELF, 200050) then
+    if f17_local4 <= 0.7 and arg0:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0) then
         arg1:AddSubGoal(GOAL_COMMON_ComboRepeat, 10, 3044, TARGET_ENE_0, DistToAtt1, f17_local2, FrontAngle, 0, 0)
     end
     GetWellSpace_Odds = 100
@@ -634,10 +634,10 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         return true
     end
     if arg1:IsInterupt(INTERUPT_ActivateSpecialEffect) then
-        if f26_local0 == 3710020 then
+        if f26_local0 == SP_SHINOBI_JUDGMENT then
             arg1:SetNumber(0, 0)
             return true
-        elseif f26_local0 == 3710030 and arg1:HasSpecialEffectId(TARGET_SELF, 3710032) then
+        elseif f26_local0 == SP_AI_INT_JUDGMENT_ADDITION_PLAYED and arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_INT_JUDGMENT_PARRIED_AND_STRONG_ATTACK) then
             arg2:ClearSubGoal()
             arg2:AddSubGoal(GOAL_COMMON_EndureAttack, 5, 3092, TARGET_ENE_0, 9999, 0)
             arg1:SetTimer(6, 50)
@@ -649,21 +649,21 @@ Goal.Interrupt = function (arg0, arg1, arg2)
                 arg2:ClearSubGoal()
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 5, 3017, TARGET_ENE_0, 9999, 0)
             end
-        elseif f26_local0 == 3710050 then
-            if f26_local3 <= 50 and arg1:HasSpecialEffectId(TARGET_SELF, 200050) then
+        elseif f26_local0 == SP_ROUNDHOUSE_KICK_HIT then
+            if f26_local3 <= 50 and arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0) then
                 arg2:ClearSubGoal()
                 arg2:AddSubGoal(GOAL_COMMON_ComboRepeat, 5, 3023, TARGET_ENE_0, 9999, 0)
             else
                 arg2:ClearSubGoal()
                 arg2:AddSubGoal(GOAL_COMMON_SidewayMove, 4, TARGET_ENE_0, arg1:GetRandam_Int(0, 1), arg1:GetRandam_Int(30, 45), true, true, -1)
             end
-        elseif f26_local0 == 110620 then
+        elseif f26_local0 == SP_ENEMY_AI_REFERENCE_DEDICATED_RESPONSE_IAI_STANCE then
             arg1:Replanning()
             return true
         end
     end
     if Interupt_Use_Item(arg1, 8, 5) then
-        if arg1:HasSpecialEffectId(TARGET_SELF, 200051) and f26_local4 >= 2 then
+        if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) and f26_local4 >= 2 then
 
         else
             arg2:ClearSubGoal()
@@ -681,7 +681,7 @@ Goal.Parry = function (arg0, arg1, arg2, arg3)
     local f27_local2 = arg0:GetRandam_Int(1, 100)
     local f27_local3 = arg0:GetRandam_Int(1, 100)
     local f27_local4 = arg0:GetRandam_Int(1, 100)
-    local f27_local5 = arg0:HasSpecialEffectId(TARGET_ENE_0, 109970)
+    local f27_local5 = arg0:HasSpecialEffectId(TARGET_ENE_0, SP_PUSH)
     local f27_local6 = arg0:HasSpecialEffectId(TARGET_ENE_0, SP_CONTINUOUS_ATTACK)
     local f27_local7 = 2
     if arg0:HasSpecialEffectId(TARGET_SELF, 221000) then
@@ -773,7 +773,7 @@ Goal.Damaged = function (arg0, arg1, arg2)
             arg0:SetNumber(0, arg0:GetNumber(0) - 3)
         end
         return true
-    elseif f28_local3 <= 30 and arg0:HasSpecialEffectId(TARGET_SELF, 200050) then
+    elseif f28_local3 <= 30 and arg0:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0) then
         arg1:ClearSubGoal()
         arg1:AddSubGoal(GOAL_COMMON_ComboFinal, 10, 3009, TARGET_ENE_0, 9999, 0)
         arg0:SetNumber(2, 1)
@@ -909,7 +909,7 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
             end
         end
     end
-    if arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+    if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
         f30_local1[3] = 0
         f30_local1[9] = 0
         f30_local1[15] = 0
@@ -917,7 +917,7 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2, arg3)
         f30_local1[33] = 0
         f30_local1[39] = 0
         f30_local1[46] = 0
-    elseif arg1:HasSpecialEffectId(TARGET_SELF, 200050) then
+    elseif arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0) then
         f30_local1[20] = 0
     end
     if SpaceCheck(arg1, arg2, 45, 2) == false and SpaceCheck(arg1, arg2, -45, 2) == false then
@@ -1006,7 +1006,7 @@ Goal.Kengeki02 = function (arg0, arg1, arg2)
     local f32_local1 = arg1:AddSubGoal(GOAL_COMMON_ComboRepeat, 10, 5201, TARGET_ENE_0, 9999, 0, 0)
     f32_local1:TimingSetTimer(3, 30, AI_TIMING_SET__UPDATE_SUCCESS)
     arg0:SetNumber(2, 1)
-    if f32_local0 <= 0.7 and arg0:HasSpecialEffectId(TARGET_SELF, 200050) then
+    if f32_local0 <= 0.7 and arg0:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0) then
         arg1:AddSubGoal(GOAL_COMMON_ComboRepeat, 10, 3044, TARGET_ENE_0, DistToAtt1, TurnTime, FrontAngle, 0, 0)
     end
     

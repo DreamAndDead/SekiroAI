@@ -17,7 +17,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     local f2_local7 = arg1:GetEventRequest()
     arg1:AddObserveArea(0, TARGET_SELF, TARGET_ENE_0, AI_DIR_TYPE_F, 180, 3.1)
     Set_ConsecutiveGuardCount_Interrupt(arg1)
-    if arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) then
+    if arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) then
         f2_local0[26] = 100
     elseif arg1:HasSpecialEffectId(TARGET_SELF, 3114000) then
         f2_local0[26] = 100
@@ -45,7 +45,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         else
             f2_local0[26] = 100
         end
-    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110030) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_ENEMY_AI_REFERENCE_SHINOBI) then
         f2_local0[26] = 100
     elseif arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_B, 180) then
         if arg1:HasSpecialEffectId(TARGET_SELF, SP_AI_STATE_DISCOVERY_OR_COMBAT) then

@@ -18,7 +18,7 @@ Goal.Activate = function (arg0, arg1, arg2)
     local f2_local8 = arg1:GetEventRequest()
     local f2_local9 = arg1:IsEventFlag(12505901)
     local f2_local10 = arg1:IsEventFlag(12505857)
-    local f2_local11 = arg1:HasSpecialEffectId(TARGET_SELF, 200050)
+    local f2_local11 = arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0)
     if f2_local11 then
         f2_local11 = f2_local9
     end
@@ -33,7 +33,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[6] = 100
         elseif arg1:IsEventFlag(12505875) == true then
             f2_local0[5] = 100
-        elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+        elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PRETEND_DEAD) then
             f2_local0[28] = 100
         elseif Common_ActivateAct(arg1, arg2, 1) then
 
@@ -519,7 +519,7 @@ Goal.Act31 = function (arg0, arg1, arg2)
     local f27_local5 = TARGET_ENE_0
     local f27_local6 = arg0:IsEventFlag(12505901)
     local f27_local7 = arg0:IsEventFlag(12505857)
-    local f27_local8 = arg0:HasSpecialEffectId(TARGET_SELF, 200050)
+    local f27_local8 = arg0:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0)
     if f27_local8 then
         f27_local8 = f27_local6
     end

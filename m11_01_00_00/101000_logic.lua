@@ -62,7 +62,7 @@ Logic.Main = function (arg0, arg1)
             arg1:AddTopGoal(GOAL_COMMON_EndureAttack, 1, 20003, TARGET_ENE_0, 9999, 0)
             arg1:SetNumber(30, 1)
         end
-    elseif arg1:HasSpecialEffectId(TARGET_SELF, 200030) and not arg1:HasSpecialEffectId(TARGET_SELF, 200050) and arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+    elseif arg1:HasSpecialEffectId(TARGET_SELF, 200030) and not arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0) and arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
 
     else
 

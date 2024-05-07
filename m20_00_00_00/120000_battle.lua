@@ -18,8 +18,8 @@ Goal.Activate = function (arg0, arg1, arg2)
     arg1:DeleteObserveSpecialEffectAttribute(TARGET_SELF, 5026)
     arg1:DeleteObserveSpecialEffectAttribute(TARGET_SELF, 5027)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5025)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 109031)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110125)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_PLAYER_DOWN)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_PC_BREAK)
     arg1:SetNumber(0, 0)
     if Common_ActivateAct(arg1, arg2, 0) then
 
@@ -270,7 +270,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         if arg1:GetSpecialEffectActivateInterruptType(0) == 5027 then
             arg1:AddObserveArea(0, TARGET_SELF, TARGET_ENE_0, AI_DIR_TYPE_F, 150, 2)
             return true
-        elseif arg1:GetSpecialEffectActivateInterruptType(0) == 5025 or arg1:HasSpecialEffectId(TARGET_ENE_0, 110125) then
+        elseif arg1:GetSpecialEffectActivateInterruptType(0) == 5025 or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PC_BREAK) then
             arg1:Replanning()
             return true
         end

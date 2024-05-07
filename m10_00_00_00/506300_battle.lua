@@ -17,8 +17,8 @@ Goal.Activate = function (arg0, arg1, arg2)
     local f2_local7 = arg1:GetExcelParam(AI_EXCEL_THINK_PARAM_TYPE__thinkAttr_doAdmirer)
     local f2_local8 = arg1:GetEventRequest()
     local f2_local9 = arg1:GetSpRate(TARGET_SELF)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110010)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110125)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_PRETEND_DEAD)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_PC_BREAK)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 3506000)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 3506030)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 3506004)
@@ -37,9 +37,9 @@ Goal.Activate = function (arg0, arg1, arg2)
         f2_local0[46] = 100
     elseif arg1:HasSpecialEffectId(TARGET_SELF, 3506030) or arg1:HasSpecialEffectId(TARGET_SELF, 3506080) then
         f2_local0[26] = 100
-    elseif arg1:HasSpecialEffectId(TARGET_SELF, 200051) and arg1:GetNumber(3) == 0 then
+    elseif arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) and arg1:GetNumber(3) == 0 then
         f2_local0[42] = 100
-    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PRETEND_DEAD) then
         if arg1:IsInsideTarget(TARGET_ENE_0, AI_DIR_TYPE_F, 90) then
             f2_local0[21] = 1
             f2_local0[28] = 100
@@ -83,7 +83,7 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[7] = 100
             f2_local0[24] = 100
         end
-    elseif arg1:HasSpecialEffectId(TARGET_SELF, 3506030) == false and arg1:IsFinishTimer(1) and arg1:HasSpecialEffectId(TARGET_SELF, 200051) and arg1:HasSpecialEffectId(TARGET_SELF, 5034) == false and f2_local5 <= 12 and f2_local5 >= 3 then
+    elseif arg1:HasSpecialEffectId(TARGET_SELF, 3506030) == false and arg1:IsFinishTimer(1) and arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) and arg1:HasSpecialEffectId(TARGET_SELF, 5034) == false and f2_local5 <= 12 and f2_local5 >= 3 then
         f2_local0[20] = 100
     elseif f2_local5 >= 10 then
         f2_local0[1] = 0
@@ -1580,7 +1580,7 @@ Goal.Interrupt = function (arg0, arg1, arg2)
             arg1:Replanning()
             return true
         elseif f53_local2 == 3506000 then
-            if arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+            if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
                 arg2:ClearSubGoal()
                 local f53_local4 = arg2:AddSubGoal(GOAL_COMMON_ComboFinal, 1, 3007, TARGET_ENE_0, 9999, 0, 0)
                 f53_local4:TimingSetNumber(5, arg1:GetNumber(5) + 25, AI_TIMING_SET__ACTIVATE)
@@ -1626,10 +1626,10 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         end
     end
     if arg1:IsInterupt(INTERUPT_InactivateSpecialEffect) then
-        if arg1:GetSpecialEffectInactivateInterruptType(0) == 110125 then
+        if arg1:GetSpecialEffectInactivateInterruptType(0) == SP_PC_BREAK then
             arg1:Replanning()
             return true
-        elseif arg1:GetSpecialEffectInactivateInterruptType(0) == 110010 then
+        elseif arg1:GetSpecialEffectInactivateInterruptType(0) == SP_PRETEND_DEAD then
             arg1:Replanning()
             return true
         end
@@ -1667,7 +1667,7 @@ Goal.Parry = function (arg0, arg1, arg2, arg3)
     local f54_local4 = arg0:GetRandam_Int(1, 100)
     local f54_local5 = arg0:GetRandam_Int(1, 100)
     local f54_local6 = arg0:GetRandam_Int(1, 100)
-    local f54_local7 = arg0:HasSpecialEffectId(TARGET_ENE_0, 109970)
+    local f54_local7 = arg0:HasSpecialEffectId(TARGET_ENE_0, SP_PUSH)
     local f54_local8 = arg0:HasSpecialEffectId(TARGET_ENE_0, SP_CONTINUOUS_ATTACK)
     if arg0:IsFinishTimer(AI_TIMER_PARRY_INTERVAL) == false then
         return false

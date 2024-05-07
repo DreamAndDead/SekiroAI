@@ -53,7 +53,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         f2_local0[34] = 100
     elseif arg1:HasSpecialEffectId(TARGET_SELF, 3508530) and f2_local5 >= 4 then
         f2_local0[22] = 100
-    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110060) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110010) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_DEAD) or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PRETEND_DEAD) then
         if arg1:HasSpecialEffectId(TARGET_SELF, 3508000) then
             f2_local0[32] = 100
         else

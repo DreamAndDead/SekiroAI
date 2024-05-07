@@ -56,7 +56,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         else
             f2_local0[27] = 100
         end
-    elseif arg1:HasSpecialEffectId(TARGET_SELF, 200050) then
+    elseif arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0) then
         f2_local0[30] = 100
     elseif f2_local4 == 1 and arg1:GetTeamOrder(ORDER_TYPE_Role) == ROLE_TYPE_Kankyaku then
         KankyakuAct(arg1, arg2, 0, arg1:GetStringIndexedNumber("noRun"))

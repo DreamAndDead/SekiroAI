@@ -73,14 +73,14 @@ Goal.Activate = function (arg0, arg1, arg2)
             f2_local0[9] = 100
             f2_local0[15] = 30
         end
-    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PC_BREAK) and arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+    elseif arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PC_BREAK) and arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
         f2_local0[17] = 100
     elseif f2_local3 >= 7 then
         f2_local0[3] = 100
         f2_local0[4] = 100
         f2_local0[12] = 100
         f2_local0[16] = 100
-        if arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+        if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
             f2_local0[17] = 100
         end
     elseif f2_local3 >= 5 then
@@ -88,14 +88,14 @@ Goal.Activate = function (arg0, arg1, arg2)
         f2_local0[4] = 100
         f2_local0[12] = 100
         f2_local0[16] = 100
-        if arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+        if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
             f2_local0[17] = 100
         end
     elseif f2_local3 >= 3 then
         f2_local0[2] = 100
         f2_local0[11] = 100
         f2_local0[13] = 100
-        if arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+        if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
             f2_local0[15] = 100
         end
     else
@@ -104,14 +104,14 @@ Goal.Activate = function (arg0, arg1, arg2)
         f2_local0[11] = 100
         f2_local0[13] = 100
         f2_local0[14] = 100
-        if arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+        if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
             f2_local0[15] = 100
         end
     end
     if arg1:GetNumber(NUMBER_SLOWWAYMOVE) == 1 then
         f2_local0[23] = 9999
     end
-    if arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+    if arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
         f2_local0[2] = 0
         f2_local0[16] = 0
     end
@@ -652,12 +652,12 @@ Goal.Interrupt = function (arg0, arg1, arg2)
         arg1:Replanning()
         return true
     end
-    if arg1:IsInterupt(INTERUPT_GuardBreak) and arg1:HasSpecialEffectId(TARGET_SELF) == 5026 and arg1:HasSpecialEffectId(TARGET_SELF, 200050) then
+    if arg1:IsInterupt(INTERUPT_GuardBreak) and arg1:HasSpecialEffectId(TARGET_SELF) == 5026 and arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0) then
         arg2:ClearSubGoal()
         arg2:AddSubGoal(GOAL_COMMON_SidewayMove, 3, TARGET_ENE_0, arg1:GetRandam_Int(0, 1), arg1:GetRandam_Int(45, 60), true, true, -1)
         return true
     end
-    if arg1:IsInterupt(INTERUPT_ActivateSpecialEffect) and f27_local0 == 5025 and arg1:HasSpecialEffectId(TARGET_SELF, 200050) and f27_local1 <= 5 then
+    if arg1:IsInterupt(INTERUPT_ActivateSpecialEffect) and f27_local0 == 5025 and arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0) and f27_local1 <= 5 then
         arg2:ClearSubGoal()
         arg2:AddSubGoal(GOAL_COMMON_SidewayMove, 3, TARGET_ENE_0, arg1:GetRandam_Int(0, 1), arg1:GetRandam_Int(45, 60), true, true, -1)
         return true
@@ -675,7 +675,7 @@ Goal.Parry = function (arg0, arg1, arg2, arg3)
     local f28_local2 = arg0:GetRandam_Int(1, 100)
     local f28_local3 = arg0:GetRandam_Int(1, 100)
     local f28_local4 = arg0:GetRandam_Int(1, 100)
-    local f28_local5 = arg0:HasSpecialEffectId(TARGET_ENE_0, 109970)
+    local f28_local5 = arg0:HasSpecialEffectId(TARGET_ENE_0, SP_PUSH)
     local f28_local6 = arg0:HasSpecialEffectId(TARGET_ENE_0, SP_CONTINUOUS_ATTACK)
     local f28_local7 = -1
     if arg0:HasSpecialEffectId(TARGET_SELF, 221000) then
@@ -782,7 +782,7 @@ Goal.Kengeki_Activate = function (arg0, arg1, arg2)
         if f31_local0 == 200228 then
             if arg1:GetNumber(3) == 0 then
                 f31_local1[10] = 10
-            elseif arg1:HasSpecialEffectId(TARGET_SELF, 200051) then
+            elseif arg1:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_1) then
                 f31_local1[21] = 10
                 f31_local1[11] = 10
             else

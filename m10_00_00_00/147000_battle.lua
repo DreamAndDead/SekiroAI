@@ -40,8 +40,8 @@ Goal.Activate = function (arg0, arg1, arg2)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5033)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 5034)
     arg1:AddObserveSpecialEffectAttribute(TARGET_SELF, 3147120)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110125)
-    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 109031)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_PC_BREAK)
+    arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, SP_PLAYER_DOWN)
     arg1:AddObserveSpecialEffectAttribute(TARGET_ENE_0, 110120)
     Set_ConsecutiveGuardCount_Interrupt(arg1)
     arg1:DeleteObserve(0)
@@ -169,7 +169,7 @@ Goal.Activate = function (arg0, arg1, arg2)
         f2_local0[1] = 1
         f2_local0[23] = 10000
         arg1:SetTimer(0, 0)
-    elseif (arg1:HasSpecialEffectId(TARGET_ENE_0, 109031) or arg1:HasSpecialEffectId(TARGET_ENE_0, 110125)) and arg1:HasSpecialEffectId(TARGET_SELF, 5022) then
+    elseif (arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PLAYER_DOWN) or arg1:HasSpecialEffectId(TARGET_ENE_0, SP_PC_BREAK)) and arg1:HasSpecialEffectId(TARGET_SELF, 5022) then
         f2_local0[6] = 100
     elseif arg1:HasSpecialEffectId(TARGET_ENE_0, 110120) and f2_local3 <= 4 then
         f2_local0[8] = 100

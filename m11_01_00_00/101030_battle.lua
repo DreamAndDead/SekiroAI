@@ -144,7 +144,7 @@ Goal.Act01 = function (arg0, arg1, arg2)
     local f3_local5 = 0
     local f3_local6 = 1.5
     local f3_local7 = 3
-    if f3_local1 < f3_local0 and not arg0:HasSpecialEffectId(TARGET_SELF, 200050) then
+    if f3_local1 < f3_local0 and not arg0:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0) then
         Approach_Act_Flex(arg0, arg1, f3_local1, f3_local2, f3_local3, f3_local4, f3_local5, f3_local6, f3_local7)
     end
     local f3_local8 = 3000
@@ -189,7 +189,7 @@ Goal.Act04 = function (arg0, arg1, arg2)
     local f6_local5 = 0
     local f6_local6 = 1.5
     local f6_local7 = 3
-    if f6_local1 < f6_local0 and not arg0:HasSpecialEffectId(TARGET_SELF, 200050) then
+    if f6_local1 < f6_local0 and not arg0:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0) then
         Approach_Act_Flex(arg0, arg1, f6_local1, f6_local2, f6_local3, f6_local4, f6_local5, f6_local6, f6_local7)
     end
     local f6_local8 = 3004
@@ -217,7 +217,7 @@ Goal.Act05 = function (arg0, arg1, arg2)
     local f7_local5 = 0
     local f7_local6 = 1.5
     local f7_local7 = 3
-    if f7_local1 < f7_local0 and not arg0:HasSpecialEffectId(TARGET_SELF, 200050) then
+    if f7_local1 < f7_local0 and not arg0:HasSpecialEffectId(TARGET_SELF, SP_BEHAVIOR_PATTERN_CHANGE_0) then
         Approach_Act_Flex(arg0, arg1, f7_local1, f7_local2, f7_local3, f7_local4, f7_local5, f7_local6, f7_local7)
     end
     local f7_local8 = 3005
@@ -453,7 +453,7 @@ Goal.Parry = function (arg0, arg1, arg2)
                 arg1:AddSubGoal(GOAL_COMMON_EndureAttack, 0.1, 3100, TARGET_ENE_0, 9999, 0)
                 return true
             end
-        elseif arg0:HasSpecialEffectId(TARGET_ENE_0, 109970) then
+        elseif arg0:HasSpecialEffectId(TARGET_ENE_0, SP_PUSH) then
             if arg0:IsInsideTargetEx(TARGET_ENE_0, TARGET_SELF, AI_DIR_TYPE_F, 90, PC_ATTACK_DIST_THRUST) then
                 if arg0:IsTargetGuard(TARGET_SELF) then
                     return false
